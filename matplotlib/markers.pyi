@@ -1,25 +1,16 @@
 from typing import Any
-from typing import Any
-from typing import Union
-from typing import Any
 from typing import Iterable
 from typing import Sized
-from matplotlib.path import Path
-from numpy.core._multiarray_umath import ndarray
 from typing import Union
+
 from matplotlib.markers import MarkerStyle
 from matplotlib.path import Path
-from typing import Iterable
-from numpy.core._multiarray_umath import ndarray
-from typing import Union
-from matplotlib.markers import MarkerStyle
-from matplotlib.path import Path
-from typing import Iterable
 from numpy.core._multiarray_umath import ndarray
 
 
 class MarkerStyle(object):
-    def __init__(self: MarkerStyle, marker: Union[str, ndarray, Iterable, int, float, Path, MarkerStyle] = None,
+    def __init__(self: MarkerStyle,
+                 marker: Union[str, ndarray, Iterable, int, float, Path, MarkerStyle] = None,
                  fillstyle: str = None) -> None: ...
 
     def _recache(self: MarkerStyle) -> None: ...
@@ -30,9 +21,12 @@ class MarkerStyle(object):
 
     def get_fillstyle(self: MarkerStyle) -> Optional[str]: ...
 
-    def set_fillstyle(self: MarkerStyle, fillstyle: Any) -> Optional[Any]: ...
+    @_api.deprecated
+    def set_fillstyle(self: MarkerStyle,
+                      fillstyle: Any) -> Optional[Any]: ...
 
-    def _set_fillstyle(self: MarkerStyle, fillstyle: str) -> None: ...
+    def _set_fillstyle(self: MarkerStyle,
+                       fillstyle: str) -> None: ...
 
     def get_joinstyle(self: MarkerStyle) -> JoinStyle: ...
 
@@ -40,9 +34,12 @@ class MarkerStyle(object):
 
     def get_marker(self: MarkerStyle) -> Union[ndarray, str, Path, Sized, Iterable, int, float]: ...
 
-    def set_marker(self: MarkerStyle, marker: Any) -> Any: ...
+    @_api.deprecated
+    def set_marker(self: MarkerStyle,
+                   marker: Any) -> Any: ...
 
-    def _set_marker(self: MarkerStyle, marker: Union[str, ndarray, Iterable, int, float, Path, MarkerStyle]) -> Any: ...
+    def _set_marker(self: MarkerStyle,
+                    marker: Union[str, ndarray, Iterable, int, float, Path, MarkerStyle]) -> Any: ...
 
     def get_path(self: MarkerStyle) -> Path: ...
 
@@ -56,7 +53,8 @@ class MarkerStyle(object):
 
     def _set_nothing(self: MarkerStyle) -> None: ...
 
-    def _set_custom_marker(self: MarkerStyle, path: Union[ndarray, str, Path, Sized, Iterable, int, float]) -> None: ...
+    def _set_custom_marker(self: MarkerStyle,
+                           path: Union[ndarray, str, Path, Sized, Iterable, int, float]) -> None: ...
 
     def _set_path_marker(self: MarkerStyle) -> None: ...
 
@@ -68,13 +66,16 @@ class MarkerStyle(object):
 
     def _half_fill(self: MarkerStyle) -> bool: ...
 
-    def _set_circle(self: MarkerStyle, reduction: float = 1.0) -> None: ...
+    def _set_circle(self: MarkerStyle,
+                    reduction: float = 1.0) -> None: ...
 
     def _set_pixel(self: MarkerStyle) -> None: ...
 
     def _set_point(self: MarkerStyle) -> None: ...
 
-    def _set_triangle(self: MarkerStyle, rot: float, skip: int) -> None: ...
+    def _set_triangle(self: MarkerStyle,
+                      rot: float,
+                      skip: int) -> None: ...
 
     def _set_triangle_up(self: MarkerStyle) -> None: ...
 

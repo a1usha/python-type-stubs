@@ -1,52 +1,33 @@
+from typing import Any
 from typing import Optional
-from typing import Any
-from typing import Any
+from typing import Type
 from typing import Union
-from typing import Any
-from matplotlib._enums import CapStyle
-from typing import Type
-from matplotlib._enums import JoinStyle
-from typing import Type
+
 from matplotlib.rcsetup import ValidateInStrings
-from typing import Optional
-from typing import Any
-from typing import Optional
-from typing import Optional
-from typing import Type
-from typing import Any
-from typing import Type
-from typing import Type
-from typing import Optional
-from typing import Union
-from typing import Any
-from typing import Any
-from typing import Any
-from typing import Optional
-from typing import Union
-from typing import Any
-from typing import Union
-from typing import Type
-from typing import Any
-from typing import Type
-from typing import Type
-from typing import Type
 
 
 class ValidateInStrings(object):
-    def __init__(self: ValidateInStrings, key: Any, valid: Any, ignorecase: bool = False,
+    def __init__(self: ValidateInStrings,
+                 key: Any,
+                 valid: Any,
+                 ignorecase: bool = False,
                  _deprecated_since: Any = None) -> None: ...
 
-    def __call__(self: ValidateInStrings, s: {startswith, endswith}) -> Any: ...
+    def __call__(self: ValidateInStrings,
+                 s: {startswith, endswith}) -> Any: ...
 
 
 class _ignorecase(list):
     pass
 
 
-def cycler(*args, , **kwargs) -> Cycler: ...
+def cycler(*args,
+           ,
+           **kwargs) -> Cycler: ...
 
 
-def _make_type_validator(cls: Type[Union[str, int, float]], allow_none: bool = False) -> (s: Optional[{lower}]) ->
+def _make_type_validator(cls: Type[Union[str, int, float]],
+                         allow_none: bool = False) -> (s: Optional[{lower}]) ->
 
 
 def validate_hatch(s: Any) -> str: ...
@@ -67,12 +48,15 @@ def validate_dpi(s: {__eq__}) -> Union[{__eq__}, float]: ...
 def _validate_tex_preamble(s: Optional[{__eq__}]) -> str: ...
 
 
+@_api.deprecated
 def validate_bool_maybe_none(b: str) -> Optional[bool]: ...
 
 
+@_api.deprecated
 def validate_movie_writer(s: Any) -> Any: ...
 
 
+@_api.deprecated
 def validate_nseq_int(n: Any) -> (s: Any) ->
 
 
@@ -85,10 +69,12 @@ def _validate_date_converter(s: Any) -> None: ...
 def validate_aspect(s: Any) -> float: ...
 
 
-def _convert_validator_spec(key: str, conv: Union[(s: {startswith, endswith})) -> Union[
+def _convert_validator_spec(key: str,
+                            conv: Union[(s: {startswith, endswith})) -> Union[
     ValidateInStrings, (s: {startswith, endswith}) ->
 
 
+@_api.deprecated
 def validate_nseq_float(n: Any) -> (s: Any) ->
 
 
@@ -114,7 +100,10 @@ def validate_backend(s: {startswith, endswith}) -> {startswith, endswith}: ...
 def _validate_cmap(s: Any) -> Any: ...
 
 
-def _make_nseq_validator(cls: Type[Union[float, int]], n: Any = None, allow_none: bool = False) -> (s: Any) ->
+@_api.deprecated
+def _make_nseq_validator(cls: Type[Union[float, int]],
+                         n: Any = None,
+                         allow_none: bool = False) -> (s: Any) ->
 
 
 def validate_sketch(s: Optional[{__eq__}]) -> Optional[tuple[Union[None, str, int, float, slice, tuple, list, tuple[
@@ -147,10 +136,14 @@ def _validate_toolbar(s: Any) -> Any: ...
 def _validate_greaterequal0_lessthan1(s: Any) -> Union[None, str, int, float]: ...
 
 
-def _listify_validator(scalar_validator: Union[(s: Any), allow_stringlist: bool = False, n: int = None,
+@lru_cache
+def _listify_validator(scalar_validator: Union[(s: Any),
+                       allow_stringlist: bool = False,
+                       n: int = None,
                        doc: str = None) -> (s: Any) ->
 
 
+@_api.deprecated
 def validate_webagg_address(s: Any) -> Any: ...
 
 
@@ -160,6 +153,7 @@ def validate_color_or_auto(s: {__eq__}) -> Union[{__eq__}, str]: ...
 def validate_fonttype(s: {lower}) -> Union[int, None, str, float]: ...
 
 
+@_api.deprecated
 def validate_hinting(s: {startswith, endswith}) -> Any: ...
 
 
