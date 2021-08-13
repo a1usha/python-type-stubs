@@ -8,6 +8,169 @@ from typing import tuple
 from matplotlib.animation import MovieWriter
 
 
+class FuncAnimation(TimedAnimation):
+    def __init__(self: FuncAnimation,
+                 fig: Any,
+                 func: Callable,
+                 frames: Optional[int] = None,
+                 init_func: Optional[Callable] = None,
+                 fargs: Union[Iterable, tuple, None] = None,
+                 save_count: int = None,
+                 cache_frame_data: bool = True,
+                 **kwargs) -> None: ...
+
+    def new_frame_seq(self: FuncAnimation) -> Iterator: ...
+
+    def new_saved_frame_seq(self: FuncAnimation) -> Union[Iterator, islice, Generator[Any, Any, None]]: ...
+
+    def _init_draw(self: FuncAnimation) -> Any: ...
+
+    def _draw_frame(self: FuncAnimation,
+                    framedata: Any) -> Any: ...
+
+
+class FFMpegFileWriter(FFMpegBase, FileMovieWriter):
+    def _args(self: FFMpegFileWriter) -> list[str]: ...
+
+
+class AVConvFileWriter(AVConvBase, FFMpegFileWriter):
+    pass
+
+
+class MovieWriter(AbstractMovieWriter):
+    def __init__(self: MovieWriter,
+                 fps: int = 5,
+                 codec: Optional[str] = None,
+                 bitrate: int = None,
+                 extra_args: Optional[Iterable[str]] = None,
+                 metadata: Any = None) -> Any: ...
+
+    def _adjust_frame_size(self: MovieWriter) -> tuple[Any, Any]: ...
+
+    def setup(self: MovieWriter,
+              fig: Any,
+              outfile: str,
+              dpi: float = None) -> None: ...
+
+    def _run(self: MovieWriter) -> None: ...
+
+    def finish(self: MovieWriter) -> None: ...
+
+    def grab_frame(self: MovieWriter,
+                   **kwargs) -> None: ...
+
+    def _args(self: MovieWriter) -> NotImplementedError: ...
+
+    def _cleanup(self: MovieWriter) -> Any: ...
+
+    @_api.deprecated("3.4")
+    def cleanup(self: MovieWriter) -> Optional[Any]: ...
+
+    @classmethod
+    def bin_path(cls: Type[MovieWriter]) -> str: ...
+
+    @classmethod
+    def isAvailable(cls: Type[MovieWriter]) -> Any: ...
+
+
+class ArtistAnimation(TimedAnimation):
+    def __init__(self: ArtistAnimation,
+                 fig: Any,
+                 artists: Iterable,
+                 *args,
+                 **kwargs) -> None: ...
+
+    def _init_draw(self: ArtistAnimation) -> None: ...
+
+    def _pre_draw(self: ArtistAnimation,
+                  framedata: Any,
+                  blit: Any) -> None: ...
+
+    def _draw_frame(self: ArtistAnimation,
+                    artists: {__iter__}) -> None: ...
+
+
+class ImageMagickWriter(ImageMagickBase, MovieWriter):
+    def _args(self: ImageMagickWriter) -> list[str]: ...
+
+
+class TimedAnimation(Animation):
+    def __init__(self: TimedAnimation,
+                 fig: Any,
+                 interval: int = 200,
+                 repeat_delay: int = 0,
+                 repeat: bool = True,
+                 event_source: Optional[object] = None,
+                 *args,
+                 **kwargs) -> None: ...
+
+    def _step(self: TimedAnimation,
+              *args) -> bool: ...
+
+
+class AVConvWriter(AVConvBase, FFMpegWriter):
+    pass
+
+
+class FFMpegWriter(FFMpegBase, MovieWriter):
+    def _args(self: FFMpegWriter) -> list[str]: ...
+
+
+class PillowWriter(AbstractMovieWriter):
+    @classmethod
+    def isAvailable(cls: Type[PillowWriter]) -> bool: ...
+
+    def setup(self: PillowWriter,
+              fig: Any,
+              outfile: str,
+              dpi: float = None) -> None: ...
+
+    def grab_frame(self: PillowWriter,
+                   **kwargs) -> None: ...
+
+    def finish(self: PillowWriter) -> None: ...
+
+
+class FileMovieWriter(MovieWriter):
+    def __init__(self: FileMovieWriter,
+                 *args,
+                 **kwargs) -> None: ...
+
+    @_api.delete_parameter("3.3", "clear_temp")
+    def setup(self: FileMovieWriter,
+              fig: Any,
+              outfile: str,
+              dpi: float = None,
+              frame_prefix: Optional[str] = None,
+              clear_temp: Optional[bool] = True) -> Optional[Any]: ...
+
+    def __del__(self: FileMovieWriter) -> None: ...
+
+    @_api.deprecated("3.3")
+    @property
+    def clear_temp(self: FileMovieWriter) -> Optional[bool]: ...
+
+    @clear_temp.setter
+    def clear_temp(self: FileMovieWriter,
+                   value: Any) -> None: ...
+
+    @property
+    def frame_format(self: FileMovieWriter) -> Any: ...
+
+    @frame_format.setter
+    def frame_format(self: FileMovieWriter,
+                     frame_format: Any) -> None: ...
+
+    def _base_temp_name(self: FileMovieWriter) -> str: ...
+
+    def grab_frame(self: FileMovieWriter,
+                   **kwargs) -> None: ...
+
+    def finish(self: FileMovieWriter) -> None: ...
+
+    def _cleanup(self: FileMovieWriter) -> None: ...
+
+
 class Animation(object):
     def __init__(self: Animation,
                  fig: Any,
@@ -88,56 +251,8 @@ class Animation(object):
     def resume(self: Animation) -> None: ...
 
 
-class TimedAnimation(Animation):
-    def __init__(self: TimedAnimation,
-                 fig: Any,
-                 interval: int = 200,
-                 repeat_delay: int = 0,
-                 repeat: bool = True,
-                 event_source: Optional[object] = None,
-                 *args,
-                 **kwargs) -> None: ...
-
-    def _step(self: TimedAnimation,
-              *args) -> bool: ...
-
-
-class FuncAnimation(TimedAnimation):
-    def __init__(self: FuncAnimation,
-                 fig: Any,
-                 func: Callable,
-                 frames: Optional[int] = None,
-                 init_func: Optional[Callable] = None,
-                 fargs: Union[Iterable, tuple, None] = None,
-                 save_count: int = None,
-                 cache_frame_data: bool = True,
-                 **kwargs) -> None: ...
-
-    def new_frame_seq(self: FuncAnimation) -> Iterator: ...
-
-    def new_saved_frame_seq(self: FuncAnimation) -> Union[Iterator, islice, Generator[Any, Any, None]]: ...
-
-    def _init_draw(self: FuncAnimation) -> Any: ...
-
-    def _draw_frame(self: FuncAnimation,
-                    framedata: Any) -> Any: ...
-
-
-class ArtistAnimation(TimedAnimation):
-    def __init__(self: ArtistAnimation,
-                 fig: Any,
-                 artists: Iterable,
-                 *args,
-                 **kwargs) -> None: ...
-
-    def _init_draw(self: ArtistAnimation) -> None: ...
-
-    def _pre_draw(self: ArtistAnimation,
-                  framedata: Any,
-                  blit: Any) -> None: ...
-
-    def _draw_frame(self: ArtistAnimation,
-                    artists: {__iter__}) -> None: ...
+class ImageMagickFileWriter(ImageMagickBase, FileMovieWriter):
+    def _args(self: ImageMagickFileWriter) -> list[str]: ...
 
 
 class AbstractMovieWriter(ABC):
@@ -172,95 +287,47 @@ class AbstractMovieWriter(ABC):
                **kwargs) -> Generator[AbstractMovieWriter, Any, None]: ...
 
 
-class MovieWriter(AbstractMovieWriter):
-    def __init__(self: MovieWriter,
-                 fps: int = 5,
-                 codec: Optional[str] = None,
-                 bitrate: int = None,
-                 extra_args: Optional[Iterable[str]] = None,
-                 metadata: Any = None) -> Any: ...
-
-    def _adjust_frame_size(self: MovieWriter) -> tuple[Any, Any]: ...
-
-    def setup(self: MovieWriter,
-              fig: Any,
-              outfile: str,
-              dpi: float = None) -> None: ...
-
-    def _run(self: MovieWriter) -> None: ...
-
-    def finish(self: MovieWriter) -> None: ...
-
-    def grab_frame(self: MovieWriter,
-                   **kwargs) -> None: ...
-
-    def _args(self: MovieWriter) -> NotImplementedError: ...
-
-    def _cleanup(self: MovieWriter) -> Any: ...
-
-    @_api.deprecated
-    def cleanup(self: MovieWriter) -> Optional[Any]: ...
-
-    @classmethod
-    def bin_path(cls: Type[MovieWriter]) -> str: ...
-
-    @classmethod
-    def isAvailable(cls: Type[MovieWriter]) -> Any: ...
+class AVConvBase(FFMpegBase):
+    pass
 
 
-class FileMovieWriter(MovieWriter):
-    def __init__(self: FileMovieWriter,
-                 *args,
-                 **kwargs) -> None: ...
-
-    @_api.delete_parameter
-    def setup(self: FileMovieWriter,
-              fig: Any,
-              outfile: str,
-              dpi: float = None,
-              frame_prefix: Optional[str] = None,
-              clear_temp: Optional[bool] = True) -> Optional[Any]: ...
-
-    def __del__(self: FileMovieWriter) -> None: ...
-
-    @_api.deprecated
+class FFMpegBase(object):
     @property
-    def clear_temp(self: FileMovieWriter) -> Optional[bool]: ...
+    def output_args(self: FFMpegBase) -> list[str]: ...
 
-    @clear_temp.setter
-    def clear_temp(self: FileMovieWriter,
-                   value: Any) -> None: ...
+    @classmethod
+    def isAvailable(cls: Type[FFMpegBase]) -> Any: ...
+
+
+class ImageMagickBase(object):
+    @property
+    def delay(self: ImageMagickBase) -> float: ...
 
     @property
-    def frame_format(self: FileMovieWriter) -> Any: ...
+    def output_args(self: ImageMagickBase) -> list: ...
 
-    @frame_format.setter
-    def frame_format(self: FileMovieWriter,
-                     frame_format: Any) -> None: ...
-
-    def _base_temp_name(self: FileMovieWriter) -> str: ...
-
-    def grab_frame(self: FileMovieWriter,
-                   **kwargs) -> None: ...
-
-    def finish(self: FileMovieWriter) -> None: ...
-
-    def _cleanup(self: FileMovieWriter) -> None: ...
-
-
-class PillowWriter(AbstractMovieWriter):
     @classmethod
-    def isAvailable(cls: Type[PillowWriter]) -> bool: ...
+    def bin_path(cls: Type[ImageMagickBase]) -> Any: ...
 
-    def setup(self: PillowWriter,
-              fig: Any,
-              outfile: str,
-              dpi: float = None) -> None: ...
+    @classmethod
+    def isAvailable(cls: Type[ImageMagickBase]) -> bool: ...
 
-    def grab_frame(self: PillowWriter,
-                   **kwargs) -> None: ...
 
-    def finish(self: PillowWriter) -> None: ...
+class MovieWriterRegistry(object):
+    def __init__(self: MovieWriterRegistry) -> None: ...
+
+    def register(self: MovieWriterRegistry,
+                 name: str) -> (writer_cls: Any) ->
+
+    def is_available(self: MovieWriterRegistry,
+                     name: str) -> bool: ...
+
+    def __iter__(self: MovieWriterRegistry) -> Generator[Any, Any, None]: ...
+
+    def list(self: MovieWriterRegistry) -> list: ...
+
+    def __getitem__(self: MovieWriterRegistry,
+                    name: Any) -> Any: ...
 
 
 class HTMLWriter(FileMovieWriter):
@@ -287,73 +354,6 @@ class HTMLWriter(FileMovieWriter):
                    **kwargs) -> None: ...
 
     def finish(self: HTMLWriter) -> None: ...
-
-
-class FFMpegBase(object):
-    @property
-    def output_args(self: FFMpegBase) -> list[str]: ...
-
-    @classmethod
-    def isAvailable(cls: Type[FFMpegBase]) -> Any: ...
-
-
-class FFMpegWriter(FFMpegBase, MovieWriter):
-    def _args(self: FFMpegWriter) -> list[str]: ...
-
-
-class FFMpegFileWriter(FFMpegBase, FileMovieWriter):
-    def _args(self: FFMpegFileWriter) -> list[str]: ...
-
-
-class AVConvBase(FFMpegBase):
-    pass
-
-
-class AVConvWriter(AVConvBase, FFMpegWriter):
-    pass
-
-
-class AVConvFileWriter(AVConvBase, FFMpegFileWriter):
-    pass
-
-
-class ImageMagickBase(object):
-    @property
-    def delay(self: ImageMagickBase) -> float: ...
-
-    @property
-    def output_args(self: ImageMagickBase) -> list: ...
-
-    @classmethod
-    def bin_path(cls: Type[ImageMagickBase]) -> Any: ...
-
-    @classmethod
-    def isAvailable(cls: Type[ImageMagickBase]) -> bool: ...
-
-
-class ImageMagickWriter(ImageMagickBase, MovieWriter):
-    def _args(self: ImageMagickWriter) -> list[str]: ...
-
-
-class ImageMagickFileWriter(ImageMagickBase, FileMovieWriter):
-    def _args(self: ImageMagickFileWriter) -> list[str]: ...
-
-
-class MovieWriterRegistry(object):
-    def __init__(self: MovieWriterRegistry) -> None: ...
-
-    def register(self: MovieWriterRegistry,
-                 name: str) -> (writer_cls: Any) ->
-
-    def is_available(self: MovieWriterRegistry,
-                     name: str) -> bool: ...
-
-    def __iter__(self: MovieWriterRegistry) -> Generator[Any, Any, None]: ...
-
-    def list(self: MovieWriterRegistry) -> list: ...
-
-    def __getitem__(self: MovieWriterRegistry,
-                    name: Any) -> Any: ...
 
 
 def _embedded_frames(frame_list: list,

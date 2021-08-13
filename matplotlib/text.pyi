@@ -207,42 +207,6 @@ class Text(Artist):
                      fontname: str) -> Any: ...
 
 
-class _AnnotationBase(object):
-    def __init__(self: _AnnotationBase,
-                 xy: tuple[float, float],
-                 xycoords: str = 'data',
-                 annotation_clip: Any = None) -> None: ...
-
-    def _get_xy(self: _AnnotationBase,
-                renderer: Optional[Any],
-                x: float,
-                y: Any,
-                s: Any) -> Union[ndarray, Iterable, int, float]: ...
-
-    def _get_xy_transform(self: _AnnotationBase,
-                          renderer: Optional[Any],
-                          s: Union[tuple, str, {__ne__}, None]) -> Union[
-        BlendedAffine2D, BlendedGenericTransform, BboxTransformTo, Transform, Affine2D]: ...
-
-    def _get_ref_xy(self: _AnnotationBase,
-                    renderer: Optional[Any]) -> Union[ndarray, Iterable, int, float]: ...
-
-    def set_annotation_clip(self: _AnnotationBase,
-                            b: Optional[bool]) -> None: ...
-
-    def get_annotation_clip(self: _AnnotationBase) -> Optional[bool]: ...
-
-    def _get_position_xy(self: _AnnotationBase,
-                         renderer: Optional[Any]) -> Union[ndarray, Iterable, int, float]: ...
-
-    def _check_xy(self: _AnnotationBase,
-                  renderer: Optional[Any]) -> bool: ...
-
-    def draggable(self: _AnnotationBase,
-                  state: Optional[bool] = None,
-                  use_blit: bool = False) -> Optional[DraggableAnnotation]: ...
-
-
 class Annotation(Text, _AnnotationBase):
     def __str__(self: Annotation) -> str: ...
 
@@ -314,7 +278,40 @@ class OffsetFrom(object):
                  renderer: Any) -> Transform: ...
 
 
-def get_rotation(rotation: str) -> float: ...
+class _AnnotationBase(object):
+    def __init__(self: _AnnotationBase,
+                 xy: tuple[float, float],
+                 xycoords: str = 'data',
+                 annotation_clip: Any = None) -> None: ...
+
+    def _get_xy(self: _AnnotationBase,
+                renderer: Optional[Any],
+                x: float,
+                y: Any,
+                s: Any) -> Union[ndarray, Iterable, int, float]: ...
+
+    def _get_xy_transform(self: _AnnotationBase,
+                          renderer: Optional[Any],
+                          s: Union[tuple, str, {__ne__}, None]) -> Union[
+        BlendedAffine2D, BlendedGenericTransform, BboxTransformTo, Transform, Affine2D]: ...
+
+    def _get_ref_xy(self: _AnnotationBase,
+                    renderer: Optional[Any]) -> Union[ndarray, Iterable, int, float]: ...
+
+    def set_annotation_clip(self: _AnnotationBase,
+                            b: Optional[bool]) -> None: ...
+
+    def get_annotation_clip(self: _AnnotationBase) -> Optional[bool]: ...
+
+    def _get_position_xy(self: _AnnotationBase,
+                         renderer: Optional[Any]) -> Union[ndarray, Iterable, int, float]: ...
+
+    def _check_xy(self: _AnnotationBase,
+                  renderer: Optional[Any]) -> bool: ...
+
+    def draggable(self: _AnnotationBase,
+                  state: Optional[bool] = None,
+                  use_blit: bool = False) -> Optional[DraggableAnnotation]: ...
 
 
 @contextlib.contextmanager
@@ -323,3 +320,6 @@ def _wrap_text(textobj: Text) -> Generator[Text, Any, None]: ...
 
 def _get_textbox(text: Text,
                  renderer: Optional[Any]) -> tuple[Any, Any, Any, Any]: ...
+
+
+def get_rotation(rotation: str) -> float: ...

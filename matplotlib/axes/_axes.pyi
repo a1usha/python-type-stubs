@@ -102,7 +102,7 @@ class Axes(_AxesBase):
              transform_rotates_text: bool = ...,
              **kwargs) -> Any: ...
 
-    @_api.rename_parameter
+    @_api.rename_parameter("3.3", "s", "text")
     @docstring.dedent_interpd
     def annotate(self: Axes,
                  text: str,
@@ -215,7 +215,8 @@ class Axes(_AxesBase):
                 closed: bool = ...,
                 **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["y", "xmin", "xmax", "colors"],
+                      label_namer="y")
     def hlines(self: Axes,
                y: Union[float, ndarray, Iterable, int],
                xmin: Union[float, ndarray, Iterable, int],
@@ -227,7 +228,8 @@ class Axes(_AxesBase):
                zorder: Any = ...,
                **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x", "ymin", "ymax", "colors"],
+                      label_namer="x")
     def vlines(self: Axes,
                x: Union[float, ndarray, Iterable, int],
                ymin: Union[float, ndarray, Iterable, int],
@@ -239,7 +241,9 @@ class Axes(_AxesBase):
                zorder: Any = ...,
                **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["positions", "lineoffsets",
+                                     "linelengths", "linewidths",
+                                     "colors", "linestyles"])
     @docstring.dedent_interpd
     def eventplot(self: Axes,
                   positions: Union[ndarray, Iterable, int, float, Iterable[ndarray]],
@@ -279,7 +283,7 @@ class Axes(_AxesBase):
              *args,
              **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x", "y"], label_namer="y")
     @docstring.dedent_interpd
     def plot_date(self: Axes,
                   x: Union[ndarray, Iterable, int, float],
@@ -325,12 +329,12 @@ class Axes(_AxesBase):
                  *args,
                  **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x"], label_namer="x")
     def acorr(self: Axes,
               x: Union[ndarray, Iterable, int, float],
               **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x", "y"], label_namer="y")
     def xcorr(self: Axes,
               x: Any,
               y: Any,
@@ -354,7 +358,7 @@ class Axes(_AxesBase):
                     xconv: ndarray,
                     convert: Union[(x: Any)) -> Optional[list[Optional[Any]]]: ...
 
-    @_preprocess_data
+    @_preprocess_data()
     @docstring.dedent_interpd
     def bar(self: Axes,
             x: Union[float, ndarray, Iterable, int],
@@ -389,7 +393,7 @@ class Axes(_AxesBase):
                   padding: float = 0,
                   **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data()
     @docstring.dedent_interpd
     def broken_barh(self: Axes,
                     xranges: Any,
@@ -398,7 +402,7 @@ class Axes(_AxesBase):
                     yrange: Any = ...,
                     **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data()
     def stem(self: Axes,
              linefmt: Optional[str] = None,
              markerfmt: Optional[str] = None,
@@ -409,7 +413,7 @@ class Axes(_AxesBase):
              orientation: str = 'vertical',
              *args) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x", "explode", "labels", "colors"])
     def pie(self: Axes,
             x: int,
             explode: Union[ndarray, Iterable, int, float] = None,
@@ -429,7 +433,8 @@ class Axes(_AxesBase):
             rotatelabels: bool = False,
             normalize: Optional[bool] = None) -> list: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x", "y", "xerr", "yerr"],
+                      label_namer="y")
     @docstring.dedent_interpd
     def errorbar(self: Axes,
                  x: Union[float, ndarray, Iterable, int],
@@ -449,7 +454,7 @@ class Axes(_AxesBase):
                  capthick: float = None,
                  **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data()
     def boxplot(self: Axes,
                 x: Any,
                 notch: bool = None,
@@ -506,7 +511,10 @@ class Axes(_AxesBase):
                                   xsize: int,
                                   get_next_color_func: Callable) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x", "y", "s", "linewidths",
+                                     "edgecolors", "c", "facecolor",
+                                     "facecolors", "color"],
+                      label_namer="y")
     def scatter(self: Axes,
                 x: Union[float, ndarray, Iterable, int],
                 y: Union[float, ndarray, Iterable, int],
@@ -539,7 +547,7 @@ class Axes(_AxesBase):
                 zorder: Any = ...,
                 **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x", "y", "C"], label_namer="y")
     @docstring.dedent_interpd
     def hexbin(self: Axes,
                x: Union[ndarray, Iterable, int, float],
@@ -574,7 +582,7 @@ class Axes(_AxesBase):
               dy: float,
               **kwargs) -> Any: ...
 
-    @docstring.copy
+    @docstring.copy(mquiver.QuiverKey.__init__)
     def quiverkey(self: Axes,
                   Q: Any,
                   X: Any,
@@ -587,12 +595,12 @@ class Axes(_AxesBase):
                       args: tuple[Any, ...],
                       kw: dict[str, Any]) -> tuple[Any, ...]: ...
 
-    @_preprocess_data
+    @_preprocess_data()
     def quiver(self: Axes,
                *args,
                **kwargs) -> Quiver: ...
 
-    @_preprocess_data
+    @_preprocess_data()
     @docstring.dedent_interpd
     def barbs(self: Axes,
               *args,
@@ -636,7 +644,7 @@ class Axes(_AxesBase):
                       interpolate: bool = False,
                       **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data()
     def imshow(self: Axes,
                X: Any,
                cmap: Any = None,
@@ -659,10 +667,9 @@ class Axes(_AxesBase):
                     shading: str = 'flat',
                     *args,
                     **kwargs) -> Union[tuple[Any, Any, Union[ndarray, Iterable, int, float, None], str], tuple[
-        Union[None, object, ndarray], Union[None, object, ndarray], Union[
-            ndarray, Iterable, int, float, None], str]]: ...
+        Optional[ndarray], Optional[ndarray], Union[ndarray, Iterable, int, float, None], str]]: ...
 
-    @_preprocess_data
+    @_preprocess_data()
     @docstring.dedent_interpd
     def pcolor(self: Axes,
                shading: Optional[str] = None,
@@ -677,7 +684,7 @@ class Axes(_AxesBase):
                *args,
                **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data()
     @docstring.dedent_interpd
     def pcolormesh(self: Axes,
                    alpha: float = None,
@@ -695,7 +702,7 @@ class Axes(_AxesBase):
                    *args,
                    **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data()
     @docstring.dedent_interpd
     def pcolorfast(self: Axes,
                    alpha: float = None,
@@ -706,12 +713,12 @@ class Axes(_AxesBase):
                    *args,
                    **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data()
     def contour(self: Axes,
                 *args,
                 **kwargs) -> QuadContourSet: ...
 
-    @_preprocess_data
+    @_preprocess_data()
     def contourf(self: Axes,
                  *args,
                  **kwargs) -> QuadContourSet: ...
@@ -721,7 +728,7 @@ class Axes(_AxesBase):
                levels: Union[ndarray, Iterable, int, float, None] = None,
                **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x", 'weights'], label_namer="x")
     def hist(self: Axes,
              x: Any,
              bins: Union[int, Iterable, str] = None,
@@ -750,7 +757,7 @@ class Axes(_AxesBase):
              joinstyle: Any = ...,
              **kwargs) -> Union[array.pyi, list]: ...
 
-    @_preprocess_data
+    @_preprocess_data()
     def stairs(self: Axes,
                values: Union[ndarray, Iterable, int, float],
                edges: Union[ndarray, Iterable, int, float] = None,
@@ -763,7 +770,7 @@ class Axes(_AxesBase):
                baseline: Any = ...,
                **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x", "y", "weights"])
     @docstring.dedent_interpd
     def hist2d(self: Axes,
                x: Union[ndarray, Iterable, int, float],
@@ -776,7 +783,7 @@ class Axes(_AxesBase):
                cmax: float = None,
                **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x"])
     @docstring.dedent_interpd
     def psd(self: Axes,
             x: Any,
@@ -812,7 +819,7 @@ class Axes(_AxesBase):
             markevery: Any = ...,
             **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x", "y"], label_namer="y")
     @docstring.dedent_interpd
     def csd(self: Axes,
             x: Any,
@@ -849,7 +856,7 @@ class Axes(_AxesBase):
             markevery: Any = ...,
             **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x"])
     @docstring.dedent_interpd
     def magnitude_spectrum(self: Axes,
                            x: Any,
@@ -881,7 +888,7 @@ class Axes(_AxesBase):
                            markevery: Any = ...,
                            **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x"])
     @docstring.dedent_interpd
     def angle_spectrum(self: Axes,
                        x: Any,
@@ -912,7 +919,7 @@ class Axes(_AxesBase):
                        markevery: Any = ...,
                        **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x"])
     @docstring.dedent_interpd
     def phase_spectrum(self: Axes,
                        x: Any,
@@ -943,7 +950,7 @@ class Axes(_AxesBase):
                        markevery: Any = ...,
                        **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x", "y"])
     @docstring.dedent_interpd
     def cohere(self: Axes,
                x: Any,
@@ -979,7 +986,7 @@ class Axes(_AxesBase):
                markevery: Any = ...,
                **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["x"])
     @docstring.dedent_interpd
     def specgram(self: Axes,
                  x: Any,
@@ -1014,7 +1021,7 @@ class Axes(_AxesBase):
                 Z: Any,
                 **kwargs) -> Any: ...
 
-    @_preprocess_data
+    @_preprocess_data(replace_names=["dataset"])
     def violinplot(self: Axes,
                    dataset: Any,
                    positions: Union[ndarray, Iterable, int, float] = None,

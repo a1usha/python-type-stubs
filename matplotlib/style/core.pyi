@@ -6,14 +6,6 @@ from typing import Union
 from matplotlib import RcParams
 
 
-@contextlib.contextmanager
-def context(style: Union[str, dict, Path, Iterable],
-            after_reset: bool = False) -> Generator[Any, Any, None]: ...
-
-
-def reload_library() -> None: ...
-
-
 def use(style: Union[str, dict, Path, Iterable]) -> Any: ...
 
 
@@ -24,6 +16,9 @@ def read_style_directory(style_dir: str) -> dict[str, RcParams]: ...
 
 
 def iter_user_libraries() -> Generator[str, Any, None]: ...
+
+
+def reload_library() -> None: ...
 
 
 def update_nested_dict(main_dict: dict[str, RcParams],
@@ -39,3 +34,8 @@ def _remove_blacklisted_style_params(d: Union[str, Path, RcParams],
 
 def _apply_style(d: Union[str, Path, RcParams],
                  warn: bool = True) -> None: ...
+
+
+@contextlib.contextmanager
+def context(style: Union[str, dict, Path, Iterable],
+            after_reset: bool = False) -> Generator[Any, Any, None]: ...

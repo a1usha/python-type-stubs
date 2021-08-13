@@ -93,7 +93,7 @@ class _DOF_estimator_min_E(_DOF_estimator_geom):
 
 
 class _DOF_estimator_geom(_DOF_estimator):
-    def compute_dz(self: _DOF_estimator_geom) -> object: ...
+    def compute_dz(self: _DOF_estimator_geom) -> Any: ...
 
     def compute_geom_weights(self: _DOF_estimator_geom) -> ndarray: ...
 
@@ -161,7 +161,7 @@ class LinearTriInterpolator(TriInterpolator):
 
 class _DOF_estimator_user(_DOF_estimator):
     def compute_dz(self: _DOF_estimator_user,
-                   dz: Any) -> object: ...
+                   dz: Any) -> Any: ...
 
 
 class _DOF_estimator(object):

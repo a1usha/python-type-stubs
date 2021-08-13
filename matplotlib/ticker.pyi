@@ -9,24 +9,38 @@ from typing import tuple
 from numpy.core._multiarray_umath import ndarray
 
 
-class TickHelper(object):
-    def set_axis(self: TickHelper,
-                 axis: Any) -> None: ...
+class Locator(TickHelper):
+    def tick_values(self: Locator,
+                    vmin: Any,
+                    vmax: Any) -> Any: ...
 
-    def create_dummy_axis(self: TickHelper,
-                          **kwargs) -> None: ...
+    def set_params(self: Locator,
+                   **kwargs) -> None: ...
 
-    def set_view_interval(self: TickHelper,
-                          vmin: Any,
-                          vmax: Any) -> None: ...
+    def __call__(self: Locator) -> Any: ...
 
-    def set_data_interval(self: TickHelper,
-                          vmin: Any,
-                          vmax: Any) -> None: ...
+    def raise_if_exceeds(self: Locator,
+                         locs: Union[ndarray, None, tuple[ndarray, Optional[float]], int, float, Iterable]) -> Union[
+        ndarray, None, tuple[ndarray, Optional[float]], int, float, Iterable]: ...
 
-    def set_bounds(self: TickHelper,
-                   vmin: Any,
-                   vmax: Any) -> None: ...
+    def nonsingular(self: Locator,
+                    v0: Any,
+                    v1: Any) -> float: ...
+
+    def view_limits(self: Locator,
+                    vmin: Any,
+                    vmax: Any) -> float: ...
+
+    @_api.deprecated("3.3")
+    def pan(self: Locator,
+            numsteps: Any) -> Optional[Any]: ...
+
+    @_api.deprecated("3.3")
+    def zoom(self: Locator,
+             direction: Any) -> Optional[Any]: ...
+
+    @_api.deprecated("3.3")
+    def refresh(self: Locator) -> Optional[Any]: ...
 
 
 class Formatter(TickHelper):
@@ -53,40 +67,6 @@ class Formatter(TickHelper):
 
     def _set_locator(self: Formatter,
                      locator: Any) -> None: ...
-
-
-class Locator(TickHelper):
-    def tick_values(self: Locator,
-                    vmin: Any,
-                    vmax: Any) -> Any: ...
-
-    def set_params(self: Locator,
-                   **kwargs) -> None: ...
-
-    def __call__(self: Locator) -> Any: ...
-
-    def raise_if_exceeds(self: Locator,
-                         locs: Union[ndarray, None, tuple[ndarray, Optional[float]], int, float, Iterable]) -> Union[
-        ndarray, None, tuple[ndarray, Optional[float]], int, float, Iterable]: ...
-
-    def nonsingular(self: Locator,
-                    v0: Any,
-                    v1: Any) -> float: ...
-
-    def view_limits(self: Locator,
-                    vmin: Any,
-                    vmax: Any) -> float: ...
-
-    @_api.deprecated
-    def pan(self: Locator,
-            numsteps: Any) -> Optional[Any]: ...
-
-    @_api.deprecated
-    def zoom(self: Locator,
-             direction: Any) -> Optional[Any]: ...
-
-    @_api.deprecated
-    def refresh(self: Locator) -> Optional[Any]: ...
 
 
 class NullFormatter(Formatter):
@@ -557,6 +537,26 @@ class LogitLocator(MaxNLocator):
                     vmin: {__gt__, __ge__},
                     vmax: Union[{__le__}, {__lt__}]) -> tuple[Union[float, {__le__}, {__lt__}, {__gt__, __ge__}], Union[
         float, int, {__gt__, __ge__}, {__le__}, {__lt__}]]: ...
+
+
+class TickHelper(object):
+    def set_axis(self: TickHelper,
+                 axis: Any) -> None: ...
+
+    def create_dummy_axis(self: TickHelper,
+                          **kwargs) -> None: ...
+
+    def set_view_interval(self: TickHelper,
+                          vmin: Any,
+                          vmax: Any) -> None: ...
+
+    def set_data_interval(self: TickHelper,
+                          vmin: Any,
+                          vmax: Any) -> None: ...
+
+    def set_bounds(self: TickHelper,
+                   vmin: Any,
+                   vmax: Any) -> None: ...
 
 
 class _Edge_integer(object):

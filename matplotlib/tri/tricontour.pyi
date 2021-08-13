@@ -19,14 +19,14 @@ class TriContourSet(ContourSet):
                       kwargs: Any) -> tuple[Triangulation, None]: ...
 
 
-@docstring.Substitution
+@docstring.Substitution(func='tricontour', type='lines')
 @docstring.dedent_interpd
 def tricontour(*args,
                ax: Any,
                **kwargs) -> TriContourSet: ...
 
 
-@docstring.Substitution
+@docstring.Substitution(func='tricontourf', type='regions')
 @docstring.dedent_interpd
 def tricontourf(*args,
                 ax: Any,

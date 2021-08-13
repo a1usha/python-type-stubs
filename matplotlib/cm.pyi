@@ -54,22 +54,13 @@ class ScalarMappable(object):
 
     def changed(self: ScalarMappable) -> None: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3")
     def add_checker(self: ScalarMappable,
                     checker: Any) -> Optional[Any]: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3")
     def check_update(self: ScalarMappable,
                      checker: Any) -> bool: ...
-
-
-def get_cmap(name: Union[Colormap, str, None] = None,
-             lut: Optional[int] = None) -> Union[Colormap, LinearSegmentedColormap, ListedColormap]: ...
-
-
-def register_cmap(name: Optional[str] = None,
-                  cmap: Colormap = None,
-                  override_builtin: bool = False) -> None: ...
 
 
 class _DeprecatedCmapDictWrapper(MutableMapping):
@@ -97,7 +88,16 @@ class _DeprecatedCmapDictWrapper(MutableMapping):
     def _warn_deprecated(self: _DeprecatedCmapDictWrapper) -> None: ...
 
 
+def register_cmap(name: Optional[str] = None,
+                  cmap: Colormap = None,
+                  override_builtin: bool = False) -> None: ...
+
+
 def unregister_cmap(name: str) -> Union[None, LinearSegmentedColormap, ListedColormap]: ...
+
+
+def get_cmap(name: Union[Colormap, str, None] = None,
+             lut: Optional[int] = None) -> Union[Colormap, LinearSegmentedColormap, ListedColormap]: ...
 
 
 def _gen_cmap_registry() -> dict[str, Union[LinearSegmentedColormap, ListedColormap]]: ...

@@ -15,7 +15,7 @@ class RadialAxis(YAxis):
 
     def clear(self: RadialAxis) -> None: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4", alternative="RadialAxis.clear()")
     def cla(self: RadialAxis) -> Optional[Any]: ...
 
     def _set_scale(self: RadialAxis,
@@ -73,8 +73,8 @@ class PolarAxes(Axes):
                                   pad: float) -> tuple[Union[{input_dims, output_dims}, {output_dims,
                                                                                          input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]: ...
 
-    @_api.delete_parameter
-    @_api.delete_parameter
+    @_api.delete_parameter("3.3", "args")
+    @_api.delete_parameter("3.3", "kwargs")
     def draw(self: PolarAxes,
              renderer: Optional[{open_group, option_image_nocomposite, close_group}],
              *args,
@@ -252,15 +252,15 @@ class RadialLocator(Locator):
 
     def __call__(self: RadialLocator) -> list: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3")
     def pan(self: RadialLocator,
             numsteps: Any) -> Any: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3")
     def zoom(self: RadialLocator,
              direction: Any) -> Any: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3")
     def refresh(self: RadialLocator) -> Any: ...
 
     def nonsingular(self: RadialLocator,
@@ -343,7 +343,7 @@ class ThetaLocator(Locator):
 
     def __call__(self: ThetaLocator) -> Optional[float]: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3")
     def pan(self: ThetaLocator,
             numsteps: Any) -> Any: ...
 
@@ -353,7 +353,7 @@ class ThetaLocator(Locator):
                     vmin: Any,
                     vmax: Any) -> None: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3")
     def zoom(self: ThetaLocator,
              direction: Any) -> Any: ...
 
@@ -366,7 +366,7 @@ class ThetaAxis(XAxis):
 
     def clear(self: ThetaAxis) -> None: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4", alternative="ThetaAxis.clear()")
     def cla(self: ThetaAxis) -> Optional[Any]: ...
 
     def _set_scale(self: ThetaAxis,

@@ -187,20 +187,23 @@ class FigureBase(Artist):
                    transform_rotates_text: bool = ...,
                    **kwargs) -> Any: ...
 
-    @docstring.Substitution
-    @docstring.copy
+    @docstring.Substitution(x0=0.5, y0=0.98, name='suptitle', ha='center',
+                            va='top')
+    @docstring.copy(_suplabels)
     def suptitle(self: FigureBase,
                  t: Any,
                  **kwargs) -> Any: ...
 
-    @docstring.Substitution
-    @docstring.copy
+    @docstring.Substitution(x0=0.5, y0=0.01, name='supxlabel', ha='center',
+                            va='bottom')
+    @docstring.copy(_suplabels)
     def supxlabel(self: FigureBase,
                   t: Any,
                   **kwargs) -> Any: ...
 
-    @docstring.Substitution
-    @docstring.copy
+    @docstring.Substitution(x0=0.02, y0=0.5, name='supylabel', ha='left',
+                            va='center')
+    @docstring.copy(_suplabels)
     def supylabel(self: FigureBase,
                   t: Any,
                   **kwargs) -> Any: ...
@@ -243,7 +246,7 @@ class FigureBase(Artist):
                            ax: SubplotBase,
                            key: Any) -> Any: ...
 
-    @_api.make_keyword_only
+    @_api.make_keyword_only("3.3", "sharex")
     def subplots(self: FigureBase,
                  nrows: int = 1,
                  ncols: int = 1,

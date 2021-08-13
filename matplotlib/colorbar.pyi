@@ -8,8 +8,60 @@ from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedConstant
 
 
+class Colorbar(ColorbarBase):
+    def __init__(self: Colorbar,
+                 ax: Any,
+                 mappable: {get_array, cmap, norm, colorbar, colorbar_cid, callbacksSM},
+                 **kwargs) -> None: ...
+
+    @_api.deprecated("3.3", alternative="update_normal")
+    def on_mappable_changed(self: Colorbar,
+                            mappable: {norm, get_alpha, cmap}) -> Optional[Any]: ...
+
+    def add_lines(self: Colorbar,
+                  CS: Any,
+                  erase: bool = True) -> Any: ...
+
+    def update_normal(self: Colorbar,
+                      mappable: {norm, get_alpha, cmap}) -> None: ...
+
+    @_api.deprecated("3.3", alternative="update_normal")
+    def update_bruteforce(self: Colorbar,
+                          mappable: Any) -> Optional[Any]: ...
+
+    def remove(self: Colorbar) -> None: ...
+
+
+class _ColorbarAutoMinorLocator(AutoMinorLocator):
+    def __init__(self: _ColorbarAutoMinorLocator,
+                 colorbar: Any,
+                 n: Any = None) -> None: ...
+
+    def __call__(self: _ColorbarAutoMinorLocator) -> list: ...
+
+
+class _ColorbarAutoLocator(MaxNLocator):
+    def __init__(self: _ColorbarAutoLocator,
+                 colorbar: Any) -> None: ...
+
+    def tick_values(self: _ColorbarAutoLocator,
+                    vmin: {__gt__},
+                    vmax: Any) -> Any: ...
+
+
+class _ColorbarLogLocator(LogLocator):
+    def __init__(self: _ColorbarLogLocator,
+                 colorbar: Any,
+                 *args,
+                 **kwargs) -> None: ...
+
+    def tick_values(self: _ColorbarLogLocator,
+                    vmin: {__le__},
+                    vmax: {__lt__}) -> None: ...
+
+
 class ColorbarBase(object):
-    @_api.make_keyword_only
+    @_api.make_keyword_only("3.3", "cmap")
     def __init__(self: ColorbarBase,
                  ax: Any,
                  cmap: Any = None,
@@ -35,7 +87,7 @@ class ColorbarBase(object):
 
     def draw_all(self: ColorbarBase) -> None: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3")
     def config_axis(self: ColorbarBase) -> Optional[Any]: ...
 
     def _config_axis(self: ColorbarBase) -> None: ...
@@ -122,58 +174,6 @@ class ColorbarBase(object):
     def remove(self: ColorbarBase) -> None: ...
 
 
-class Colorbar(ColorbarBase):
-    def __init__(self: Colorbar,
-                 ax: Any,
-                 mappable: {get_array, cmap, norm, colorbar, colorbar_cid, callbacksSM},
-                 **kwargs) -> None: ...
-
-    @_api.deprecated
-    def on_mappable_changed(self: Colorbar,
-                            mappable: {norm, get_alpha, cmap}) -> Optional[Any]: ...
-
-    def add_lines(self: Colorbar,
-                  CS: Any,
-                  erase: bool = True) -> Any: ...
-
-    def update_normal(self: Colorbar,
-                      mappable: {norm, get_alpha, cmap}) -> None: ...
-
-    @_api.deprecated
-    def update_bruteforce(self: Colorbar,
-                          mappable: Any) -> Optional[Any]: ...
-
-    def remove(self: Colorbar) -> None: ...
-
-
-class _ColorbarAutoMinorLocator(AutoMinorLocator):
-    def __init__(self: _ColorbarAutoMinorLocator,
-                 colorbar: Any,
-                 n: Any = None) -> None: ...
-
-    def __call__(self: _ColorbarAutoMinorLocator) -> list: ...
-
-
-class _ColorbarAutoLocator(MaxNLocator):
-    def __init__(self: _ColorbarAutoLocator,
-                 colorbar: Any) -> None: ...
-
-    def tick_values(self: _ColorbarAutoLocator,
-                    vmin: {__gt__},
-                    vmax: Any) -> Any: ...
-
-
-class _ColorbarLogLocator(LogLocator):
-    def __init__(self: _ColorbarLogLocator,
-                 colorbar: Any,
-                 *args,
-                 **kwargs) -> None: ...
-
-    def tick_values(self: _ColorbarLogLocator,
-                    vmin: {__le__},
-                    vmax: {__lt__}) -> None: ...
-
-
 class ColorbarPatch(Colorbar):
     pass
 
@@ -200,7 +200,7 @@ def _set_ticks_on_axis_warn(*args,
                             **kwargs) -> None: ...
 
 
-@docstring.Substitution
+@docstring.Substitution(_make_axes_param_doc, _make_axes_other_param_doc)
 def make_axes(parents: Any,
               location: Any = None,
               orientation: Any = None,
@@ -210,7 +210,7 @@ def make_axes(parents: Any,
               **kwargs) -> Any: ...
 
 
-@docstring.Substitution
+@docstring.Substitution(_make_axes_param_doc, _make_axes_other_param_doc)
 def make_axes_gridspec(parent: Any,
                        location: Any = None,
                        orientation: Any = None,
@@ -220,7 +220,7 @@ def make_axes_gridspec(parent: Any,
                        **kwargs) -> Any: ...
 
 
-@_api.deprecated
+@_api.deprecated("3.4", alternative="Colorbar")
 def colorbar_factory(cax: Any,
                      mappable: Any,
                      **kwargs) -> Any: ...

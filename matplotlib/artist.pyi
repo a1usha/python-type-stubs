@@ -69,11 +69,11 @@ class Artist(object):
     def contains(self: Artist,
                  mouseevent: MouseEvent) -> bool: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3", alternative="set_picker")
     def set_contains(self: Artist,
                      picker: Callable) -> Any: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3", alternative="get_picker")
     def get_contains(self: Artist) -> Any: ...
 
     def pickable(self: Artist) -> Any: ...
@@ -157,8 +157,8 @@ class Artist(object):
     def set_agg_filter(self: Artist,
                        filter_func: Callable) -> None: ...
 
-    @_api.delete_parameter
-    @_api.delete_parameter
+    @_api.delete_parameter("3.3", "args")
+    @_api.delete_parameter("3.3", "kwargs")
     def draw(self: Artist,
              renderer: Any,
              *args,

@@ -10,12 +10,570 @@ from matplotlib.path import Path
 from numpy.core._multiarray_umath import ndarray
 
 
+class Simple(_Base):
+    def __init__(self: Simple,
+                 head_length: float = .5,
+                 head_width: float = .5,
+                 tail_width: float = .2) -> None: ...
+
+    def transmute(self: Simple,
+                  path: Path,
+                  mutation_size: Any,
+                  linewidth: Any) -> tuple[Path, bool]: ...
+
+
+class Circle(Ellipse):
+    def __str__(self: Circle) -> str: ...
+
+    @docstring.dedent_interpd
+    def __init__(self: Circle,
+                 xy: tuple[float, float],
+                 radius: int = 5,
+                 **kwargs) -> Optional[Any]: ...
+
+    def set_radius(self: Circle,
+                   radius: float) -> None: ...
+
+    def get_radius(self: Circle) -> float: ...
+
+
+class Circle(_Base):
+    def __init__(self: Circle,
+                 pad: float = 0.3) -> None: ...
+
+    def __call__(self: Circle,
+                 x0: float,
+                 y0: float,
+                 width: float,
+                 height: float,
+                 mutation_size: float) -> Path: ...
+
+
+class _Base(object):
+    @_api.deprecated("3.4")
+    def transmute(self: _Base,
+                  x0: Any,
+                  y0: Any,
+                  width: Any,
+                  height: Any,
+                  mutation_size: Any) -> Any: ...
+
+    def __init_subclass__(cls: Type[_Base]) -> None: ...
+
+    def __call__(self: _Base,
+                 x0: float,
+                 y0: float,
+                 width: float,
+                 height: float,
+                 mutation_size: float) -> Any: ...
+
+
+class _Base(object):
+    def _clip(self: _Base,
+              path: Any,
+              patchA: Any,
+              patchB: Any) -> Path: ...
+
+    def _shrink(self: _Base,
+                path: Path,
+                shrinkA: Any,
+                shrinkB: Any) -> Path: ...
+
+    def __call__(self: _Base,
+                 posA: Any,
+                 posB: Any,
+                 shrinkA: float = 2.,
+                 shrinkB: float = 2.,
+                 patchA: Any = None,
+                 patchB: Any = None) -> Path: ...
+
+
+class _Base(object):
+    @staticmethod
+    def ensure_quadratic_bezier(path: Path) -> list: ...
+
+    def transmute(self: _Base,
+                  path: Path,
+                  mutation_size: Any,
+                  linewidth: Any) -> Any: ...
+
+    def __call__(self: _Base,
+                 path: Any,
+                 mutation_size: Any,
+                 linewidth: Any,
+                 aspect_ratio: float = 1.) -> Union[tuple[list[Path], Any], tuple[Any, Any]]: ...
+
+
+class CurveAB(_Curve):
+    def __init__(self: CurveAB,
+                 head_length: float = .4,
+                 head_width: float = .2) -> None: ...
+
+
+class LArrow(_Base):
+    def __init__(self: LArrow,
+                 pad: float = 0.3) -> None: ...
+
+    def __call__(self: LArrow,
+                 x0: float,
+                 y0: float,
+                 width: float,
+                 height: float,
+                 mutation_size: float) -> Path: ...
+
+
+class ArrowStyle(_Style):
+    pass
+
+
+class Round4(_Base):
+    def __init__(self: Round4,
+                 pad: float = 0.3,
+                 rounding_size: float = None) -> None: ...
+
+    def __call__(self: Round4,
+                 x0: float,
+                 y0: float,
+                 width: float,
+                 height: float,
+                 mutation_size: float) -> Path: ...
+
+
+class CurveFilledAB(_Curve):
+    def __init__(self: CurveFilledAB,
+                 head_length: float = .4,
+                 head_width: float = .2) -> None: ...
+
+
+class Rectangle(Patch):
+    def __str__(self: Rectangle) -> str: ...
+
+    @docstring.dedent_interpd
+    def __init__(self: Rectangle,
+                 xy: tuple[float, float],
+                 width: float,
+                 height: float,
+                 angle: float = 0.0,
+                 edgecolor: Any = ...,
+                 facecolor: Any = ...,
+                 color: Any = ...,
+                 linewidth: int = ...,
+                 linestyle: str = ...,
+                 antialiased: Optional[Any] = ...,
+                 hatch: Any = ...,
+                 fill: bool = ...,
+                 capstyle: Any = ...,
+                 joinstyle: Any = ...,
+                 **kwargs) -> Optional[Any]: ...
+
+    def get_path(self: Rectangle) -> Path: ...
+
+    def _convert_units(self: Rectangle) -> tuple[Any, Any, Any, Any]: ...
+
+    def get_patch_transform(self: Rectangle) -> Union[{input_dims, output_dims}, {output_dims,
+                                                                                  input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
+
+    def get_x(self: Rectangle) -> float: ...
+
+    def get_y(self: Rectangle) -> float: ...
+
+    def get_xy(self: Rectangle) -> tuple[float, float]: ...
+
+    def get_width(self: Rectangle) -> float: ...
+
+    def get_height(self: Rectangle) -> float: ...
+
+    def set_x(self: Rectangle,
+              x: Any) -> None: ...
+
+    def set_y(self: Rectangle,
+              y: Any) -> None: ...
+
+    def set_xy(self: Rectangle,
+               xy: tuple[float, float]) -> None: ...
+
+    def set_width(self: Rectangle,
+                  w: Any) -> None: ...
+
+    def set_height(self: Rectangle,
+                   h: Any) -> None: ...
+
+    def set_bounds(self: Rectangle,
+                   *args) -> None: ...
+
+    def get_bbox(self: Rectangle) -> Bbox: ...
+
+
+class Curve(_Curve):
+    def __init__(self: Curve) -> None: ...
+
+
+class BracketA(_Bracket):
+    def __init__(self: BracketA,
+                 widthA: float = 1.,
+                 lengthA: float = 0.2,
+                 angleA: float = None) -> None: ...
+
+
+class FancyArrowPatch(Patch):
+    def __str__(self: FancyArrowPatch) -> str: ...
+
+    @docstring.dedent_interpd
+    @_api.delete_parameter("3.4", "dpi_cor")
+    def __init__(self: FancyArrowPatch,
+                 posA: Any = None,
+                 posB: Any = None,
+                 path: Any = None,
+                 arrowstyle: Any = "simple",
+                 connectionstyle: Any = "arc3",
+                 patchA: Any = None,
+                 patchB: Any = None,
+                 shrinkA: int = 2,
+                 shrinkB: int = 2,
+                 mutation_scale: int = 1,
+                 mutation_aspect: int = 1,
+                 dpi_cor: int = 1,
+                 edgecolor: Any = ...,
+                 facecolor: Any = ...,
+                 color: Any = ...,
+                 linewidth: int = ...,
+                 linestyle: str = ...,
+                 antialiased: Optional[Any] = ...,
+                 hatch: Any = ...,
+                 fill: bool = ...,
+                 capstyle: Any = ...,
+                 joinstyle: Any = ...,
+                 **kwargs) -> Any: ...
+
+    @_api.deprecated("3.4")
+    def set_dpi_cor(self: FancyArrowPatch,
+                    dpi_cor: float) -> Optional[Any]: ...
+
+    @_api.deprecated("3.4")
+    def get_dpi_cor(self: FancyArrowPatch) -> Any: ...
+
+    def set_positions(self: FancyArrowPatch,
+                      posA: Union[None, Iterable, tuple],
+                      posB: Union[None, Iterable, tuple]) -> None: ...
+
+    def set_patchA(self: FancyArrowPatch,
+                   patchA: Any) -> None: ...
+
+    def set_patchB(self: FancyArrowPatch,
+                   patchB: Any) -> None: ...
+
+    def set_connectionstyle(self: FancyArrowPatch,
+                            connectionstyle: Any,
+                            **kwargs) -> str: ...
+
+    def get_connectionstyle(self: FancyArrowPatch) -> Callable: ...
+
+    def set_arrowstyle(self: FancyArrowPatch,
+                       arrowstyle: Union[None, ArrowStyle, str] = None,
+                       **kwargs) -> str: ...
+
+    def get_arrowstyle(self: FancyArrowPatch) -> _Base: ...
+
+    def set_mutation_scale(self: FancyArrowPatch,
+                           scale: float) -> None: ...
+
+    def get_mutation_scale(self: FancyArrowPatch) -> Any: ...
+
+    def set_mutation_aspect(self: FancyArrowPatch,
+                            aspect: float) -> None: ...
+
+    def get_mutation_aspect(self: FancyArrowPatch) -> int: ...
+
+    def get_path(self: FancyArrowPatch) -> Path: ...
+
+    def get_path_in_displaycoord(self: FancyArrowPatch) -> tuple[Any, Any]: ...
+
+    def draw(self: FancyArrowPatch,
+             renderer: {open_group, new_gc, draw_path, close_group}) -> None: ...
+
+
+class Arrow(Patch):
+    def __str__(self: Arrow) -> str: ...
+
+    @docstring.dedent_interpd
+    def __init__(self: Arrow,
+                 x: float,
+                 y: float,
+                 dx: float,
+                 dy: float,
+                 width: float = 1.0,
+                 **kwargs) -> Optional[Any]: ...
+
+    def get_path(self: Arrow) -> Path: ...
+
+    def get_patch_transform(self: Arrow) -> Affine2D: ...
+
+
+class Fancy(_Base):
+    def __init__(self: Fancy,
+                 head_length: float = .4,
+                 head_width: float = .4,
+                 tail_width: float = .4) -> None: ...
+
+    def transmute(self: Fancy,
+                  path: Path,
+                  mutation_size: Any,
+                  linewidth: Any) -> tuple[Path, bool]: ...
+
+
+class Polygon(Patch):
+    def __str__(self: Polygon) -> str: ...
+
+    @docstring.dedent_interpd
+    def __init__(self: Polygon,
+                 xy: Optional[ndarray],
+                 closed: bool = True,
+                 **kwargs) -> Optional[Any]: ...
+
+    def get_path(self: Polygon) -> Path: ...
+
+    def get_closed(self: Polygon) -> bool: ...
+
+    def set_closed(self: Polygon,
+                   closed: bool) -> None: ...
+
+    def get_xy(self: Polygon) -> Any: ...
+
+    def set_xy(self: Polygon,
+               xy: int) -> None: ...
+
+
+class RegularPolygon(Patch):
+    def __str__(self: RegularPolygon) -> str: ...
+
+    @docstring.dedent_interpd
+    def __init__(self: RegularPolygon,
+                 xy: tuple[float, float],
+                 numVertices: int,
+                 radius: float = 5,
+                 orientation: float = 0,
+                 **kwargs) -> Optional[Any]: ...
+
+    def get_path(self: RegularPolygon) -> Path: ...
+
+    def get_patch_transform(self: RegularPolygon) -> Affine2D: ...
+
+
+class _Style(object):
+    def __new__(cls: Type[_Style],
+                stylename: {replace},
+                **kwargs) -> Any: ...
+
+    @classmethod
+    def get_styles(cls: Type[_Style]) -> Any: ...
+
+    @classmethod
+    def pprint_styles(cls: Type[_Style]) -> str: ...
+
+    @classmethod
+    def register(cls: Type[_Style],
+                 name: Any,
+                 style: Any) -> Any: ...
+
+
+class CurveB(_Curve):
+    def __init__(self: CurveB,
+                 head_length: float = .4,
+                 head_width: float = .2) -> None: ...
+
+
+class Square(_Base):
+    def __init__(self: Square,
+                 pad: float = 0.3) -> None: ...
+
+    def __call__(self: Square,
+                 x0: float,
+                 y0: float,
+                 width: float,
+                 height: float,
+                 mutation_size: float) -> Path: ...
+
+
+class BarAB(_Bracket):
+    def __init__(self: BarAB,
+                 widthA: float = 1.,
+                 angleA: float = None,
+                 widthB: float = 1.,
+                 angleB: float = None) -> None: ...
+
+
+class Roundtooth(Sawtooth):
+    def __call__(self: Roundtooth,
+                 x0: float,
+                 y0: float,
+                 width: float,
+                 height: float,
+                 mutation_size: float) -> Path: ...
+
+
+class Angle3(_Base):
+    def __init__(self: Angle3,
+                 angleA: int = 90,
+                 angleB: int = 0) -> None: ...
+
+    def connect(self: Angle3,
+                posA: Any,
+                posB: Any) -> Path: ...
+
+
+class ConnectionPatch(FancyArrowPatch):
+    def __str__(self: ConnectionPatch) -> str: ...
+
+    @docstring.dedent_interpd
+    @_api.delete_parameter("3.4", "dpi_cor")
+    def __init__(self: ConnectionPatch,
+                 xyA: Any,
+                 xyB: Any,
+                 coordsA: Any,
+                 coordsB: Any = None,
+                 axesA: Any = None,
+                 axesB: Any = None,
+                 arrowstyle: str = "-",
+                 connectionstyle: str = "arc3",
+                 patchA: Any = None,
+                 patchB: Any = None,
+                 shrinkA: int = 0.,
+                 shrinkB: int = 0.,
+                 mutation_scale: int = 10.,
+                 mutation_aspect: int = None,
+                 clip_on: bool = False,
+                 dpi_cor: int = 1.,
+                 **kwargs) -> Optional[Any]: ...
+
+    def _get_xy(self: ConnectionPatch,
+                xy: Any,
+                s: {__eq__},
+                axes: Any = None) -> Union[float, tuple[Any, Any], ndarray, Iterable, int]: ...
+
+    def set_annotation_clip(self: ConnectionPatch,
+                            b: Optional[bool]) -> None: ...
+
+    def get_annotation_clip(self: ConnectionPatch) -> Any: ...
+
+    def get_path_in_displaycoord(self: ConnectionPatch) -> tuple[Any, Any]: ...
+
+    def _check_xy(self: ConnectionPatch,
+                  renderer: Optional[{open_group, new_gc, draw_path, close_group}]) -> bool: ...
+
+    def draw(self: ConnectionPatch,
+             renderer: {open_group, new_gc, draw_path, close_group}) -> None: ...
+
+
+class BoxStyle(_Style):
+    pass
+
+
+class StepPatch(PathPatch):
+    @docstring.dedent_interpd
+    def __init__(self: StepPatch,
+                 values: Union[ndarray, Iterable, int, float],
+                 edges: Union[ndarray, Iterable, int, float],
+                 orientation: str = 'vertical',
+                 baseline: Union[float, ndarray, Iterable, int, None] = 0,
+                 **kwargs) -> Optional[Any]: ...
+
+    def _update_path(self: StepPatch) -> Any: ...
+
+    def get_data(self: StepPatch) -> StairData: ...
+
+    def set_data(self: StepPatch,
+                 values: int = None,
+                 edges: Optional[int] = None,
+                 baseline: Union[float, int] = None) -> Any: ...
+
+
+class CirclePolygon(RegularPolygon):
+    def __str__(self: CirclePolygon) -> str: ...
+
+    @docstring.dedent_interpd
+    def __init__(self: CirclePolygon,
+                 xy: tuple[float, float],
+                 radius: float = 5,
+                 resolution: int = 20,
+                 **kwargs) -> Optional[Any]: ...
+
+
+class FancyBboxPatch(Patch):
+    def __str__(self: FancyBboxPatch) -> str: ...
+
+    @docstring.dedent_interpd
+    @_api.delete_parameter("3.4", "bbox_transmuter", alternative="boxstyle")
+    def __init__(self: FancyBboxPatch,
+                 xy: float,
+                 width: float,
+                 height: float,
+                 boxstyle: Union[str, BoxStyle] = "round",
+                 bbox_transmuter: Any = None,
+                 mutation_scale: float = 1,
+                 mutation_aspect: float = 1,
+                 edgecolor: Any = ...,
+                 facecolor: Any = ...,
+                 color: Any = ...,
+                 linewidth: int = ...,
+                 linestyle: str = ...,
+                 antialiased: Optional[Any] = ...,
+                 hatch: Any = ...,
+                 fill: bool = ...,
+                 capstyle: Any = ...,
+                 joinstyle: Any = ...,
+                 **kwargs) -> Any: ...
+
+    @docstring.dedent_interpd
+    def set_boxstyle(self: FancyBboxPatch,
+                     boxstyle: Union[str, BoxStyle] = None,
+                     **kwargs) -> str: ...
+
+    def set_mutation_scale(self: FancyBboxPatch,
+                           scale: float) -> None: ...
+
+    def get_mutation_scale(self: FancyBboxPatch) -> float: ...
+
+    def set_mutation_aspect(self: FancyBboxPatch,
+                            aspect: float) -> None: ...
+
+    def get_mutation_aspect(self: FancyBboxPatch) -> Union[float, int]: ...
+
+    def get_boxstyle(self: FancyBboxPatch) -> Any: ...
+
+    def get_path(self: FancyBboxPatch) -> Path: ...
+
+    def get_x(self: FancyBboxPatch) -> Any: ...
+
+    def get_y(self: FancyBboxPatch) -> Any: ...
+
+    def get_width(self: FancyBboxPatch) -> float: ...
+
+    def get_height(self: FancyBboxPatch) -> float: ...
+
+    def set_x(self: FancyBboxPatch,
+              x: float) -> None: ...
+
+    def set_y(self: FancyBboxPatch,
+              y: float) -> None: ...
+
+    def set_width(self: FancyBboxPatch,
+                  w: float) -> None: ...
+
+    def set_height(self: FancyBboxPatch,
+                   h: float) -> None: ...
+
+    def set_bounds(self: FancyBboxPatch,
+                   *args) -> None: ...
+
+    def get_bbox(self: FancyBboxPatch) -> Bbox: ...
+
+
 class Patch(Artist):
-    @_api.deprecated
+    @_api.deprecated("3.4")
     @_api.classproperty
     def validCap(cls: Patch) -> _deprecated_property: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4")
     @_api.classproperty
     def validJoin(cls: Patch) -> _deprecated_property: ...
 
@@ -138,615 +696,6 @@ class Patch(Artist):
                           xy: {__getitem__}) -> tuple[Any, Any]: ...
 
 
-class Polygon(Patch):
-    def __str__(self: Polygon) -> str: ...
-
-    @docstring.dedent_interpd
-    def __init__(self: Polygon,
-                 xy: Optional[ndarray],
-                 closed: bool = True,
-                 **kwargs) -> Optional[Any]: ...
-
-    def get_path(self: Polygon) -> Path: ...
-
-    def get_closed(self: Polygon) -> bool: ...
-
-    def set_closed(self: Polygon,
-                   closed: bool) -> None: ...
-
-    def get_xy(self: Polygon) -> Any: ...
-
-    def set_xy(self: Polygon,
-               xy: int) -> None: ...
-
-
-class FancyArrow(Polygon):
-    def __str__(self: FancyArrow) -> str: ...
-
-    @docstring.dedent_interpd
-    def __init__(self: FancyArrow,
-                 x: Any,
-                 y: Any,
-                 dx: Any,
-                 dy: Any,
-                 width: float = 0.001,
-                 length_includes_head: bool = False,
-                 head_width: Optional[float] = None,
-                 head_length: Optional[float] = None,
-                 shape: str = 'full',
-                 overhang: float = 0,
-                 head_starts_at_zero: bool = False,
-                 **kwargs) -> Any: ...
-
-
-class Wedge(Patch):
-    def __str__(self: Wedge) -> str: ...
-
-    @docstring.dedent_interpd
-    def __init__(self: Wedge,
-                 center: Any,
-                 r: Any,
-                 theta1: Any,
-                 theta2: Any,
-                 width: Any = None,
-                 **kwargs) -> Optional[Any]: ...
-
-    def _recompute_path(self: Wedge) -> None: ...
-
-    def set_center(self: Wedge,
-                   center: Any) -> None: ...
-
-    def set_radius(self: Wedge,
-                   radius: Any) -> None: ...
-
-    def set_theta1(self: Wedge,
-                   theta1: Any) -> None: ...
-
-    def set_theta2(self: Wedge,
-                   theta2: Any) -> None: ...
-
-    def set_width(self: Wedge,
-                  width: Any) -> None: ...
-
-    def get_path(self: Wedge) -> Optional[Path]: ...
-
-
-class Rectangle(Patch):
-    def __str__(self: Rectangle) -> str: ...
-
-    @docstring.dedent_interpd
-    def __init__(self: Rectangle,
-                 xy: tuple[float, float],
-                 width: float,
-                 height: float,
-                 angle: float = 0.0,
-                 edgecolor: Any = ...,
-                 facecolor: Any = ...,
-                 color: Any = ...,
-                 linewidth: int = ...,
-                 linestyle: str = ...,
-                 antialiased: Optional[Any] = ...,
-                 hatch: Any = ...,
-                 fill: bool = ...,
-                 capstyle: Any = ...,
-                 joinstyle: Any = ...,
-                 **kwargs) -> Optional[Any]: ...
-
-    def get_path(self: Rectangle) -> Path: ...
-
-    def _convert_units(self: Rectangle) -> tuple[Any, Any, Any, Any]: ...
-
-    def get_patch_transform(self: Rectangle) -> Union[{input_dims, output_dims}, {output_dims,
-                                                                                  input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
-
-    def get_x(self: Rectangle) -> float: ...
-
-    def get_y(self: Rectangle) -> float: ...
-
-    def get_xy(self: Rectangle) -> tuple[float, float]: ...
-
-    def get_width(self: Rectangle) -> float: ...
-
-    def get_height(self: Rectangle) -> float: ...
-
-    def set_x(self: Rectangle,
-              x: Any) -> None: ...
-
-    def set_y(self: Rectangle,
-              y: Any) -> None: ...
-
-    def set_xy(self: Rectangle,
-               xy: tuple[float, float]) -> None: ...
-
-    def set_width(self: Rectangle,
-                  w: Any) -> None: ...
-
-    def set_height(self: Rectangle,
-                   h: Any) -> None: ...
-
-    def set_bounds(self: Rectangle,
-                   *args) -> None: ...
-
-    def get_bbox(self: Rectangle) -> Bbox: ...
-
-
-class Simple(_Base):
-    def __init__(self: Simple,
-                 head_length: float = .5,
-                 head_width: float = .5,
-                 tail_width: float = .2) -> None: ...
-
-    def transmute(self: Simple,
-                  path: Path,
-                  mutation_size: Any,
-                  linewidth: Any) -> tuple[Path, bool]: ...
-
-
-class Circle(Ellipse):
-    def __str__(self: Circle) -> str: ...
-
-    @docstring.dedent_interpd
-    def __init__(self: Circle,
-                 xy: tuple[float, float],
-                 radius: int = 5,
-                 **kwargs) -> Optional[Any]: ...
-
-    def set_radius(self: Circle,
-                   radius: float) -> None: ...
-
-    def get_radius(self: Circle) -> float: ...
-
-
-class Circle(_Base):
-    def __init__(self: Circle,
-                 pad: float = 0.3) -> None: ...
-
-    def __call__(self: Circle,
-                 x0: float,
-                 y0: float,
-                 width: float,
-                 height: float,
-                 mutation_size: float) -> Path: ...
-
-
-class _Base(object):
-    @_api.deprecated
-    def transmute(self: _Base,
-                  x0: Any,
-                  y0: Any,
-                  width: Any,
-                  height: Any,
-                  mutation_size: Any) -> Any: ...
-
-    def __init_subclass__(cls: Type[_Base]) -> None: ...
-
-    def __call__(self: _Base,
-                 x0: float,
-                 y0: float,
-                 width: float,
-                 height: float,
-                 mutation_size: float) -> Any: ...
-
-
-class _Base(object):
-    def _clip(self: _Base,
-              path: Any,
-              patchA: Any,
-              patchB: Any) -> Path: ...
-
-    def _shrink(self: _Base,
-                path: Path,
-                shrinkA: Any,
-                shrinkB: Any) -> Path: ...
-
-    def __call__(self: _Base,
-                 posA: Any,
-                 posB: Any,
-                 shrinkA: float = 2.,
-                 shrinkB: float = 2.,
-                 patchA: Any = None,
-                 patchB: Any = None) -> Path: ...
-
-
-class _Base(object):
-    @staticmethod
-    def ensure_quadratic_bezier(path: Path) -> list: ...
-
-    def transmute(self: _Base,
-                  path: Path,
-                  mutation_size: Any,
-                  linewidth: Any) -> Any: ...
-
-    def __call__(self: _Base,
-                 path: Any,
-                 mutation_size: Any,
-                 linewidth: Any,
-                 aspect_ratio: float = 1.) -> Union[tuple[list[Path], Any], tuple[Any, Any]]: ...
-
-
-class CurveAB(_Curve):
-    def __init__(self: CurveAB,
-                 head_length: float = .4,
-                 head_width: float = .2) -> None: ...
-
-
-class LArrow(_Base):
-    def __init__(self: LArrow,
-                 pad: float = 0.3) -> None: ...
-
-    def __call__(self: LArrow,
-                 x0: float,
-                 y0: float,
-                 width: float,
-                 height: float,
-                 mutation_size: float) -> Path: ...
-
-
-class ArrowStyle(_Style):
-    pass
-
-
-class Round4(_Base):
-    def __init__(self: Round4,
-                 pad: float = 0.3,
-                 rounding_size: float = None) -> None: ...
-
-    def __call__(self: Round4,
-                 x0: float,
-                 y0: float,
-                 width: float,
-                 height: float,
-                 mutation_size: float) -> Path: ...
-
-
-class CurveFilledAB(_Curve):
-    def __init__(self: CurveFilledAB,
-                 head_length: float = .4,
-                 head_width: float = .2) -> None: ...
-
-
-class Curve(_Curve):
-    def __init__(self: Curve) -> None: ...
-
-
-class BracketA(_Bracket):
-    def __init__(self: BracketA,
-                 widthA: float = 1.,
-                 lengthA: float = 0.2,
-                 angleA: float = None) -> None: ...
-
-
-class FancyArrowPatch(Patch):
-    def __str__(self: FancyArrowPatch) -> str: ...
-
-    @docstring.dedent_interpd
-    @_api.delete_parameter
-    def __init__(self: FancyArrowPatch,
-                 posA: Any = None,
-                 posB: Any = None,
-                 path: Any = None,
-                 arrowstyle: Any = "simple",
-                 connectionstyle: Any = "arc3",
-                 patchA: Any = None,
-                 patchB: Any = None,
-                 shrinkA: int = 2,
-                 shrinkB: int = 2,
-                 mutation_scale: int = 1,
-                 mutation_aspect: int = 1,
-                 dpi_cor: int = 1,
-                 edgecolor: Any = ...,
-                 facecolor: Any = ...,
-                 color: Any = ...,
-                 linewidth: int = ...,
-                 linestyle: str = ...,
-                 antialiased: Optional[Any] = ...,
-                 hatch: Any = ...,
-                 fill: bool = ...,
-                 capstyle: Any = ...,
-                 joinstyle: Any = ...,
-                 **kwargs) -> Any: ...
-
-    @_api.deprecated
-    def set_dpi_cor(self: FancyArrowPatch,
-                    dpi_cor: float) -> Optional[Any]: ...
-
-    @_api.deprecated
-    def get_dpi_cor(self: FancyArrowPatch) -> Any: ...
-
-    def set_positions(self: FancyArrowPatch,
-                      posA: Union[None, Iterable, tuple],
-                      posB: Union[None, Iterable, tuple]) -> None: ...
-
-    def set_patchA(self: FancyArrowPatch,
-                   patchA: Any) -> None: ...
-
-    def set_patchB(self: FancyArrowPatch,
-                   patchB: Any) -> None: ...
-
-    def set_connectionstyle(self: FancyArrowPatch,
-                            connectionstyle: Any,
-                            **kwargs) -> str: ...
-
-    def get_connectionstyle(self: FancyArrowPatch) -> Callable: ...
-
-    def set_arrowstyle(self: FancyArrowPatch,
-                       arrowstyle: Union[None, ArrowStyle, str] = None,
-                       **kwargs) -> str: ...
-
-    def get_arrowstyle(self: FancyArrowPatch) -> _Base: ...
-
-    def set_mutation_scale(self: FancyArrowPatch,
-                           scale: float) -> None: ...
-
-    def get_mutation_scale(self: FancyArrowPatch) -> Any: ...
-
-    def set_mutation_aspect(self: FancyArrowPatch,
-                            aspect: float) -> None: ...
-
-    def get_mutation_aspect(self: FancyArrowPatch) -> int: ...
-
-    def get_path(self: FancyArrowPatch) -> Path: ...
-
-    def get_path_in_displaycoord(self: FancyArrowPatch) -> tuple[Any, Any]: ...
-
-    def draw(self: FancyArrowPatch,
-             renderer: {open_group, new_gc, draw_path, close_group}) -> None: ...
-
-
-class Arrow(Patch):
-    def __str__(self: Arrow) -> str: ...
-
-    @docstring.dedent_interpd
-    def __init__(self: Arrow,
-                 x: float,
-                 y: float,
-                 dx: float,
-                 dy: float,
-                 width: float = 1.0,
-                 **kwargs) -> Optional[Any]: ...
-
-    def get_path(self: Arrow) -> Path: ...
-
-    def get_patch_transform(self: Arrow) -> Affine2D: ...
-
-
-class Fancy(_Base):
-    def __init__(self: Fancy,
-                 head_length: float = .4,
-                 head_width: float = .4,
-                 tail_width: float = .4) -> None: ...
-
-    def transmute(self: Fancy,
-                  path: Path,
-                  mutation_size: Any,
-                  linewidth: Any) -> tuple[Path, bool]: ...
-
-
-class RegularPolygon(Patch):
-    def __str__(self: RegularPolygon) -> str: ...
-
-    @docstring.dedent_interpd
-    def __init__(self: RegularPolygon,
-                 xy: tuple[float, float],
-                 numVertices: int,
-                 radius: float = 5,
-                 orientation: float = 0,
-                 **kwargs) -> Optional[Any]: ...
-
-    def get_path(self: RegularPolygon) -> Path: ...
-
-    def get_patch_transform(self: RegularPolygon) -> Affine2D: ...
-
-
-class _Style(object):
-    def __new__(cls: Type[_Style],
-                stylename: {replace},
-                **kwargs) -> Any: ...
-
-    @classmethod
-    def get_styles(cls: Type[_Style]) -> Any: ...
-
-    @classmethod
-    def pprint_styles(cls: Type[_Style]) -> str: ...
-
-    @classmethod
-    def register(cls: Type[_Style],
-                 name: Any,
-                 style: Any) -> Any: ...
-
-
-class CurveB(_Curve):
-    def __init__(self: CurveB,
-                 head_length: float = .4,
-                 head_width: float = .2) -> None: ...
-
-
-class Square(_Base):
-    def __init__(self: Square,
-                 pad: float = 0.3) -> None: ...
-
-    def __call__(self: Square,
-                 x0: float,
-                 y0: float,
-                 width: float,
-                 height: float,
-                 mutation_size: float) -> Path: ...
-
-
-class BarAB(_Bracket):
-    def __init__(self: BarAB,
-                 widthA: float = 1.,
-                 angleA: float = None,
-                 widthB: float = 1.,
-                 angleB: float = None) -> None: ...
-
-
-class Roundtooth(Sawtooth):
-    def __call__(self: Roundtooth,
-                 x0: float,
-                 y0: float,
-                 width: float,
-                 height: float,
-                 mutation_size: float) -> Path: ...
-
-
-class Angle3(_Base):
-    def __init__(self: Angle3,
-                 angleA: int = 90,
-                 angleB: int = 0) -> None: ...
-
-    def connect(self: Angle3,
-                posA: Any,
-                posB: Any) -> Path: ...
-
-
-class ConnectionPatch(FancyArrowPatch):
-    def __str__(self: ConnectionPatch) -> str: ...
-
-    @docstring.dedent_interpd
-    @_api.delete_parameter
-    def __init__(self: ConnectionPatch,
-                 xyA: Any,
-                 xyB: Any,
-                 coordsA: Any,
-                 coordsB: Any = None,
-                 axesA: Any = None,
-                 axesB: Any = None,
-                 arrowstyle: str = "-",
-                 connectionstyle: str = "arc3",
-                 patchA: Any = None,
-                 patchB: Any = None,
-                 shrinkA: int = 0.,
-                 shrinkB: int = 0.,
-                 mutation_scale: int = 10.,
-                 mutation_aspect: int = None,
-                 clip_on: bool = False,
-                 dpi_cor: int = 1.,
-                 **kwargs) -> Optional[Any]: ...
-
-    def _get_xy(self: ConnectionPatch,
-                xy: Any,
-                s: {__eq__},
-                axes: Any = None) -> Union[float, tuple[Any, Any], ndarray, Iterable, int]: ...
-
-    def set_annotation_clip(self: ConnectionPatch,
-                            b: Optional[bool]) -> None: ...
-
-    def get_annotation_clip(self: ConnectionPatch) -> Any: ...
-
-    def get_path_in_displaycoord(self: ConnectionPatch) -> tuple[Any, Any]: ...
-
-    def _check_xy(self: ConnectionPatch,
-                  renderer: Optional[{open_group, new_gc, draw_path, close_group}]) -> bool: ...
-
-    def draw(self: ConnectionPatch,
-             renderer: {open_group, new_gc, draw_path, close_group}) -> None: ...
-
-
-class BoxStyle(_Style):
-    pass
-
-
-class StepPatch(PathPatch):
-    @docstring.dedent_interpd
-    def __init__(self: StepPatch,
-                 values: Union[ndarray, Iterable, int, float],
-                 edges: Union[ndarray, Iterable, int, float],
-                 orientation: str = 'vertical',
-                 baseline: Union[float, ndarray, Iterable, int, None] = 0,
-                 **kwargs) -> Optional[Any]: ...
-
-    def _update_path(self: StepPatch) -> Any: ...
-
-    def get_data(self: StepPatch) -> StairData: ...
-
-    def set_data(self: StepPatch,
-                 values: int = None,
-                 edges: Optional[int] = None,
-                 baseline: Union[float, int] = None) -> Any: ...
-
-
-class CirclePolygon(RegularPolygon):
-    def __str__(self: CirclePolygon) -> str: ...
-
-    @docstring.dedent_interpd
-    def __init__(self: CirclePolygon,
-                 xy: tuple[float, float],
-                 radius: float = 5,
-                 resolution: int = 20,
-                 **kwargs) -> Optional[Any]: ...
-
-
-class FancyBboxPatch(Patch):
-    def __str__(self: FancyBboxPatch) -> str: ...
-
-    @docstring.dedent_interpd
-    @_api.delete_parameter
-    def __init__(self: FancyBboxPatch,
-                 xy: float,
-                 width: float,
-                 height: float,
-                 boxstyle: Union[str, BoxStyle] = "round",
-                 bbox_transmuter: Any = None,
-                 mutation_scale: float = 1,
-                 mutation_aspect: float = 1,
-                 edgecolor: Any = ...,
-                 facecolor: Any = ...,
-                 color: Any = ...,
-                 linewidth: int = ...,
-                 linestyle: str = ...,
-                 antialiased: Optional[Any] = ...,
-                 hatch: Any = ...,
-                 fill: bool = ...,
-                 capstyle: Any = ...,
-                 joinstyle: Any = ...,
-                 **kwargs) -> Any: ...
-
-    @docstring.dedent_interpd
-    def set_boxstyle(self: FancyBboxPatch,
-                     boxstyle: Union[str, BoxStyle] = None,
-                     **kwargs) -> str: ...
-
-    def set_mutation_scale(self: FancyBboxPatch,
-                           scale: float) -> None: ...
-
-    def get_mutation_scale(self: FancyBboxPatch) -> float: ...
-
-    def set_mutation_aspect(self: FancyBboxPatch,
-                            aspect: float) -> None: ...
-
-    def get_mutation_aspect(self: FancyBboxPatch) -> Union[float, int]: ...
-
-    def get_boxstyle(self: FancyBboxPatch) -> Any: ...
-
-    def get_path(self: FancyBboxPatch) -> Path: ...
-
-    def get_x(self: FancyBboxPatch) -> Any: ...
-
-    def get_y(self: FancyBboxPatch) -> Any: ...
-
-    def get_width(self: FancyBboxPatch) -> float: ...
-
-    def get_height(self: FancyBboxPatch) -> float: ...
-
-    def set_x(self: FancyBboxPatch,
-              x: float) -> None: ...
-
-    def set_y(self: FancyBboxPatch,
-              y: float) -> None: ...
-
-    def set_width(self: FancyBboxPatch,
-                  w: float) -> None: ...
-
-    def set_height(self: FancyBboxPatch,
-                   h: float) -> None: ...
-
-    def set_bounds(self: FancyBboxPatch,
-                   *args) -> None: ...
-
-    def get_bbox(self: FancyBboxPatch) -> Bbox: ...
-
-
 class _Curve(_Base):
     def __init__(self: _Curve,
                  beginarrow: bool = None,
@@ -850,6 +799,25 @@ class Ellipse(Patch):
     def get_angle(self: Ellipse) -> float: ...
 
 
+class FancyArrow(Polygon):
+    def __str__(self: FancyArrow) -> str: ...
+
+    @docstring.dedent_interpd
+    def __init__(self: FancyArrow,
+                 x: Any,
+                 y: Any,
+                 dx: Any,
+                 dy: Any,
+                 width: float = 0.001,
+                 length_includes_head: bool = False,
+                 head_width: Optional[float] = None,
+                 head_length: Optional[float] = None,
+                 shape: str = 'full',
+                 overhang: float = 0,
+                 head_starts_at_zero: bool = False,
+                 **kwargs) -> Any: ...
+
+
 class CurveFilledB(_Curve):
     def __init__(self: CurveFilledB,
                  head_length: float = .4,
@@ -881,7 +849,7 @@ class RArrow(LArrow):
 class Shadow(Patch):
     def __str__(self: Shadow) -> str: ...
 
-    @_api.delete_parameter
+    @_api.delete_parameter("3.3", "props")
     @docstring.dedent_interpd
     def __init__(self: Shadow,
                  patch: Any,
@@ -942,6 +910,38 @@ class Arc(_Base):
     def connect(self: Arc,
                 posA: Any,
                 posB: Any) -> Path: ...
+
+
+class Wedge(Patch):
+    def __str__(self: Wedge) -> str: ...
+
+    @docstring.dedent_interpd
+    def __init__(self: Wedge,
+                 center: Any,
+                 r: Any,
+                 theta1: Any,
+                 theta2: Any,
+                 width: Any = None,
+                 **kwargs) -> Optional[Any]: ...
+
+    def _recompute_path(self: Wedge) -> None: ...
+
+    def set_center(self: Wedge,
+                   center: Any) -> None: ...
+
+    def set_radius(self: Wedge,
+                   radius: Any) -> None: ...
+
+    def set_theta1(self: Wedge,
+                   theta1: Any) -> None: ...
+
+    def set_theta2(self: Wedge,
+                   theta2: Any) -> None: ...
+
+    def set_width(self: Wedge,
+                  width: Any) -> None: ...
+
+    def get_path(self: Wedge) -> Optional[Path]: ...
 
 
 class Wedge(_Base):

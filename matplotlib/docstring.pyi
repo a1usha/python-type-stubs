@@ -11,7 +11,7 @@ class Substitution(object):
                **kwargs) -> None: ...
 
     @classmethod
-    @_api.deprecated
+    @_api.deprecated("3.3", alternative="assign to the params attribute")
     def from_params(cls: Type[Substitution],
                     params: Any) -> Substitution: ...
 

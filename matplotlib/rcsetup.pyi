@@ -47,15 +47,15 @@ def validate_dpi(s: {__eq__}) -> Union[{__eq__}, float]: ...
 def _validate_tex_preamble(s: Optional[{__eq__}]) -> str: ...
 
 
-@_api.deprecated
+@_api.deprecated("3.3")
 def validate_bool_maybe_none(b: str) -> Optional[bool]: ...
 
 
-@_api.deprecated
+@_api.deprecated("3.3")
 def validate_movie_writer(s: Any) -> Any: ...
 
 
-@_api.deprecated
+@_api.deprecated("3.3")
 def validate_nseq_int(n: Any) -> (s: Any) ->
 
 
@@ -73,7 +73,7 @@ def _convert_validator_spec(key: str,
     ValidateInStrings, (s: {startswith, endswith}) ->
 
 
-@_api.deprecated
+@_api.deprecated("3.3")
 def validate_nseq_float(n: Any) -> (s: Any) ->
 
 
@@ -99,7 +99,7 @@ def validate_backend(s: {startswith, endswith}) -> {startswith, endswith}: ...
 def _validate_cmap(s: Any) -> Any: ...
 
 
-@_api.deprecated
+@_api.deprecated("3.3")
 def _make_nseq_validator(cls: Type[Union[float, int]],
                          n: Any = None,
                          allow_none: bool = False) -> (s: Any) ->
@@ -135,14 +135,14 @@ def _validate_toolbar(s: Any) -> Any: ...
 def _validate_greaterequal0_lessthan1(s: Any) -> Union[None, str, int, float]: ...
 
 
-@lru_cache
+@lru_cache()
 def _listify_validator(scalar_validator: Union[(s: Any),
                        allow_stringlist: bool = False,
                        n: int = None,
                        doc: str = None) -> (s: Any) ->
 
 
-@_api.deprecated
+@_api.deprecated("3.3")
 def validate_webagg_address(s: Any) -> Any: ...
 
 
@@ -152,7 +152,7 @@ def validate_color_or_auto(s: {__eq__}) -> Union[{__eq__}, str]: ...
 def validate_fonttype(s: {lower}) -> Union[int, None, str, float]: ...
 
 
-@_api.deprecated
+@_api.deprecated("3.3")
 def validate_hinting(s: {startswith, endswith}) -> Any: ...
 
 

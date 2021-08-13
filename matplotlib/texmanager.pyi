@@ -5,7 +5,7 @@ from typing import tuple
 
 
 class TexManager(object):
-    @functools.lru_cache
+    @functools.lru_cache()
     def __new__(cls: Type[TexManager]) -> TexManager: ...
 
     def get_font_config(self: TexManager) -> str: ...
@@ -25,7 +25,7 @@ class TexManager(object):
                  tex: {strip},
                  fontsize: {__mul__}) -> str: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3")
     def make_tex_preview(self: TexManager,
                          tex: {strip},
                          fontsize: {__mul__}) -> str: ...
@@ -39,7 +39,7 @@ class TexManager(object):
                  tex: {strip},
                  fontsize: Any) -> str: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3")
     def make_dvi_preview(self: TexManager,
                          tex: {strip},
                          fontsize: Any) -> str: ...

@@ -42,27 +42,27 @@ class Dvi(object):
              nbytes: int,
              signed: bool = False) -> int: ...
 
-    @_dispatch
+    @_dispatch(min=0, max=127, state=_dvistate.inpage)
     def _set_char_immediate(self: Dvi,
                             char: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(min=128, max=131, state=_dvistate.inpage, args=('olen1',))
     def _set_char(self: Dvi,
                   char: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(132, state=_dvistate.inpage, args=('s4', 's4'))
     def _set_rule(self: Dvi,
                   a: {__gt__},
                   b: {__gt__}) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(min=133, max=136, state=_dvistate.inpage, args=('olen1',))
     def _put_char(self: Dvi,
                   char: Any) -> Optional[Any]: ...
 
     def _put_char_real(self: Dvi,
                        char: Any) -> None: ...
 
-    @_dispatch
+    @_dispatch(137, state=_dvistate.inpage, args=('s4', 's4'))
     def _put_rule(self: Dvi,
                   a: Any,
                   b: {__gt__}) -> Optional[Any]: ...
@@ -71,11 +71,11 @@ class Dvi(object):
                        a: {__gt__},
                        b: {__gt__}) -> None: ...
 
-    @_dispatch
+    @_dispatch(138)
     def _nop(self: Dvi,
              _: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(139, state=_dvistate.outer, args=('s4',) * 11)
     def _bop(self: Dvi,
              c0: Any,
              c1: Any,
@@ -89,55 +89,55 @@ class Dvi(object):
              c9: Any,
              p: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(140, state=_dvistate.inpage)
     def _eop(self: Dvi,
              _: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(141, state=_dvistate.inpage)
     def _push(self: Dvi,
               _: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(142, state=_dvistate.inpage)
     def _pop(self: Dvi,
              _: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(min=143, max=146, state=_dvistate.inpage, args=('slen1',))
     def _right(self: Dvi,
                b: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(min=147, max=151, state=_dvistate.inpage, args=('slen',))
     def _right_w(self: Dvi,
                  new_w: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(min=152, max=156, state=_dvistate.inpage, args=('slen',))
     def _right_x(self: Dvi,
                  new_x: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(min=157, max=160, state=_dvistate.inpage, args=('slen1',))
     def _down(self: Dvi,
               a: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(min=161, max=165, state=_dvistate.inpage, args=('slen',))
     def _down_y(self: Dvi,
                 new_y: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(min=166, max=170, state=_dvistate.inpage, args=('slen',))
     def _down_z(self: Dvi,
                 new_z: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(min=171, max=234, state=_dvistate.inpage)
     def _fnt_num_immediate(self: Dvi,
                            k: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(min=235, max=238, state=_dvistate.inpage, args=('olen1',))
     def _fnt_num(self: Dvi,
                  new_f: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(min=239, max=242, args=('ulen1',))
     def _xxx(self: Dvi,
              datalen: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(min=243, max=246, args=('olen1', 'u4', 'u4', 'u4', 'u1', 'u1'))
     def _fnt_def(self: Dvi,
                  k: Any,
                  c: {__ne__},
@@ -154,7 +154,7 @@ class Dvi(object):
                       a: {__add__},
                       l: {__neg__}) -> Any: ...
 
-    @_dispatch
+    @_dispatch(247, state=_dvistate.pre, args=('u1', 'u4', 'u4', 'u4', 'u1'))
     def _pre(self: Dvi,
              i: {__ne__},
              num: {__ne__},
@@ -162,15 +162,15 @@ class Dvi(object):
              mag: {__ne__},
              k: Any) -> Any: ...
 
-    @_dispatch
+    @_dispatch(248, state=_dvistate.outer)
     def _post(self: Dvi,
               _: Any) -> Optional[Any]: ...
 
-    @_dispatch
+    @_dispatch(249)
     def _post_post(self: Dvi,
                    _: Any) -> Any: ...
 
-    @_dispatch
+    @_dispatch(min=250, max=255)
     def _malformed(self: Dvi,
                    offset: Any) -> Any: ...
 
@@ -181,7 +181,7 @@ class Tfm(object):
 
 
 class PsfontsMap(object):
-    @lru_cache
+    @lru_cache()
     def __new__(cls: Type[PsfontsMap],
                 filename: Any) -> PsfontsMap: ...
 
@@ -269,7 +269,7 @@ def _arg_raw(dvi: Any,
 def _fix2comp(num: {__and__}) -> {__and__}: ...
 
 
-@lru_cache
+@lru_cache()
 def _fontfile(cls: Any,
               suffix: Any,
               texname: {__add__}) -> Optional[Any]: ...
@@ -283,7 +283,7 @@ def _arg_olen1(dvi: {_arg},
                delta: {__add__, __eq__}) -> Any: ...
 
 
-@lru_cache
+@lru_cache()
 def find_tex_file(filename: Any,
                   format: Union[str, bytes] = None) -> Union[str, bytes]: ...
 

@@ -131,6 +131,30 @@ class AxesImage(_ImageBase):
                            data: {__getitem__}) -> str: ...
 
 
+class BboxImage(_ImageBase):
+    def __init__(self: BboxImage,
+                 bbox: Any,
+                 cmap: Any = None,
+                 norm: Any = None,
+                 interpolation: Any = None,
+                 origin: Any = None,
+                 filternorm: bool = True,
+                 filterrad: float = 4.0,
+                 resample: bool = False,
+                 **kwargs) -> None: ...
+
+    def get_window_extent(self: BboxImage,
+                          renderer: {new_gc, option_scale_image} = None) -> BboxBase: ...
+
+    def contains(self: BboxImage,
+                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict]]: ...
+
+    def make_image(self: BboxImage,
+                   renderer: {new_gc, option_scale_image},
+                   magnification: float = 1.0,
+                   unsampled: bool = False) -> tuple[int, float, Affine2D]: ...
+
+
 class NonUniformImage(AxesImage):
     def __init__(self: NonUniformImage,
                  ax: Any,
@@ -170,6 +194,27 @@ class NonUniformImage(AxesImage):
                  cmap: Any) -> Any: ...
 
 
+class FigureImage(_ImageBase):
+    def __init__(self: FigureImage,
+                 fig: Any,
+                 cmap: Any = None,
+                 norm: Any = None,
+                 offsetx: int = 0,
+                 offsety: int = 0,
+                 origin: Any = None,
+                 **kwargs) -> None: ...
+
+    def get_extent(self: FigureImage) -> tuple[float, Union[float, int], float, Union[float, int]]: ...
+
+    def make_image(self: FigureImage,
+                   renderer: {new_gc, option_scale_image},
+                   magnification: float = 1.0,
+                   unsampled: bool = False) -> tuple[int, float, Affine2D]: ...
+
+    def set_data(self: FigureImage,
+                 A: Union[ndarray, Iterable, int, float]) -> None: ...
+
+
 class PcolorImage(AxesImage):
     def __init__(self: PcolorImage,
                  ax: Any,
@@ -199,59 +244,6 @@ class PcolorImage(AxesImage):
                         event: MouseEvent) -> None: ...
 
 
-class BboxImage(_ImageBase):
-    def __init__(self: BboxImage,
-                 bbox: Any,
-                 cmap: Any = None,
-                 norm: Any = None,
-                 interpolation: Any = None,
-                 origin: Any = None,
-                 filternorm: bool = True,
-                 filterrad: float = 4.0,
-                 resample: bool = False,
-                 **kwargs) -> None: ...
-
-    def get_window_extent(self: BboxImage,
-                          renderer: {new_gc, option_scale_image} = None) -> BboxBase: ...
-
-    def contains(self: BboxImage,
-                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict]]: ...
-
-    def make_image(self: BboxImage,
-                   renderer: {new_gc, option_scale_image},
-                   magnification: float = 1.0,
-                   unsampled: bool = False) -> tuple[int, float, Affine2D]: ...
-
-
-class FigureImage(_ImageBase):
-    def __init__(self: FigureImage,
-                 fig: Any,
-                 cmap: Any = None,
-                 norm: Any = None,
-                 offsetx: int = 0,
-                 offsety: int = 0,
-                 origin: Any = None,
-                 **kwargs) -> None: ...
-
-    def get_extent(self: FigureImage) -> tuple[float, Union[float, int], float, Union[float, int]]: ...
-
-    def make_image(self: FigureImage,
-                   renderer: {new_gc, option_scale_image},
-                   magnification: float = 1.0,
-                   unsampled: bool = False) -> tuple[int, float, Affine2D]: ...
-
-    def set_data(self: FigureImage,
-                 A: Union[ndarray, Iterable, int, float]) -> None: ...
-
-
-def composite_images(images: Iterable,
-                     renderer: Any,
-                     magnification: float = 1.0) -> Any: ...
-
-
-def pil_to_array(pilImage: Union[ndarray, Iterable, int, float, PngImageFile]) -> Any: ...
-
-
 def thumbnail(infile: Any,
               thumbfile: Any,
               scale: float = 0.1,
@@ -271,6 +263,18 @@ def _draw_list_compositing_images(renderer: {option_image_nocomposite},
                                   suppress_composite: Any = None) -> None: ...
 
 
+def pil_to_array(pilImage: Union[ndarray, Iterable, int, float, PngImageFile]) -> Any: ...
+
+
+def composite_images(images: Iterable,
+                     renderer: Any,
+                     magnification: float = 1.0) -> Any: ...
+
+
+def imread(fname: Any,
+           format: Optional[str] = None) -> Any: ...
+
+
 def imsave(fname: Any,
            arr: Union[ndarray, Iterable, int, float],
            vmin: Optional[float] = None,
@@ -281,10 +285,6 @@ def imsave(fname: Any,
            dpi: float = 100,
            metadata: Optional[dict] = None,
            pil_kwargs: Optional[dict] = None) -> Any: ...
-
-
-def imread(fname: Any,
-           format: Optional[str] = None) -> Any: ...
 
 
 def _resample(image_obj: _ImageBase,

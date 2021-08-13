@@ -32,7 +32,7 @@ class NonIntersectingPathException(ValueError):
     pass
 
 
-@_api.deprecated
+@_api.deprecated("3.3", alternative="Path.make_compound_path()")
 def concatenate_paths(paths: Any) -> Path: ...
 
 
@@ -73,7 +73,8 @@ def inside_circle(cx: Any,
                   r: {__pow__}) -> (xy: Any) ->
 
 
-@_api.deprecated
+@_api.deprecated(
+    "3.3", alternative="Path.cleaned() and remove the final STOP if needed")
 def make_path_regular(p: {codes}) -> Union[Path, {codes}]: ...
 
 
@@ -107,7 +108,7 @@ def split_bezier_intersecting_with_closedpath(bezier: int,
 
 
 @np.vectorize
-@lru_cache
+@lru_cache(maxsize=128)
 def _comb(n: {__sub__, __add__},
           k: {__gt__}) -> Union[int, ndarray]: ...
 

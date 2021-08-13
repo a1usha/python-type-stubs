@@ -59,7 +59,7 @@ class ToolManager(object):
     def _remove_keys(self: ToolManager,
                      name: str) -> None: ...
 
-    @_api.delete_parameter
+    @_api.delete_parameter("3.3", "args")
     def update_keymap(self: ToolManager,
                       name: str,
                       key: Union[str, Iterable[str]],

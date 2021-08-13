@@ -5,7 +5,7 @@ from numpy.core._multiarray_umath import ndarray
 
 
 class LogitTransform(Transform):
-    @_api.rename_parameter
+    @_api.rename_parameter("3.3", "nonpos", "nonpositive")
     def __init__(self: LogitTransform,
                  nonpositive: str = 'mask') -> Optional[Any]: ...
 
@@ -18,7 +18,7 @@ class LogitTransform(Transform):
 
 
 class LogTransform(Transform):
-    @_api.rename_parameter
+    @_api.rename_parameter("3.3", "nonpos", "nonpositive")
     def __init__(self: LogTransform,
                  base: {__le__, __eq__},
                  nonpositive: str = 'clip') -> Any: ...
@@ -44,7 +44,7 @@ class SymmetricalLogTransform(Transform):
 
 
 class LogitScale(ScaleBase):
-    @_api.rename_parameter
+    @_api.rename_parameter("3.3", "nonpos", "nonpositive")
     def __init__(self: LogitScale,
                  axis: Axis,
                  nonpositive: str = 'mask',
@@ -76,11 +76,11 @@ class FuncScale(ScaleBase):
 
 
 class LogScale(ScaleBase):
-    @_api.deprecated
+    @_api.deprecated("3.3", alternative="scale.LogTransform")
     @property
     def LogTransform(self: LogScale) -> Type[LogTransform]: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3", alternative="scale.InvertedLogTransform")
     @property
     def InvertedLogTransform(self: LogScale) -> Type[InvertedLogTransform]: ...
 
@@ -101,11 +101,12 @@ class LogScale(ScaleBase):
 
 
 class SymmetricalLogScale(ScaleBase):
-    @_api.deprecated
+    @_api.deprecated("3.3", alternative="scale.SymmetricalLogTransform")
     @property
     def SymmetricalLogTransform(self: SymmetricalLogScale) -> Type[SymmetricalLogTransform]: ...
 
-    @_api.deprecated
+    @_api.deprecated(
+        "3.3", alternative="scale.InvertedSymmetricalLogTransform")
     @property
     def InvertedSymmetricalLogTransform(self: SymmetricalLogScale) -> Type[InvertedSymmetricalLogTransform]: ...
 
@@ -121,7 +122,7 @@ class SymmetricalLogScale(ScaleBase):
 
 
 class LogisticTransform(Transform):
-    @_api.rename_parameter
+    @_api.rename_parameter("3.3", "nonpos", "nonpositive")
     def __init__(self: LogisticTransform,
                  nonpositive: str = 'mask') -> Optional[Any]: ...
 

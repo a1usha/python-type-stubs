@@ -8,11 +8,11 @@ from numpy.core._multiarray_umath import ndarray
 
 
 class Line2D(Artist):
-    @_api.deprecated
+    @_api.deprecated("3.4")
     @_api.classproperty
     def validCap(cls: Line2D) -> tuple[Any, ...]: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4")
     @_api.classproperty
     def validJoin(cls: Line2D) -> tuple[Any, ...]: ...
 

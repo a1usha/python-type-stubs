@@ -21,7 +21,7 @@ class MarkerStyle(object):
 
     def get_fillstyle(self: MarkerStyle) -> Optional[str]: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4", alternative="a new marker")
     def set_fillstyle(self: MarkerStyle,
                       fillstyle: Any) -> Optional[Any]: ...
 
@@ -34,7 +34,7 @@ class MarkerStyle(object):
 
     def get_marker(self: MarkerStyle) -> Union[ndarray, str, Path, Sized, Iterable, int, float]: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4", alternative="a new marker")
     def set_marker(self: MarkerStyle,
                    marker: Any) -> Any: ...
 

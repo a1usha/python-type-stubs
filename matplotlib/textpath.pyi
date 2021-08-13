@@ -54,7 +54,7 @@ class TextToPath(object):
             tuple[list[Union[tuple[Any, Any], tuple[int, int]]], list[uint8]]]]: ...
 
     @staticmethod
-    @functools.lru_cache
+    @functools.lru_cache(50)
     def _get_ps_font_and_encoding(texname: Any) -> tuple[FT2Font, Optional[Iterable]]: ...
 
 

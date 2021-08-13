@@ -7,57 +7,6 @@ from typing import Union
 from numpy.core._multiarray_umath import ndarray
 
 
-@docstring.dedent_interpd
-def cohere(x: {__len__},
-           y: Any,
-           NFFT: int = 256,
-           Fs: int = 2,
-           detrend: (x: Any, axis: int),
-           window: (x: {__len__}),
-           noverlap: int = 0,
-           pad_to: Any = None,
-           sides: str = 'default',
-           scale_by_freq: Any = None) -> Any: ...
-
-
-@docstring.dedent_interpd
-def csd(x: Any,
-        y: Any,
-        NFFT: int = None,
-        Fs: int = None,
-        detrend: (x: Any, axis: int),
-        window: (x: {__len__}),
-        noverlap: int = None,
-        pad_to: Any = None,
-        sides: str = None,
-        scale_by_freq: Any = None) -> Any: ...
-
-
-@docstring.dedent_interpd
-def psd(x: Any,
-        NFFT: int = None,
-        Fs: int = None,
-        detrend: (x: Any, axis: int),
-        window: (x: {__len__}),
-        noverlap: int = None,
-        pad_to: Any = None,
-        sides: str = None,
-        scale_by_freq: Any = None) -> Any: ...
-
-
-@docstring.dedent_interpd
-def specgram(x: Union[ndarray, Iterable, int, float],
-             NFFT: Any = None,
-             Fs: Any = None,
-             detrend: Any = None,
-             window: Any = None,
-             noverlap: int = None,
-             pad_to: Any = None,
-             sides: Any = None,
-             scale_by_freq: Any = None,
-             mode: str = None) -> Any: ...
-
-
 class GaussianKDE(object):
     def __init__(self: GaussianKDE,
                  dataset: Union[ndarray, Iterable, int, float],
@@ -119,4 +68,55 @@ def _single_spectrum_helper(mode: {__ne__},
                             window: Any = None,
                             pad_to: Any = None,
                             sides: Any = None) -> tuple[
-    Union[None, object, ndarray, int, float, complex], Optional[ndarray]]: ...
+    Union[None, ndarray, int, float, complex], Optional[ndarray]]: ...
+
+
+@docstring.dedent_interpd
+def specgram(x: Union[ndarray, Iterable, int, float],
+             NFFT: Any = None,
+             Fs: Any = None,
+             detrend: Any = None,
+             window: Any = None,
+             noverlap: int = None,
+             pad_to: Any = None,
+             sides: Any = None,
+             scale_by_freq: Any = None,
+             mode: str = None) -> Any: ...
+
+
+@docstring.dedent_interpd
+def psd(x: Any,
+        NFFT: int = None,
+        Fs: int = None,
+        detrend: (x: Any, axis: int),
+        window: (x: {__len__}),
+        noverlap: int = None,
+        pad_to: Any = None,
+        sides: str = None,
+        scale_by_freq: Any = None) -> Any: ...
+
+
+@docstring.dedent_interpd
+def csd(x: Any,
+        y: Any,
+        NFFT: int = None,
+        Fs: int = None,
+        detrend: (x: Any, axis: int),
+        window: (x: {__len__}),
+        noverlap: int = None,
+        pad_to: Any = None,
+        sides: str = None,
+        scale_by_freq: Any = None) -> Any: ...
+
+
+@docstring.dedent_interpd
+def cohere(x: {__len__},
+           y: Any,
+           NFFT: int = 256,
+           Fs: int = 2,
+           detrend: (x: Any, axis: int),
+           window: (x: {__len__}),
+           noverlap: int = 0,
+           pad_to: Any = None,
+           sides: str = 'default',
+           scale_by_freq: Any = None) -> Any: ...

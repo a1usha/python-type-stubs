@@ -12,6 +12,98 @@ from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedArray
 
 
+class QuadContourSet(ContourSet):
+    def _process_args(self: QuadContourSet,
+                      corner_mask: Any = None,
+                      *args,
+                      **kwargs) -> dict[str, Any]: ...
+
+    def _get_allsegs_and_allkinds(self: QuadContourSet) -> tuple[list[Optional[Any]], Optional[list]]: ...
+
+    def _contour_args(self: QuadContourSet,
+                      args: tuple[Any, ...],
+                      kwargs: Any) -> tuple[ndarray, ndarray, Optional[MaskedArray]]: ...
+
+    def _check_xyz(self: QuadContourSet,
+                   args: tuple[Any, ...],
+                   kwargs: Any) -> tuple[ndarray, ndarray, MaskedArray]: ...
+
+    def _initialize_x_y(self: QuadContourSet,
+                        z: MaskedArray) -> str: ...
+
+
+class ContourSet(ScalarMappable, ContourLabeler):
+    def __init__(self: ContourSet,
+                 ax: Any,
+                 levels: Any = None,
+                 filled: bool = False,
+                 linewidths: Any = None,
+                 linestyles: Any = None,
+                 hatches: tuple[None] = (None,),
+                 alpha: Any = None,
+                 origin: Any = None,
+                 extent: Any = None,
+                 cmap: Any = None,
+                 colors: Any = None,
+                 norm: Any = None,
+                 vmin: Any = None,
+                 vmax: Any = None,
+                 extend: str = 'neither',
+                 antialiased: Any = None,
+                 nchunk: int = 0,
+                 locator: Any = None,
+                 transform: Any = None,
+                 *args,
+                 **kwargs) -> Any: ...
+
+    def get_transform(self: ContourSet) -> Any: ...
+
+    def __getstate__(self: ContourSet) -> dict[str, Any]: ...
+
+    def legend_elements(self: ContourSet,
+                        variable_name: str = 'x',
+                        str_format: Any = str) -> Any: ...
+
+    def _process_args(self: ContourSet,
+                      *args,
+                      **kwargs) -> dict[str, Any]: ...
+
+    def _get_allsegs_and_allkinds(self: ContourSet) -> tuple[Any, list[None]]: ...
+
+    def _get_lowers_and_uppers(self: ContourSet) -> tuple[list[float], list[float]]: ...
+
+    def _make_paths(self: ContourSet,
+                    segs: Any,
+                    kinds: Any) -> list[Path]: ...
+
+    def changed(self: ContourSet) -> None: ...
+
+    def _autolev(self: ContourSet,
+                 N: Integral) -> Union[None, ndarray, {__len__}]: ...
+
+    def _process_contour_level_args(self: ContourSet,
+                                    args: tuple[Any, ...]) -> Any: ...
+
+    def _process_levels(self: ContourSet) -> None: ...
+
+    def _process_colors(self: ContourSet) -> None: ...
+
+    def _process_linewidths(self: ContourSet) -> Union[list[tuple[Optional[Any]]], list[tuple[Any]]]: ...
+
+    def _process_linestyles(self: ContourSet) -> Union[list[str], list[Optional[Any]]]: ...
+
+    def get_alpha(self: ContourSet) -> Any: ...
+
+    def set_alpha(self: ContourSet,
+                  alpha: Any) -> None: ...
+
+    def find_nearest_contour(self: ContourSet,
+                             x: float,
+                             y: float,
+                             indices: Optional[Iterable[int]] = None,
+                             pixel: bool = True) -> Any: ...
+
+
 class ContourLabeler(object):
     def clabel(self: ContourLabeler,
                levels: Union[ndarray, Iterable, int, float, None] = None,
@@ -34,7 +126,7 @@ class ContourLabeler(object):
                   y: Optional[Any],
                   lw: Any) -> bool: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4")
     def get_label_coords(self: ContourLabeler,
                          distances: Any,
                          XX: {__getitem__},
@@ -111,98 +203,6 @@ class ContourLabeler(object):
     def labels(self: ContourLabeler,
                inline: bool,
                inline_spacing: Any) -> None: ...
-
-
-class ContourSet(ScalarMappable, ContourLabeler):
-    def __init__(self: ContourSet,
-                 ax: Any,
-                 levels: Any = None,
-                 filled: bool = False,
-                 linewidths: Any = None,
-                 linestyles: Any = None,
-                 hatches: tuple[None] = (None,),
-                 alpha: Any = None,
-                 origin: Any = None,
-                 extent: Any = None,
-                 cmap: Any = None,
-                 colors: Any = None,
-                 norm: Any = None,
-                 vmin: Any = None,
-                 vmax: Any = None,
-                 extend: str = 'neither',
-                 antialiased: Any = None,
-                 nchunk: int = 0,
-                 locator: Any = None,
-                 transform: Any = None,
-                 *args,
-                 **kwargs) -> Any: ...
-
-    def get_transform(self: ContourSet) -> Any: ...
-
-    def __getstate__(self: ContourSet) -> dict[str, Any]: ...
-
-    def legend_elements(self: ContourSet,
-                        variable_name: str = 'x',
-                        str_format: Any = str) -> Any: ...
-
-    def _process_args(self: ContourSet,
-                      *args,
-                      **kwargs) -> dict[str, Any]: ...
-
-    def _get_allsegs_and_allkinds(self: ContourSet) -> tuple[Any, list[None]]: ...
-
-    def _get_lowers_and_uppers(self: ContourSet) -> tuple[list[float], list[float]]: ...
-
-    def _make_paths(self: ContourSet,
-                    segs: Any,
-                    kinds: Any) -> list[Path]: ...
-
-    def changed(self: ContourSet) -> None: ...
-
-    def _autolev(self: ContourSet,
-                 N: Integral) -> Union[None, ndarray, {__len__}]: ...
-
-    def _process_contour_level_args(self: ContourSet,
-                                    args: tuple[Any, ...]) -> Any: ...
-
-    def _process_levels(self: ContourSet) -> None: ...
-
-    def _process_colors(self: ContourSet) -> None: ...
-
-    def _process_linewidths(self: ContourSet) -> Union[list[tuple[Optional[Any]]], list[tuple[Any]]]: ...
-
-    def _process_linestyles(self: ContourSet) -> Union[list[str], list[Optional[Any]]]: ...
-
-    def get_alpha(self: ContourSet) -> Any: ...
-
-    def set_alpha(self: ContourSet,
-                  alpha: Any) -> None: ...
-
-    def find_nearest_contour(self: ContourSet,
-                             x: float,
-                             y: float,
-                             indices: Optional[Iterable[int]] = None,
-                             pixel: bool = True) -> Any: ...
-
-
-class QuadContourSet(ContourSet):
-    def _process_args(self: QuadContourSet,
-                      corner_mask: Any = None,
-                      *args,
-                      **kwargs) -> dict[str, Any]: ...
-
-    def _get_allsegs_and_allkinds(self: QuadContourSet) -> tuple[list[Optional[Any]], Optional[list]]: ...
-
-    def _contour_args(self: QuadContourSet,
-                      args: tuple[Any, ...],
-                      kwargs: Any) -> tuple[ndarray, ndarray, Optional[MaskedArray]]: ...
-
-    def _check_xyz(self: QuadContourSet,
-                   args: tuple[Any, ...],
-                   kwargs: Any) -> tuple[ndarray, ndarray, MaskedArray]: ...
-
-    def _initialize_x_y(self: QuadContourSet,
-                        z: MaskedArray) -> str: ...
 
 
 class ClabelText(Text):

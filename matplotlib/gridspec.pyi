@@ -90,7 +90,7 @@ class SubplotSpec(object):
 
     def get_geometry(self: SubplotSpec) -> tuple[Any, Any, int, int]: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3", alternative="rowspan, colspan")
     def get_rows_columns(self: SubplotSpec) -> tuple[Any, Any, Any, Any, Any, Any]: ...
 
     @property
@@ -107,7 +107,7 @@ class SubplotSpec(object):
 
     def is_last_col(self: SubplotSpec) -> bool: ...
 
-    @_api.delete_parameter
+    @_api.delete_parameter("3.4", "return_all")
     def get_position(self: SubplotSpec,
                      figure: Any,
                      return_all: bool = False) -> Union[tuple[Bbox, Any, Any, Any, Any], Bbox]: ...

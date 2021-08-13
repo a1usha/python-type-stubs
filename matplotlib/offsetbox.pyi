@@ -272,7 +272,7 @@ class AnnotationBbox(Artist, _AnnotationBase):
     def set_fontsize(self: AnnotationBbox,
                      s: Any = None) -> None: ...
 
-    @_api.delete_parameter
+    @_api.delete_parameter("3.3", "s")
     def get_fontsize(self: AnnotationBbox,
                      s: Any = None) -> Optional[Any]: ...
 
@@ -326,7 +326,7 @@ class DraggableBase(object):
     def on_motion(self: DraggableBase,
                   evt: Any) -> None: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3", alternative="self.on_motion")
     def on_motion_blit(self: DraggableBase,
                        evt: Any) -> Optional[Any]: ...
 
@@ -340,7 +340,7 @@ class DraggableBase(object):
 
     def disconnect(self: DraggableBase) -> None: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.3", alternative="self.ref_artist.contains")
     def artist_picker(self: DraggableBase,
                       artist: Any,
                       evt: Any) -> Any: ...
@@ -393,7 +393,7 @@ class OffsetImage(OffsetBox):
 
 
 class TextArea(OffsetBox):
-    @_api.delete_parameter
+    @_api.delete_parameter("3.4", "minimumdescent")
     def __init__(self: TextArea,
                  s: str,
                  textprops: dict = None,
@@ -410,11 +410,11 @@ class TextArea(OffsetBox):
 
     def get_multilinebaseline(self: TextArea) -> bool: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4")
     def set_minimumdescent(self: TextArea,
                            t: Any) -> Optional[Any]: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4")
     def get_minimumdescent(self: TextArea) -> bool: ...
 
     def set_transform(self: TextArea,

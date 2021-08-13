@@ -394,7 +394,7 @@ class DejaVuFonts(UnicodeFonts):
 
 
 class Glue(Node):
-    @_api.delete_parameter
+    @_api.delete_parameter("3.3", "copy")
     def __init__(self: Glue,
                  glue_type: str,
                  copy: bool = False) -> Any: ...
@@ -413,7 +413,7 @@ class TruetypeFonts(Fonts):
                  default_font_prop: Any,
                  mathtext_backend: Any) -> None: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4")
     def destroy(self: TruetypeFonts) -> Optional[Any]: ...
 
     def _get_font(self: TruetypeFonts,
@@ -491,7 +491,7 @@ class StixFonts(UnicodeFonts):
                           font_class: Any,
                           uniindex: Any) -> tuple[Union[str, int, tuple[int, int, str, int], None], int]: ...
 
-    @functools.lru_cache
+    @functools.lru_cache()
     def get_sized_alternatives_for_symbol(self: StixFonts,
                                           fontname: Any,
                                           sym: Any) -> Union[list[tuple[Any, str]], list[tuple[int, str]]]: ...
@@ -549,7 +549,7 @@ class Fonts(object):
                  default_font_prop: Any,
                  mathtext_backend: Any) -> None: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4")
     def destroy(self: Fonts) -> Optional[Any]: ...
 
     def get_kern(self: Fonts,
@@ -576,7 +576,7 @@ class Fonts(object):
                         h: Any,
                         d: Any) -> None: ...
 
-    @_api.rename_parameter
+    @_api.rename_parameter("3.4", "facename", "font")
     def render_glyph(self: Fonts,
                      ox: Any,
                      oy: Any,

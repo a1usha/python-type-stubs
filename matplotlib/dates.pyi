@@ -222,7 +222,7 @@ class AutoDateFormatter(Formatter):
 
 
 class DateFormatter(Formatter):
-    @_api.deprecated
+    @_api.deprecated("3.3")
     @property
     def illegal_s(self: DateFormatter) -> Pattern[str]: ...
 

@@ -84,7 +84,7 @@ class Path(object):
     def iter_bezier(self: Path,
                     **kwargs) -> Generator[tuple[BezierSegment, Any], Any, None]: ...
 
-    @_api.delete_parameter
+    @_api.delete_parameter("3.3", "quantize")
     def cleaned(self: Path,
                 transform: Any = None,
                 remove_nans: bool = False,
@@ -176,7 +176,7 @@ class Path(object):
               n: Any = None) -> Path: ...
 
     @staticmethod
-    @lru_cache
+    @lru_cache(8)
     def hatch(hatchpattern: Optional[{count}],
               density: int = 6) -> Optional[Path]: ...
 

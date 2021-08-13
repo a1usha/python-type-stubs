@@ -10,7 +10,7 @@ from matplotlib.text import Text
 class _AxesBase(Artist):
     def __str__(self: _AxesBase) -> str: ...
 
-    @_api.make_keyword_only
+    @_api.make_keyword_only("3.4", "facecolor")
     def __init__(self: _AxesBase,
                  fig: Any,
                  rect: Any,
@@ -235,7 +235,8 @@ class _AxesBase(Artist):
                        updatex: bool = True,
                        updatey: bool = True) -> None: ...
 
-    @_api.deprecated
+    @_api.deprecated(
+        "3.3", alternative="ax.dataLim.set(Bbox.union([ax.dataLim, bounds]))")
     def update_datalim_bounds(self: _AxesBase,
                               bounds: Any) -> Optional[Any]: ...
 
@@ -304,7 +305,8 @@ class _AxesBase(Artist):
                                renderer: Optional[{open_group, option_image_nocomposite, close_group}]) -> None: ...
 
     @martist.allow_rasterization
-    @_api.delete_parameter
+    @_api.delete_parameter(
+        "3.3", "inframe", alternative="Axes.redraw_in_frame()")
     def draw(self: _AxesBase,
              renderer: Optional[{open_group, option_image_nocomposite, close_group}] = None,
              inframe: bool = False) -> Optional[Any]: ...

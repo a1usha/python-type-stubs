@@ -20,12 +20,9 @@ class Container(tuple):
     def get_children(self: Container) -> list[Optional[Any]]: ...
 
 
-class BarContainer(Container):
-    def __init__(self: BarContainer,
-                 patches: Any,
-                 errorbar: Any = None,
-                 datavalues: Any = None,
-                 orientation: Any = None,
+class StemContainer(Container):
+    def __init__(self: StemContainer,
+                 markerline_stemlines_baseline: Union[Iterable, tuple],
                  **kwargs) -> None: ...
 
 
@@ -37,7 +34,10 @@ class ErrorbarContainer(Container):
                  **kwargs) -> None: ...
 
 
-class StemContainer(Container):
-    def __init__(self: StemContainer,
-                 markerline_stemlines_baseline: Union[Iterable, tuple],
+class BarContainer(Container):
+    def __init__(self: BarContainer,
+                 patches: Any,
+                 errorbar: Any = None,
+                 datavalues: Any = None,
+                 orientation: Any = None,
                  **kwargs) -> None: ...

@@ -6,6 +6,63 @@ from typing import Union
 from numpy.core._multiarray_umath import ndarray
 
 
+class Quiver(PolyCollection):
+    @docstring.Substitution(_quiver_doc)
+    def __init__(self: Quiver,
+                 ax: {transData, figure},
+                 scale: Any = None,
+                 headwidth: int = 3,
+                 headlength: int = 5,
+                 headaxislength: float = 4.5,
+                 minshaft: int = 1,
+                 minlength: int = 1,
+                 units: str = 'width',
+                 scale_units: Any = None,
+                 angles: str = 'uv',
+                 width: Any = None,
+                 color: str = 'k',
+                 pivot: str = 'tail',
+                 *args,
+                 **kwargs) -> Optional[Any]: ...
+
+    @_api.deprecated("3.3", alternative="axes")
+    def ax(self: Quiver) -> Any: ...
+
+    def remove(self: Quiver) -> None: ...
+
+    def _init(self: Quiver) -> None: ...
+
+    def get_datalim(self: Quiver,
+                    transData: {depth}) -> Bbox: ...
+
+    @martist.allow_rasterization
+    def draw(self: Quiver,
+             renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
+
+    def set_UVC(self: Quiver,
+                U: Any,
+                V: Any,
+                C: Any = None) -> Any: ...
+
+    def _dots_per_unit(self: Quiver,
+                       units: str) -> float: ...
+
+    def _set_transform(self: Quiver) -> Affine2D: ...
+
+    def _angles_lengths(self: Quiver,
+                        U: {__add__},
+                        V: ndarray,
+                        eps: int = 1) -> tuple[None, float]: ...
+
+    def _make_verts(self: Quiver,
+                    U: ndarray,
+                    V: {__mul__},
+                    angles: str) -> Optional[ndarray]: ...
+
+    def _h_arrows(self: Quiver,
+                  length: float) -> tuple[Any, None]: ...
+
+
 class Barbs(PolyCollection):
     @docstring.interpd
     def __init__(self: Barbs,
@@ -49,63 +106,6 @@ class Barbs(PolyCollection):
 
     def set_offsets(self: Barbs,
                     xy: Any) -> None: ...
-
-
-class Quiver(PolyCollection):
-    @docstring.Substitution
-    def __init__(self: Quiver,
-                 ax: {transData, figure},
-                 scale: Any = None,
-                 headwidth: int = 3,
-                 headlength: int = 5,
-                 headaxislength: float = 4.5,
-                 minshaft: int = 1,
-                 minlength: int = 1,
-                 units: str = 'width',
-                 scale_units: Any = None,
-                 angles: str = 'uv',
-                 width: Any = None,
-                 color: str = 'k',
-                 pivot: str = 'tail',
-                 *args,
-                 **kwargs) -> Optional[Any]: ...
-
-    @_api.deprecated
-    def ax(self: Quiver) -> Any: ...
-
-    def remove(self: Quiver) -> None: ...
-
-    def _init(self: Quiver) -> None: ...
-
-    def get_datalim(self: Quiver,
-                    transData: {depth}) -> Bbox: ...
-
-    @martist.allow_rasterization
-    def draw(self: Quiver,
-             renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
-
-    def set_UVC(self: Quiver,
-                U: Any,
-                V: Any,
-                C: Any = None) -> Any: ...
-
-    def _dots_per_unit(self: Quiver,
-                       units: str) -> float: ...
-
-    def _set_transform(self: Quiver) -> Affine2D: ...
-
-    def _angles_lengths(self: Quiver,
-                        U: {__add__},
-                        V: ndarray,
-                        eps: int = 1) -> tuple[None, float]: ...
-
-    def _make_verts(self: Quiver,
-                    U: ndarray,
-                    V: {__mul__},
-                    angles: str) -> Optional[ndarray]: ...
-
-    def _h_arrows(self: Quiver,
-                  length: float) -> tuple[Any, None]: ...
 
 
 class QuiverKey(Artist):

@@ -168,27 +168,27 @@ class MathTextParser(object):
               prop: FontProperties = None,
               _force_standard_ps_fonts: bool = False) -> Any: ...
 
-    @functools.lru_cache
+    @functools.lru_cache(50)
     def _parse_cached(self: MathTextParser,
                       s: str,
                       dpi: Any,
                       prop: Optional[{get_math_fontfamily, get_size_in_points}],
                       force_standard_ps_fonts: Any) -> Any: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4", alternative="mathtext.math_to_image")
     def to_mask(self: MathTextParser,
                 texstr: str,
                 dpi: float = 120,
                 fontsize: int = 14) -> Any: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4", alternative="mathtext.math_to_image")
     def to_rgba(self: MathTextParser,
                 texstr: str,
                 color: Any = 'black',
                 dpi: float = 120,
                 fontsize: int = 14) -> Any: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4", alternative="mathtext.math_to_image")
     def to_png(self: MathTextParser,
                filename: {__eq__, name},
                texstr: str,
@@ -196,7 +196,7 @@ class MathTextParser(object):
                dpi: float = 120,
                fontsize: int = 14) -> int: ...
 
-    @_api.deprecated
+    @_api.deprecated("3.4", alternative="mathtext.math_to_image")
     def get_depth(self: MathTextParser,
                   texstr: str,
                   dpi: float = 120,
@@ -233,7 +233,7 @@ def math_to_image(s: str,
                   format: Optional[str] = None) -> Any: ...
 
 
-@_api.deprecated
+@_api.deprecated("3.4")
 def ship(ox: Any,
          oy: {__add__},
          box: {height, glue_order, glue_sign, children}) -> Optional[Any]: ...
