@@ -170,7 +170,8 @@ class FigureBase(Artist):
 
     def _suplabels(self: FigureBase,
                    t: str,
-                   info: Union[dict[str, Union[str, float, int]], dict[str, Union[str, float]]]x: Any = ...,
+                   info: Union[dict[str, Union[str, float, int]], dict[str, Union[str, float]]],
+                   x: Any = ...,
                    y: Any = ...,
                    text: str = ...,
                    color: Any = ...,
@@ -265,7 +266,8 @@ class FigureBase(Artist):
              x: float,
              y: float,
              s: str,
-             fontdict: Optional[dict] = None x: Any = ...,
+             fontdict: Optional[dict] = None,
+             x: Any = ...,
              y: Any = ...,
              text: str = ...,
              color: Any = ...,
@@ -308,7 +310,8 @@ class FigureBase(Artist):
 
     def add_gridspec(self: FigureBase,
                      nrows: int = 1,
-                     ncols: int = 1nrows: Any = ...,
+                     ncols: int = 1,
+                     nrows: Any = ...,
                      ncols: Any = ...,
                      figure: Any = ...,
                      left: Any = ...,
@@ -332,7 +335,8 @@ class FigureBase(Artist):
                    **kwargs) -> Union[int, float, complex, None, ndarray]: ...
 
     def add_subfigure(self: FigureBase,
-                      subplotspec: Any parent: Any = ...,
+                      subplotspec: Any,
+                      parent: Any = ...,
                       subplotspec: Any = ...,
                       facecolor: Any = ...,
                       edgecolor: Any = ...,

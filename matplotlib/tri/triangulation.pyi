@@ -20,7 +20,6 @@ class Triangulation(object):
 
     @staticmethod
     def get_from_args_and_kwargs(*args,
-                                 ,
                                  **kwargs) -> tuple[Triangulation, Any, dict[str, Any]]: ...
 
     def get_trifinder(self: Triangulation) -> TrapezoidMapTriFinder: ...

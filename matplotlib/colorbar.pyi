@@ -197,7 +197,6 @@ def _add_disjoint_kwargs(d: dict[str, Any],
 
 
 def _set_ticks_on_axis_warn(*args,
-                            ,
                             **kwargs) -> None: ...
 
 

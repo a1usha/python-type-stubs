@@ -219,7 +219,8 @@ class Rectangle(Patch):
                  xy: tuple[float, float],
                  width: float,
                  height: float,
-                 angle: float = 0.0edgecolor: Any = ...,
+                 angle: float = 0.0,
+                 edgecolor: Any = ...,
                  facecolor: Any = ...,
                  color: Any = ...,
                  linewidth: int = ...,
@@ -267,25 +268,6 @@ class Rectangle(Patch):
                    *args) -> None: ...
 
     def get_bbox(self: Rectangle) -> Bbox: ...
-
-
-class StepPatch(PathPatch):
-    @docstring.dedent_interpd
-    def __init__(self: StepPatch,
-                 values: Union[ndarray, Iterable, int, float],
-                 edges: Union[ndarray, Iterable, int, float],
-                 orientation: str = 'vertical',
-                 baseline: Union[float, ndarray, Iterable, int, None] = 0,
-                 **kwargs) -> Optional[Any]: ...
-
-    def _update_path(self: StepPatch) -> Any: ...
-
-    def get_data(self: StepPatch) -> StairData: ...
-
-    def set_data(self: StepPatch,
-                 values: int = None,
-                 edges: Optional[int] = None,
-                 baseline: Union[float, int] = None) -> Any: ...
 
 
 class Simple(_Base):
@@ -451,7 +433,8 @@ class FancyArrowPatch(Patch):
                  shrinkB: int = 2,
                  mutation_scale: int = 1,
                  mutation_aspect: int = 1,
-                 dpi_cor: int = 1edgecolor: Any = ...,
+                 dpi_cor: int = 1,
+                 edgecolor: Any = ...,
                  facecolor: Any = ...,
                  color: Any = ...,
                  linewidth: int = ...,
@@ -664,6 +647,25 @@ class BoxStyle(_Style):
     pass
 
 
+class StepPatch(PathPatch):
+    @docstring.dedent_interpd
+    def __init__(self: StepPatch,
+                 values: Union[ndarray, Iterable, int, float],
+                 edges: Union[ndarray, Iterable, int, float],
+                 orientation: str = 'vertical',
+                 baseline: Union[float, ndarray, Iterable, int, None] = 0,
+                 **kwargs) -> Optional[Any]: ...
+
+    def _update_path(self: StepPatch) -> Any: ...
+
+    def get_data(self: StepPatch) -> StairData: ...
+
+    def set_data(self: StepPatch,
+                 values: int = None,
+                 edges: Optional[int] = None,
+                 baseline: Union[float, int] = None) -> Any: ...
+
+
 class CirclePolygon(RegularPolygon):
     def __str__(self: CirclePolygon) -> str: ...
 
@@ -687,7 +689,8 @@ class FancyBboxPatch(Patch):
                  boxstyle: Union[str, BoxStyle] = "round",
                  bbox_transmuter: Any = None,
                  mutation_scale: float = 1,
-                 mutation_aspect: float = 1edgecolor: Any = ...,
+                 mutation_aspect: float = 1,
+                 edgecolor: Any = ...,
                  facecolor: Any = ...,
                  color: Any = ...,
                  linewidth: int = ...,
@@ -910,7 +913,8 @@ class Arc(Ellipse):
                  height: float,
                  angle: float = 0.0,
                  theta1: Union[float, int] = 0.0,
-                 theta2: Union[float, int] = 360.0edgecolor: Any = ...,
+                 theta2: Union[float, int] = 360.0,
+                 edgecolor: Any = ...,
                  facecolor: Any = ...,
                  color: Any = ...,
                  linewidth: int = ...,

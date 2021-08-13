@@ -748,7 +748,6 @@ def blended_transform_factory(x_transform: Any,
 
 
 def _make_str_method(*args,
-                     ,
                      **kwargs) -> (self: Any) ->
 
 

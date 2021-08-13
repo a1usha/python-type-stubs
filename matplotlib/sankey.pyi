@@ -54,7 +54,8 @@ class Sankey(object):
             pathlengths: Iterable[float] = 0.25,
             prior: int = None,
             connect: tuple[int, int] = (0, 0),
-            rotation: float = 0path: Any = ...,
+            rotation: float = 0,
+            path: Any = ...,
             **kwargs) -> Sankey: ...
 
     def finish(self: Sankey) -> list: ...

@@ -447,5 +447,4 @@ def _get_packed_offsets(wd_list: list[tuple[float, float]],
 
 
 def bbox_artist(*args,
-                ,
                 **kwargs) -> None: ...

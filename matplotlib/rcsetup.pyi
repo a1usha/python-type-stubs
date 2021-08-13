@@ -22,7 +22,6 @@ class _ignorecase(list):
 
 
 def cycler(*args,
-           ,
            **kwargs) -> Cycler: ...
 
 

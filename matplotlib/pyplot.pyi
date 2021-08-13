@@ -28,7 +28,6 @@ def rcdefaults() -> Optional[Any]: ...
 
 @functools.wraps
 def set_loglevel(*args,
-                 ,
                  **kwargs) -> None: ...
 
 
@@ -45,7 +44,8 @@ def angle_spectrum(x: Any,
                    window: Any = None,
                    pad_to: Any = None,
                    sides: Any = None,
-                   data: Any = None xdata: ndarray = ...,
+                   data: Any = None,
+                   xdata: ndarray = ...,
                    ydata: ndarray = ...,
                    linewidth: Optional[Any] = ...,
                    linestyle: str = ...,
@@ -100,7 +100,8 @@ def axes(arg: Any = None,
 @_copy_docstring_and_deprecators
 def axhline(y: int = 0,
             xmin: int = 0,
-            xmax: int = 1xdata: ndarray = ...,
+            xmax: int = 1,
+            xdata: ndarray = ...,
             ydata: ndarray = ...,
             linewidth: Optional[Any] = ...,
             linestyle: str = ...,
@@ -127,7 +128,8 @@ def axhline(y: int = 0,
 def axhspan(ymin: Any,
             ymax: Any,
             xmin: int = 0,
-            xmax: int = 1xy: Any = ...,
+            xmax: int = 1,
+            xy: Any = ...,
             closed: bool = ...,
             **kwargs) -> Any: ...
 
@@ -141,7 +143,8 @@ def axis(*args,
 @_copy_docstring_and_deprecators
 def axline(xy1: Any,
            xy2: Any = None,
-           slope: Any = None xdata: ndarray = ...,
+           slope: Any = None,
+           xdata: ndarray = ...,
            ydata: ndarray = ...,
            linewidth: Optional[Any] = ...,
            linestyle: str = ...,
@@ -167,7 +170,8 @@ def axline(xy1: Any,
 @_copy_docstring_and_deprecators
 def axvline(x: int = 0,
             ymin: int = 0,
-            ymax: int = 1xdata: ndarray = ...,
+            ymax: int = 1,
+            xdata: ndarray = ...,
             ydata: ndarray = ...,
             linewidth: Optional[Any] = ...,
             linestyle: str = ...,
@@ -194,7 +198,8 @@ def axvline(x: int = 0,
 def axvspan(xmin: Any,
             xmax: Any,
             ymin: int = 0,
-            ymax: int = 1xy: Any = ...,
+            ymax: int = 1,
+            xy: Any = ...,
             closed: bool = ...,
             **kwargs) -> Any: ...
 
@@ -205,7 +210,8 @@ def bar(x: Any,
         width: float = 0.8,
         bottom: Any = None,
         align: str = 'center',
-        data: Any = None xy: tuple[float, float] = ...,
+        data: Any = None,
+        xy: tuple[float, float] = ...,
         width: float = ...,
         height: float = ...,
         angle: Any = ...,
@@ -232,7 +238,8 @@ def barh(y: Any,
          width: Any,
          height: float = 0.8,
          left: Any = None,
-         align: str = 'center'xy: tuple[float, float] = ...,
+         align: str = 'center',
+         xy: tuple[float, float] = ...,
          width: float = ...,
          height: float = ...,
          angle: Any = ...,
@@ -278,7 +285,8 @@ def boxplot(x: Any,
 @_copy_docstring_and_deprecators
 def broken_barh(xranges: Any,
                 yrange: Any,
-                data: Any = None xranges: Any = ...,
+                data: Any = None,
+                xranges: Any = ...,
                 yrange: Any = ...,
                 **kwargs) -> Any: ...
 
@@ -346,7 +354,6 @@ def draw() -> None: ...
 
 
 def draw_if_interactive(*args,
-                        ,
                         **kwargs) -> None: ...
 
 
@@ -397,7 +404,6 @@ def figimage(X: Any,
 
 
 def figlegend(*args,
-              ,
               **kwargs) -> Any: ...
 
 
@@ -425,7 +431,8 @@ def figure(num: Any = None,
 
 @_copy_docstring_and_deprecators
 def fill(*args,
-         data: Any = None xy: Any = ...,
+         data: Any = None,
+         xy: Any = ...,
          closed: bool = ...,
          **kwargs) -> Any: ...
 
@@ -462,8 +469,7 @@ def flag() -> None: ...
 
 
 @_copy_docstring_and_deprecators
-def gca(,
-        **kwargs) -> Any: ...
+def gca(**kwargs) -> Any: ...
 
 
 def gcf() -> Any: ...
@@ -535,7 +541,8 @@ def hexbin(x: Any,
            reduce_C_function: Union[{__name__}, Callable, functools.pyi, (args: Union[Iterable, tuple], kwargs: dict),
            mincnt: Any = None,
            marginals: bool = False,
-           data: Any = None verts: Any = ...,
+           data: Any = None,
+           verts: Any = ...,
            sizes: Any = ...,
            closed: Any = ...,
            **kwargs) -> Any: ...
@@ -557,7 +564,8 @@ def hist(x: Any,
          color: Any = None,
          label: Any = None,
          stacked: bool = False,
-         data: Any = None edgecolor: Any = ...,
+         data: Any = None,
+         edgecolor: Any = ...,
          facecolor: Any = ...,
          color: Any = ...,
          linewidth: int = ...,
@@ -590,7 +598,8 @@ def hlines(y: Any,
            colors: Any = None,
            linestyles: str = 'solid',
            label: str = '',
-           data: Any = None segments: list = ...,
+           data: Any = None,
+           segments: list = ...,
            zorder: Any = ...,
            **kwargs) -> Any: ...
 
@@ -651,7 +660,6 @@ def jet() -> None: ...
 
 @_copy_docstring_and_deprecators
 def legend(*args,
-           ,
            **kwargs) -> Any: ...
 
 
@@ -663,7 +671,6 @@ def locator_params(axis: str = 'both',
 
 @_copy_docstring_and_deprecators
 def loglog(*args,
-           ,
            **kwargs) -> Any: ...
 
 
@@ -678,7 +685,8 @@ def magnitude_spectrum(x: Any,
                        pad_to: Any = None,
                        sides: Any = None,
                        scale: Any = None,
-                       data: Any = None xdata: ndarray = ...,
+                       data: Any = None,
+                       xdata: ndarray = ...,
                        ydata: ndarray = ...,
                        linewidth: Optional[Any] = ...,
                        linestyle: str = ...,
@@ -722,7 +730,6 @@ def minorticks_on() -> Any: ...
 
 
 def new_figure_manager(*args,
-                       ,
                        **kwargs) -> FigureManagerBase: ...
 
 
@@ -740,7 +747,8 @@ def pcolor(*args,
            cmap: Any = None,
            vmin: Any = None,
            vmax: Any = None,
-           data: Any = None verts: Any = ...,
+           data: Any = None,
+           verts: Any = ...,
            sizes: Any = ...,
            closed: Any = ...,
            **kwargs) -> Any: ...
@@ -755,7 +763,8 @@ def pcolormesh(*args,
                vmax: Any = None,
                shading: Any = None,
                antialiased: bool = False,
-               data: Any = None meshWidth: Any = ...,
+               data: Any = None,
+               meshWidth: Any = ...,
                meshHeight: Any = ...,
                coordinates: Any = ...,
                antialiased: Any = ...,
@@ -770,7 +779,8 @@ def phase_spectrum(x: Any,
                    window: Any = None,
                    pad_to: Any = None,
                    sides: Any = None,
-                   data: Any = None xdata: ndarray = ...,
+                   data: Any = None,
+                   xdata: ndarray = ...,
                    ydata: ndarray = ...,
                    linewidth: Optional[Any] = ...,
                    linestyle: str = ...,
@@ -824,7 +834,8 @@ def plasma() -> None: ...
 def plot(*args,
          scalex: bool = True,
          scaley: bool = True,
-         data: Any = None xdata: ndarray = ...,
+         data: Any = None,
+         xdata: ndarray = ...,
          ydata: ndarray = ...,
          linewidth: Optional[Any] = ...,
          linestyle: str = ...,
@@ -854,7 +865,8 @@ def plot_date(x: Any,
               tz: Any = None,
               xdate: bool = True,
               ydate: bool = False,
-              data: Any = None xdata: ndarray = ...,
+              data: Any = None,
+              xdata: ndarray = ...,
               ydata: ndarray = ...,
               linewidth: Optional[Any] = ...,
               linestyle: str = ...,
@@ -878,7 +890,6 @@ def plot_date(x: Any,
 
 
 def polar(*args,
-          ,
           **kwargs) -> PolarAxes: ...
 
 
@@ -917,7 +928,8 @@ def rcdefaults() -> Optional[Any]: ...
 def rgrids(radii: Any = None,
            labels: Any = None,
            angle: float = None,
-           fmt: Optional[str] = None x: Any = ...,
+           fmt: Optional[str] = None,
+           x: Any = ...,
            y: Any = ...,
            text: str = ...,
            color: Any = ...,
@@ -937,7 +949,8 @@ def rgrids(radii: Any = None,
 def rgrids(radii: Any = None,
            labels: Any = None,
            angle: float = None,
-           fmt: Optional[str] = None x: Any = ...,
+           fmt: Optional[str] = None,
+           x: Any = ...,
            y: Any = ...,
            text: str = ...,
            color: Any = ...,
@@ -957,7 +970,8 @@ def rgrids(radii: Any = None,
 def rgrids(radii: Any = None,
            labels: Any = None,
            angle: float = None,
-           fmt: Optional[str] = None x: Any = ...,
+           fmt: Optional[str] = None,
+           x: Any = ...,
            y: Any = ...,
            text: str = ...,
            color: Any = ...,
@@ -976,7 +990,6 @@ def rgrids(radii: Any = None,
 
 @_copy_docstring_and_deprecators
 def savefig(*args,
-            ,
             **kwargs) -> Any: ...
 
 
@@ -997,7 +1010,8 @@ def scatter(x: Any,
             linewidths: Any = None,
             edgecolors: Any = None,
             plotnonfinite: bool = False,
-            data: Any = None edgecolors: Any = ...,
+            data: Any = None,
+            edgecolors: Any = ...,
             facecolors: Any = ...,
             linewidths: Any = ...,
             linestyles: Any = ...,
@@ -1022,13 +1036,11 @@ def sci(im: ScalarMappable) -> Any: ...
 
 @_copy_docstring_and_deprecators
 def semilogx(*args,
-             ,
              **kwargs) -> Any: ...
 
 
 @_copy_docstring_and_deprecators
 def semilogy(*args,
-             ,
              **kwargs) -> Any: ...
 
 
@@ -1042,7 +1054,6 @@ def setp(*args,
 
 
 def show(*args,
-         ,
          **kwargs) -> None: ...
 
 
@@ -1103,7 +1114,6 @@ def streamplot(x: Any,
 
 @docstring.dedent_interpd
 def subplot(*args,
-            ,
             **kwargs) -> Any: ...
 
 
@@ -1160,7 +1170,8 @@ def switch_backend(newbackend: str) -> None: ...
 def text(x: Any,
          y: Any,
          s: Any,
-         fontdict: Any = None x: Any = ...,
+         fontdict: Any = None,
+         x: Any = ...,
          y: Any = ...,
          text: str = ...,
          color: Any = ...,
@@ -1179,7 +1190,8 @@ def text(x: Any,
 
 def thetagrids(angles: Any = None,
                labels: Any = None,
-               fmt: Optional[str] = None x: Any = ...,
+               fmt: Optional[str] = None,
+               x: Any = ...,
                y: Any = ...,
                text: str = ...,
                color: Any = ...,
@@ -1222,7 +1234,8 @@ def title(label: Any,
           fontdict: Any = None,
           loc: Any = None,
           pad: Any = None,
-          y: Any = None x: Any = ...,
+          y: Any = None,
+          x: Any = ...,
           y: Any = ...,
           text: str = ...,
           color: Any = ...,
@@ -1241,13 +1254,11 @@ def title(label: Any,
 
 @_copy_docstring_and_deprecators
 def tricontour(*args,
-               ,
                **kwargs) -> Any: ...
 
 
 @_copy_docstring_and_deprecators
 def tricontourf(*args,
-                ,
                 **kwargs) -> Any: ...
 
 
@@ -1265,7 +1276,6 @@ def tripcolor(*args,
 
 @_copy_docstring_and_deprecators
 def triplot(*args,
-            ,
             **kwargs) -> Any: ...
 
 
@@ -1302,7 +1312,8 @@ def vlines(x: Any,
            colors: Any = None,
            linestyles: str = 'solid',
            label: str = '',
-           data: Any = None segments: list = ...,
+           data: Any = None,
+           segments: list = ...,
            zorder: Any = ...,
            **kwargs) -> Any: ...
 
@@ -1339,7 +1350,6 @@ def xlabel(xlabel: Any,
 
 
 def xlim(*args,
-         ,
          **kwargs) -> Any: ...
 
 
@@ -1362,7 +1372,6 @@ def ylabel(ylabel: Any,
 
 
 def ylim(*args,
-         ,
          **kwargs) -> Any: ...
 
 
@@ -1470,7 +1479,8 @@ def psd(x: Any,
         sides: Any = None,
         scale_by_freq: Any = None,
         return_line: Any = None,
-        data: Any = None xdata: ndarray = ...,
+        data: Any = None,
+        xdata: ndarray = ...,
         ydata: ndarray = ...,
         linewidth: Optional[Any] = ...,
         linestyle: str = ...,
@@ -1506,7 +1516,8 @@ def csd(x: Any,
         sides: Any = None,
         scale_by_freq: Any = None,
         return_line: Any = None,
-        data: Any = None xdata: ndarray = ...,
+        data: Any = None,
+        xdata: ndarray = ...,
         ydata: ndarray = ...,
         linewidth: Optional[Any] = ...,
         linestyle: str = ...,
@@ -1545,7 +1556,8 @@ def stairs(values: Any,
            orientation: str = 'vertical',
            baseline: int = 0,
            fill: bool = False,
-           data: Any = None values: Any = ...,
+           data: Any = None,
+           values: Any = ...,
            edges: Any = ...,
            orientation: Any = ...,
            baseline: Any = ...,
@@ -1564,7 +1576,8 @@ def cohere(x: Any,
            pad_to: Any = None,
            sides: str = 'default',
            scale_by_freq: Any = None,
-           data: Any = None xdata: ndarray = ...,
+           data: Any = None,
+           xdata: ndarray = ...,
            ydata: ndarray = ...,
            linewidth: Optional[Any] = ...,
            linestyle: str = ...,

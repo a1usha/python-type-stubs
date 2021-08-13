@@ -121,7 +121,8 @@ class SubplotSpec(object):
 
     def subgridspec(self: SubplotSpec,
                     nrows: int,
-                    ncols: int nrows: Any = ...,
+                    ncols: int,
+                    nrows: Any = ...,
                     ncols: Any = ...,
                     subplot_spec: Any = ...,
                     wspace: Any = ...,
