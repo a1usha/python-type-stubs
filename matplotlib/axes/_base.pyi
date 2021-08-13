@@ -243,6 +243,7 @@ class _AxesBase(Artist):
     def _process_unit_info(self: _AxesBase,
                            datasets: Iterable = None,
                            kwargs: dict = None,
+                           *,
                            convert: bool = True) -> list: ...
 
     def in_axes(self: _AxesBase,
@@ -336,6 +337,7 @@ class _AxesBase(Artist):
              **kwargs) -> Optional[Any]: ...
 
     def ticklabel_format(self: _AxesBase,
+                         *,
                          axis: str = 'both',
                          style: str = '',
                          scilimits: Any = None,
@@ -362,6 +364,7 @@ class _AxesBase(Artist):
                    xlabel: str,
                    fontdict: Any = None,
                    labelpad: float = None,
+                   *,
                    loc: str = None,
                    x: Any = ...,
                    y: Any = ...,
@@ -398,6 +401,7 @@ class _AxesBase(Artist):
                  right: Optional[float] = None,
                  emit: bool = True,
                  auto: Optional[bool] = False,
+                 *,
                  xmin: Optional[float] = None,
                  xmax: Optional[float] = None) -> tuple[float, float]: ...
 
@@ -411,6 +415,7 @@ class _AxesBase(Artist):
                    ylabel: str,
                    fontdict: Any = None,
                    labelpad: float = None,
+                   *,
                    loc: str = None,
                    x: Any = ...,
                    y: Any = ...,
@@ -443,6 +448,7 @@ class _AxesBase(Artist):
                  top: Optional[float] = None,
                  emit: bool = True,
                  auto: Optional[bool] = False,
+                 *,
                  ymin: Optional[float] = None,
                  ymax: Optional[float] = None) -> tuple[float, float]: ...
 
@@ -517,6 +523,7 @@ class _AxesBase(Artist):
                       renderer: Any,
                       call_axes_locator: bool = True,
                       bbox_extra_artists: Any = None,
+                      *,
                       for_layout_only: Any = False) -> Any: ...
 
     def _make_twin_axes(self: _AxesBase,
@@ -583,6 +590,7 @@ class _axis_method_wrapper(object):
     def __init__(self: _axis_method_wrapper,
                  attr_name: Any,
                  method_name: Any,
+                 *,
                  doc_sub: Any = None) -> None: ...
 
     def __set_name__(self: _axis_method_wrapper,

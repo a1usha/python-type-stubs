@@ -10,6 +10,266 @@ from matplotlib.path import Path
 from numpy.core._multiarray_umath import ndarray
 
 
+class Patch(Artist):
+    @_api.deprecated("3.4")
+    @_api.classproperty
+    def validCap(cls: Patch) -> _deprecated_property: ...
+
+    @_api.deprecated("3.4")
+    @_api.classproperty
+    def validJoin(cls: Patch) -> _deprecated_property: ...
+
+    def __init__(self: Patch,
+                 edgecolor: Any = None,
+                 facecolor: Any = None,
+                 color: Any = None,
+                 linewidth: Any = None,
+                 linestyle: Any = None,
+                 antialiased: Any = None,
+                 hatch: Any = None,
+                 fill: bool = True,
+                 capstyle: Any = None,
+                 joinstyle: Any = None,
+                 **kwargs) -> None: ...
+
+    def get_verts(self: Patch) -> list: ...
+
+    def _process_radius(self: Patch,
+                        radius: Optional[float]) -> Union[float, Number, int]: ...
+
+    def contains(self: Patch,
+                 mouseevent: MouseEvent,
+                 radius: Any = None) -> Any: ...
+
+    def contains_point(self: Patch,
+                       point: tuple[float, float],
+                       radius: Optional[float] = None) -> bool: ...
+
+    def contains_points(self: Patch,
+                        points: int,
+                        radius: Optional[float] = None) -> Any: ...
+
+    def update_from(self: Patch,
+                    other: {_transform, _transformSet, _visible, _alpha, clipbox, _clipon, _clippath, _label, _sketch,
+                            _path_effects, sticky_edges}) -> None: ...
+
+    def get_extents(self: Patch) -> Any: ...
+
+    def get_transform(self: Patch) -> Union[{input_dims, output_dims}, {output_dims,
+                                                                        input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
+
+    def get_data_transform(self: Patch) -> IdentityTransform: ...
+
+    def get_patch_transform(self: Patch) -> IdentityTransform: ...
+
+    def get_antialiased(self: Patch) -> Optional[Any]: ...
+
+    def get_edgecolor(self: Patch) -> Any: ...
+
+    def get_facecolor(self: Patch) -> Any: ...
+
+    def get_linewidth(self: Patch) -> int: ...
+
+    def get_linestyle(self: Patch) -> str: ...
+
+    def set_antialiased(self: Patch,
+                        aa: Optional[Any]) -> None: ...
+
+    def _set_edgecolor(self: Patch,
+                       color: Any) -> None: ...
+
+    def set_edgecolor(self: Patch,
+                      color: Any) -> None: ...
+
+    def _set_facecolor(self: Patch,
+                       color: Optional[Any]) -> None: ...
+
+    def set_facecolor(self: Patch,
+                      color: Optional[Any]) -> None: ...
+
+    def set_color(self: Patch,
+                  c: Any) -> None: ...
+
+    def set_alpha(self: Patch,
+                  alpha: Union[int, float, complex, None]) -> None: ...
+
+    def set_linewidth(self: Patch,
+                      w: Optional[float]) -> None: ...
+
+    def set_linestyle(self: Patch,
+                      ls: str) -> None: ...
+
+    def set_fill(self: Patch,
+                 b: bool) -> None: ...
+
+    def get_fill(self: Patch) -> bool: ...
+
+    @docstring.interpd
+    def set_capstyle(self: Patch,
+                     s: Any) -> Optional[Any]: ...
+
+    def get_capstyle(self: Patch) -> Any: ...
+
+    @docstring.interpd
+    def set_joinstyle(self: Patch,
+                      s: Any) -> Optional[Any]: ...
+
+    def get_joinstyle(self: Patch) -> Any: ...
+
+    def set_hatch(self: Patch,
+                  hatch: str) -> None: ...
+
+    def get_hatch(self: Patch) -> Any: ...
+
+    @contextlib.contextmanager
+    def _bind_draw_path_function(self: Patch,
+                                 renderer: Optional[Any]) -> Generator[partial[None], Any, None]: ...
+
+    @artist.allow_rasterization
+    def draw(self: Patch,
+             renderer: Any) -> Optional[Any]: ...
+
+    def get_path(self: Patch) -> Any: ...
+
+    def get_window_extent(self: Patch,
+                          renderer: Any = None) -> Any: ...
+
+    def _convert_xy_units(self: Patch,
+                          xy: {__getitem__}) -> tuple[Any, Any]: ...
+
+
+class Polygon(Patch):
+    def __str__(self: Polygon) -> str: ...
+
+    @docstring.dedent_interpd
+    def __init__(self: Polygon,
+                 xy: Optional[ndarray],
+                 closed: bool = True,
+                 **kwargs) -> Optional[Any]: ...
+
+    def get_path(self: Polygon) -> Path: ...
+
+    def get_closed(self: Polygon) -> bool: ...
+
+    def set_closed(self: Polygon,
+                   closed: bool) -> None: ...
+
+    def get_xy(self: Polygon) -> Any: ...
+
+    def set_xy(self: Polygon,
+               xy: int) -> None: ...
+
+
+class FancyArrow(Polygon):
+    def __str__(self: FancyArrow) -> str: ...
+
+    @docstring.dedent_interpd
+    def __init__(self: FancyArrow,
+                 x: Any,
+                 y: Any,
+                 dx: Any,
+                 dy: Any,
+                 width: float = 0.001,
+                 length_includes_head: bool = False,
+                 head_width: Optional[float] = None,
+                 head_length: Optional[float] = None,
+                 shape: str = 'full',
+                 overhang: float = 0,
+                 head_starts_at_zero: bool = False,
+                 **kwargs) -> Any: ...
+
+
+class Wedge(Patch):
+    def __str__(self: Wedge) -> str: ...
+
+    @docstring.dedent_interpd
+    def __init__(self: Wedge,
+                 center: Any,
+                 r: Any,
+                 theta1: Any,
+                 theta2: Any,
+                 width: Any = None,
+                 **kwargs) -> Optional[Any]: ...
+
+    def _recompute_path(self: Wedge) -> None: ...
+
+    def set_center(self: Wedge,
+                   center: Any) -> None: ...
+
+    def set_radius(self: Wedge,
+                   radius: Any) -> None: ...
+
+    def set_theta1(self: Wedge,
+                   theta1: Any) -> None: ...
+
+    def set_theta2(self: Wedge,
+                   theta2: Any) -> None: ...
+
+    def set_width(self: Wedge,
+                  width: Any) -> None: ...
+
+    def get_path(self: Wedge) -> Optional[Path]: ...
+
+
+class Rectangle(Patch):
+    def __str__(self: Rectangle) -> str: ...
+
+    @docstring.dedent_interpd
+    def __init__(self: Rectangle,
+                 xy: tuple[float, float],
+                 width: float,
+                 height: float,
+                 angle: float = 0.0,
+                 edgecolor: Any = ...,
+                 facecolor: Any = ...,
+                 color: Any = ...,
+                 linewidth: int = ...,
+                 linestyle: str = ...,
+                 antialiased: Optional[Any] = ...,
+                 hatch: Any = ...,
+                 fill: bool = ...,
+                 capstyle: Any = ...,
+                 joinstyle: Any = ...,
+                 **kwargs) -> Optional[Any]: ...
+
+    def get_path(self: Rectangle) -> Path: ...
+
+    def _convert_units(self: Rectangle) -> tuple[Any, Any, Any, Any]: ...
+
+    def get_patch_transform(self: Rectangle) -> Union[{input_dims, output_dims}, {output_dims,
+                                                                                  input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
+
+    def get_x(self: Rectangle) -> float: ...
+
+    def get_y(self: Rectangle) -> float: ...
+
+    def get_xy(self: Rectangle) -> tuple[float, float]: ...
+
+    def get_width(self: Rectangle) -> float: ...
+
+    def get_height(self: Rectangle) -> float: ...
+
+    def set_x(self: Rectangle,
+              x: Any) -> None: ...
+
+    def set_y(self: Rectangle,
+              y: Any) -> None: ...
+
+    def set_xy(self: Rectangle,
+               xy: tuple[float, float]) -> None: ...
+
+    def set_width(self: Rectangle,
+                  w: Any) -> None: ...
+
+    def set_height(self: Rectangle,
+                   h: Any) -> None: ...
+
+    def set_bounds(self: Rectangle,
+                   *args) -> None: ...
+
+    def get_bbox(self: Rectangle) -> Bbox: ...
+
+
 class Simple(_Base):
     def __init__(self: Simple,
                  head_length: float = .5,
@@ -145,65 +405,6 @@ class CurveFilledAB(_Curve):
                  head_width: float = .2) -> None: ...
 
 
-class Rectangle(Patch):
-    def __str__(self: Rectangle) -> str: ...
-
-    @docstring.dedent_interpd
-    def __init__(self: Rectangle,
-                 xy: tuple[float, float],
-                 width: float,
-                 height: float,
-                 angle: float = 0.0,
-                 edgecolor: Any = ...,
-                 facecolor: Any = ...,
-                 color: Any = ...,
-                 linewidth: int = ...,
-                 linestyle: str = ...,
-                 antialiased: Optional[Any] = ...,
-                 hatch: Any = ...,
-                 fill: bool = ...,
-                 capstyle: Any = ...,
-                 joinstyle: Any = ...,
-                 **kwargs) -> Optional[Any]: ...
-
-    def get_path(self: Rectangle) -> Path: ...
-
-    def _convert_units(self: Rectangle) -> tuple[Any, Any, Any, Any]: ...
-
-    def get_patch_transform(self: Rectangle) -> Union[{input_dims, output_dims}, {output_dims,
-                                                                                  input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
-
-    def get_x(self: Rectangle) -> float: ...
-
-    def get_y(self: Rectangle) -> float: ...
-
-    def get_xy(self: Rectangle) -> tuple[float, float]: ...
-
-    def get_width(self: Rectangle) -> float: ...
-
-    def get_height(self: Rectangle) -> float: ...
-
-    def set_x(self: Rectangle,
-              x: Any) -> None: ...
-
-    def set_y(self: Rectangle,
-              y: Any) -> None: ...
-
-    def set_xy(self: Rectangle,
-               xy: tuple[float, float]) -> None: ...
-
-    def set_width(self: Rectangle,
-                  w: Any) -> None: ...
-
-    def set_height(self: Rectangle,
-                   h: Any) -> None: ...
-
-    def set_bounds(self: Rectangle,
-                   *args) -> None: ...
-
-    def get_bbox(self: Rectangle) -> Bbox: ...
-
-
 class Curve(_Curve):
     def __init__(self: Curve) -> None: ...
 
@@ -319,28 +520,6 @@ class Fancy(_Base):
                   path: Path,
                   mutation_size: Any,
                   linewidth: Any) -> tuple[Path, bool]: ...
-
-
-class Polygon(Patch):
-    def __str__(self: Polygon) -> str: ...
-
-    @docstring.dedent_interpd
-    def __init__(self: Polygon,
-                 xy: Optional[ndarray],
-                 closed: bool = True,
-                 **kwargs) -> Optional[Any]: ...
-
-    def get_path(self: Polygon) -> Path: ...
-
-    def get_closed(self: Polygon) -> bool: ...
-
-    def set_closed(self: Polygon,
-                   closed: bool) -> None: ...
-
-    def get_xy(self: Polygon) -> Any: ...
-
-    def set_xy(self: Polygon,
-               xy: int) -> None: ...
 
 
 class RegularPolygon(Patch):
@@ -473,6 +652,7 @@ class StepPatch(PathPatch):
     def __init__(self: StepPatch,
                  values: Union[ndarray, Iterable, int, float],
                  edges: Union[ndarray, Iterable, int, float],
+                 *,
                  orientation: str = 'vertical',
                  baseline: Union[float, ndarray, Iterable, int, None] = 0,
                  **kwargs) -> Optional[Any]: ...
@@ -566,134 +746,6 @@ class FancyBboxPatch(Patch):
                    *args) -> None: ...
 
     def get_bbox(self: FancyBboxPatch) -> Bbox: ...
-
-
-class Patch(Artist):
-    @_api.deprecated("3.4")
-    @_api.classproperty
-    def validCap(cls: Patch) -> _deprecated_property: ...
-
-    @_api.deprecated("3.4")
-    @_api.classproperty
-    def validJoin(cls: Patch) -> _deprecated_property: ...
-
-    def __init__(self: Patch,
-                 edgecolor: Any = None,
-                 facecolor: Any = None,
-                 color: Any = None,
-                 linewidth: Any = None,
-                 linestyle: Any = None,
-                 antialiased: Any = None,
-                 hatch: Any = None,
-                 fill: bool = True,
-                 capstyle: Any = None,
-                 joinstyle: Any = None,
-                 **kwargs) -> None: ...
-
-    def get_verts(self: Patch) -> list: ...
-
-    def _process_radius(self: Patch,
-                        radius: Optional[float]) -> Union[float, Number, int]: ...
-
-    def contains(self: Patch,
-                 mouseevent: MouseEvent,
-                 radius: Any = None) -> Any: ...
-
-    def contains_point(self: Patch,
-                       point: tuple[float, float],
-                       radius: Optional[float] = None) -> bool: ...
-
-    def contains_points(self: Patch,
-                        points: int,
-                        radius: Optional[float] = None) -> Any: ...
-
-    def update_from(self: Patch,
-                    other: {_transform, _transformSet, _visible, _alpha, clipbox, _clipon, _clippath, _label, _sketch,
-                            _path_effects, sticky_edges}) -> None: ...
-
-    def get_extents(self: Patch) -> Any: ...
-
-    def get_transform(self: Patch) -> Union[{input_dims, output_dims}, {output_dims,
-                                                                        input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
-
-    def get_data_transform(self: Patch) -> IdentityTransform: ...
-
-    def get_patch_transform(self: Patch) -> IdentityTransform: ...
-
-    def get_antialiased(self: Patch) -> Optional[Any]: ...
-
-    def get_edgecolor(self: Patch) -> Any: ...
-
-    def get_facecolor(self: Patch) -> Any: ...
-
-    def get_linewidth(self: Patch) -> int: ...
-
-    def get_linestyle(self: Patch) -> str: ...
-
-    def set_antialiased(self: Patch,
-                        aa: Optional[Any]) -> None: ...
-
-    def _set_edgecolor(self: Patch,
-                       color: Any) -> None: ...
-
-    def set_edgecolor(self: Patch,
-                      color: Any) -> None: ...
-
-    def _set_facecolor(self: Patch,
-                       color: Optional[Any]) -> None: ...
-
-    def set_facecolor(self: Patch,
-                      color: Optional[Any]) -> None: ...
-
-    def set_color(self: Patch,
-                  c: Any) -> None: ...
-
-    def set_alpha(self: Patch,
-                  alpha: Union[int, float, complex, None]) -> None: ...
-
-    def set_linewidth(self: Patch,
-                      w: Optional[float]) -> None: ...
-
-    def set_linestyle(self: Patch,
-                      ls: str) -> None: ...
-
-    def set_fill(self: Patch,
-                 b: bool) -> None: ...
-
-    def get_fill(self: Patch) -> bool: ...
-
-    @docstring.interpd
-    def set_capstyle(self: Patch,
-                     s: Any) -> Optional[Any]: ...
-
-    def get_capstyle(self: Patch) -> Any: ...
-
-    @docstring.interpd
-    def set_joinstyle(self: Patch,
-                      s: Any) -> Optional[Any]: ...
-
-    def get_joinstyle(self: Patch) -> Any: ...
-
-    def set_hatch(self: Patch,
-                  hatch: str) -> None: ...
-
-    def get_hatch(self: Patch) -> Any: ...
-
-    @contextlib.contextmanager
-    def _bind_draw_path_function(self: Patch,
-                                 renderer: Optional[Any]) -> Generator[partial[None], Any, None]: ...
-
-    @artist.allow_rasterization
-    def draw(self: Patch,
-             renderer: Any) -> Optional[Any]: ...
-
-    def get_path(self: Patch) -> Any: ...
-
-    def get_window_extent(self: Patch,
-                          renderer: Any = None) -> Any: ...
-
-    def _convert_xy_units(self: Patch,
-                          xy: {__getitem__}) -> tuple[Any, Any]: ...
 
 
 class _Curve(_Base):
@@ -799,25 +851,6 @@ class Ellipse(Patch):
     def get_angle(self: Ellipse) -> float: ...
 
 
-class FancyArrow(Polygon):
-    def __str__(self: FancyArrow) -> str: ...
-
-    @docstring.dedent_interpd
-    def __init__(self: FancyArrow,
-                 x: Any,
-                 y: Any,
-                 dx: Any,
-                 dy: Any,
-                 width: float = 0.001,
-                 length_includes_head: bool = False,
-                 head_width: Optional[float] = None,
-                 head_length: Optional[float] = None,
-                 shape: str = 'full',
-                 overhang: float = 0,
-                 head_starts_at_zero: bool = False,
-                 **kwargs) -> Any: ...
-
-
 class CurveFilledB(_Curve):
     def __init__(self: CurveFilledB,
                  head_length: float = .4,
@@ -910,38 +943,6 @@ class Arc(_Base):
     def connect(self: Arc,
                 posA: Any,
                 posB: Any) -> Path: ...
-
-
-class Wedge(Patch):
-    def __str__(self: Wedge) -> str: ...
-
-    @docstring.dedent_interpd
-    def __init__(self: Wedge,
-                 center: Any,
-                 r: Any,
-                 theta1: Any,
-                 theta2: Any,
-                 width: Any = None,
-                 **kwargs) -> Optional[Any]: ...
-
-    def _recompute_path(self: Wedge) -> None: ...
-
-    def set_center(self: Wedge,
-                   center: Any) -> None: ...
-
-    def set_radius(self: Wedge,
-                   radius: Any) -> None: ...
-
-    def set_theta1(self: Wedge,
-                   theta1: Any) -> None: ...
-
-    def set_theta2(self: Wedge,
-                   theta2: Any) -> None: ...
-
-    def set_width(self: Wedge,
-                  width: Any) -> None: ...
-
-    def get_path(self: Wedge) -> Optional[Path]: ...
 
 
 class Wedge(_Base):
@@ -1061,6 +1062,7 @@ class Bar(_Base):
 
 def _register_style(style_list: dict,
                     cls: Optional[{__name__}] = None,
+                    *,
                     name: str = None) -> Union[partial, {__name__}, None]: ...
 
 

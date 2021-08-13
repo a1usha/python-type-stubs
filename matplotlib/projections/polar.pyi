@@ -141,6 +141,7 @@ class PolarAxes(Axes):
                  top: Optional[float] = None,
                  emit: bool = True,
                  auto: Optional[bool] = False,
+                 *,
                  ymin: Optional[float] = None,
                  ymax: Optional[float] = None) -> tuple[float, float]: ...
 

@@ -6,6 +6,51 @@ from typing import Union
 from numpy.core._multiarray_umath import ndarray
 
 
+class Barbs(PolyCollection):
+    @docstring.interpd
+    def __init__(self: Barbs,
+                 ax: {transData},
+                 pivot: str = 'tip',
+                 length: int = 7,
+                 barbcolor: Any = None,
+                 flagcolor: Any = None,
+                 sizes: Union[ndarray, Iterable, int, float] = None,
+                 fill_empty: bool = False,
+                 barb_increments: Any = None,
+                 rounding: bool = True,
+                 flip_barb: bool = False,
+                 *args,
+                 **kwargs) -> Optional[Any]: ...
+
+    def _find_tails(self: Barbs,
+                    mag: Optional[Any],
+                    rounding: bool = True,
+                    half: int = 5,
+                    full: int = 10,
+                    flag: int = 50) -> tuple[Any, Any, bool, int]: ...
+
+    def _make_barbs(self: Barbs,
+                    u: Any,
+                    v: Any,
+                    nflags: {__getitem__},
+                    nbarbs: {__getitem__},
+                    half_barb: {__getitem__},
+                    empty_flag: {__getitem__},
+                    length: {__mul__, __neg__},
+                    pivot: str,
+                    sizes: dict,
+                    fill_empty: bool,
+                    flip: Iterable[bool]) -> list[Union[list, ndarray]]: ...
+
+    def set_UVC(self: Barbs,
+                U: Any,
+                V: Any,
+                C: Any = None) -> None: ...
+
+    def set_offsets(self: Barbs,
+                    xy: Any) -> None: ...
+
+
 class Quiver(PolyCollection):
     @docstring.Substitution(_quiver_doc)
     def __init__(self: Quiver,
@@ -63,51 +108,6 @@ class Quiver(PolyCollection):
                   length: float) -> tuple[Any, None]: ...
 
 
-class Barbs(PolyCollection):
-    @docstring.interpd
-    def __init__(self: Barbs,
-                 ax: {transData},
-                 pivot: str = 'tip',
-                 length: int = 7,
-                 barbcolor: Any = None,
-                 flagcolor: Any = None,
-                 sizes: Union[ndarray, Iterable, int, float] = None,
-                 fill_empty: bool = False,
-                 barb_increments: Any = None,
-                 rounding: bool = True,
-                 flip_barb: bool = False,
-                 *args,
-                 **kwargs) -> Optional[Any]: ...
-
-    def _find_tails(self: Barbs,
-                    mag: Optional[Any],
-                    rounding: bool = True,
-                    half: int = 5,
-                    full: int = 10,
-                    flag: int = 50) -> tuple[Any, Any, bool, int]: ...
-
-    def _make_barbs(self: Barbs,
-                    u: Any,
-                    v: Any,
-                    nflags: {__getitem__},
-                    nbarbs: {__getitem__},
-                    half_barb: {__getitem__},
-                    empty_flag: {__getitem__},
-                    length: {__mul__, __neg__},
-                    pivot: str,
-                    sizes: dict,
-                    fill_empty: bool,
-                    flip: Iterable[bool]) -> list[Union[list, ndarray]]: ...
-
-    def set_UVC(self: Barbs,
-                U: Any,
-                V: Any,
-                C: Any = None) -> None: ...
-
-    def set_offsets(self: Barbs,
-                    xy: Any) -> None: ...
-
-
 class QuiverKey(Artist):
     def __init__(self: QuiverKey,
                  Q: Quiver,
@@ -115,6 +115,7 @@ class QuiverKey(Artist):
                  Y: float,
                  U: float,
                  label: str,
+                 *,
                  angle: float = 0,
                  coordinates: str = 'axes',
                  color: Any = None,

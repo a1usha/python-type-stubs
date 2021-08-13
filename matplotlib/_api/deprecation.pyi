@@ -21,6 +21,7 @@ class _deprecated_parameter_class(object):
 
 
 def deprecated(since: str,
+               *,
                message: Optional[str] = '',
                name: Optional[str] = '',
                alternative: Optional[str] = '',
@@ -56,6 +57,7 @@ def delete_parameter(since: Any,
 
 def deprecate_method_override(method: {__name__, __get__},
                               obj: Any,
+                              *,
                               allow_empty: bool = False,
                               **kwargs) -> Optional[Any]: ...
 
@@ -67,11 +69,13 @@ def _generate_deprecation_warning(since: str,
                                   pending: bool = False,
                                   obj_type: str = '',
                                   addendum: str = '',
+                                  *,
                                   removal: str = '') -> Union[
     PendingDeprecationWarning, MatplotlibDeprecationWarning]: ...
 
 
 def warn_deprecated(since: str,
+                    *,
                     message: Optional[str] = '',
                     name: Optional[str] = '',
                     alternative: Optional[str] = '',

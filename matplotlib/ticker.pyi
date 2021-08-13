@@ -9,6 +9,52 @@ from typing import tuple
 from numpy.core._multiarray_umath import ndarray
 
 
+class TickHelper(object):
+    def set_axis(self: TickHelper,
+                 axis: Any) -> None: ...
+
+    def create_dummy_axis(self: TickHelper,
+                          **kwargs) -> None: ...
+
+    def set_view_interval(self: TickHelper,
+                          vmin: Any,
+                          vmax: Any) -> None: ...
+
+    def set_data_interval(self: TickHelper,
+                          vmin: Any,
+                          vmax: Any) -> None: ...
+
+    def set_bounds(self: TickHelper,
+                   vmin: Any,
+                   vmax: Any) -> None: ...
+
+
+class Formatter(TickHelper):
+    def __call__(self: Formatter,
+                 x: Any,
+                 pos: Any = None) -> Any: ...
+
+    def format_ticks(self: Formatter,
+                     values: Any) -> list: ...
+
+    def format_data(self: Formatter,
+                    value: Any) -> Any: ...
+
+    def format_data_short(self: Formatter,
+                          value: Any) -> Any: ...
+
+    def get_offset(self: Formatter) -> str: ...
+
+    def set_locs(self: Formatter,
+                 locs: Any) -> None: ...
+
+    @staticmethod
+    def fix_minus(s: Union[str, str, int]) -> Union[str, str, int]: ...
+
+    def _set_locator(self: Formatter,
+                     locator: Any) -> None: ...
+
+
 class Locator(TickHelper):
     def tick_values(self: Locator,
                     vmin: Any,
@@ -41,32 +87,6 @@ class Locator(TickHelper):
 
     @_api.deprecated("3.3")
     def refresh(self: Locator) -> Optional[Any]: ...
-
-
-class Formatter(TickHelper):
-    def __call__(self: Formatter,
-                 x: Any,
-                 pos: Any = None) -> Any: ...
-
-    def format_ticks(self: Formatter,
-                     values: Any) -> list: ...
-
-    def format_data(self: Formatter,
-                    value: Any) -> Any: ...
-
-    def format_data_short(self: Formatter,
-                          value: Any) -> Any: ...
-
-    def get_offset(self: Formatter) -> str: ...
-
-    def set_locs(self: Formatter,
-                 locs: Any) -> None: ...
-
-    @staticmethod
-    def fix_minus(s: Union[str, str, int]) -> Union[str, str, int]: ...
-
-    def _set_locator(self: Formatter,
-                     locator: Any) -> None: ...
 
 
 class NullFormatter(Formatter):
@@ -203,6 +223,7 @@ class PercentFormatter(Formatter):
 
 class LogitFormatter(Formatter):
     def __init__(self: LogitFormatter,
+                 *,
                  use_overline: bool = False,
                  one_half: str = r"\frac{1}{2}",
                  minor: bool = False,
@@ -263,6 +284,7 @@ class EngFormatter(Formatter):
                  unit: str = "",
                  places: int = None,
                  sep: str = " ",
+                 *,
                  usetex: bool = None,
                  useMathText: bool = None) -> None: ...
 
@@ -516,6 +538,7 @@ class AutoMinorLocator(Locator):
 class LogitLocator(MaxNLocator):
     def __init__(self: LogitLocator,
                  minor: bool = False,
+                 *,
                  nbins: Any = "auto") -> None: ...
 
     def set_params(self: LogitLocator,
@@ -537,26 +560,6 @@ class LogitLocator(MaxNLocator):
                     vmin: {__gt__, __ge__},
                     vmax: Union[{__le__}, {__lt__}]) -> tuple[Union[float, {__le__}, {__lt__}, {__gt__, __ge__}], Union[
         float, int, {__gt__, __ge__}, {__le__}, {__lt__}]]: ...
-
-
-class TickHelper(object):
-    def set_axis(self: TickHelper,
-                 axis: Any) -> None: ...
-
-    def create_dummy_axis(self: TickHelper,
-                          **kwargs) -> None: ...
-
-    def set_view_interval(self: TickHelper,
-                          vmin: Any,
-                          vmax: Any) -> None: ...
-
-    def set_data_interval(self: TickHelper,
-                          vmin: Any,
-                          vmax: Any) -> None: ...
-
-    def set_bounds(self: TickHelper,
-                   vmin: Any,
-                   vmax: Any) -> None: ...
 
 
 class _Edge_integer(object):
@@ -631,6 +634,7 @@ def _decade_greater_equal(x: Union[float, int, {__gt__}, {__le__}, {__lt__}],
 
 def is_decade(x: int,
               base: int = 10,
+              *,
               rtol: float = 1e-10) -> bool: ...
 
 
@@ -646,6 +650,7 @@ def _if_refresh_overridden_call_and_emit_deprec(locator: {refresh}) -> None: ...
 
 
 def is_close_to_int(x: Union[float, int],
+                    *,
                     atol: float = 1e-10) -> bool: ...
 
 

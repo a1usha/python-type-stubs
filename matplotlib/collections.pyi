@@ -152,8 +152,45 @@ class Collection(Artist, ScalarMappable):
                             _path_effects, sticky_edges}) -> None: ...
 
 
-class AsteriskPolygonCollection(RegularPolyCollection):
-    pass
+class _CollectionWithSizes(Collection):
+    def get_sizes(self: _CollectionWithSizes) -> array.pyi: ...
+
+    def set_sizes(self: _CollectionWithSizes,
+                  sizes: Optional[ndarray],
+                  dpi: float = 72.0) -> None: ...
+
+    @artist.allow_rasterization
+    def draw(self: _CollectionWithSizes,
+             renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
+
+
+class LineCollection(Collection):
+    def __init__(self: LineCollection,
+                 segments: Union[Iterable[ndarray], Iterable, int, float],
+                 zorder: int = 2,
+                 *args,
+                 **kwargs) -> None: ...
+
+    def set_segments(self: LineCollection,
+                     segments: Union[Iterable[ndarray], Iterable, int, float, ndarray]) -> None: ...
+
+    def get_segments(self: LineCollection) -> list: ...
+
+    def _add_offsets(self: LineCollection,
+                     segs: list[Union[ndarray, MaskedArray]]) -> list[Union[ndarray, MaskedArray]]: ...
+
+    def _get_default_linewidth(self: LineCollection) -> Optional[Any]: ...
+
+    def _get_default_antialiased(self: LineCollection) -> Optional[Any]: ...
+
+    def _get_default_edgecolor(self: LineCollection) -> Optional[Any]: ...
+
+    def _get_default_facecolor(self: LineCollection) -> str: ...
+
+    def set_color(self: LineCollection,
+                  c: Iterable) -> None: ...
+
+    def get_color(self: LineCollection) -> str: ...
 
 
 class PolyCollection(_CollectionWithSizes):
@@ -172,37 +209,6 @@ class PolyCollection(_CollectionWithSizes):
                             codes: {__len__}) -> Any: ...
 
 
-class QuadMesh(Collection):
-    def __init__(self: QuadMesh,
-                 meshWidth: {__add__},
-                 meshHeight: {__add__},
-                 coordinates: {reshape},
-                 antialiased: bool = True,
-                 shading: str = 'flat',
-                 **kwargs) -> None: ...
-
-    def get_paths(self: QuadMesh) -> Optional[list[Path]]: ...
-
-    def set_paths(self: QuadMesh) -> None: ...
-
-    def get_datalim(self: QuadMesh,
-                    transData: IdentityTransform) -> Bbox: ...
-
-    @staticmethod
-    def convert_mesh_to_paths(meshWidth: {__add__},
-                              meshHeight: Any,
-                              coordinates: Any) -> list[Path]: ...
-
-    def convert_mesh_to_triangles(self: QuadMesh,
-                                  meshWidth: {__add__},
-                                  meshHeight: {__add__},
-                                  coordinates: Any) -> tuple[None, None]: ...
-
-    @artist.allow_rasterization
-    def draw(self: QuadMesh,
-             renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
-
-
 class BrokenBarHCollection(PolyCollection):
     def __init__(self: BrokenBarHCollection,
                  xranges: list[tuple[float, float]],
@@ -216,41 +222,6 @@ class BrokenBarHCollection(PolyCollection):
                    ymax: {__sub__},
                    where: Any,
                    **kwargs) -> BrokenBarHCollection: ...
-
-
-class TriMesh(Collection):
-    def __init__(self: TriMesh,
-                 triangulation: {x, y},
-                 **kwargs) -> None: ...
-
-    def get_paths(self: TriMesh) -> Optional[list[Path]]: ...
-
-    def set_paths(self: TriMesh) -> None: ...
-
-    @staticmethod
-    def convert_mesh_to_paths(tri: {get_masked_triangles, x, y}) -> list[Path]: ...
-
-    @artist.allow_rasterization
-    def draw(self: TriMesh,
-             renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
-
-
-class CircleCollection(_CollectionWithSizes):
-    def __init__(self: CircleCollection,
-                 sizes: Union[float, ndarray, Iterable, int],
-                 **kwargs) -> None: ...
-
-
-class _CollectionWithSizes(Collection):
-    def get_sizes(self: _CollectionWithSizes) -> array.pyi: ...
-
-    def set_sizes(self: _CollectionWithSizes,
-                  sizes: Optional[ndarray],
-                  dpi: float = 72.0) -> None: ...
-
-    @artist.allow_rasterization
-    def draw(self: _CollectionWithSizes,
-             renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
 
 
 class EventCollection(LineCollection):
@@ -299,6 +270,37 @@ class EventCollection(LineCollection):
     def get_color(self: EventCollection) -> str: ...
 
 
+class QuadMesh(Collection):
+    def __init__(self: QuadMesh,
+                 meshWidth: {__add__},
+                 meshHeight: {__add__},
+                 coordinates: {reshape},
+                 antialiased: bool = True,
+                 shading: str = 'flat',
+                 **kwargs) -> None: ...
+
+    def get_paths(self: QuadMesh) -> Optional[list[Path]]: ...
+
+    def set_paths(self: QuadMesh) -> None: ...
+
+    def get_datalim(self: QuadMesh,
+                    transData: IdentityTransform) -> Bbox: ...
+
+    @staticmethod
+    def convert_mesh_to_paths(meshWidth: {__add__},
+                              meshHeight: Any,
+                              coordinates: Any) -> list[Path]: ...
+
+    def convert_mesh_to_triangles(self: QuadMesh,
+                                  meshWidth: {__add__},
+                                  meshHeight: {__add__},
+                                  coordinates: Any) -> tuple[None, None]: ...
+
+    @artist.allow_rasterization
+    def draw(self: QuadMesh,
+             renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
+
+
 class PathCollection(_CollectionWithSizes):
     def __init__(self: PathCollection,
                  paths: Any,
@@ -316,6 +318,33 @@ class PathCollection(_CollectionWithSizes):
                         fmt: str = None,
                         func: function = lambda x: x,
                         **kwargs) -> Any: ...
+
+
+class AsteriskPolygonCollection(RegularPolyCollection):
+    pass
+
+
+class TriMesh(Collection):
+    def __init__(self: TriMesh,
+                 triangulation: {x, y},
+                 **kwargs) -> None: ...
+
+    def get_paths(self: TriMesh) -> Optional[list[Path]]: ...
+
+    def set_paths(self: TriMesh) -> None: ...
+
+    @staticmethod
+    def convert_mesh_to_paths(tri: {get_masked_triangles, x, y}) -> list[Path]: ...
+
+    @artist.allow_rasterization
+    def draw(self: TriMesh,
+             renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
+
+
+class CircleCollection(_CollectionWithSizes):
+    def __init__(self: CircleCollection,
+                 sizes: Union[float, ndarray, Iterable, int],
+                 **kwargs) -> None: ...
 
 
 class StarPolygonCollection(RegularPolyCollection):
@@ -345,35 +374,6 @@ class PatchCollection(Collection):
 
     def set_paths(self: PatchCollection,
                   patches: Any) -> None: ...
-
-
-class LineCollection(Collection):
-    def __init__(self: LineCollection,
-                 segments: Union[Iterable[ndarray], Iterable, int, float],
-                 zorder: int = 2,
-                 *args,
-                 **kwargs) -> None: ...
-
-    def set_segments(self: LineCollection,
-                     segments: Union[Iterable[ndarray], Iterable, int, float, ndarray]) -> None: ...
-
-    def get_segments(self: LineCollection) -> list: ...
-
-    def _add_offsets(self: LineCollection,
-                     segs: list[Union[ndarray, MaskedArray]]) -> list[Union[ndarray, MaskedArray]]: ...
-
-    def _get_default_linewidth(self: LineCollection) -> Optional[Any]: ...
-
-    def _get_default_antialiased(self: LineCollection) -> Optional[Any]: ...
-
-    def _get_default_edgecolor(self: LineCollection) -> Optional[Any]: ...
-
-    def _get_default_facecolor(self: LineCollection) -> str: ...
-
-    def set_color(self: LineCollection,
-                  c: Iterable) -> None: ...
-
-    def get_color(self: LineCollection) -> str: ...
 
 
 class RegularPolyCollection(_CollectionWithSizes):

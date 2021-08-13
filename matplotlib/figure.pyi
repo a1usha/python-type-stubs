@@ -118,6 +118,7 @@ class Figure(FigureBase):
 
     def savefig(self: Figure,
                 fname: Any,
+                *,
                 transparent: Any = None,
                 **kwargs) -> None: ...
 
@@ -139,6 +140,7 @@ class Figure(FigureBase):
                                               option_image_nocomposite, close_group} = None) -> None: ...
 
     def tight_layout(self: Figure,
+                     *,
                      pad: float = 1.08,
                      h_pad: float = None,
                      w_pad: float = None,
@@ -374,6 +376,7 @@ class FigureBase(Artist):
 
     def subplot_mosaic(self: FigureBase,
                        mosaic: Any,
+                       *,
                        subplot_kw: Optional[dict] = None,
                        gridspec_kw: Optional[dict] = None,
                        empty_sentinel: Optional[object] = '.') -> dict[Any, Axes]: ...
@@ -386,6 +389,7 @@ class SubFigure(FigureBase):
     def __init__(self: SubFigure,
                  parent: Any,
                  subplotspec: Any,
+                 *,
                  facecolor: Any = None,
                  edgecolor: Any = None,
                  linewidth: float = 0.0,

@@ -8,58 +8,6 @@ from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedConstant
 
 
-class Colorbar(ColorbarBase):
-    def __init__(self: Colorbar,
-                 ax: Any,
-                 mappable: {get_array, cmap, norm, colorbar, colorbar_cid, callbacksSM},
-                 **kwargs) -> None: ...
-
-    @_api.deprecated("3.3", alternative="update_normal")
-    def on_mappable_changed(self: Colorbar,
-                            mappable: {norm, get_alpha, cmap}) -> Optional[Any]: ...
-
-    def add_lines(self: Colorbar,
-                  CS: Any,
-                  erase: bool = True) -> Any: ...
-
-    def update_normal(self: Colorbar,
-                      mappable: {norm, get_alpha, cmap}) -> None: ...
-
-    @_api.deprecated("3.3", alternative="update_normal")
-    def update_bruteforce(self: Colorbar,
-                          mappable: Any) -> Optional[Any]: ...
-
-    def remove(self: Colorbar) -> None: ...
-
-
-class _ColorbarAutoMinorLocator(AutoMinorLocator):
-    def __init__(self: _ColorbarAutoMinorLocator,
-                 colorbar: Any,
-                 n: Any = None) -> None: ...
-
-    def __call__(self: _ColorbarAutoMinorLocator) -> list: ...
-
-
-class _ColorbarAutoLocator(MaxNLocator):
-    def __init__(self: _ColorbarAutoLocator,
-                 colorbar: Any) -> None: ...
-
-    def tick_values(self: _ColorbarAutoLocator,
-                    vmin: {__gt__},
-                    vmax: Any) -> Any: ...
-
-
-class _ColorbarLogLocator(LogLocator):
-    def __init__(self: _ColorbarLogLocator,
-                 colorbar: Any,
-                 *args,
-                 **kwargs) -> None: ...
-
-    def tick_values(self: _ColorbarLogLocator,
-                    vmin: {__le__},
-                    vmax: {__lt__}) -> None: ...
-
-
 class ColorbarBase(object):
     @_api.make_keyword_only("3.3", "cmap")
     def __init__(self: ColorbarBase,
@@ -119,6 +67,7 @@ class ColorbarBase(object):
 
     def set_label(self: ColorbarBase,
                   label: str,
+                  *,
                   loc: Optional[str] = None,
                   **kwargs) -> None: ...
 
@@ -174,6 +123,58 @@ class ColorbarBase(object):
     def remove(self: ColorbarBase) -> None: ...
 
 
+class Colorbar(ColorbarBase):
+    def __init__(self: Colorbar,
+                 ax: Any,
+                 mappable: {get_array, cmap, norm, colorbar, colorbar_cid, callbacksSM},
+                 **kwargs) -> None: ...
+
+    @_api.deprecated("3.3", alternative="update_normal")
+    def on_mappable_changed(self: Colorbar,
+                            mappable: {norm, get_alpha, cmap}) -> Optional[Any]: ...
+
+    def add_lines(self: Colorbar,
+                  CS: Any,
+                  erase: bool = True) -> Any: ...
+
+    def update_normal(self: Colorbar,
+                      mappable: {norm, get_alpha, cmap}) -> None: ...
+
+    @_api.deprecated("3.3", alternative="update_normal")
+    def update_bruteforce(self: Colorbar,
+                          mappable: Any) -> Optional[Any]: ...
+
+    def remove(self: Colorbar) -> None: ...
+
+
+class _ColorbarAutoMinorLocator(AutoMinorLocator):
+    def __init__(self: _ColorbarAutoMinorLocator,
+                 colorbar: Any,
+                 n: Any = None) -> None: ...
+
+    def __call__(self: _ColorbarAutoMinorLocator) -> list: ...
+
+
+class _ColorbarAutoLocator(MaxNLocator):
+    def __init__(self: _ColorbarAutoLocator,
+                 colorbar: Any) -> None: ...
+
+    def tick_values(self: _ColorbarAutoLocator,
+                    vmin: {__gt__},
+                    vmax: Any) -> Any: ...
+
+
+class _ColorbarLogLocator(LogLocator):
+    def __init__(self: _ColorbarLogLocator,
+                 colorbar: Any,
+                 *args,
+                 **kwargs) -> None: ...
+
+    def tick_values(self: _ColorbarLogLocator,
+                    vmin: {__le__},
+                    vmax: {__lt__}) -> None: ...
+
+
 class ColorbarPatch(Colorbar):
     pass
 
@@ -212,6 +213,7 @@ def make_axes(parents: Any,
 
 @docstring.Substitution(_make_axes_param_doc, _make_axes_other_param_doc)
 def make_axes_gridspec(parent: Any,
+                       *,
                        location: Any = None,
                        orientation: Any = None,
                        fraction: float = 0.15,

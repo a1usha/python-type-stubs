@@ -11,6 +11,7 @@ class ValidateInStrings(object):
                  key: Any,
                  valid: Any,
                  ignorecase: bool = False,
+                 *,
                  _deprecated_since: Any = None) -> None: ...
 
     def __call__(self: ValidateInStrings,
@@ -26,6 +27,7 @@ def cycler(*args,
 
 
 def _make_type_validator(cls: Type[Union[str, int, float]],
+                         *,
                          allow_none: bool = False) -> (s: Optional[{lower}]) ->
 
 
@@ -138,6 +140,7 @@ def _validate_greaterequal0_lessthan1(s: Any) -> Union[None, str, int, float]: .
 @lru_cache()
 def _listify_validator(scalar_validator: Union[(s: Any),
                        allow_stringlist: bool = False,
+                       *,
                        n: int = None,
                        doc: str = None) -> (s: Any) ->
 

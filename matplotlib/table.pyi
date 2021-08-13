@@ -4,6 +4,27 @@ from typing import Optional
 from typing import Union
 
 
+@docstring.dedent_interpd
+def table(ax: {add_table},
+          cellText: Optional[int] = None,
+          cellColours: Optional[int] = None,
+          cellLoc: str = 'right',
+          colWidths: Optional[Iterable[float]] = None,
+          rowLabels: Optional[Iterable[str]] = None,
+          rowColours: Optional[Iterable] = None,
+          rowLoc: str = 'left',
+          colLabels: Optional[Iterable[str]] = None,
+          colColours: Optional[Iterable] = None,
+          colLoc: str = 'center',
+          loc: Optional[str] = 'bottom',
+          bbox: Any = None,
+          edges: str = 'closed',
+          ax: Any = ...,
+          loc: Any = ...,
+          bbox: Any = ...,
+          **kwargs) -> Any: ...
+
+
 class Table(Artist):
     def __init__(self: Table,
                  ax: Axes,
@@ -91,6 +112,7 @@ class Cell(Rectangle):
                  text: str = '',
                  loc: str = None,
                  fontproperties: dict = None,
+                 *,
                  visible_edges: str = 'closed') -> None: ...
 
     def set_transform(self: Cell,
@@ -134,24 +156,3 @@ class Cell(Rectangle):
                       value: Any) -> Any: ...
 
     def get_path(self: Cell) -> Path: ...
-
-
-@docstring.dedent_interpd
-def table(ax: {add_table},
-          cellText: Optional[int] = None,
-          cellColours: Optional[int] = None,
-          cellLoc: str = 'right',
-          colWidths: Optional[Iterable[float]] = None,
-          rowLabels: Optional[Iterable[str]] = None,
-          rowColours: Optional[Iterable] = None,
-          rowLoc: str = 'left',
-          colLabels: Optional[Iterable[str]] = None,
-          colColours: Optional[Iterable] = None,
-          colLoc: str = 'center',
-          loc: Optional[str] = 'bottom',
-          bbox: Any = None,
-          edges: str = 'closed',
-          ax: Any = ...,
-          loc: Any = ...,
-          bbox: Any = ...,
-          **kwargs) -> Any: ...

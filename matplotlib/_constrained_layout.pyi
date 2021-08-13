@@ -17,10 +17,12 @@ def _get_cb_parent_spans(cbax: {_colorbar_info}) -> tuple[range, range]: ...
 
 def _reposition_colorbar(cbax: Any,
                          renderer: Any,
+                         *,
                          offset: dict[str, int] = None) -> dict[str, int]: ...
 
 
 def _get_margin_from_padding(object: {_subplotspec},
+                             *,
                              w_pad: int = 0,
                              h_pad: int = 0,
                              hspace: int = 0,
@@ -42,12 +44,14 @@ def _get_pos_and_bbox(ax: {figure, get_position, get_tightbbox},
 
 def _make_margin_suptitles(fig: {transFigure, transSubfigure, subfigs, _suptitle, _supxlabel, _supylabel},
                            renderer: Any,
+                           *,
                            w_pad: int = 0,
                            h_pad: int = 0) -> None: ...
 
 
 def _make_layout_margins(fig: {subfigs, _localaxes},
                          renderer: Any,
+                         *,
                          w_pad: int = 0,
                          h_pad: int = 0,
                          hspace: int = 0,
@@ -56,6 +60,7 @@ def _make_layout_margins(fig: {subfigs, _localaxes},
 
 def _reposition_axes(fig: {transFigure, transSubfigure, subfigs, _localaxes},
                      renderer: Any,
+                     *,
                      w_pad: int = 0,
                      h_pad: int = 0,
                      hspace: int = 0,

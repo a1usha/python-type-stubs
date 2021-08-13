@@ -20,6 +20,7 @@ class SecondaryAxis(_AxesBase):
 
     def set_ticks(self: SecondaryAxis,
                   ticks: Iterable,
+                  *,
                   minor: bool = False) -> list: ...
 
     def set_functions(self: SecondaryAxis,

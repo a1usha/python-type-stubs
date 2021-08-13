@@ -11,6 +11,7 @@ from numpy.core._multiarray_umath import ndarray
 
 class DateConverter(ConversionInterface):
     def __init__(self: DateConverter,
+                 *,
                  interval_multiples: bool = True) -> None: ...
 
     def axisinfo(self: DateConverter,
@@ -178,6 +179,7 @@ class ConciseDateConverter(DateConverter):
                  zero_formats: Any = None,
                  offset_formats: Any = None,
                  show_offset: bool = True,
+                 *,
                  interval_multiples: bool = True) -> None: ...
 
     def axisinfo(self: ConciseDateConverter,
@@ -211,6 +213,7 @@ class AutoDateFormatter(Formatter):
                  locator: Any,
                  tz: Optional[str] = None,
                  defaultfmt: str = '%Y-%m-%d',
+                 *,
                  usetex: bool = None) -> None: ...
 
     def _set_locator(self: AutoDateFormatter,
@@ -229,6 +232,7 @@ class DateFormatter(Formatter):
     def __init__(self: DateFormatter,
                  fmt: str,
                  tz: tzinfo = None,
+                 *,
                  usetex: bool = None) -> None: ...
 
     def __call__(self: DateFormatter,
@@ -247,6 +251,7 @@ class ConciseDateFormatter(Formatter):
                  offset_formats: Any = None,
                  zero_formats: Any = None,
                  show_offset: bool = True,
+                 *,
                  usetex: Any = None) -> Any: ...
 
     def __call__(self: ConciseDateFormatter,

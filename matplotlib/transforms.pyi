@@ -10,6 +10,294 @@ from matplotlib.transforms import Transform
 from numpy.core._multiarray_umath import ndarray
 
 
+class TransformNode(object):
+    def __init__(self: TransformNode,
+                 shorthand_name: str = None) -> None: ...
+
+    def __str__(self: TransformNode) -> str: ...
+
+    def __getstate__(self: TransformNode) -> dict[str, dict]: ...
+
+    def __setstate__(self: TransformNode,
+                     data_dict: Any) -> None: ...
+
+    def __copy__(self: TransformNode) -> object: ...
+
+    def __deepcopy__(self: TransformNode,
+                     memo: Any) -> Union[TransformNode, object]: ...
+
+    def invalidate(self: TransformNode) -> None: ...
+
+    def _invalidate_internal(self: TransformNode,
+                             value: Union[int, {__eq__}],
+                             invalidating_node: Any) -> None: ...
+
+    def set_children(self: TransformNode,
+                     *args) -> None: ...
+
+    def frozen(self: TransformNode) -> TransformNode: ...
+
+
+class BboxBase(TransformNode):
+    @staticmethod
+    def _check(points: ndarray) -> None: ...
+
+    def frozen(self: BboxBase) -> Bbox: ...
+
+    def __array__(self: BboxBase,
+                  *args,
+                  **kwargs) -> Any: ...
+
+    @property
+    def x0(self: BboxBase) -> Any: ...
+
+    @property
+    def y0(self: BboxBase) -> Any: ...
+
+    @property
+    def x1(self: BboxBase) -> Any: ...
+
+    @property
+    def y1(self: BboxBase) -> Any: ...
+
+    @property
+    def p0(self: BboxBase) -> Any: ...
+
+    @property
+    def p1(self: BboxBase) -> Any: ...
+
+    @property
+    def xmin(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
+
+    @property
+    def ymin(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
+
+    @property
+    def xmax(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
+
+    @property
+    def ymax(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
+
+    @property
+    def min(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
+
+    @property
+    def max(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
+
+    @property
+    def intervalx(self: BboxBase) -> Any: ...
+
+    @property
+    def intervaly(self: BboxBase) -> Any: ...
+
+    @property
+    def width(self: BboxBase) -> Any: ...
+
+    @property
+    def height(self: BboxBase) -> Any: ...
+
+    @property
+    def size(self: BboxBase) -> Any: ...
+
+    @property
+    def bounds(self: BboxBase) -> tuple[Any, Any, Any, Any]: ...
+
+    @property
+    def extents(self: BboxBase) -> Any: ...
+
+    def get_points(self: BboxBase) -> Any: ...
+
+    def containsx(self: BboxBase,
+                  x: Any) -> bool: ...
+
+    def containsy(self: BboxBase,
+                  y: Any) -> bool: ...
+
+    def contains(self: BboxBase,
+                 x: Any,
+                 y: Any) -> bool: ...
+
+    def overlaps(self: BboxBase,
+                 other: Any) -> bool: ...
+
+    def fully_containsx(self: BboxBase,
+                        x: Any) -> bool: ...
+
+    def fully_containsy(self: BboxBase,
+                        y: Any) -> bool: ...
+
+    def fully_contains(self: BboxBase,
+                       x: Any,
+                       y: Any) -> bool: ...
+
+    def fully_overlaps(self: BboxBase,
+                       other: Any) -> bool: ...
+
+    def transformed(self: BboxBase,
+                    transform: {transform}) -> Bbox: ...
+
+    @_api.deprecated("3.3", alternative="transformed(transform.inverted())")
+    def inverse_transformed(self: BboxBase,
+                            transform: {inverted}) -> Bbox: ...
+
+    def anchored(self: BboxBase,
+                 c: Union[tuple[float, float], str],
+                 container: Optional[Bbox] = None) -> Bbox: ...
+
+    def shrunk(self: BboxBase,
+               mx: {__mul__},
+               my: {__mul__}) -> Bbox: ...
+
+    def shrunk_to_aspect(self: BboxBase,
+                         box_aspect: {__le__},
+                         container: Optional[{size}] = None,
+                         fig_aspect: float = 1.0) -> Bbox: ...
+
+    def splitx(self: BboxBase,
+               *args) -> list[Bbox]: ...
+
+    def splity(self: BboxBase,
+               *args) -> list[Bbox]: ...
+
+    def count_contains(self: BboxBase,
+                       vertices: Any) -> int: ...
+
+    def count_overlaps(self: BboxBase,
+                       bboxes: Any) -> None: ...
+
+    def expanded(self: BboxBase,
+                 sw: {__mul__},
+                 sh: {__mul__}) -> Bbox: ...
+
+    def padded(self: BboxBase,
+               p: {__neg__}) -> Bbox: ...
+
+    def translated(self: BboxBase,
+                   tx: Any,
+                   ty: Any) -> Bbox: ...
+
+    def corners(self: BboxBase) -> ndarray: ...
+
+    def rotated(self: BboxBase,
+                radians: Any) -> Bbox: ...
+
+    @staticmethod
+    def union(bboxes: {__len__}) -> Bbox: ...
+
+    @staticmethod
+    def intersection(bbox1: {xmin, xmax, ymin, ymax},
+                     bbox2: {xmin, xmax, ymin, ymax}) -> Optional[Bbox]: ...
+
+
+class Bbox(BboxBase):
+    def __init__(self: Bbox,
+                 points: ndarray,
+                 **kwargs) -> Any: ...
+
+    def __init__(self: Bbox,
+                 points: Any,
+                 **kwargs) -> None: ...
+
+    def invalidate(self: Bbox) -> None: ...
+
+    @staticmethod
+    def unit() -> Bbox: ...
+
+    @staticmethod
+    def null() -> Bbox: ...
+
+    @staticmethod
+    def from_bounds(x0: {__add__},
+                    y0: {__add__},
+                    width: Any,
+                    height: Any) -> Bbox: ...
+
+    @staticmethod
+    def from_extents(*args,
+                     minpos: Optional[float] = None) -> Bbox: ...
+
+    def __format__(self: Bbox,
+                   fmt: Any) -> str: ...
+
+    def __str__(self: Bbox) -> str: ...
+
+    def __repr__(self: Bbox) -> str: ...
+
+    def ignore(self: Bbox,
+               value: Any) -> None: ...
+
+    def update_from_path(self: Bbox,
+                         path: Any,
+                         ignore: Optional[bool] = None,
+                         updatex: bool = True,
+                         updatey: bool = True) -> None: ...
+
+    def update_from_data_xy(self: Bbox,
+                            xy: ndarray,
+                            ignore: Optional[bool] = None,
+                            updatex: bool = True,
+                            updatey: bool = True) -> None: ...
+
+    @BboxBase.x0.setter
+    def x0(self: Bbox,
+           val: Any) -> Optional[Any]: ...
+
+    @BboxBase.y0.setter
+    def y0(self: Bbox,
+           val: Any) -> Optional[Any]: ...
+
+    @BboxBase.x1.setter
+    def x1(self: Bbox,
+           val: Any) -> Optional[Any]: ...
+
+    @BboxBase.y1.setter
+    def y1(self: Bbox,
+           val: Any) -> Optional[Any]: ...
+
+    @BboxBase.p0.setter
+    def p0(self: Bbox,
+           val: Any) -> Optional[Any]: ...
+
+    @BboxBase.p1.setter
+    def p1(self: Bbox,
+           val: Any) -> Optional[Any]: ...
+
+    @BboxBase.intervalx.setter
+    def intervalx(self: Bbox,
+                  interval: Any) -> Optional[Any]: ...
+
+    @BboxBase.intervaly.setter
+    def intervaly(self: Bbox,
+                  interval: Any) -> Optional[Any]: ...
+
+    @BboxBase.bounds.setter
+    def bounds(self: Bbox,
+               bounds: Any) -> Optional[Any]: ...
+
+    @property
+    def minpos(self: Bbox) -> ndarray: ...
+
+    @property
+    def minposx(self: Bbox) -> None: ...
+
+    @property
+    def minposy(self: Bbox) -> None: ...
+
+    def get_points(self: Bbox) -> ndarray: ...
+
+    def set_points(self: Bbox,
+                   points: Any) -> None: ...
+
+    def set(self: Bbox,
+            other: {get_points}) -> None: ...
+
+    def mutated(self: Bbox) -> bool: ...
+
+    def mutatedx(self: Bbox) -> bool: ...
+
+    def mutatedy(self: Bbox) -> bool: ...
+
+
 class Transform(TransformNode):
     def __init_subclass__(cls: Type[Transform]) -> None: ...
 
@@ -73,29 +361,6 @@ class Transform(TransformNode):
     def inverted(self: Transform) -> Any: ...
 
 
-class TransformWrapper(Transform):
-    def __init__(self: TransformWrapper,
-                 child: {input_dims, output_dims}) -> None: ...
-
-    def _init(self: TransformWrapper,
-              child: {input_dims, output_dims}) -> None: ...
-
-    def __eq__(self: TransformWrapper,
-               other: Any) -> Any: ...
-
-    def frozen(self: TransformWrapper) -> Any: ...
-
-    def _set(self: TransformWrapper,
-             child: {input_dims, output_dims}) -> None: ...
-
-    def set(self: TransformWrapper,
-            child: {input_dims, output_dims}) -> Any: ...
-
-
-class BboxTransformToMaxOnly(BboxTransformTo):
-    def get_matrix(self: BboxTransformToMaxOnly) -> ndarray: ...
-
-
 class Affine2D(Affine2DBase):
     def __init__(self: Affine2D,
                  matrix: Optional[{copy}] = None,
@@ -153,6 +418,29 @@ class Affine2D(Affine2DBase):
     def skew_deg(self: Affine2D,
                  xShear: Any,
                  yShear: Any) -> Affine2D: ...
+
+
+class TransformWrapper(Transform):
+    def __init__(self: TransformWrapper,
+                 child: {input_dims, output_dims}) -> None: ...
+
+    def _init(self: TransformWrapper,
+              child: {input_dims, output_dims}) -> None: ...
+
+    def __eq__(self: TransformWrapper,
+               other: Any) -> Any: ...
+
+    def frozen(self: TransformWrapper) -> Any: ...
+
+    def _set(self: TransformWrapper,
+             child: {input_dims, output_dims}) -> None: ...
+
+    def set(self: TransformWrapper,
+            child: {input_dims, output_dims}) -> Any: ...
+
+
+class BboxTransformToMaxOnly(BboxTransformTo):
+    def get_matrix(self: BboxTransformToMaxOnly) -> ndarray: ...
 
 
 class TransformedPatchPath(TransformedPath):
@@ -231,34 +519,6 @@ class ScaledTranslation(Affine2DBase):
                  **kwargs) -> None: ...
 
     def get_matrix(self: ScaledTranslation) -> None: ...
-
-
-class TransformNode(object):
-    def __init__(self: TransformNode,
-                 shorthand_name: str = None) -> None: ...
-
-    def __str__(self: TransformNode) -> str: ...
-
-    def __getstate__(self: TransformNode) -> dict[str, dict]: ...
-
-    def __setstate__(self: TransformNode,
-                     data_dict: Any) -> None: ...
-
-    def __copy__(self: TransformNode) -> object: ...
-
-    def __deepcopy__(self: TransformNode,
-                     memo: Any) -> Union[TransformNode, object]: ...
-
-    def invalidate(self: TransformNode) -> None: ...
-
-    def _invalidate_internal(self: TransformNode,
-                             value: Union[int, {__eq__}],
-                             invalidating_node: Any) -> None: ...
-
-    def set_children(self: TransformNode,
-                     *args) -> None: ...
-
-    def frozen(self: TransformNode) -> TransformNode: ...
 
 
 class BboxTransformFrom(Affine2DBase):
@@ -462,266 +722,6 @@ class BlendedGenericTransform(_BlendedMixin, Transform):
     def inverted(self: BlendedGenericTransform) -> BlendedGenericTransform: ...
 
     def get_affine(self: BlendedGenericTransform) -> Affine2D: ...
-
-
-class Bbox(BboxBase):
-    def __init__(self: Bbox,
-                 points: ndarray,
-                 **kwargs) -> Any: ...
-
-    def __init__(self: Bbox,
-                 points: Any,
-                 **kwargs) -> None: ...
-
-    def invalidate(self: Bbox) -> None: ...
-
-    @staticmethod
-    def unit() -> Bbox: ...
-
-    @staticmethod
-    def null() -> Bbox: ...
-
-    @staticmethod
-    def from_bounds(x0: {__add__},
-                    y0: {__add__},
-                    width: Any,
-                    height: Any) -> Bbox: ...
-
-    @staticmethod
-    def from_extents(*args,
-                     minpos: Optional[float] = None) -> Bbox: ...
-
-    def __format__(self: Bbox,
-                   fmt: Any) -> str: ...
-
-    def __str__(self: Bbox) -> str: ...
-
-    def __repr__(self: Bbox) -> str: ...
-
-    def ignore(self: Bbox,
-               value: Any) -> None: ...
-
-    def update_from_path(self: Bbox,
-                         path: Any,
-                         ignore: Optional[bool] = None,
-                         updatex: bool = True,
-                         updatey: bool = True) -> None: ...
-
-    def update_from_data_xy(self: Bbox,
-                            xy: ndarray,
-                            ignore: Optional[bool] = None,
-                            updatex: bool = True,
-                            updatey: bool = True) -> None: ...
-
-    @BboxBase.x0.setter
-    def x0(self: Bbox,
-           val: Any) -> Optional[Any]: ...
-
-    @BboxBase.y0.setter
-    def y0(self: Bbox,
-           val: Any) -> Optional[Any]: ...
-
-    @BboxBase.x1.setter
-    def x1(self: Bbox,
-           val: Any) -> Optional[Any]: ...
-
-    @BboxBase.y1.setter
-    def y1(self: Bbox,
-           val: Any) -> Optional[Any]: ...
-
-    @BboxBase.p0.setter
-    def p0(self: Bbox,
-           val: Any) -> Optional[Any]: ...
-
-    @BboxBase.p1.setter
-    def p1(self: Bbox,
-           val: Any) -> Optional[Any]: ...
-
-    @BboxBase.intervalx.setter
-    def intervalx(self: Bbox,
-                  interval: Any) -> Optional[Any]: ...
-
-    @BboxBase.intervaly.setter
-    def intervaly(self: Bbox,
-                  interval: Any) -> Optional[Any]: ...
-
-    @BboxBase.bounds.setter
-    def bounds(self: Bbox,
-               bounds: Any) -> Optional[Any]: ...
-
-    @property
-    def minpos(self: Bbox) -> ndarray: ...
-
-    @property
-    def minposx(self: Bbox) -> None: ...
-
-    @property
-    def minposy(self: Bbox) -> None: ...
-
-    def get_points(self: Bbox) -> ndarray: ...
-
-    def set_points(self: Bbox,
-                   points: Any) -> None: ...
-
-    def set(self: Bbox,
-            other: {get_points}) -> None: ...
-
-    def mutated(self: Bbox) -> bool: ...
-
-    def mutatedx(self: Bbox) -> bool: ...
-
-    def mutatedy(self: Bbox) -> bool: ...
-
-
-class BboxBase(TransformNode):
-    @staticmethod
-    def _check(points: ndarray) -> None: ...
-
-    def frozen(self: BboxBase) -> Bbox: ...
-
-    def __array__(self: BboxBase,
-                  *args,
-                  **kwargs) -> Any: ...
-
-    @property
-    def x0(self: BboxBase) -> Any: ...
-
-    @property
-    def y0(self: BboxBase) -> Any: ...
-
-    @property
-    def x1(self: BboxBase) -> Any: ...
-
-    @property
-    def y1(self: BboxBase) -> Any: ...
-
-    @property
-    def p0(self: BboxBase) -> Any: ...
-
-    @property
-    def p1(self: BboxBase) -> Any: ...
-
-    @property
-    def xmin(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
-
-    @property
-    def ymin(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
-
-    @property
-    def xmax(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
-
-    @property
-    def ymax(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
-
-    @property
-    def min(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
-
-    @property
-    def max(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
-
-    @property
-    def intervalx(self: BboxBase) -> Any: ...
-
-    @property
-    def intervaly(self: BboxBase) -> Any: ...
-
-    @property
-    def width(self: BboxBase) -> Any: ...
-
-    @property
-    def height(self: BboxBase) -> Any: ...
-
-    @property
-    def size(self: BboxBase) -> Any: ...
-
-    @property
-    def bounds(self: BboxBase) -> tuple[Any, Any, Any, Any]: ...
-
-    @property
-    def extents(self: BboxBase) -> Any: ...
-
-    def get_points(self: BboxBase) -> Any: ...
-
-    def containsx(self: BboxBase,
-                  x: Any) -> bool: ...
-
-    def containsy(self: BboxBase,
-                  y: Any) -> bool: ...
-
-    def contains(self: BboxBase,
-                 x: Any,
-                 y: Any) -> bool: ...
-
-    def overlaps(self: BboxBase,
-                 other: Any) -> bool: ...
-
-    def fully_containsx(self: BboxBase,
-                        x: Any) -> bool: ...
-
-    def fully_containsy(self: BboxBase,
-                        y: Any) -> bool: ...
-
-    def fully_contains(self: BboxBase,
-                       x: Any,
-                       y: Any) -> bool: ...
-
-    def fully_overlaps(self: BboxBase,
-                       other: Any) -> bool: ...
-
-    def transformed(self: BboxBase,
-                    transform: {transform}) -> Bbox: ...
-
-    @_api.deprecated("3.3", alternative="transformed(transform.inverted())")
-    def inverse_transformed(self: BboxBase,
-                            transform: {inverted}) -> Bbox: ...
-
-    def anchored(self: BboxBase,
-                 c: Union[tuple[float, float], str],
-                 container: Optional[Bbox] = None) -> Bbox: ...
-
-    def shrunk(self: BboxBase,
-               mx: {__mul__},
-               my: {__mul__}) -> Bbox: ...
-
-    def shrunk_to_aspect(self: BboxBase,
-                         box_aspect: {__le__},
-                         container: Optional[{size}] = None,
-                         fig_aspect: float = 1.0) -> Bbox: ...
-
-    def splitx(self: BboxBase,
-               *args) -> list[Bbox]: ...
-
-    def splity(self: BboxBase,
-               *args) -> list[Bbox]: ...
-
-    def count_contains(self: BboxBase,
-                       vertices: Any) -> int: ...
-
-    def count_overlaps(self: BboxBase,
-                       bboxes: Any) -> None: ...
-
-    def expanded(self: BboxBase,
-                 sw: {__mul__},
-                 sh: {__mul__}) -> Bbox: ...
-
-    def padded(self: BboxBase,
-               p: {__neg__}) -> Bbox: ...
-
-    def translated(self: BboxBase,
-                   tx: Any,
-                   ty: Any) -> Bbox: ...
-
-    def corners(self: BboxBase) -> ndarray: ...
-
-    def rotated(self: BboxBase,
-                radians: Any) -> Bbox: ...
-
-    @staticmethod
-    def union(bboxes: {__len__}) -> Bbox: ...
-
-    @staticmethod
-    def intersection(bbox1: {xmin, xmax, ymin, ymax},
-                     bbox2: {xmin, xmax, ymin, ymax}) -> Optional[Bbox]: ...
 
 
 def composite_transform_factory(a: Transform,

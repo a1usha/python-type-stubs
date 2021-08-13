@@ -166,6 +166,7 @@ class MathTextParser(object):
               s: str,
               dpi: int = 72,
               prop: FontProperties = None,
+              *,
               _force_standard_ps_fonts: bool = False) -> Any: ...
 
     @functools.lru_cache(50)

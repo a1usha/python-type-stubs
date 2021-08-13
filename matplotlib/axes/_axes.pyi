@@ -19,6 +19,7 @@ class Axes(_AxesBase):
                   fontdict: dict = None,
                   loc: str = None,
                   pad: float = None,
+                  *,
                   y: float = None,
                   x: Any = ...,
                   y: Any = ...,
@@ -49,6 +50,7 @@ class Axes(_AxesBase):
 
     def inset_axes(self: Axes,
                    bounds: Any,
+                   *,
                    transform: Any = None,
                    zorder: Union[int, float, complex] = 5,
                    **kwargs) -> Any: ...
@@ -57,6 +59,7 @@ class Axes(_AxesBase):
     def indicate_inset(self: Axes,
                        bounds: Any,
                        inset_ax: Any = None,
+                       *,
                        transform: Any = None,
                        facecolor: Any = 'none',
                        edgecolor: Any = '0.5',
@@ -71,12 +74,14 @@ class Axes(_AxesBase):
     @docstring.dedent_interpd
     def secondary_xaxis(self: Axes,
                         location: Any,
+                        *,
                         functions: Any = None,
                         **kwargs) -> SecondaryAxis: ...
 
     @docstring.dedent_interpd
     def secondary_yaxis(self: Axes,
                         location: Any,
+                        *,
                         functions: Any = None,
                         **kwargs) -> SecondaryAxis: ...
 
@@ -172,6 +177,7 @@ class Axes(_AxesBase):
     def axline(self: Axes,
                xy1: tuple[float, float],
                xy2: tuple[float, float] = None,
+               *,
                slope: Optional[float] = None,
                xdata: ndarray = ...,
                ydata: ndarray = ...,
@@ -365,6 +371,7 @@ class Axes(_AxesBase):
             height: Union[float, ndarray, Iterable, int],
             width: Union[float, ndarray, Iterable, int] = 0.8,
             bottom: Union[float, ndarray, Iterable, int] = None,
+            *,
             align: str = "center",
             xy: tuple[float, float] = ...,
             width: float = ...,
@@ -378,6 +385,7 @@ class Axes(_AxesBase):
              width: Union[float, ndarray, Iterable, int],
              height: Union[float, ndarray, Iterable, int] = 0.8,
              left: Union[float, ndarray, Iterable, int] = None,
+             *,
              align: str = "center",
              xy: tuple[float, float] = ...,
              width: float = ...,
@@ -388,6 +396,7 @@ class Axes(_AxesBase):
     def bar_label(self: Axes,
                   container: Any,
                   labels: Union[ndarray, Iterable, int, float, None] = None,
+                  *,
                   fmt: str = "%g",
                   label_type: str = "edge",
                   padding: float = 0,
@@ -431,6 +440,7 @@ class Axes(_AxesBase):
             center: int = (0, 0),
             frame: bool = False,
             rotatelabels: bool = False,
+            *,
             normalize: Optional[bool] = None) -> list: ...
 
     @_preprocess_data(replace_names=["x", "y", "xerr", "yerr"],
@@ -527,6 +537,7 @@ class Axes(_AxesBase):
                 vmax: float = None,
                 alpha: float = None,
                 linewidths: Union[float, ndarray, Iterable, int] = None,
+                *,
                 edgecolors: str = None,
                 plotnonfinite: bool = False,
                 edgecolors: Any = ...,
@@ -618,6 +629,7 @@ class Axes(_AxesBase):
                              ind: Any,
                              dep1: Any,
                              dep2: int = 0,
+                             *,
                              where: Any = None,
                              interpolate: bool = False,
                              step: Optional[str] = None,
@@ -656,6 +668,7 @@ class Axes(_AxesBase):
                vmax: Optional[float] = None,
                origin: str = None,
                extent: Any = None,
+               *,
                filternorm: bool = True,
                filterrad: Any = 4.0,
                resample: bool = None,
@@ -667,7 +680,8 @@ class Axes(_AxesBase):
                     shading: str = 'flat',
                     *args,
                     **kwargs) -> Union[tuple[Any, Any, Union[ndarray, Iterable, int, float, None], str], tuple[
-        Optional[ndarray], Optional[ndarray], Union[ndarray, Iterable, int, float, None], str]]: ...
+        Union[None, object, ndarray], Union[None, object, ndarray], Union[
+            ndarray, Iterable, int, float, None], str]]: ...
 
     @_preprocess_data()
     @docstring.dedent_interpd
@@ -761,6 +775,7 @@ class Axes(_AxesBase):
     def stairs(self: Axes,
                values: Union[ndarray, Iterable, int, float],
                edges: Union[ndarray, Iterable, int, float] = None,
+               *,
                orientation: str = 'vertical',
                baseline: Union[float, ndarray, Iterable, int, None] = 0,
                fill: bool = False,

@@ -8,6 +8,57 @@ from matplotlib.axes._axes import Axes
 from numpy.core._multiarray_umath import ndarray
 
 
+class Widget(object):
+    def set_active(self: Widget,
+                   active: Any) -> None: ...
+
+    def get_active(self: Widget) -> Any: ...
+
+    def ignore(self: Widget,
+               event: Union[
+                   {inaxes, canvas}, {canvas, inaxes}, {inaxes}, {button, name, inaxes}, {button, name, inaxes}, {
+                       button, inaxes, x, y}, {canvas}, {inaxes, canvas, x}, {inaxes}, {button, inaxes, x, y}, {inaxes,
+                                                                                                                xdata,
+                                                                                                                ydata}, {
+                       inaxes}, {inaxes, button, xdata, ydata}]) -> bool: ...
+
+
+class SubplotTool(Widget):
+    def __init__(self: SubplotTool,
+                 targetfig: Any,
+                 toolfig: Any) -> None: ...
+
+    def _on_slider_changed(self: SubplotTool,
+                           _: Any) -> None: ...
+
+    def _on_reset(self: SubplotTool,
+                  event: Any) -> None: ...
+
+    @_api.deprecated("3.3")
+    def funcleft(self: SubplotTool,
+                 val: Any) -> Optional[Any]: ...
+
+    @_api.deprecated("3.3")
+    def funcright(self: SubplotTool,
+                  val: Any) -> Optional[Any]: ...
+
+    @_api.deprecated("3.3")
+    def funcbottom(self: SubplotTool,
+                   val: Any) -> Optional[Any]: ...
+
+    @_api.deprecated("3.3")
+    def functop(self: SubplotTool,
+                val: Any) -> Optional[Any]: ...
+
+    @_api.deprecated("3.3")
+    def funcwspace(self: SubplotTool,
+                   val: Any) -> Optional[Any]: ...
+
+    @_api.deprecated("3.3")
+    def funchspace(self: SubplotTool,
+                   val: Any) -> Optional[Any]: ...
+
+
 class Cursor(AxesWidget):
     def __init__(self: Cursor,
                  ax: Axes,
@@ -64,6 +115,7 @@ class Slider(SliderBase):
                  dragging: bool = True,
                  valstep: Union[float, ndarray, Iterable, int] = None,
                  orientation: str = 'horizontal',
+                 *,
                  initcolor: Any = 'r',
                  **kwargs) -> Any: ...
 
@@ -99,42 +151,6 @@ class LockDraw(object):
                 o: Any) -> Any: ...
 
     def locked(self: LockDraw) -> Any: ...
-
-
-class SubplotTool(Widget):
-    def __init__(self: SubplotTool,
-                 targetfig: Any,
-                 toolfig: Any) -> None: ...
-
-    def _on_slider_changed(self: SubplotTool,
-                           _: Any) -> None: ...
-
-    def _on_reset(self: SubplotTool,
-                  event: Any) -> None: ...
-
-    @_api.deprecated("3.3")
-    def funcleft(self: SubplotTool,
-                 val: Any) -> Optional[Any]: ...
-
-    @_api.deprecated("3.3")
-    def funcright(self: SubplotTool,
-                  val: Any) -> Optional[Any]: ...
-
-    @_api.deprecated("3.3")
-    def funcbottom(self: SubplotTool,
-                   val: Any) -> Optional[Any]: ...
-
-    @_api.deprecated("3.3")
-    def functop(self: SubplotTool,
-                val: Any) -> Optional[Any]: ...
-
-    @_api.deprecated("3.3")
-    def funcwspace(self: SubplotTool,
-                   val: Any) -> Optional[Any]: ...
-
-    @_api.deprecated("3.3")
-    def funchspace(self: SubplotTool,
-                   val: Any) -> Optional[Any]: ...
 
 
 class EllipseSelector(RectangleSelector):
@@ -575,21 +591,6 @@ class CheckButtons(AxesWidget):
 
     def disconnect(self: CheckButtons,
                    cid: Any) -> None: ...
-
-
-class Widget(object):
-    def set_active(self: Widget,
-                   active: Any) -> None: ...
-
-    def get_active(self: Widget) -> Any: ...
-
-    def ignore(self: Widget,
-               event: Union[
-                   {inaxes, canvas}, {canvas, inaxes}, {inaxes}, {button, name, inaxes}, {button, name, inaxes}, {
-                       button, inaxes, x, y}, {canvas}, {inaxes, canvas, x}, {inaxes}, {button, inaxes, x, y}, {inaxes,
-                                                                                                                xdata,
-                                                                                                                ydata}, {
-                       inaxes}, {inaxes, button, xdata, ydata}]) -> bool: ...
 
 
 class Button(AxesWidget):

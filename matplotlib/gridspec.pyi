@@ -59,6 +59,7 @@ class GridSpecBase(object):
                     key: Any) -> SubplotSpec: ...
 
     def subplots(self: GridSpecBase,
+                 *,
                  sharex: bool = False,
                  sharey: bool = False,
                  squeeze: bool = True,

@@ -8,6 +8,13 @@ from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedConstant
 
 
+class StreamplotSet(object):
+    def __init__(self: StreamplotSet,
+                 lines: Any,
+                 arrows: Any,
+                 **kwargs) -> None: ...
+
+
 class TerminateTrajectory(Exception):
     pass
 
@@ -18,13 +25,6 @@ class OutOfBounds(IndexError):
 
 class InvalidIndexError(Exception):
     pass
-
-
-class StreamplotSet(object):
-    def __init__(self: StreamplotSet,
-                 lines: Any,
-                 arrows: Any,
-                 **kwargs) -> None: ...
 
 
 class StreamMask(object):

@@ -33,6 +33,7 @@ class TexManager(object):
     def _run_checked_subprocess(self: TexManager,
                                 command: Union[list[str], list[str]],
                                 tex: {strip},
+                                *,
                                 cwd: Any = None) -> bytes: ...
 
     def make_dvi(self: TexManager,

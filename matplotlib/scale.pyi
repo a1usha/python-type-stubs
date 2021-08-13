@@ -48,6 +48,7 @@ class LogitScale(ScaleBase):
     def __init__(self: LogitScale,
                  axis: Axis,
                  nonpositive: str = 'mask',
+                 *,
                  one_half: str = r"\frac{1}{2}",
                  use_overline: bool = False) -> Optional[Any]: ...
 
