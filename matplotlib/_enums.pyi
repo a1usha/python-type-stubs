@@ -1,11 +1,3 @@
-class CapStyle(str, _AutoStringNameEnum):
-    def __init__(self: CapStyle,
-                 s: Any) -> None: ...
-
-    @staticmethod
-    def demo() -> None: ...
-
-
 class _AutoStringNameEnum(Enum):
     def _generate_next_value_(name: _AutoStringNameEnum,
                               start: Any,
@@ -13,6 +5,9 @@ class _AutoStringNameEnum(Enum):
                               last_values: Any) -> _AutoStringNameEnum: ...
 
     def __hash__(self: _AutoStringNameEnum) -> int: ...
+
+
+def _deprecate_case_insensitive_join_cap(s: {lower, __ne__}) -> Any: ...
 
 
 class JoinStyle(str, _AutoStringNameEnum):
@@ -23,4 +18,9 @@ class JoinStyle(str, _AutoStringNameEnum):
     def demo() -> None: ...
 
 
-def _deprecate_case_insensitive_join_cap(s: {lower, __ne__}) -> Any: ...
+class CapStyle(str, _AutoStringNameEnum):
+    def __init__(self: CapStyle,
+                 s: Any) -> None: ...
+
+    @staticmethod
+    def demo() -> None: ...

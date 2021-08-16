@@ -1,6 +1,11 @@
 from typing import Any
 
 
+class TriFinder(object):
+    def __init__(self: TriFinder,
+                 triangulation: {get_cpp_triangulation}) -> None: ...
+
+
 class TrapezoidMapTriFinder(TriFinder):
     def __init__(self: TrapezoidMapTriFinder,
                  triangulation: {get_cpp_triangulation}) -> None: ...
@@ -14,8 +19,3 @@ class TrapezoidMapTriFinder(TriFinder):
     def _initialize(self: TrapezoidMapTriFinder) -> None: ...
 
     def _print_tree(self: TrapezoidMapTriFinder) -> None: ...
-
-
-class TriFinder(object):
-    def __init__(self: TriFinder,
-                 triangulation: {get_cpp_triangulation}) -> None: ...

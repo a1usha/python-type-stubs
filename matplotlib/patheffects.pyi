@@ -7,8 +7,25 @@ from matplotlib.patheffects import Stroke
 from matplotlib.patheffects import TickedStroke
 
 
-class Normal(AbstractPathEffect):
-    pass
+class AbstractPathEffect(object):
+    def __init__(self: AbstractPathEffect,
+                 offset: int = (0., 0.)) -> None: ...
+
+    def _offset_transform(self: AbstractPathEffect,
+                          renderer: Union[
+                              {draw_path}, {new_gc, draw_path}, {new_gc, draw_path}, {new_gc, points_to_pixels,
+                                                                                      draw_path}]) -> Affine2D: ...
+
+    def _update_gc(self: AbstractPathEffect,
+                   gc: Any,
+                   new_gc_dict: dict[str, Any]) -> Any: ...
+
+    def draw_path(self: AbstractPathEffect,
+                  renderer: {draw_path},
+                  gc: Any,
+                  tpath: Any,
+                  affine: Any,
+                  rgbFace: Any = None) -> Any: ...
 
 
 class PathEffectRenderer(RendererBase):
@@ -55,6 +72,26 @@ class PathEffectRenderer(RendererBase):
                          name: Any) -> Any: ...
 
 
+class Normal(AbstractPathEffect):
+    pass
+
+
+def _subclass_with_normal(effect_class: Type[Union[Stroke, SimplePatchShadow, TickedStroke]]) -> Type[withEffect]: ...
+
+
+class Stroke(AbstractPathEffect):
+    def __init__(self: Stroke,
+                 offset: int = (0, 0),
+                 **kwargs) -> None: ...
+
+    def draw_path(self: Stroke,
+                  renderer: {draw_path},
+                  gc: Any,
+                  tpath: Any,
+                  affine: {__add__},
+                  rgbFace: Any) -> None: ...
+
+
 class SimplePatchShadow(AbstractPathEffect):
     def __init__(self: SimplePatchShadow,
                  offset: Any = (2, -2),
@@ -66,19 +103,6 @@ class SimplePatchShadow(AbstractPathEffect):
     def draw_path(self: SimplePatchShadow,
                   renderer: {draw_path},
                   gc: Any,
-                  tpath: Any,
-                  affine: {__add__},
-                  rgbFace: Any) -> None: ...
-
-
-class PathPatchEffect(AbstractPathEffect):
-    def __init__(self: PathPatchEffect,
-                 offset: int = (0, 0),
-                 **kwargs) -> None: ...
-
-    def draw_path(self: PathPatchEffect,
-                  renderer: {draw_path},
-                  gc: {get_clip_rectangle, get_clip_path},
                   tpath: Any,
                   affine: {__add__},
                   rgbFace: Any) -> None: ...
@@ -100,38 +124,17 @@ class SimpleLineShadow(AbstractPathEffect):
                   rgbFace: Any) -> None: ...
 
 
-class Stroke(AbstractPathEffect):
-    def __init__(self: Stroke,
+class PathPatchEffect(AbstractPathEffect):
+    def __init__(self: PathPatchEffect,
                  offset: int = (0, 0),
                  **kwargs) -> None: ...
 
-    def draw_path(self: Stroke,
+    def draw_path(self: PathPatchEffect,
                   renderer: {draw_path},
-                  gc: Any,
+                  gc: {get_clip_rectangle, get_clip_path},
                   tpath: Any,
                   affine: {__add__},
                   rgbFace: Any) -> None: ...
-
-
-class AbstractPathEffect(object):
-    def __init__(self: AbstractPathEffect,
-                 offset: int = (0., 0.)) -> None: ...
-
-    def _offset_transform(self: AbstractPathEffect,
-                          renderer: Union[
-                              {draw_path}, {new_gc, draw_path}, {new_gc, draw_path}, {new_gc, points_to_pixels,
-                                                                                      draw_path}]) -> Affine2D: ...
-
-    def _update_gc(self: AbstractPathEffect,
-                   gc: Any,
-                   new_gc_dict: dict[str, Any]) -> Any: ...
-
-    def draw_path(self: AbstractPathEffect,
-                  renderer: {draw_path},
-                  gc: Any,
-                  tpath: Any,
-                  affine: Any,
-                  rgbFace: Any = None) -> Any: ...
 
 
 class TickedStroke(AbstractPathEffect):
@@ -148,6 +151,3 @@ class TickedStroke(AbstractPathEffect):
                   tpath: Any,
                   affine: {__add__, transform_path, inverted},
                   rgbFace: Any) -> None: ...
-
-
-def _subclass_with_normal(effect_class: Type[Union[Stroke, SimplePatchShadow, TickedStroke]]) -> Type[withEffect]: ...

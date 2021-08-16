@@ -5,11 +5,12 @@ from typing import Union
 from matplotlib.backend_tools import ToolToggleBase
 
 
-class ToolManagerMessageEvent(object):
-    def __init__(self: ToolManagerMessageEvent,
+class ToolEvent(object):
+    def __init__(self: ToolEvent,
                  name: Any,
                  sender: Any,
-                 message: Any) -> None: ...
+                 tool: Any,
+                 data: Any = None) -> None: ...
 
 
 class ToolTriggerEvent(ToolEvent):
@@ -19,6 +20,13 @@ class ToolTriggerEvent(ToolEvent):
                  tool: Any,
                  canvasevent: Any = None,
                  data: Any = None) -> None: ...
+
+
+class ToolManagerMessageEvent(object):
+    def __init__(self: ToolManagerMessageEvent,
+                 name: Any,
+                 sender: Any,
+                 message: Any) -> None: ...
 
 
 class ToolManager(object):
@@ -107,11 +115,3 @@ class ToolManager(object):
     def get_tool(self: ToolManager,
                  name: Any,
                  warn: bool = True) -> Any: ...
-
-
-class ToolEvent(object):
-    def __init__(self: ToolEvent,
-                 name: Any,
-                 sender: Any,
-                 tool: Any,
-                 data: Any = None) -> None: ...

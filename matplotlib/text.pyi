@@ -6,6 +6,31 @@ from typing import tuple
 from matplotlib.text import Text
 
 
+@contextlib.contextmanager
+def _wrap_text(textobj: Text) -> Generator[Text, Any, None]: ...
+
+
+def get_rotation(rotation: str) -> float: ...
+
+
+def _get_textbox(text: Text,
+                 renderer: Optional[Any]) -> tuple[Any, Any, Any, Any]: ...
+
+
+@cbook._define_aliases({
+    "color": ["c"],
+    "fontfamily": ["family"],
+    "fontproperties": ["font", "font_properties"],
+    "horizontalalignment": ["ha"],
+    "multialignment": ["ma"],
+    "fontname": ["name"],
+    "fontsize": ["size"],
+    "fontstretch": ["stretch"],
+    "fontstyle": ["style"],
+    "fontvariant": ["variant"],
+    "verticalalignment": ["va"],
+    "fontweight": ["weight"],
+})
 class Text(Artist):
     def __repr__(self: Text) -> str: ...
 
@@ -207,6 +232,24 @@ class Text(Artist):
                      fontname: str) -> Any: ...
 
 
+class OffsetFrom(object):
+    def __init__(self: OffsetFrom,
+                 artist: Any,
+                 ref_coord: tuple[float, float],
+                 unit: str = "points") -> None: ...
+
+    def set_unit(self: OffsetFrom,
+                 unit: str) -> None: ...
+
+    def get_unit(self: OffsetFrom) -> str: ...
+
+    def _get_scale(self: OffsetFrom,
+                   renderer: Any) -> float: ...
+
+    def __call__(self: OffsetFrom,
+                 renderer: Any) -> Transform: ...
+
+
 class _AnnotationBase(object):
     def __init__(self: _AnnotationBase,
                  xy: tuple[float, float],
@@ -294,32 +337,3 @@ class Annotation(Text, _AnnotationBase):
 
     def get_tightbbox(self: Annotation,
                       renderer: Any) -> Bbox: ...
-
-
-class OffsetFrom(object):
-    def __init__(self: OffsetFrom,
-                 artist: Any,
-                 ref_coord: tuple[float, float],
-                 unit: str = "points") -> None: ...
-
-    def set_unit(self: OffsetFrom,
-                 unit: str) -> None: ...
-
-    def get_unit(self: OffsetFrom) -> str: ...
-
-    def _get_scale(self: OffsetFrom,
-                   renderer: Any) -> float: ...
-
-    def __call__(self: OffsetFrom,
-                 renderer: Any) -> Transform: ...
-
-
-def get_rotation(rotation: str) -> float: ...
-
-
-@contextlib.contextmanager
-def _wrap_text(textobj: Text) -> Generator[Text, Any, None]: ...
-
-
-def _get_textbox(text: Text,
-                 renderer: Optional[Any]) -> tuple[Any, Any, Any, Any]: ...

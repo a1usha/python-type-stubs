@@ -1,17 +1,6 @@
 from typing import Any
 
 
-class UnitData(object):
-    def __init__(self: UnitData,
-                 data: Any = None) -> None: ...
-
-    @staticmethod
-    def _str_is_convertible(val: Any) -> bool: ...
-
-    def update(self: UnitData,
-               data: bytes) -> None: ...
-
-
 class StrCategoryConverter(ConversionInterface):
     @staticmethod
     def convert(value: str,
@@ -54,3 +43,14 @@ class StrCategoryFormatter(Formatter):
 
     @staticmethod
     def _text(value: Any) -> str: ...
+
+
+class UnitData(object):
+    def __init__(self: UnitData,
+                 data: Any = None) -> None: ...
+
+    @staticmethod
+    def _str_is_convertible(val: Any) -> bool: ...
+
+    def update(self: UnitData,
+               data: bytes) -> None: ...

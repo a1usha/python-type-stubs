@@ -12,36 +12,318 @@ from matplotlib._mathtext.Parser import State
 from matplotlib._mathtext.Parser import _MathStyle
 
 
-class Rule(Box):
-    def __init__(self: Rule,
+def get_unicode_index(symbol: str,
+                      math: bool = True) -> int: ...
+
+
+class Fonts(object):
+    def __init__(self: Fonts,
+                 default_font_prop: Any,
+                 mathtext_backend: Any) -> None: ...
+
+    @_api.deprecated("3.4")
+    def destroy(self: Fonts) -> Optional[Any]: ...
+
+    def get_kern(self: Fonts,
+                 font1: Union[{__eq__}, {__eq__}],
+                 fontclass1: Any,
+                 sym1: Any,
+                 fontsize1: Any,
+                 font2: Any,
+                 fontclass2: Any,
+                 sym2: Any,
+                 fontsize2: Any,
+                 dpi: Any) -> float: ...
+
+    def get_metrics(self: Fonts,
+                    font: str,
+                    font_class: str,
+                    sym: str,
+                    fontsize: float,
+                    dpi: float,
+                    math: bool = True) -> object: ...
+
+    def set_canvas_size(self: Fonts,
+                        w: Any,
+                        h: Any,
+                        d: Any) -> None: ...
+
+    @_api.rename_parameter("3.4", "facename", "font")
+    def render_glyph(self: Fonts,
+                     ox: Any,
+                     oy: Any,
+                     font: Any,
+                     font_class: Any,
+                     sym: Any,
+                     fontsize: Any,
+                     dpi: Any) -> Optional[Any]: ...
+
+    def render_rect_filled(self: Fonts,
+                           x1: Any,
+                           y1: Any,
+                           x2: Any,
+                           y2: Any) -> None: ...
+
+    def get_xheight(self: Fonts,
+                    font: Any,
+                    fontsize: Any,
+                    dpi: Any) -> Any: ...
+
+    def get_underline_thickness(self: Fonts,
+                                font: Any,
+                                fontsize: Any,
+                                dpi: Any) -> Any: ...
+
+    def get_used_characters(self: Fonts) -> dict: ...
+
+    def get_results(self: Fonts,
+                    box: Any) -> Any: ...
+
+    def get_sized_alternatives_for_symbol(self: Fonts,
+                                          fontname: Any,
+                                          sym: Any) -> list[tuple[Any, Any]]: ...
+
+
+class TruetypeFonts(Fonts):
+    def __init__(self: TruetypeFonts,
+                 default_font_prop: Any,
+                 mathtext_backend: Any) -> None: ...
+
+    @_api.deprecated("3.4")
+    def destroy(self: TruetypeFonts) -> Optional[Any]: ...
+
+    def _get_font(self: TruetypeFonts,
+                  font: Union[str, int]) -> FT2Font: ...
+
+    def _get_offset(self: TruetypeFonts,
+                    font: {postscript_name},
+                    glyph: Any,
+                    fontsize: Any,
+                    dpi: Any) -> float: ...
+
+    def _get_info(self: TruetypeFonts,
+                  fontname: {__eq__},
+                  font_class: Any,
+                  sym: Any,
+                  fontsize: Any,
+                  dpi: Any,
+                  math: bool = True) -> Optional[SimpleNamespace]: ...
+
+    def get_xheight(self: TruetypeFonts,
+                    fontname: Any,
+                    fontsize: {__truediv__},
+                    dpi: {__truediv__}) -> float: ...
+
+    def get_underline_thickness(self: TruetypeFonts,
+                                font: Any,
+                                fontsize: Any,
+                                dpi: Any) -> float: ...
+
+    def get_kern(self: TruetypeFonts,
+                 font1: {__eq__},
+                 fontclass1: Any,
+                 sym1: Any,
+                 fontsize1: {__eq__},
+                 font2: Any,
+                 fontclass2: Any,
+                 sym2: Any,
+                 fontsize2: Any,
+                 dpi: Any) -> float: ...
+
+
+class BakomaFonts(TruetypeFonts):
+    def __init__(self: BakomaFonts,
+                 *args,
+                 **kwargs) -> None: ...
+
+    def _get_glyph(self: BakomaFonts,
+                   fontname: Any,
+                   font_class: Any,
+                   sym: {__eq__},
+                   fontsize: Any,
+                   math: bool = True) -> Union[
+        tuple[Optional[FT2Font], int, None, Any, bool], tuple[Optional[FT2Font], int, None, Any, bool]]: ...
+
+    def get_sized_alternatives_for_symbol(self: BakomaFonts,
+                                          fontname: Any,
+                                          sym: Any) -> list[tuple[str, str]]: ...
+
+
+class UnicodeFonts(TruetypeFonts):
+    def __init__(self: UnicodeFonts,
+                 *args,
+                 **kwargs) -> None: ...
+
+    def _map_virtual_font(self: UnicodeFonts,
+                          fontname: str,
+                          font_class: Any,
+                          uniindex: Any) -> tuple[str, Any]: ...
+
+    def _get_glyph(self: UnicodeFonts,
+                   fontname: str,
+                   font_class: Any,
+                   sym: {__eq__},
+                   fontsize: Any,
+                   math: bool = True) -> Union[
+        tuple[Optional[FT2Font], int, None, Any, bool], tuple[Optional[FT2Font], int, None, Any, bool]]: ...
+
+    def get_sized_alternatives_for_symbol(self: UnicodeFonts,
+                                          fontname: Any,
+                                          sym: Any) -> Union[
+        list[tuple[Any, str]], list[tuple[int, str]], list[tuple[str, str]], list[tuple[Any, Any]]]: ...
+
+
+class DejaVuFonts(UnicodeFonts):
+    def __init__(self: DejaVuFonts,
+                 *args,
+                 **kwargs) -> None: ...
+
+    def _get_glyph(self: DejaVuFonts,
+                   fontname: Any,
+                   font_class: Any,
+                   sym: {__eq__},
+                   fontsize: Any,
+                   math: bool = True) -> Union[
+        tuple[Optional[FT2Font], int, None, Any, bool], tuple[Optional[FT2Font], int, None, Any, bool]]: ...
+
+
+class DejaVuSerifFonts(DejaVuFonts):
+    pass
+
+
+class DejaVuSansFonts(DejaVuFonts):
+    pass
+
+
+class StixFonts(UnicodeFonts):
+    def __init__(self: StixFonts,
+                 *args,
+                 **kwargs) -> None: ...
+
+    def _map_virtual_font(self: StixFonts,
+                          fontname: str,
+                          font_class: Any,
+                          uniindex: Any) -> tuple[Union[str, int, tuple[int, int, str, int], None], int]: ...
+
+    @functools.lru_cache()
+    def get_sized_alternatives_for_symbol(self: StixFonts,
+                                          fontname: Any,
+                                          sym: Any) -> Union[list[tuple[Any, str]], list[tuple[int, str]]]: ...
+
+
+class StixSansFonts(StixFonts):
+    pass
+
+
+class StandardPsFonts(Fonts):
+    def __init__(self: StandardPsFonts,
+                 default_font_prop: Any,
+                 mathtext_backend: Any = None) -> None: ...
+
+    def _get_font(self: StandardPsFonts,
+                  font: Union[str, {__eq__}]) -> AFM: ...
+
+    def _get_info(self: StandardPsFonts,
+                  fontname: {__eq__},
+                  font_class: Any,
+                  sym: {__len__},
+                  fontsize: Any,
+                  dpi: Any,
+                  math: bool = True) -> Optional[Any]: ...
+
+    def get_kern(self: StandardPsFonts,
+                 font1: {__eq__},
+                 fontclass1: Any,
+                 sym1: Any,
+                 fontsize1: {__eq__},
+                 font2: Any,
+                 fontclass2: Any,
+                 sym2: Any,
+                 fontsize2: Any,
+                 dpi: Any) -> float: ...
+
+    def get_xheight(self: StandardPsFonts,
+                    font: Any,
+                    fontsize: Any,
+                    dpi: Any) -> float: ...
+
+    def get_underline_thickness(self: StandardPsFonts,
+                                font: Any,
+                                fontsize: Any,
+                                dpi: Any) -> float: ...
+
+
+class FontConstantsBase(object):
+    pass
+
+
+class ComputerModernFontConstants(FontConstantsBase):
+    pass
+
+
+class STIXFontConstants(FontConstantsBase):
+    pass
+
+
+class STIXSansFontConstants(FontConstantsBase):
+    pass
+
+
+class DejaVuSerifFontConstants(FontConstantsBase):
+    pass
+
+
+class DejaVuSansFontConstants(FontConstantsBase):
+    pass
+
+
+def _get_font_constant_set(state: State) -> Type[
+    Union[STIXSansFontConstants, DejaVuSansFontConstants, DejaVuSerifFontConstants, ComputerModernFontConstants]]: ...
+
+
+class Node(object):
+    def __init__(self: Node) -> None: ...
+
+    def __repr__(self: Node) -> str: ...
+
+    def get_kerning(self: Node,
+                    next: Optional[Glue]) -> float: ...
+
+    def shrink(self: Node) -> None: ...
+
+    def grow(self: Node) -> None: ...
+
+    def render(self: Node,
+               x: Any,
+               y: Any) -> None: ...
+
+
+class Box(Node):
+    def __init__(self: Box,
                  width: float,
-                 height: Any,
-                 depth: float,
-                 state: {font_output}) -> None: ...
+                 height: float,
+                 depth: float) -> None: ...
 
-    def render(self: Rule,
-               x: {__add__},
-               y: {__add__},
-               w: Any,
-               h: Any) -> None: ...
+    def shrink(self: Box) -> None: ...
+
+    def grow(self: Box) -> None: ...
+
+    def render(self: Box,
+               x1: float,
+               y1: float,
+               x2: Any,
+               y2: Any) -> None: ...
 
 
-class State(object):
-    def __init__(self: State,
-                 font_output: Any,
-                 font: Any,
-                 font_class: Any,
-                 fontsize: Any,
-                 dpi: Any) -> None: ...
+class Vbox(Box):
+    def __init__(self: Vbox,
+                 height: float,
+                 depth: float) -> None: ...
 
-    def copy(self: State) -> State: ...
 
-    @property
-    def font(self: State) -> Any: ...
-
-    @font.setter
-    def font(self: State,
-             name: Any) -> None: ...
+class Hbox(Box):
+    def __init__(self: Hbox,
+                 width: float) -> None: ...
 
 
 class Char(Node):
@@ -66,6 +348,198 @@ class Char(Node):
     def shrink(self: Char) -> None: ...
 
     def grow(self: Char) -> None: ...
+
+
+class Accent(Char):
+    def _update_metrics(self: Accent) -> None: ...
+
+    def shrink(self: Accent) -> None: ...
+
+    def grow(self: Accent) -> None: ...
+
+    def render(self: Accent,
+               x: float,
+               y: {__add__}) -> None: ...
+
+
+class List(Box):
+    def __init__(self: List,
+                 elements: Union[list[Glue], list, list[Char]]) -> None: ...
+
+    def __repr__(self: List) -> str: ...
+
+    @staticmethod
+    def _determine_order(totals: list[float]) -> int: ...
+
+    def _set_glue(self: List,
+                  x: float,
+                  sign: int,
+                  totals: list[float],
+                  error_type: str) -> None: ...
+
+    def shrink(self: List) -> None: ...
+
+    def grow(self: List) -> None: ...
+
+
+class Hlist(List):
+    def __init__(self: Hlist,
+                 elements: list[Glue],
+                 w: float = 0.,
+                 m: str = 'additional',
+                 do_kern: bool = True) -> None: ...
+
+    def kern(self: Hlist) -> None: ...
+
+    def hpack(self: Hlist,
+              w: float = 0.,
+              m: str = 'additional') -> None: ...
+
+
+class Vlist(List):
+    def __init__(self: Vlist,
+                 elements: Union[list[Glue], list, list[Char]],
+                 h: float = 0.,
+                 m: str = 'additional') -> None: ...
+
+    def vpack(self: Vlist,
+              h: float = 0.,
+              m: str = 'additional',
+              l: float = np.inf) -> None: ...
+
+
+class Rule(Box):
+    def __init__(self: Rule,
+                 width: float,
+                 height: Any,
+                 depth: float,
+                 state: {font_output}) -> None: ...
+
+    def render(self: Rule,
+               x: {__add__},
+               y: {__add__},
+               w: Any,
+               h: Any) -> None: ...
+
+
+class Hrule(Rule):
+    def __init__(self: Hrule,
+                 state: {font_output, font, fontsize, dpi},
+                 thickness: Optional[{__mul__}] = None) -> None: ...
+
+
+class Vrule(Rule):
+    def __init__(self: Vrule,
+                 state: {font_output}) -> None: ...
+
+
+class Glue(Node):
+    @_api.delete_parameter("3.3", "copy")
+    def __init__(self: Glue,
+                 glue_type: str,
+                 copy: bool = False) -> Any: ...
+
+    def shrink(self: Glue) -> None: ...
+
+    def grow(self: Glue) -> None: ...
+
+
+@_api.deprecated("3.3", alternative="Glue('fil')")
+class Fil(Glue):
+    def __init__(self: Fil) -> None: ...
+
+
+@_api.deprecated("3.3", alternative="Glue('fill')")
+class Fill(Glue):
+    def __init__(self: Fill) -> None: ...
+
+
+@_api.deprecated("3.3", alternative="Glue('filll')")
+class Filll(Glue):
+    def __init__(self: Filll) -> None: ...
+
+
+@_api.deprecated("3.3", alternative="Glue('neg_fil')")
+class NegFil(Glue):
+    def __init__(self: NegFil) -> None: ...
+
+
+@_api.deprecated("3.3", alternative="Glue('neg_fill')")
+class NegFill(Glue):
+    def __init__(self: NegFill) -> None: ...
+
+
+@_api.deprecated("3.3", alternative="Glue('neg_filll')")
+class NegFilll(Glue):
+    def __init__(self: NegFilll) -> None: ...
+
+
+@_api.deprecated("3.3", alternative="Glue('ss')")
+class SsGlue(Glue):
+    def __init__(self: SsGlue) -> None: ...
+
+
+class HCentered(Hlist):
+    def __init__(self: HCentered,
+                 elements: list[Glue]) -> None: ...
+
+
+class VCentered(Vlist):
+    def __init__(self: VCentered,
+                 elements: Union[list[Glue], list, list[Char]]) -> None: ...
+
+
+class Kern(Node):
+    def __init__(self: Kern,
+                 width: Any) -> None: ...
+
+    def __repr__(self: Kern) -> str: ...
+
+    def shrink(self: Kern) -> None: ...
+
+    def grow(self: Kern) -> None: ...
+
+
+class SubSuperCluster(Hlist):
+    def __init__(self: SubSuperCluster) -> None: ...
+
+
+class AutoHeightChar(Hlist):
+    def __init__(self: AutoHeightChar,
+                 c: Any,
+                 height: {__add__},
+                 depth: Any,
+                 state: {font_output, font, fontsize, dpi},
+                 always: bool = False,
+                 factor: Any = None) -> None: ...
+
+
+class AutoWidthChar(Hlist):
+    def __init__(self: AutoWidthChar,
+                 c: Any,
+                 width: {__truediv__},
+                 state: {font_output, font},
+                 always: bool = False,
+                 char_class: Type[Char] = Char) -> None: ...
+
+
+class Ship(object):
+    def __call__(self: Ship,
+                 ox: Any,
+                 oy: {__add__},
+                 box: {height}) -> None: ...
+
+    @staticmethod
+    def clamp(value: {__lt__, __gt__}) -> Union[float, {__lt__, __gt__}]: ...
+
+    def hlist_out(self: Ship,
+                  box: Hlist) -> None: ...
+
+    def vlist_out(self: Ship,
+                  box: List) -> Any: ...
+
+
+def Error(msg: str) -> Empty: ...
 
 
 class Parser(object):
@@ -247,492 +721,3 @@ class Parser(object):
                    s: Any,
                    loc: Any,
                    toks: Any) -> Hlist: ...
-
-
-class List(Box):
-    def __init__(self: List,
-                 elements: Union[list[Glue], list, list[Char]]) -> None: ...
-
-    def __repr__(self: List) -> str: ...
-
-    @staticmethod
-    def _determine_order(totals: list[float]) -> int: ...
-
-    def _set_glue(self: List,
-                  x: float,
-                  sign: int,
-                  totals: list[float],
-                  error_type: str) -> None: ...
-
-    def shrink(self: List) -> None: ...
-
-    def grow(self: List) -> None: ...
-
-
-class Fill(Glue):
-    def __init__(self: Fill) -> None: ...
-
-
-class Box(Node):
-    def __init__(self: Box,
-                 width: float,
-                 height: float,
-                 depth: float) -> None: ...
-
-    def shrink(self: Box) -> None: ...
-
-    def grow(self: Box) -> None: ...
-
-    def render(self: Box,
-               x1: float,
-               y1: float,
-               x2: Any,
-               y2: Any) -> None: ...
-
-
-class Hbox(Box):
-    def __init__(self: Hbox,
-                 width: float) -> None: ...
-
-
-class SsGlue(Glue):
-    def __init__(self: SsGlue) -> None: ...
-
-
-class Filll(Glue):
-    def __init__(self: Filll) -> None: ...
-
-
-class DejaVuSerifFonts(DejaVuFonts):
-    pass
-
-
-class AutoHeightChar(Hlist):
-    def __init__(self: AutoHeightChar,
-                 c: Any,
-                 height: {__add__},
-                 depth: Any,
-                 state: {font_output, font, fontsize, dpi},
-                 always: bool = False,
-                 factor: Any = None) -> None: ...
-
-
-class SubSuperCluster(Hlist):
-    def __init__(self: SubSuperCluster) -> None: ...
-
-
-class Vbox(Box):
-    def __init__(self: Vbox,
-                 height: float,
-                 depth: float) -> None: ...
-
-
-class NegFilll(Glue):
-    def __init__(self: NegFilll) -> None: ...
-
-
-class DejaVuSansFontConstants(FontConstantsBase):
-    pass
-
-
-class Hrule(Rule):
-    def __init__(self: Hrule,
-                 state: {font_output, font, fontsize, dpi},
-                 thickness: Optional[{__mul__}] = None) -> None: ...
-
-
-class StixSansFonts(StixFonts):
-    pass
-
-
-class STIXSansFontConstants(FontConstantsBase):
-    pass
-
-
-class Accent(Char):
-    def _update_metrics(self: Accent) -> None: ...
-
-    def shrink(self: Accent) -> None: ...
-
-    def grow(self: Accent) -> None: ...
-
-    def render(self: Accent,
-               x: float,
-               y: {__add__}) -> None: ...
-
-
-class Hlist(List):
-    def __init__(self: Hlist,
-                 elements: list[Glue],
-                 w: float = 0.,
-                 m: str = 'additional',
-                 do_kern: bool = True) -> None: ...
-
-    def kern(self: Hlist) -> None: ...
-
-    def hpack(self: Hlist,
-              w: float = 0.,
-              m: str = 'additional') -> None: ...
-
-
-class STIXFontConstants(FontConstantsBase):
-    pass
-
-
-class DejaVuFonts(UnicodeFonts):
-    def __init__(self: DejaVuFonts,
-                 *args,
-                 **kwargs) -> None: ...
-
-    def _get_glyph(self: DejaVuFonts,
-                   fontname: Any,
-                   font_class: Any,
-                   sym: {__eq__},
-                   fontsize: Any,
-                   math: bool = True) -> Union[
-        tuple[Optional[FT2Font], int, None, Any, bool], tuple[Optional[FT2Font], int, None, Any, bool]]: ...
-
-
-class Glue(Node):
-    @_api.delete_parameter("3.3", "copy")
-    def __init__(self: Glue,
-                 glue_type: str,
-                 copy: bool = False) -> Any: ...
-
-    def shrink(self: Glue) -> None: ...
-
-    def grow(self: Glue) -> None: ...
-
-
-class NegFill(Glue):
-    def __init__(self: NegFill) -> None: ...
-
-
-class TruetypeFonts(Fonts):
-    def __init__(self: TruetypeFonts,
-                 default_font_prop: Any,
-                 mathtext_backend: Any) -> None: ...
-
-    @_api.deprecated("3.4")
-    def destroy(self: TruetypeFonts) -> Optional[Any]: ...
-
-    def _get_font(self: TruetypeFonts,
-                  font: Union[str, int]) -> FT2Font: ...
-
-    def _get_offset(self: TruetypeFonts,
-                    font: {postscript_name},
-                    glyph: Any,
-                    fontsize: Any,
-                    dpi: Any) -> float: ...
-
-    def _get_info(self: TruetypeFonts,
-                  fontname: {__eq__},
-                  font_class: Any,
-                  sym: Any,
-                  fontsize: Any,
-                  dpi: Any,
-                  math: bool = True) -> Optional[SimpleNamespace]: ...
-
-    def get_xheight(self: TruetypeFonts,
-                    fontname: Any,
-                    fontsize: {__truediv__},
-                    dpi: {__truediv__}) -> float: ...
-
-    def get_underline_thickness(self: TruetypeFonts,
-                                font: Any,
-                                fontsize: Any,
-                                dpi: Any) -> float: ...
-
-    def get_kern(self: TruetypeFonts,
-                 font1: {__eq__},
-                 fontclass1: Any,
-                 sym1: Any,
-                 fontsize1: {__eq__},
-                 font2: Any,
-                 fontclass2: Any,
-                 sym2: Any,
-                 fontsize2: Any,
-                 dpi: Any) -> float: ...
-
-
-class Vlist(List):
-    def __init__(self: Vlist,
-                 elements: Union[list[Glue], list, list[Char]],
-                 h: float = 0.,
-                 m: str = 'additional') -> None: ...
-
-    def vpack(self: Vlist,
-              h: float = 0.,
-              m: str = 'additional',
-              l: float = np.inf) -> None: ...
-
-
-class Vrule(Rule):
-    def __init__(self: Vrule,
-                 state: {font_output}) -> None: ...
-
-
-class VCentered(Vlist):
-    def __init__(self: VCentered,
-                 elements: Union[list[Glue], list, list[Char]]) -> None: ...
-
-
-class Fil(Glue):
-    def __init__(self: Fil) -> None: ...
-
-
-class StixFonts(UnicodeFonts):
-    def __init__(self: StixFonts,
-                 *args,
-                 **kwargs) -> None: ...
-
-    def _map_virtual_font(self: StixFonts,
-                          fontname: str,
-                          font_class: Any,
-                          uniindex: Any) -> tuple[Union[str, int, tuple[int, int, str, int], None], int]: ...
-
-    @functools.lru_cache()
-    def get_sized_alternatives_for_symbol(self: StixFonts,
-                                          fontname: Any,
-                                          sym: Any) -> Union[list[tuple[Any, str]], list[tuple[int, str]]]: ...
-
-
-class HCentered(Hlist):
-    def __init__(self: HCentered,
-                 elements: list[Glue]) -> None: ...
-
-
-class StandardPsFonts(Fonts):
-    def __init__(self: StandardPsFonts,
-                 default_font_prop: Any,
-                 mathtext_backend: Any = None) -> None: ...
-
-    def _get_font(self: StandardPsFonts,
-                  font: Union[str, {__eq__}]) -> AFM: ...
-
-    def _get_info(self: StandardPsFonts,
-                  fontname: {__eq__},
-                  font_class: Any,
-                  sym: {__len__},
-                  fontsize: Any,
-                  dpi: Any,
-                  math: bool = True) -> Optional[Any]: ...
-
-    def get_kern(self: StandardPsFonts,
-                 font1: {__eq__},
-                 fontclass1: Any,
-                 sym1: Any,
-                 fontsize1: {__eq__},
-                 font2: Any,
-                 fontclass2: Any,
-                 sym2: Any,
-                 fontsize2: Any,
-                 dpi: Any) -> float: ...
-
-    def get_xheight(self: StandardPsFonts,
-                    font: Any,
-                    fontsize: Any,
-                    dpi: Any) -> float: ...
-
-    def get_underline_thickness(self: StandardPsFonts,
-                                font: Any,
-                                fontsize: Any,
-                                dpi: Any) -> float: ...
-
-
-class DejaVuSansFonts(DejaVuFonts):
-    pass
-
-
-class Fonts(object):
-    def __init__(self: Fonts,
-                 default_font_prop: Any,
-                 mathtext_backend: Any) -> None: ...
-
-    @_api.deprecated("3.4")
-    def destroy(self: Fonts) -> Optional[Any]: ...
-
-    def get_kern(self: Fonts,
-                 font1: Union[{__eq__}, {__eq__}],
-                 fontclass1: Any,
-                 sym1: Any,
-                 fontsize1: Any,
-                 font2: Any,
-                 fontclass2: Any,
-                 sym2: Any,
-                 fontsize2: Any,
-                 dpi: Any) -> float: ...
-
-    def get_metrics(self: Fonts,
-                    font: str,
-                    font_class: str,
-                    sym: str,
-                    fontsize: float,
-                    dpi: float,
-                    math: bool = True) -> object: ...
-
-    def set_canvas_size(self: Fonts,
-                        w: Any,
-                        h: Any,
-                        d: Any) -> None: ...
-
-    @_api.rename_parameter("3.4", "facename", "font")
-    def render_glyph(self: Fonts,
-                     ox: Any,
-                     oy: Any,
-                     font: Any,
-                     font_class: Any,
-                     sym: Any,
-                     fontsize: Any,
-                     dpi: Any) -> Optional[Any]: ...
-
-    def render_rect_filled(self: Fonts,
-                           x1: Any,
-                           y1: Any,
-                           x2: Any,
-                           y2: Any) -> None: ...
-
-    def get_xheight(self: Fonts,
-                    font: Any,
-                    fontsize: Any,
-                    dpi: Any) -> Any: ...
-
-    def get_underline_thickness(self: Fonts,
-                                font: Any,
-                                fontsize: Any,
-                                dpi: Any) -> Any: ...
-
-    def get_used_characters(self: Fonts) -> dict: ...
-
-    def get_results(self: Fonts,
-                    box: Any) -> Any: ...
-
-    def get_sized_alternatives_for_symbol(self: Fonts,
-                                          fontname: Any,
-                                          sym: Any) -> list[tuple[Any, Any]]: ...
-
-
-class ComputerModernFontConstants(FontConstantsBase):
-    pass
-
-
-class BakomaFonts(TruetypeFonts):
-    def __init__(self: BakomaFonts,
-                 *args,
-                 **kwargs) -> None: ...
-
-    def _get_glyph(self: BakomaFonts,
-                   fontname: Any,
-                   font_class: Any,
-                   sym: {__eq__},
-                   fontsize: Any,
-                   math: bool = True) -> Union[
-        tuple[Optional[FT2Font], int, None, Any, bool], tuple[Optional[FT2Font], int, None, Any, bool]]: ...
-
-    def get_sized_alternatives_for_symbol(self: BakomaFonts,
-                                          fontname: Any,
-                                          sym: Any) -> list[tuple[str, str]]: ...
-
-
-class Ship(object):
-    def __call__(self: Ship,
-                 ox: Any,
-                 oy: {__add__},
-                 box: {height}) -> None: ...
-
-    @staticmethod
-    def clamp(value: {__lt__, __gt__}) -> Union[float, {__lt__, __gt__}]: ...
-
-    def hlist_out(self: Ship,
-                  box: Hlist) -> None: ...
-
-    def vlist_out(self: Ship,
-                  box: List) -> Any: ...
-
-
-class Kern(Node):
-    def __init__(self: Kern,
-                 width: Any) -> None: ...
-
-    def __repr__(self: Kern) -> str: ...
-
-    def shrink(self: Kern) -> None: ...
-
-    def grow(self: Kern) -> None: ...
-
-
-class DejaVuSerifFontConstants(FontConstantsBase):
-    pass
-
-
-class AutoWidthChar(Hlist):
-    def __init__(self: AutoWidthChar,
-                 c: Any,
-                 width: {__truediv__},
-                 state: {font_output, font},
-                 always: bool = False,
-                 char_class: Type[Char] = Char) -> None: ...
-
-
-class FontConstantsBase(object):
-    pass
-
-
-class _MathStyle(Enum):
-    pass
-
-
-class NegFil(Glue):
-    def __init__(self: NegFil) -> None: ...
-
-
-class UnicodeFonts(TruetypeFonts):
-    def __init__(self: UnicodeFonts,
-                 *args,
-                 **kwargs) -> None: ...
-
-    def _map_virtual_font(self: UnicodeFonts,
-                          fontname: str,
-                          font_class: Any,
-                          uniindex: Any) -> tuple[str, Any]: ...
-
-    def _get_glyph(self: UnicodeFonts,
-                   fontname: str,
-                   font_class: Any,
-                   sym: {__eq__},
-                   fontsize: Any,
-                   math: bool = True) -> Union[
-        tuple[Optional[FT2Font], int, None, Any, bool], tuple[Optional[FT2Font], int, None, Any, bool]]: ...
-
-    def get_sized_alternatives_for_symbol(self: UnicodeFonts,
-                                          fontname: Any,
-                                          sym: Any) -> Union[
-        list[tuple[Any, str]], list[tuple[int, str]], list[tuple[str, str]], list[tuple[Any, Any]]]: ...
-
-
-class Node(object):
-    def __init__(self: Node) -> None: ...
-
-    def __repr__(self: Node) -> str: ...
-
-    def get_kerning(self: Node,
-                    next: Optional[Glue]) -> float: ...
-
-    def shrink(self: Node) -> None: ...
-
-    def grow(self: Node) -> None: ...
-
-    def render(self: Node,
-               x: Any,
-               y: Any) -> None: ...
-
-
-def _get_font_constant_set(state: State) -> Type[
-    Union[STIXSansFontConstants, DejaVuSansFontConstants, DejaVuSerifFontConstants, ComputerModernFontConstants]]: ...
-
-
-def Error(msg: str) -> Empty: ...
-
-
-def get_unicode_index(symbol: str,
-                      math: bool = True) -> int: ...

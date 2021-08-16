@@ -5,6 +5,39 @@ from typing import Optional
 from matplotlib.font_manager import FontManager
 
 
+@lru_cache(64)
+def _cached_realpath(path: str) -> str: ...
+
+
+def get_fontext_synonyms(fontext: str) -> list[str]: ...
+
+
+def list_fonts(directory: str,
+               extensions: list[str]) -> list[Union[bytes, str]]: ...
+
+
+def win32FontDirectory() -> str: ...
+
+
+def _win32RegistryFonts(reg_domain: int,
+                        base_dir: str) -> set: ...
+
+
+def win32InstalledFonts(directory: Any = None,
+                        fontext: str = 'ttf') -> list[str]: ...
+
+
+@lru_cache()
+def _call_fc_list() -> Union[list, list[str]]: ...
+
+
+def get_fontconfig_fonts(fontext: str = 'ttf') -> list[str]: ...
+
+
+def findSystemFonts(fontpaths: list[Path] = None,
+                    fontext: str = 'ttf') -> list[Union[str, bytes]]: ...
+
+
 class FontEntry(object):
     def __init__(self: FontEntry,
                  fname: str = '',
@@ -18,67 +51,11 @@ class FontEntry(object):
     def __repr__(self: FontEntry) -> str: ...
 
 
-class FontManager(object):
-    def __init__(self: FontManager,
-                 size: Any = None,
-                 weight: str = 'normal') -> None: ...
+def ttfFontProperty(font: Any) -> FontEntry: ...
 
-    def addfont(self: FontManager,
-                path: Any) -> None: ...
 
-    @property
-    def defaultFont(self: FontManager) -> dict: ...
-
-    def get_default_weight(self: FontManager) -> str: ...
-
-    @staticmethod
-    def get_default_size() -> Optional[Any]: ...
-
-    def set_default_weight(self: FontManager,
-                           weight: Any) -> None: ...
-
-    @staticmethod
-    def _expand_aliases(family: str) -> Optional[Any]: ...
-
-    def score_family(self: FontManager,
-                     families: Optional[list[str]],
-                     family2: Any) -> float: ...
-
-    def score_style(self: FontManager,
-                    style1: Optional[Any],
-                    style2: Any) -> float: ...
-
-    def score_variant(self: FontManager,
-                      variant1: Optional[Any],
-                      variant2: Any) -> float: ...
-
-    def score_stretch(self: FontManager,
-                      stretch1: Optional[Any],
-                      stretch2: Any) -> float: ...
-
-    def score_weight(self: FontManager,
-                     weight1: Optional[Any],
-                     weight2: Any) -> float: ...
-
-    def score_size(self: FontManager,
-                   size1: Optional[Any],
-                   size2: {__eq__}) -> float: ...
-
-    def findfont(self: FontManager,
-                 prop: Any,
-                 fontext: str = 'ttf',
-                 directory: Optional[str] = None,
-                 fallback_to_default: bool = True,
-                 rebuild_if_missing: bool = True) -> str: ...
-
-    @lru_cache()
-    def _findfont_cached(self: FontManager,
-                         prop: Any,
-                         fontext: {__eq__},
-                         directory: Any,
-                         fallback_to_default: Any,
-                         rebuild_if_missing: Any,
-                         rc_params: Any) -> str: ...
+def afmFontProperty(fontpath: Any,
+                    font: Any) -> FontEntry: ...
 
 
 class FontProperties(object):
@@ -155,26 +132,12 @@ class FontProperties(object):
     def copy(self: FontProperties) -> FontProperties: ...
 
 
-def afmFontProperty(fontpath: Any,
-                    font: Any) -> FontEntry: ...
+class _JSONEncoder(JSONEncoder):
+    def default(self: _JSONEncoder,
+                o: Any) -> Any: ...
 
 
-def findSystemFonts(fontpaths: list[Path] = None,
-                    fontext: str = 'ttf') -> list[Union[str, bytes]]: ...
-
-
-def get_font(filename: str,
-             hinting_factor: Any = None) -> FT2Font: ...
-
-
-def get_fontconfig_fonts(fontext: str = 'ttf') -> list[str]: ...
-
-
-def get_fontext_synonyms(fontext: str) -> list[str]: ...
-
-
-@lru_cache()
-def is_opentype_cff_font(filename: Any) -> bool: ...
+def _json_decode(o: {pop}) -> Union[{pop}, FontManager, FontEntry]: ...
 
 
 def json_dump(data: FontManager,
@@ -184,34 +147,74 @@ def json_dump(data: FontManager,
 def json_load(filename: Path) -> Any: ...
 
 
-def list_fonts(directory: str,
-               extensions: list[str]) -> list[Union[bytes, str]]: ...
+def _normalize_font_family(family: Optional[str]) -> Optional[list[str]]: ...
 
 
-def ttfFontProperty(font: Any) -> FontEntry: ...
+class FontManager(object):
+    def __init__(self: FontManager,
+                 size: Any = None,
+                 weight: str = 'normal') -> None: ...
+
+    def addfont(self: FontManager,
+                path: Any) -> None: ...
+
+    @property
+    def defaultFont(self: FontManager) -> dict: ...
+
+    def get_default_weight(self: FontManager) -> str: ...
+
+    @staticmethod
+    def get_default_size() -> Optional[Any]: ...
+
+    def set_default_weight(self: FontManager,
+                           weight: Any) -> None: ...
+
+    @staticmethod
+    def _expand_aliases(family: str) -> Optional[Any]: ...
+
+    def score_family(self: FontManager,
+                     families: Optional[list[str]],
+                     family2: Any) -> float: ...
+
+    def score_style(self: FontManager,
+                    style1: Optional[Any],
+                    style2: Any) -> float: ...
+
+    def score_variant(self: FontManager,
+                      variant1: Optional[Any],
+                      variant2: Any) -> float: ...
+
+    def score_stretch(self: FontManager,
+                      stretch1: Optional[Any],
+                      stretch2: Any) -> float: ...
+
+    def score_weight(self: FontManager,
+                     weight1: Optional[Any],
+                     weight2: Any) -> float: ...
+
+    def score_size(self: FontManager,
+                   size1: Optional[Any],
+                   size2: {__eq__}) -> float: ...
+
+    def findfont(self: FontManager,
+                 prop: Any,
+                 fontext: str = 'ttf',
+                 directory: Optional[str] = None,
+                 fallback_to_default: bool = True,
+                 rebuild_if_missing: bool = True) -> str: ...
+
+    @lru_cache()
+    def _findfont_cached(self: FontManager,
+                         prop: Any,
+                         fontext: {__eq__},
+                         directory: Any,
+                         fallback_to_default: Any,
+                         rebuild_if_missing: Any,
+                         rc_params: Any) -> str: ...
 
 
-class _JSONEncoder(JSONEncoder):
-    def default(self: _JSONEncoder,
-                o: Any) -> Any: ...
-
-
-@lru_cache(64)
-def _cached_realpath(path: str) -> str: ...
-
-
-def _load_fontmanager(*,
-                      try_read_cache: bool = True) -> FontManager: ...
-
-
-def _win32RegistryFonts(reg_domain: int,
-                        base_dir: str) -> set: ...
-
-
-def win32FontDirectory() -> str: ...
-
-
-def _json_decode(o: {pop}) -> Union[{pop}, FontManager, FontEntry]: ...
+@lru_cache()
+def is_opentype_cff_font(filename: Any) -> bool: ...
 
 
 @lru_cache(64)
@@ -222,12 +225,9 @@ def _get_font(filename: str,
               thread_id: int) -> FT2Font: ...
 
 
-def win32InstalledFonts(directory: Any = None,
-                        fontext: str = 'ttf') -> list[str]: ...
+def get_font(filename: str,
+             hinting_factor: Any = None) -> FT2Font: ...
 
 
-def _normalize_font_family(family: Optional[str]) -> Optional[list[str]]: ...
-
-
-@lru_cache()
-def _call_fc_list() -> Union[list, list[str]]: ...
+def _load_fontmanager(*,
+                      try_read_cache: bool = True) -> FontManager: ...

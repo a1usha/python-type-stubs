@@ -8,6 +8,13 @@ from matplotlib.transforms import IdentityTransform
 from numpy.core._multiarray_umath import ndarray
 
 
+@cbook._define_aliases({
+    "antialiased": ["antialiaseds", "aa"],
+    "edgecolor": ["edgecolors", "ec"],
+    "facecolor": ["facecolors", "fc"],
+    "linestyle": ["linestyles", "dashes", "ls"],
+    "linewidth": ["linewidths", "lw"],
+})
 class Collection(Artist, ScalarMappable):
     @_api.delete_parameter("3.3", "offset_position")
     @docstring.interpd
@@ -164,33 +171,23 @@ class _CollectionWithSizes(Collection):
              renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
 
 
-class LineCollection(Collection):
-    def __init__(self: LineCollection,
-                 segments: Union[Iterable[ndarray], Iterable, int, float],
-                 zorder: int = 2,
-                 *args,
+class PathCollection(_CollectionWithSizes):
+    def __init__(self: PathCollection,
+                 paths: Any,
+                 sizes: Union[ndarray, Iterable, int, float] = None,
                  **kwargs) -> None: ...
 
-    def set_segments(self: LineCollection,
-                     segments: Union[Iterable[ndarray], Iterable, int, float, ndarray]) -> None: ...
+    def set_paths(self: PathCollection,
+                  paths: Any) -> None: ...
 
-    def get_segments(self: LineCollection) -> list: ...
+    def get_paths(self: PathCollection) -> Any: ...
 
-    def _add_offsets(self: LineCollection,
-                     segs: list[Union[ndarray, MaskedArray]]) -> list[Union[ndarray, MaskedArray]]: ...
-
-    def _get_default_linewidth(self: LineCollection) -> Optional[Any]: ...
-
-    def _get_default_antialiased(self: LineCollection) -> Optional[Any]: ...
-
-    def _get_default_edgecolor(self: LineCollection) -> Optional[Any]: ...
-
-    def _get_default_facecolor(self: LineCollection) -> str: ...
-
-    def set_color(self: LineCollection,
-                  c: Iterable) -> None: ...
-
-    def get_color(self: LineCollection) -> str: ...
+    def legend_elements(self: PathCollection,
+                        prop: str = "colors",
+                        num: Union[int, None, ndarray, Iterable, float] = "auto",
+                        fmt: str = None,
+                        func: function = lambda x: x,
+                        **kwargs) -> Any: ...
 
 
 class PolyCollection(_CollectionWithSizes):
@@ -222,6 +219,59 @@ class BrokenBarHCollection(PolyCollection):
                    ymax: {__sub__},
                    where: Any,
                    **kwargs) -> BrokenBarHCollection: ...
+
+
+class RegularPolyCollection(_CollectionWithSizes):
+    def __init__(self: RegularPolyCollection,
+                 numsides: int,
+                 rotation: float = 0,
+                 sizes: Union[Iterable, tuple[float]] = (1,),
+                 **kwargs) -> None: ...
+
+    def get_numsides(self: RegularPolyCollection) -> int: ...
+
+    def get_rotation(self: RegularPolyCollection) -> float: ...
+
+    @artist.allow_rasterization
+    def draw(self: RegularPolyCollection,
+             renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
+
+
+class StarPolygonCollection(RegularPolyCollection):
+    pass
+
+
+class AsteriskPolygonCollection(RegularPolyCollection):
+    pass
+
+
+class LineCollection(Collection):
+    def __init__(self: LineCollection,
+                 segments: Union[Iterable[ndarray], Iterable, int, float],
+                 zorder: int = 2,
+                 *args,
+                 **kwargs) -> None: ...
+
+    def set_segments(self: LineCollection,
+                     segments: Union[Iterable[ndarray], Iterable, int, float, ndarray]) -> None: ...
+
+    def get_segments(self: LineCollection) -> list: ...
+
+    def _add_offsets(self: LineCollection,
+                     segs: list[Union[ndarray, MaskedArray]]) -> list[Union[ndarray, MaskedArray]]: ...
+
+    def _get_default_linewidth(self: LineCollection) -> Optional[Any]: ...
+
+    def _get_default_antialiased(self: LineCollection) -> Optional[Any]: ...
+
+    def _get_default_edgecolor(self: LineCollection) -> Optional[Any]: ...
+
+    def _get_default_facecolor(self: LineCollection) -> str: ...
+
+    def set_color(self: LineCollection,
+                  c: Iterable) -> None: ...
+
+    def get_color(self: LineCollection) -> str: ...
 
 
 class EventCollection(LineCollection):
@@ -270,6 +320,54 @@ class EventCollection(LineCollection):
     def get_color(self: EventCollection) -> str: ...
 
 
+class CircleCollection(_CollectionWithSizes):
+    def __init__(self: CircleCollection,
+                 sizes: Union[float, ndarray, Iterable, int],
+                 **kwargs) -> None: ...
+
+
+class EllipseCollection(Collection):
+    def __init__(self: EllipseCollection,
+                 widths: Union[ndarray, Iterable, int, float],
+                 heights: Union[ndarray, Iterable, int, float],
+                 angles: Union[ndarray, Iterable, int, float],
+                 units: str = 'points',
+                 **kwargs) -> None: ...
+
+    def _set_transforms(self: EllipseCollection) -> Any: ...
+
+    @artist.allow_rasterization
+    def draw(self: EllipseCollection,
+             renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
+
+
+class PatchCollection(Collection):
+    def __init__(self: PatchCollection,
+                 patches: Any,
+                 match_original: bool = False,
+                 **kwargs) -> None: ...
+
+    def set_paths(self: PatchCollection,
+                  patches: Any) -> None: ...
+
+
+class TriMesh(Collection):
+    def __init__(self: TriMesh,
+                 triangulation: {x, y},
+                 **kwargs) -> None: ...
+
+    def get_paths(self: TriMesh) -> Optional[list[Path]]: ...
+
+    def set_paths(self: TriMesh) -> None: ...
+
+    @staticmethod
+    def convert_mesh_to_paths(tri: {get_masked_triangles, x, y}) -> list[Path]: ...
+
+    @artist.allow_rasterization
+    def draw(self: TriMesh,
+             renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
+
+
 class QuadMesh(Collection):
     def __init__(self: QuadMesh,
                  meshWidth: {__add__},
@@ -298,95 +396,4 @@ class QuadMesh(Collection):
 
     @artist.allow_rasterization
     def draw(self: QuadMesh,
-             renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
-
-
-class PathCollection(_CollectionWithSizes):
-    def __init__(self: PathCollection,
-                 paths: Any,
-                 sizes: Union[ndarray, Iterable, int, float] = None,
-                 **kwargs) -> None: ...
-
-    def set_paths(self: PathCollection,
-                  paths: Any) -> None: ...
-
-    def get_paths(self: PathCollection) -> Any: ...
-
-    def legend_elements(self: PathCollection,
-                        prop: str = "colors",
-                        num: Union[int, None, ndarray, Iterable, float] = "auto",
-                        fmt: str = None,
-                        func: function = lambda x: x,
-                        **kwargs) -> Any: ...
-
-
-class AsteriskPolygonCollection(RegularPolyCollection):
-    pass
-
-
-class TriMesh(Collection):
-    def __init__(self: TriMesh,
-                 triangulation: {x, y},
-                 **kwargs) -> None: ...
-
-    def get_paths(self: TriMesh) -> Optional[list[Path]]: ...
-
-    def set_paths(self: TriMesh) -> None: ...
-
-    @staticmethod
-    def convert_mesh_to_paths(tri: {get_masked_triangles, x, y}) -> list[Path]: ...
-
-    @artist.allow_rasterization
-    def draw(self: TriMesh,
-             renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
-
-
-class CircleCollection(_CollectionWithSizes):
-    def __init__(self: CircleCollection,
-                 sizes: Union[float, ndarray, Iterable, int],
-                 **kwargs) -> None: ...
-
-
-class StarPolygonCollection(RegularPolyCollection):
-    pass
-
-
-class EllipseCollection(Collection):
-    def __init__(self: EllipseCollection,
-                 widths: Union[ndarray, Iterable, int, float],
-                 heights: Union[ndarray, Iterable, int, float],
-                 angles: Union[ndarray, Iterable, int, float],
-                 units: str = 'points',
-                 **kwargs) -> None: ...
-
-    def _set_transforms(self: EllipseCollection) -> Any: ...
-
-    @artist.allow_rasterization
-    def draw(self: EllipseCollection,
-             renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
-
-
-class PatchCollection(Collection):
-    def __init__(self: PatchCollection,
-                 patches: Any,
-                 match_original: bool = False,
-                 **kwargs) -> None: ...
-
-    def set_paths(self: PatchCollection,
-                  patches: Any) -> None: ...
-
-
-class RegularPolyCollection(_CollectionWithSizes):
-    def __init__(self: RegularPolyCollection,
-                 numsides: int,
-                 rotation: float = 0,
-                 sizes: Union[Iterable, tuple[float]] = (1,),
-                 **kwargs) -> None: ...
-
-    def get_numsides(self: RegularPolyCollection) -> int: ...
-
-    def get_rotation(self: RegularPolyCollection) -> float: ...
-
-    @artist.allow_rasterization
-    def draw(self: RegularPolyCollection,
              renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...

@@ -7,65 +7,6 @@ from typing import tuple
 from numpy.core._multiarray_umath import ndarray
 
 
-class _Sparse_Matrix_coo(object):
-    def __init__(self: _Sparse_Matrix_coo,
-                 vals: Any,
-                 rows: Any,
-                 cols: Any,
-                 shape: Any) -> None: ...
-
-    def dot(self: _Sparse_Matrix_coo,
-            V: Union[ndarray, Iterable, int, float, None]) -> ndarray[int]: ...
-
-    def compress_csc(self: _Sparse_Matrix_coo) -> None: ...
-
-    def compress_csr(self: _Sparse_Matrix_coo) -> None: ...
-
-    def to_dense(self: _Sparse_Matrix_coo) -> ndarray: ...
-
-    def __str__(self: _Sparse_Matrix_coo) -> None: ...
-
-    @property
-    def diag(self: _Sparse_Matrix_coo) -> ndarray: ...
-
-
-class _ReducedHCT_Element(object):
-    def get_function_values(self: _ReducedHCT_Element,
-                            alpha: Any,
-                            ecc: Any,
-                            dofs: Any) -> Any: ...
-
-    def get_function_derivatives(self: _ReducedHCT_Element,
-                                 alpha: Any,
-                                 J: Any,
-                                 ecc: Any,
-                                 dofs: {__matmul__}) -> None: ...
-
-    def get_function_hessians(self: _ReducedHCT_Element,
-                              alpha: Any,
-                              J: Any,
-                              ecc: Any,
-                              dofs: {__matmul__}) -> ndarray: ...
-
-    def get_d2Sidksij2(self: _ReducedHCT_Element,
-                       alpha: Any,
-                       ecc: Any) -> ndarray: ...
-
-    def get_bending_matrices(self: _ReducedHCT_Element,
-                             J: tuple[Any, Any, Any, Any],
-                             ecc: Any) -> Any: ...
-
-    def get_Hrot_from_J(self: _ReducedHCT_Element,
-                        J: tuple[Any, Any, Any, Any],
-                        return_area: bool = False) -> tuple[Any, float]: ...
-
-    def get_Kff_and_Ff(self: _ReducedHCT_Element,
-                       J: tuple[Any, Any, Any, Any],
-                       ecc: Any,
-                       triangles: Any,
-                       Uc: Any) -> Any: ...
-
-
 class TriInterpolator(object):
     def __init__(self: TriInterpolator,
                  triangulation: Any,
@@ -85,19 +26,25 @@ class TriInterpolator(object):
                                 y: int) -> Any: ...
 
 
-class _DOF_estimator_min_E(_DOF_estimator_geom):
-    def __init__(self: _DOF_estimator_min_E,
-                 Interpolator: {_eccs, _pts, _tris_pts, _z, _triangles, _unit_x, _unit_y}) -> None: ...
+class LinearTriInterpolator(TriInterpolator):
+    def __init__(self: LinearTriInterpolator,
+                 triangulation: Any,
+                 z: Any,
+                 trifinder: Any = None) -> None: ...
 
-    def compute_dz(self: _DOF_estimator_min_E) -> ndarray: ...
+    def __call__(self: LinearTriInterpolator,
+                 x: Any,
+                 y: Any) -> Any: ...
 
+    def gradient(self: LinearTriInterpolator,
+                 x: Any,
+                 y: Any) -> list: ...
 
-class _DOF_estimator_geom(_DOF_estimator):
-    def compute_dz(self: _DOF_estimator_geom) -> object: ...
-
-    def compute_geom_weights(self: _DOF_estimator_geom) -> ndarray: ...
-
-    def compute_geom_grads(self: _DOF_estimator_geom) -> ndarray: ...
+    def _interpolate_single_key(self: LinearTriInterpolator,
+                                return_key: str,
+                                tri_index: int,
+                                x: int,
+                                y: int) -> int: ...
 
 
 class CubicTriInterpolator(TriInterpolator):
@@ -138,30 +85,41 @@ class CubicTriInterpolator(TriInterpolator):
     def _compute_tri_eccentricities(tris_pts: int) -> Any: ...
 
 
-class LinearTriInterpolator(TriInterpolator):
-    def __init__(self: LinearTriInterpolator,
-                 triangulation: Any,
-                 z: Any,
-                 trifinder: Any = None) -> None: ...
+class _ReducedHCT_Element(object):
+    def get_function_values(self: _ReducedHCT_Element,
+                            alpha: Any,
+                            ecc: Any,
+                            dofs: Any) -> Any: ...
 
-    def __call__(self: LinearTriInterpolator,
-                 x: Any,
-                 y: Any) -> Any: ...
+    def get_function_derivatives(self: _ReducedHCT_Element,
+                                 alpha: Any,
+                                 J: Any,
+                                 ecc: Any,
+                                 dofs: {__matmul__}) -> None: ...
 
-    def gradient(self: LinearTriInterpolator,
-                 x: Any,
-                 y: Any) -> list: ...
+    def get_function_hessians(self: _ReducedHCT_Element,
+                              alpha: Any,
+                              J: Any,
+                              ecc: Any,
+                              dofs: {__matmul__}) -> ndarray: ...
 
-    def _interpolate_single_key(self: LinearTriInterpolator,
-                                return_key: str,
-                                tri_index: int,
-                                x: int,
-                                y: int) -> int: ...
+    def get_d2Sidksij2(self: _ReducedHCT_Element,
+                       alpha: Any,
+                       ecc: Any) -> ndarray: ...
 
+    def get_bending_matrices(self: _ReducedHCT_Element,
+                             J: tuple[Any, Any, Any, Any],
+                             ecc: Any) -> Any: ...
 
-class _DOF_estimator_user(_DOF_estimator):
-    def compute_dz(self: _DOF_estimator_user,
-                   dz: Any) -> object: ...
+    def get_Hrot_from_J(self: _ReducedHCT_Element,
+                        J: tuple[Any, Any, Any, Any],
+                        return_area: bool = False) -> tuple[Any, float]: ...
+
+    def get_Kff_and_Ff(self: _ReducedHCT_Element,
+                       J: tuple[Any, Any, Any, Any],
+                       ecc: Any,
+                       triangles: Any,
+                       Uc: Any) -> Any: ...
 
 
 class _DOF_estimator(object):
@@ -180,7 +138,46 @@ class _DOF_estimator(object):
                     J: {__matmul__}) -> Any: ...
 
 
-def _transpose_vectorized(M: Optional[ndarray]) -> ndarray: ...
+class _DOF_estimator_user(_DOF_estimator):
+    def compute_dz(self: _DOF_estimator_user,
+                   dz: Any) -> Any: ...
+
+
+class _DOF_estimator_geom(_DOF_estimator):
+    def compute_dz(self: _DOF_estimator_geom) -> Any: ...
+
+    def compute_geom_weights(self: _DOF_estimator_geom) -> ndarray: ...
+
+    def compute_geom_grads(self: _DOF_estimator_geom) -> ndarray: ...
+
+
+class _DOF_estimator_min_E(_DOF_estimator_geom):
+    def __init__(self: _DOF_estimator_min_E,
+                 Interpolator: {_eccs, _pts, _tris_pts, _z, _triangles, _unit_x, _unit_y}) -> None: ...
+
+    def compute_dz(self: _DOF_estimator_min_E) -> ndarray: ...
+
+
+class _Sparse_Matrix_coo(object):
+    def __init__(self: _Sparse_Matrix_coo,
+                 vals: Any,
+                 rows: Any,
+                 cols: Any,
+                 shape: Any) -> None: ...
+
+    def dot(self: _Sparse_Matrix_coo,
+            V: Union[ndarray, Iterable, int, float, None]) -> ndarray[int]: ...
+
+    def compress_csc(self: _Sparse_Matrix_coo) -> None: ...
+
+    def compress_csr(self: _Sparse_Matrix_coo) -> None: ...
+
+    def to_dense(self: _Sparse_Matrix_coo) -> ndarray: ...
+
+    def __str__(self: _Sparse_Matrix_coo) -> None: ...
+
+    @property
+    def diag(self: _Sparse_Matrix_coo) -> ndarray: ...
 
 
 def _cg(A: _Sparse_Matrix_coo,
@@ -190,13 +187,22 @@ def _cg(A: _Sparse_Matrix_coo,
         maxiter: Optional[int] = 1000) -> array.pyi: ...
 
 
-def _roll_vectorized(M: Optional[Any],
-                     roll_indices: Optional[Any],
-                     axis: int) -> ndarray: ...
+def _safe_inv22_vectorized(M: Union[tuple[Any, Any, Any, Any], ndarray]) -> ndarray: ...
+
+
+def _pseudo_inv22sym_vectorized(M: Optional[Any]) -> ndarray: ...
 
 
 def _scalar_vectorized(scalar: Optional[float],
                        M: Optional[Any]) -> Any: ...
+
+
+def _transpose_vectorized(M: Optional[ndarray]) -> ndarray: ...
+
+
+def _roll_vectorized(M: Optional[Any],
+                     roll_indices: Optional[Any],
+                     axis: int) -> ndarray: ...
 
 
 def _to_matrix_vectorized(M: Union[
@@ -208,9 +214,3 @@ def _extract_submatrices(M: ndarray,
                          block_indices: ndarray[int],
                          block_size: int,
                          axis: int) -> ndarray: ...
-
-
-def _safe_inv22_vectorized(M: Union[tuple[Any, Any, Any, Any], ndarray]) -> ndarray: ...
-
-
-def _pseudo_inv22sym_vectorized(M: Optional[Any]) -> ndarray: ...

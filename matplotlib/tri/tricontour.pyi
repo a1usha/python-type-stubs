@@ -2,6 +2,7 @@ from typing import Any
 from typing import tuple
 
 
+@docstring.dedent_interpd
 class TriContourSet(ContourSet):
     def __init__(self: TriContourSet,
                  ax: Any,

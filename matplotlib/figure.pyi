@@ -8,143 +8,49 @@ from matplotlib.colors import Colormap
 from matplotlib.patches import Rectangle
 
 
-class Figure(FigureBase):
-    def __str__(self: Figure) -> str: ...
+def _stale_figure_callback(self: {figure},
+                           val: Any) -> None: ...
 
-    def __repr__(self: Figure) -> str: ...
 
-    def __init__(self: Figure,
-                 figsize: Any = None,
-                 dpi: float = None,
-                 facecolor: Any = None,
-                 edgecolor: Any = None,
-                 linewidth: float = 0.0,
-                 frameon: bool = None,
-                 subplotpars: SubplotParams = None,
-                 tight_layout: Union[bool, dict] = None,
-                 constrained_layout: bool = None) -> Any: ...
+class _AxesStack(Stack):
+    def __init__(self: _AxesStack) -> None: ...
 
-    def _repr_html_(self: Figure) -> Any: ...
+    def as_list(self: _AxesStack) -> list: ...
 
-    def show(self: Figure,
-             warn: bool = True) -> Any: ...
+    def _entry_from_axes(self: _AxesStack,
+                         e: {_shared_y_axes, _shared_x_axes}) -> Optional[tuple[Any, Any]]: ...
 
-    def get_axes(self: Figure) -> list: ...
+    def remove(self: _AxesStack,
+               a: {_shared_y_axes, _shared_x_axes}) -> None: ...
 
-    def _get_dpi(self: Figure) -> Optional[float]: ...
+    def bubble(self: _AxesStack,
+               a: Any) -> Any: ...
 
-    def _set_dpi(self: Figure,
-                 dpi: float,
-                 forward: bool = True) -> None: ...
+    def add(self: _AxesStack,
+            a: Any) -> None: ...
 
-    def get_tight_layout(self: Figure) -> bool: ...
+    def __call__(self: _AxesStack) -> Optional[Any]: ...
 
-    def set_tight_layout(self: Figure,
-                         tight: str) -> None: ...
+    def __contains__(self: _AxesStack,
+                     a: Any) -> bool: ...
 
-    def get_constrained_layout(self: Figure) -> bool: ...
 
-    def set_constrained_layout(self: Figure,
-                               constrained: Union[bool, dict, None]) -> None: ...
+class SubplotParams(object):
+    def __init__(self: SubplotParams,
+                 left: float = None,
+                 bottom: float = None,
+                 right: float = None,
+                 top: float = None,
+                 wspace: float = None,
+                 hspace: float = None) -> None: ...
 
-    def set_constrained_layout_pads(self: Figure,
-                                    **kwargs) -> None: ...
-
-    def get_constrained_layout_pads(self: Figure,
-                                    relative: bool = False) -> tuple[Optional[Any], Optional[Any], None, None]: ...
-
-    def set_canvas(self: Figure,
-                   canvas: Any) -> None: ...
-
-    def figimage(self: Figure,
-                 X: Any,
-                 xo: int = 0,
-                 yo: int = 0,
-                 alpha: Optional[float] = None,
-                 norm: Normalize = None,
-                 cmap: Union[str, Colormap] = None,
-                 vmin: float = None,
-                 vmax: float = None,
-                 origin: str = None,
-                 resize: bool = False,
-                 **kwargs) -> FigureImage: ...
-
-    def set_size_inches(self: Figure,
-                        w: Union[tuple[float, float], float],
-                        h: float = None,
-                        forward: bool = True) -> Any: ...
-
-    def get_size_inches(self: Figure) -> Any: ...
-
-    def get_figwidth(self: Figure) -> Any: ...
-
-    def get_figheight(self: Figure) -> Any: ...
-
-    def get_dpi(self: Figure) -> Optional[float]: ...
-
-    def set_dpi(self: Figure,
-                val: float) -> None: ...
-
-    def set_figwidth(self: Figure,
-                     val: float,
-                     forward: bool = True) -> None: ...
-
-    def set_figheight(self: Figure,
-                      val: float,
-                      forward: bool = True) -> None: ...
-
-    def clf(self: Figure,
-            keep_observers: bool = False) -> None: ...
-
-    def clear(self: Figure,
-              keep_observers: bool = False) -> None: ...
-
-    @_finalize_rasterization
-    @allow_rasterization
-    def draw(self: Figure,
-             renderer: {open_group, get_rasterized, get_agg_filter, figure, option_image_nocomposite, close_group}) -> \
-    Optional[Any]: ...
-
-    def draw_artist(self: Figure,
-                    a: {draw}) -> Any: ...
-
-    def __getstate__(self: Figure) -> dict[str, Any]: ...
-
-    def __setstate__(self: Figure,
-                     state: {pop}) -> None: ...
-
-    def add_axobserver(self: Figure,
-                       func: Any) -> None: ...
-
-    def savefig(self: Figure,
-                fname: Any,
-                *,
-                transparent: Any = None,
-                **kwargs) -> None: ...
-
-    def ginput(self: Figure,
-               n: int = 1,
-               timeout: float = 30,
-               show_clicks: bool = True,
-               mouse_add: Any = MouseButton.LEFT,
-               mouse_pop: Any = MouseButton.RIGHT,
-               mouse_stop: Any = MouseButton.MIDDLE) -> list: ...
-
-    def waitforbuttonpress(self: Figure,
-                           timeout: int = -1) -> None: ...
-
-    def init_layoutgrid(self: Figure) -> None: ...
-
-    def execute_constrained_layout(self: Figure,
-                                   renderer: {open_group, get_rasterized, get_agg_filter, figure,
-                                              option_image_nocomposite, close_group} = None) -> None: ...
-
-    def tight_layout(self: Figure,
-                     *,
-                     pad: float = 1.08,
-                     h_pad: float = None,
-                     w_pad: float = None,
-                     rect: int = None) -> None: ...
+    def update(self: SubplotParams,
+               left: float = None,
+               bottom: Any = None,
+               right: Any = None,
+               top: Any = None,
+               wspace: Any = None,
+               hspace: Any = None) -> Any: ...
 
 
 class FigureBase(Artist):
@@ -412,49 +318,143 @@ class SubFigure(FigureBase):
                         close_group}) -> None: ...
 
 
-class _AxesStack(Stack):
-    def __init__(self: _AxesStack) -> None: ...
+class Figure(FigureBase):
+    def __str__(self: Figure) -> str: ...
 
-    def as_list(self: _AxesStack) -> list: ...
+    def __repr__(self: Figure) -> str: ...
 
-    def _entry_from_axes(self: _AxesStack,
-                         e: {_shared_y_axes, _shared_x_axes}) -> Optional[tuple[Any, Any]]: ...
+    def __init__(self: Figure,
+                 figsize: Any = None,
+                 dpi: float = None,
+                 facecolor: Any = None,
+                 edgecolor: Any = None,
+                 linewidth: float = 0.0,
+                 frameon: bool = None,
+                 subplotpars: SubplotParams = None,
+                 tight_layout: Union[bool, dict] = None,
+                 constrained_layout: bool = None) -> Any: ...
 
-    def remove(self: _AxesStack,
-               a: {_shared_y_axes, _shared_x_axes}) -> None: ...
+    def _repr_html_(self: Figure) -> Any: ...
 
-    def bubble(self: _AxesStack,
-               a: Any) -> Any: ...
+    def show(self: Figure,
+             warn: bool = True) -> Any: ...
 
-    def add(self: _AxesStack,
-            a: Any) -> None: ...
+    def get_axes(self: Figure) -> list: ...
 
-    def __call__(self: _AxesStack) -> Optional[Any]: ...
+    def _get_dpi(self: Figure) -> Optional[float]: ...
 
-    def __contains__(self: _AxesStack,
-                     a: Any) -> bool: ...
+    def _set_dpi(self: Figure,
+                 dpi: float,
+                 forward: bool = True) -> None: ...
 
+    def get_tight_layout(self: Figure) -> bool: ...
 
-class SubplotParams(object):
-    def __init__(self: SubplotParams,
-                 left: float = None,
-                 bottom: float = None,
-                 right: float = None,
-                 top: float = None,
-                 wspace: float = None,
-                 hspace: float = None) -> None: ...
+    def set_tight_layout(self: Figure,
+                         tight: str) -> None: ...
 
-    def update(self: SubplotParams,
-               left: float = None,
-               bottom: Any = None,
-               right: Any = None,
-               top: Any = None,
-               wspace: Any = None,
-               hspace: Any = None) -> Any: ...
+    def get_constrained_layout(self: Figure) -> bool: ...
 
+    def set_constrained_layout(self: Figure,
+                               constrained: Union[bool, dict, None]) -> None: ...
 
-def _stale_figure_callback(self: {figure},
-                           val: Any) -> None: ...
+    def set_constrained_layout_pads(self: Figure,
+                                    **kwargs) -> None: ...
+
+    def get_constrained_layout_pads(self: Figure,
+                                    relative: bool = False) -> tuple[Optional[Any], Optional[Any], None, None]: ...
+
+    def set_canvas(self: Figure,
+                   canvas: Any) -> None: ...
+
+    def figimage(self: Figure,
+                 X: Any,
+                 xo: int = 0,
+                 yo: int = 0,
+                 alpha: Optional[float] = None,
+                 norm: Normalize = None,
+                 cmap: Union[str, Colormap] = None,
+                 vmin: float = None,
+                 vmax: float = None,
+                 origin: str = None,
+                 resize: bool = False,
+                 **kwargs) -> FigureImage: ...
+
+    def set_size_inches(self: Figure,
+                        w: Union[tuple[float, float], float],
+                        h: float = None,
+                        forward: bool = True) -> Any: ...
+
+    def get_size_inches(self: Figure) -> Any: ...
+
+    def get_figwidth(self: Figure) -> Any: ...
+
+    def get_figheight(self: Figure) -> Any: ...
+
+    def get_dpi(self: Figure) -> Optional[float]: ...
+
+    def set_dpi(self: Figure,
+                val: float) -> None: ...
+
+    def set_figwidth(self: Figure,
+                     val: float,
+                     forward: bool = True) -> None: ...
+
+    def set_figheight(self: Figure,
+                      val: float,
+                      forward: bool = True) -> None: ...
+
+    def clf(self: Figure,
+            keep_observers: bool = False) -> None: ...
+
+    def clear(self: Figure,
+              keep_observers: bool = False) -> None: ...
+
+    @_finalize_rasterization
+    @allow_rasterization
+    def draw(self: Figure,
+             renderer: {open_group, get_rasterized, get_agg_filter, figure, option_image_nocomposite, close_group}) -> \
+    Optional[Any]: ...
+
+    def draw_artist(self: Figure,
+                    a: {draw}) -> Any: ...
+
+    def __getstate__(self: Figure) -> dict[str, Any]: ...
+
+    def __setstate__(self: Figure,
+                     state: {pop}) -> None: ...
+
+    def add_axobserver(self: Figure,
+                       func: Any) -> None: ...
+
+    def savefig(self: Figure,
+                fname: Any,
+                *,
+                transparent: Any = None,
+                **kwargs) -> None: ...
+
+    def ginput(self: Figure,
+               n: int = 1,
+               timeout: float = 30,
+               show_clicks: bool = True,
+               mouse_add: Any = MouseButton.LEFT,
+               mouse_pop: Any = MouseButton.RIGHT,
+               mouse_stop: Any = MouseButton.MIDDLE) -> list: ...
+
+    def waitforbuttonpress(self: Figure,
+                           timeout: int = -1) -> None: ...
+
+    def init_layoutgrid(self: Figure) -> None: ...
+
+    def execute_constrained_layout(self: Figure,
+                                   renderer: {open_group, get_rasterized, get_agg_filter, figure,
+                                              option_image_nocomposite, close_group} = None) -> None: ...
+
+    def tight_layout(self: Figure,
+                     *,
+                     pad: float = 1.08,
+                     h_pad: float = None,
+                     w_pad: float = None,
+                     rect: int = None) -> None: ...
 
 
 def figaspect(arg: Any) -> float: ...

@@ -90,14 +90,14 @@ class LayoutGrid(object):
     def update_variables(self: LayoutGrid) -> None: ...
 
 
-def plot_children(fig: {canvas, add_artist, transFigure},
-                  lg: {nrows, ncols, get_outer_bbox, get_inner_bbox, get_left_margin_bbox, get_right_margin_bbox,
-                       get_bottom_margin_bbox, get_top_margin_bbox, children},
-                  level: int = 0,
-                  printit: bool = False) -> None: ...
+def seq_id() -> str: ...
 
 
 def print_children(lb: {children}) -> None: ...
 
 
-def seq_id() -> str: ...
+def plot_children(fig: {canvas, add_artist, transFigure},
+                  lg: {nrows, ncols, get_outer_bbox, get_inner_bbox, get_left_margin_bbox, get_right_margin_bbox,
+                       get_bottom_margin_bbox, get_top_margin_bbox, children},
+                  level: int = 0,
+                  printit: bool = False) -> None: ...

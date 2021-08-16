@@ -12,9 +12,76 @@ from matplotlib.path import Path
 from numpy.core._multiarray_umath import ndarray
 
 
-@_copy_docstring_and_deprecators(matplotlib.rc_context)
-def rc_context(rc: dict[str, str] = None,
-               fname: Any = None) -> Generator[Any, Any, None]: ...
+def install_repl_displayhook() -> None: ...
+
+
+def uninstall_repl_displayhook() -> Any: ...
+
+
+@functools.wraps(matplotlib.set_loglevel)
+def set_loglevel(*args,
+                 **kwargs) -> None: ...
+
+
+@_copy_docstring_and_deprecators(Artist.findobj)
+def findobj(o: Optional[{findobj}] = None,
+            match: Any = None,
+            include_self: bool = True) -> Any: ...
+
+
+def _get_required_interactive_framework(backend_mod: Type[backend_mod]) -> Optional[Any]: ...
+
+
+def switch_backend(newbackend: str) -> None: ...
+
+
+def _warn_if_gui_out_of_main_thread() -> None: ...
+
+
+def new_figure_manager(*args,
+                       **kwargs) -> FigureManagerBase: ...
+
+
+def draw_if_interactive(*args,
+                        **kwargs) -> None: ...
+
+
+def show(*args,
+         **kwargs) -> None: ...
+
+
+def isinteractive() -> Optional[Any]: ...
+
+
+class _IoffContext(object):
+    def __init__(self: _IoffContext) -> None: ...
+
+    def __enter__(self: _IoffContext) -> None: ...
+
+    def __exit__(self: _IoffContext,
+                 exc_type: Any,
+                 exc_value: Any,
+                 traceback: Any) -> None: ...
+
+
+class _IonContext(object):
+    def __init__(self: _IonContext) -> None: ...
+
+    def __enter__(self: _IonContext) -> None: ...
+
+    def __exit__(self: _IonContext,
+                 exc_type: Any,
+                 exc_value: Any,
+                 traceback: Any) -> None: ...
+
+
+def ioff() -> _IoffContext: ...
+
+
+def ion() -> _IonContext: ...
+
+
+def pause(interval: Any) -> None: ...
 
 
 @_copy_docstring_and_deprecators(matplotlib.rc)
@@ -22,13 +89,332 @@ def rc(group: str,
        **kwargs) -> Optional[Any]: ...
 
 
+@_copy_docstring_and_deprecators(matplotlib.rc_context)
+def rc_context(rc: dict[str, str] = None,
+               fname: Any = None) -> Generator[Any, Any, None]: ...
+
+
 @_copy_docstring_and_deprecators(matplotlib.rcdefaults)
 def rcdefaults() -> Optional[Any]: ...
 
 
-@functools.wraps(matplotlib.set_loglevel)
-def set_loglevel(*args,
-                 **kwargs) -> None: ...
+@_copy_docstring_and_deprecators(matplotlib.artist.getp)
+def getp(*args,
+         obj: Any,
+         **kwargs) -> Optional[Any]: ...
+
+
+@_copy_docstring_and_deprecators(matplotlib.artist.get)
+def get(*args,
+        obj: Any,
+        **kwargs) -> Optional[Any]: ...
+
+
+@_copy_docstring_and_deprecators(matplotlib.artist.setp)
+def setp(*args,
+         obj: Any,
+         **kwargs) -> Optional[list[Optional[Any]]]: ...
+
+
+def xkcd(scale: Optional[float] = 1,
+         length: Optional[float] = 100,
+         randomness: Optional[float] = 2) -> _xkcd: ...
+
+
+class _xkcd(object):
+    def __init__(self: _xkcd,
+                 scale: Any,
+                 length: Any,
+                 randomness: Any) -> Any: ...
+
+    def __enter__(self: _xkcd) -> _xkcd: ...
+
+    def __exit__(self: _xkcd,
+                 *args) -> None: ...
+
+
+def figure(num: Any = None,
+           figsize: Any = None,
+           dpi: float = None,
+           facecolor: Any = None,
+           edgecolor: Any = None,
+           frameon: bool = True,
+           FigureClass: Any = Figure,
+           clear: bool = False,
+           **kwargs) -> Any: ...
+
+
+def _auto_draw_if_interactive(fig: Figure,
+                              val: Any) -> None: ...
+
+
+def gcf() -> Any: ...
+
+
+def fignum_exists(num: Any) -> bool: ...
+
+
+def get_fignums() -> list[SupportsLessThan]: ...
+
+
+def get_figlabels() -> list: ...
+
+
+def get_current_fig_manager() -> Any: ...
+
+
+@_copy_docstring_and_deprecators(FigureCanvasBase.mpl_connect)
+def connect(s: Any,
+            func: Any) -> Any: ...
+
+
+@_copy_docstring_and_deprecators(FigureCanvasBase.mpl_disconnect)
+def disconnect(cid: Any) -> Any: ...
+
+
+def close(fig: Any = None) -> None: ...
+
+
+def clf() -> None: ...
+
+
+def draw() -> None: ...
+
+
+@_copy_docstring_and_deprecators(Figure.savefig)
+def savefig(*args,
+            **kwargs) -> Any: ...
+
+
+def figlegend(*args,
+              **kwargs) -> Any: ...
+
+
+@docstring.dedent_interpd
+def axes(arg: Any = None,
+         **kwargs) -> Any: ...
+
+
+def delaxes(ax: Optional[{remove}] = None) -> None: ...
+
+
+def sca(ax: {figure}) -> None: ...
+
+
+def cla() -> Any: ...
+
+
+@docstring.dedent_interpd
+def subplot(*args,
+            **kwargs) -> Any: ...
+
+
+@_api.make_keyword_only("3.3", "sharex")
+def subplots(nrows: int = 1,
+             ncols: int = 1,
+             sharex: str = False,
+             sharey: str = False,
+             squeeze: bool = True,
+             subplot_kw: Optional[dict] = None,
+             gridspec_kw: Optional[dict] = None,
+             **kwargs) -> Any: ...
+
+
+def subplot_mosaic(mosaic: Any,
+                   *,
+                   subplot_kw: Optional[dict] = None,
+                   gridspec_kw: Optional[dict] = None,
+                   empty_sentinel: Optional[object] = '.',
+                   **kwargs) -> Any: ...
+
+
+def subplot2grid(shape: tuple[int, int],
+                 loc: tuple[int, int],
+                 rowspan: int = 1,
+                 colspan: int = 1,
+                 fig: Any = None,
+                 **kwargs) -> Any: ...
+
+
+def twinx(ax: Optional[{twinx}] = None) -> Any: ...
+
+
+def twiny(ax: Optional[{twiny}] = None) -> Any: ...
+
+
+def subplot_tool(targetfig: Any = None) -> SubplotTool: ...
+
+
+@_api.make_keyword_only("3.3", "pad")
+def tight_layout(pad: float = 1.08,
+                 h_pad: float = None,
+                 w_pad: float = None,
+                 rect: int = None) -> Optional[Any]: ...
+
+
+def box(on: Optional[bool] = None) -> None: ...
+
+
+def xlim(*args,
+         **kwargs) -> Any: ...
+
+
+def ylim(*args,
+         **kwargs) -> Any: ...
+
+
+def xticks(ticks: Union[ndarray, Iterable, int, float, None] = None,
+           labels: Union[ndarray, Iterable, int, float, None] = None,
+           **kwargs) -> Any: ...
+
+
+def yticks(ticks: Union[ndarray, Iterable, int, float, None] = None,
+           labels: Union[ndarray, Iterable, int, float, None] = None,
+           **kwargs) -> Any: ...
+
+
+def rgrids(radii: Any = None,
+           labels: Any = None,
+           angle: float = None,
+           fmt: Optional[str] = None,
+           x: Any = ...,
+           y: Any = ...,
+           text: str = ...,
+           color: Any = ...,
+           verticalalignment: Any = ...,
+           horizontalalignment: Any = ...,
+           multialignment: Any = ...,
+           fontproperties: Any = ...,
+           rotation: float = ...,
+           linespacing: Any = ...,
+           rotation_mode: Optional[str] = ...,
+           usetex: Any = ...,
+           wrap: bool = ...,
+           transform_rotates_text: bool = ...,
+           **kwargs) -> Any: ...
+
+
+def thetagrids(angles: Any = None,
+               labels: Any = None,
+               fmt: Optional[str] = None,
+               x: Any = ...,
+               y: Any = ...,
+               text: str = ...,
+               color: Any = ...,
+               verticalalignment: Any = ...,
+               horizontalalignment: Any = ...,
+               multialignment: Any = ...,
+               fontproperties: Any = ...,
+               rotation: float = ...,
+               linespacing: Any = ...,
+               rotation_mode: Optional[str] = ...,
+               usetex: Any = ...,
+               wrap: bool = ...,
+               transform_rotates_text: bool = ...,
+               **kwargs) -> Any: ...
+
+
+def plotting() -> None: ...
+
+
+def get_plot_commands() -> list[str]: ...
+
+
+def colormaps() -> list[str]: ...
+
+
+def _setup_pyplot_info_docstrings() -> None: ...
+
+
+@_copy_docstring_and_deprecators(Figure.colorbar)
+def colorbar(mappable: Any = None,
+             cax: Any = None,
+             ax: Any = None,
+             **kwargs) -> Any: ...
+
+
+def clim(vmin: Any = None,
+         vmax: Any = None) -> Any: ...
+
+
+def set_cmap(cmap: Any) -> None: ...
+
+
+@_copy_docstring_and_deprecators(matplotlib.image.imread)
+def imread(fname: Any,
+           format: Any = None) -> Any: ...
+
+
+@_copy_docstring_and_deprecators(matplotlib.image.imsave)
+def imsave(fname: Any,
+           arr: Any,
+           **kwargs) -> Any: ...
+
+
+def matshow(A: int,
+            fignum: Optional[int] = None,
+            **kwargs) -> Any: ...
+
+
+def polar(*args,
+          **kwargs) -> PolarAxes: ...
+
+
+@_copy_docstring_and_deprecators(Figure.figimage)
+def figimage(X: Any,
+             xo: int = 0,
+             yo: int = 0,
+             alpha: Any = None,
+             norm: Any = None,
+             cmap: Any = None,
+             vmin: Any = None,
+             vmax: Any = None,
+             origin: Any = None,
+             resize: bool = False,
+             **kwargs) -> Any: ...
+
+
+@_copy_docstring_and_deprecators(Figure.text)
+def figtext(x: Any,
+            y: Any,
+            s: Any,
+            fontdict: Any = None,
+            **kwargs) -> Any: ...
+
+
+@_copy_docstring_and_deprecators(Figure.gca)
+def gca(**kwargs) -> Any: ...
+
+
+@_copy_docstring_and_deprecators(Figure._gci)
+def gci() -> Any: ...
+
+
+@_copy_docstring_and_deprecators(Figure.ginput)
+def ginput(n: int = 1,
+           timeout: int = 30,
+           show_clicks: bool = True,
+           mouse_add: MouseButton = MouseButton.LEFT,
+           mouse_pop: MouseButton = MouseButton.RIGHT,
+           mouse_stop: MouseButton = MouseButton.MIDDLE) -> Any: ...
+
+
+@_copy_docstring_and_deprecators(Figure.subplots_adjust)
+def subplots_adjust(left: Any = None,
+                    bottom: Any = None,
+                    right: Any = None,
+                    top: Any = None,
+                    wspace: Any = None,
+                    hspace: Any = None) -> Any: ...
+
+
+@_copy_docstring_and_deprecators(Figure.suptitle)
+def suptitle(t: Any,
+             **kwargs) -> Any: ...
+
+
+@_copy_docstring_and_deprecators(Figure.waitforbuttonpress)
+def waitforbuttonpress(timeout: int = -1) -> Any: ...
 
 
 @_copy_docstring_and_deprecators(Axes.acorr)
@@ -89,14 +475,6 @@ def arrow(x: Any,
 def autoscale(enable: bool = True,
               axis: str = 'both',
               tight: Any = None) -> Any: ...
-
-
-def autumn() -> None: ...
-
-
-@docstring.dedent_interpd
-def axes(arg: Any = None,
-         **kwargs) -> Any: ...
 
 
 @_copy_docstring_and_deprecators(Axes.axhline)
@@ -222,16 +600,6 @@ def bar(x: Any,
         **kwargs) -> Any: ...
 
 
-@_copy_docstring_and_deprecators(Axes.bar_label)
-def bar_label(container: Any,
-              labels: Any = None,
-              *,
-              fmt: str = '%g',
-              label_type: str = 'edge',
-              padding: int = 0,
-              **kwargs) -> Any: ...
-
-
 @_copy_docstring_and_deprecators(Axes.barbs)
 def barbs(*args,
           data: Any = None,
@@ -252,10 +620,14 @@ def barh(y: Any,
          **kwargs) -> Any: ...
 
 
-def bone() -> None: ...
-
-
-def box(on: Optional[bool] = None) -> None: ...
+@_copy_docstring_and_deprecators(Axes.bar_label)
+def bar_label(container: Any,
+              labels: Any = None,
+              *,
+              fmt: str = '%g',
+              label_type: str = 'edge',
+              padding: int = 0,
+              **kwargs) -> Any: ...
 
 
 @_copy_docstring_and_deprecators(Axes.boxplot)
@@ -299,38 +671,47 @@ def broken_barh(xranges: Any,
                 **kwargs) -> Any: ...
 
 
-def cla() -> Any: ...
-
-
 @_copy_docstring_and_deprecators(Axes.clabel)
 def clabel(CS: Any,
            levels: Any = None,
            **kwargs) -> Any: ...
 
 
-def clf() -> None: ...
-
-
-def clim(vmin: Any = None,
-         vmax: Any = None) -> Any: ...
-
-
-def close(fig: Any = None) -> None: ...
-
-
-@_copy_docstring_and_deprecators(Figure.colorbar)
-def colorbar(mappable: Any = None,
-             cax: Any = None,
-             ax: Any = None,
-             **kwargs) -> Any: ...
-
-
-def colormaps() -> list[str]: ...
-
-
-@_copy_docstring_and_deprecators(FigureCanvasBase.mpl_connect)
-def connect(s: Any,
-            func: Any) -> Any: ...
+@_copy_docstring_and_deprecators(Axes.cohere)
+def cohere(x: Any,
+           y: Any,
+           NFFT: int = 256,
+           Fs: int = 2,
+           Fc: int = 0,
+           detrend: (x: Any, axis: int),
+           window: (x: {__len__}),
+           noverlap: int = 0,
+           pad_to: Any = None,
+           sides: str = 'default',
+           scale_by_freq: Any = None,
+           *,
+           data: Any = None,
+           xdata: ndarray = ...,
+           ydata: ndarray = ...,
+           linewidth: Optional[Any] = ...,
+           linestyle: str = ...,
+           color: Any = ...,
+           marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
+           markersize: Any = ...,
+           markeredgewidth: Any = ...,
+           markeredgecolor: str = ...,
+           markerfacecolor: str = ...,
+           markerfacecoloralt: str = ...,
+           fillstyle: Optional[str] = ...,
+           antialiased: Any = ...,
+           dash_capstyle: Any = ...,
+           solid_capstyle: Any = ...,
+           dash_joinstyle: Any = ...,
+           solid_joinstyle: Any = ...,
+           pickradius: float = ...,
+           drawstyle: Any = ...,
+           markevery: Any = ...,
+           **kwargs) -> Any: ...
 
 
 @_copy_docstring_and_deprecators(Axes.contour)
@@ -345,24 +726,42 @@ def contourf(*args,
              **kwargs) -> Any: ...
 
 
-def cool() -> None: ...
-
-
-def copper() -> None: ...
-
-
-def delaxes(ax: Optional[{remove}] = None) -> None: ...
-
-
-@_copy_docstring_and_deprecators(FigureCanvasBase.mpl_disconnect)
-def disconnect(cid: Any) -> Any: ...
-
-
-def draw() -> None: ...
-
-
-def draw_if_interactive(*args,
-                        **kwargs) -> None: ...
+@_copy_docstring_and_deprecators(Axes.csd)
+def csd(x: Any,
+        y: Any,
+        NFFT: Any = None,
+        Fs: Any = None,
+        Fc: Any = None,
+        detrend: Any = None,
+        window: Any = None,
+        noverlap: Any = None,
+        pad_to: Any = None,
+        sides: Any = None,
+        scale_by_freq: Any = None,
+        return_line: Any = None,
+        *,
+        data: Any = None,
+        xdata: ndarray = ...,
+        ydata: ndarray = ...,
+        linewidth: Optional[Any] = ...,
+        linestyle: str = ...,
+        color: Any = ...,
+        marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
+        markersize: Any = ...,
+        markeredgewidth: Any = ...,
+        markeredgecolor: str = ...,
+        markerfacecolor: str = ...,
+        markerfacecoloralt: str = ...,
+        fillstyle: Optional[str] = ...,
+        antialiased: Any = ...,
+        dash_capstyle: Any = ...,
+        solid_capstyle: Any = ...,
+        dash_joinstyle: Any = ...,
+        solid_joinstyle: Any = ...,
+        pickradius: float = ...,
+        drawstyle: Any = ...,
+        markevery: Any = ...,
+        **kwargs) -> Any: ...
 
 
 @_copy_docstring_and_deprecators(Axes.errorbar)
@@ -399,46 +798,6 @@ def eventplot(positions: Any,
               **kwargs) -> Any: ...
 
 
-@_copy_docstring_and_deprecators(Figure.figimage)
-def figimage(X: Any,
-             xo: int = 0,
-             yo: int = 0,
-             alpha: Any = None,
-             norm: Any = None,
-             cmap: Any = None,
-             vmin: Any = None,
-             vmax: Any = None,
-             origin: Any = None,
-             resize: bool = False,
-             **kwargs) -> Any: ...
-
-
-def figlegend(*args,
-              **kwargs) -> Any: ...
-
-
-def fignum_exists(num: Any) -> bool: ...
-
-
-@_copy_docstring_and_deprecators(Figure.text)
-def figtext(x: Any,
-            y: Any,
-            s: Any,
-            fontdict: Any = None,
-            **kwargs) -> Any: ...
-
-
-def figure(num: Any = None,
-           figsize: Any = None,
-           dpi: float = None,
-           facecolor: Any = None,
-           edgecolor: Any = None,
-           frameon: bool = True,
-           FigureClass: Any = Figure,
-           clear: bool = False,
-           **kwargs) -> Any: ...
-
-
 @_copy_docstring_and_deprecators(Axes.fill)
 def fill(*args,
          data: Any = None,
@@ -469,62 +828,6 @@ def fill_betweenx(y: Any,
                   *,
                   data: Any = None,
                   **kwargs) -> Any: ...
-
-
-@_copy_docstring_and_deprecators(Artist.findobj)
-def findobj(o: Optional[{findobj}] = None,
-            match: Any = None,
-            include_self: bool = True) -> Any: ...
-
-
-def flag() -> None: ...
-
-
-@_copy_docstring_and_deprecators(Figure.gca)
-def gca(**kwargs) -> Any: ...
-
-
-def gcf() -> Any: ...
-
-
-@_copy_docstring_and_deprecators(Figure._gci)
-def gci() -> Any: ...
-
-
-@_copy_docstring_and_deprecators(matplotlib.artist.get)
-def get(*args,
-        obj: Any,
-        **kwargs) -> Optional[Any]: ...
-
-
-def get_current_fig_manager() -> Any: ...
-
-
-def get_figlabels() -> list: ...
-
-
-def get_fignums() -> list[SupportsLessThan]: ...
-
-
-def get_plot_commands() -> list[str]: ...
-
-
-@_copy_docstring_and_deprecators(matplotlib.artist.getp)
-def getp(*args,
-         obj: Any,
-         **kwargs) -> Optional[Any]: ...
-
-
-@_copy_docstring_and_deprecators(Figure.ginput)
-def ginput(n: int = 1,
-           timeout: int = 30,
-           show_clicks: bool = True,
-           mouse_add: MouseButton = MouseButton.LEFT,
-           mouse_pop: MouseButton = MouseButton.RIGHT,
-           mouse_stop: MouseButton = MouseButton.MIDDLE) -> Any: ...
-
-
-def gray() -> None: ...
 
 
 @_copy_docstring_and_deprecators(Axes.grid)
@@ -592,6 +895,21 @@ def hist(x: Any,
          **kwargs) -> Any: ...
 
 
+@_copy_docstring_and_deprecators(Axes.stairs)
+def stairs(values: Any,
+           edges: Any = None,
+           *,
+           orientation: str = 'vertical',
+           baseline: int = 0,
+           fill: bool = False,
+           data: Any = None,
+           values: Any = ...,
+           edges: Any = ...,
+           orientation: Any = ...,
+           baseline: Any = ...,
+           **kwargs) -> Any: ...
+
+
 @_copy_docstring_and_deprecators(Axes.hist2d)
 def hist2d(x: Any,
            y: Any,
@@ -620,23 +938,6 @@ def hlines(y: Any,
            **kwargs) -> Any: ...
 
 
-def hot() -> None: ...
-
-
-def hsv() -> None: ...
-
-
-@_copy_docstring_and_deprecators(matplotlib.image.imread)
-def imread(fname: Any,
-           format: Any = None) -> Any: ...
-
-
-@_copy_docstring_and_deprecators(matplotlib.image.imsave)
-def imsave(fname: Any,
-           arr: Any,
-           **kwargs) -> Any: ...
-
-
 @_copy_docstring_and_deprecators(Axes.imshow)
 def imshow(X: Any,
            cmap: Any = None,
@@ -657,24 +958,6 @@ def imshow(X: Any,
            **kwargs) -> Any: ...
 
 
-def inferno() -> None: ...
-
-
-def install_repl_displayhook() -> None: ...
-
-
-def ioff() -> _IoffContext: ...
-
-
-def ion() -> _IonContext: ...
-
-
-def isinteractive() -> Optional[Any]: ...
-
-
-def jet() -> None: ...
-
-
 @_copy_docstring_and_deprecators(Axes.legend)
 def legend(*args,
            **kwargs) -> Any: ...
@@ -689,9 +972,6 @@ def locator_params(axis: str = 'both',
 @_copy_docstring_and_deprecators(Axes.loglog)
 def loglog(*args,
            **kwargs) -> Any: ...
-
-
-def magma() -> None: ...
 
 
 @_copy_docstring_and_deprecators(Axes.magnitude_spectrum)
@@ -734,27 +1014,12 @@ def margins(*args,
             tight: bool = True) -> Any: ...
 
 
-def matshow(A: int,
-            fignum: Optional[int] = None,
-            **kwargs) -> Any: ...
-
-
 @_copy_docstring_and_deprecators(Axes.minorticks_off)
 def minorticks_off() -> Any: ...
 
 
 @_copy_docstring_and_deprecators(Axes.minorticks_on)
 def minorticks_on() -> Any: ...
-
-
-def new_figure_manager(*args,
-                       **kwargs) -> FigureManagerBase: ...
-
-
-def nipy_spectral() -> None: ...
-
-
-def pause(interval: Any) -> None: ...
 
 
 @_copy_docstring_and_deprecators(Axes.pcolor)
@@ -844,12 +1109,6 @@ def pie(x: Any,
         data: Any = None) -> Any: ...
 
 
-def pink() -> None: ...
-
-
-def plasma() -> None: ...
-
-
 @_copy_docstring_and_deprecators(Axes.plot)
 def plot(*args,
          scalex: bool = True,
@@ -910,11 +1169,41 @@ def plot_date(x: Any,
               **kwargs) -> Any: ...
 
 
-def polar(*args,
-          **kwargs) -> PolarAxes: ...
-
-
-def prism() -> None: ...
+@_copy_docstring_and_deprecators(Axes.psd)
+def psd(x: Any,
+        NFFT: Any = None,
+        Fs: Any = None,
+        Fc: Any = None,
+        detrend: Any = None,
+        window: Any = None,
+        noverlap: Any = None,
+        pad_to: Any = None,
+        sides: Any = None,
+        scale_by_freq: Any = None,
+        return_line: Any = None,
+        *,
+        data: Any = None,
+        xdata: ndarray = ...,
+        ydata: ndarray = ...,
+        linewidth: Optional[Any] = ...,
+        linestyle: str = ...,
+        color: Any = ...,
+        marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
+        markersize: Any = ...,
+        markeredgewidth: Any = ...,
+        markeredgecolor: str = ...,
+        markerfacecolor: str = ...,
+        markerfacecoloralt: str = ...,
+        fillstyle: Optional[str] = ...,
+        antialiased: Any = ...,
+        dash_capstyle: Any = ...,
+        solid_capstyle: Any = ...,
+        dash_joinstyle: Any = ...,
+        solid_joinstyle: Any = ...,
+        pickradius: float = ...,
+        drawstyle: Any = ...,
+        markevery: Any = ...,
+        **kwargs) -> Any: ...
 
 
 @_copy_docstring_and_deprecators(Axes.quiver)
@@ -930,91 +1219,6 @@ def quiverkey(Q: Any,
               U: Any,
               label: Any,
               **kwargs) -> Any: ...
-
-
-@_copy_docstring_and_deprecators(matplotlib.rc)
-def rc(group: str,
-       **kwargs) -> Optional[Any]: ...
-
-
-@_copy_docstring_and_deprecators(matplotlib.rc_context)
-def rc_context(rc: dict[str, str] = None,
-               fname: Any = None) -> Generator[Any, Any, None]: ...
-
-
-@_copy_docstring_and_deprecators(matplotlib.rcdefaults)
-def rcdefaults() -> Optional[Any]: ...
-
-
-def rgrids(radii: Any = None,
-           labels: Any = None,
-           angle: float = None,
-           fmt: Optional[str] = None,
-           x: Any = ...,
-           y: Any = ...,
-           text: str = ...,
-           color: Any = ...,
-           verticalalignment: Any = ...,
-           horizontalalignment: Any = ...,
-           multialignment: Any = ...,
-           fontproperties: Any = ...,
-           rotation: float = ...,
-           linespacing: Any = ...,
-           rotation_mode: Optional[str] = ...,
-           usetex: Any = ...,
-           wrap: bool = ...,
-           transform_rotates_text: bool = ...,
-           **kwargs) -> Any: ...
-
-
-def rgrids(radii: Any = None,
-           labels: Any = None,
-           angle: float = None,
-           fmt: Optional[str] = None,
-           x: Any = ...,
-           y: Any = ...,
-           text: str = ...,
-           color: Any = ...,
-           verticalalignment: Any = ...,
-           horizontalalignment: Any = ...,
-           multialignment: Any = ...,
-           fontproperties: Any = ...,
-           rotation: float = ...,
-           linespacing: Any = ...,
-           rotation_mode: Optional[str] = ...,
-           usetex: Any = ...,
-           wrap: bool = ...,
-           transform_rotates_text: bool = ...,
-           **kwargs) -> Any: ...
-
-
-def rgrids(radii: Any = None,
-           labels: Any = None,
-           angle: float = None,
-           fmt: Optional[str] = None,
-           x: Any = ...,
-           y: Any = ...,
-           text: str = ...,
-           color: Any = ...,
-           verticalalignment: Any = ...,
-           horizontalalignment: Any = ...,
-           multialignment: Any = ...,
-           fontproperties: Any = ...,
-           rotation: float = ...,
-           linespacing: Any = ...,
-           rotation_mode: Optional[str] = ...,
-           usetex: Any = ...,
-           wrap: bool = ...,
-           transform_rotates_text: bool = ...,
-           **kwargs) -> Any: ...
-
-
-@_copy_docstring_and_deprecators(Figure.savefig)
-def savefig(*args,
-            **kwargs) -> Any: ...
-
-
-def sca(ax: {figure}) -> None: ...
 
 
 @_copy_docstring_and_deprecators(Axes.scatter)
@@ -1052,10 +1256,6 @@ def scatter(x: Any,
             **kwargs) -> Any: ...
 
 
-@_copy_docstring_and_deprecators(Axes._sci)
-def sci(im: ScalarMappable) -> Any: ...
-
-
 @_copy_docstring_and_deprecators(Axes.semilogx)
 def semilogx(*args,
              **kwargs) -> Any: ...
@@ -1066,20 +1266,26 @@ def semilogy(*args,
              **kwargs) -> Any: ...
 
 
-def set_cmap(cmap: Any) -> None: ...
-
-
-@_copy_docstring_and_deprecators(matplotlib.artist.setp)
-def setp(*args,
-         obj: Any,
-         **kwargs) -> Optional[list[Optional[Any]]]: ...
-
-
-def show(*args,
-         **kwargs) -> None: ...
-
-
-def spring() -> None: ...
+@_copy_docstring_and_deprecators(Axes.specgram)
+def specgram(x: Any,
+             NFFT: Any = None,
+             Fs: Any = None,
+             Fc: Any = None,
+             detrend: Any = None,
+             window: Any = None,
+             noverlap: Any = None,
+             cmap: Any = None,
+             xextent: Any = None,
+             pad_to: Any = None,
+             sides: Any = None,
+             scale_by_freq: Any = None,
+             mode: Any = None,
+             scale: Any = None,
+             vmin: Any = None,
+             vmax: Any = None,
+             *,
+             data: Any = None,
+             **kwargs) -> Any: ...
 
 
 @_copy_docstring_and_deprecators(Axes.spy)
@@ -1090,6 +1296,16 @@ def spy(Z: Any,
         aspect: str = 'equal',
         origin: str = 'upper',
         **kwargs) -> ScalarMappable: ...
+
+
+@_copy_docstring_and_deprecators(Axes.stackplot)
+def stackplot(*args,
+              x: Any,
+              labels: tuple = (),
+              colors: Any = None,
+              baseline: str = 'zero',
+              data: Any = None,
+              **kwargs) -> Any: ...
 
 
 @_copy_docstring_and_deprecators(Axes.stem)
@@ -1135,59 +1351,21 @@ def streamplot(x: Any,
                data: Any = None) -> Any: ...
 
 
-@docstring.dedent_interpd
-def subplot(*args,
-            **kwargs) -> Any: ...
-
-
-def subplot2grid(shape: tuple[int, int],
-                 loc: tuple[int, int],
-                 rowspan: int = 1,
-                 colspan: int = 1,
-                 fig: Any = None,
-                 **kwargs) -> Any: ...
-
-
-def subplot_mosaic(mosaic: Any,
-                   *,
-                   subplot_kw: Optional[dict] = None,
-                   gridspec_kw: Optional[dict] = None,
-                   empty_sentinel: Optional[object] = '.',
-                   **kwargs) -> Any: ...
-
-
-def subplot_tool(targetfig: Any = None) -> SubplotTool: ...
-
-
-@_api.make_keyword_only("3.3", "sharex")
-def subplots(nrows: int = 1,
-             ncols: int = 1,
-             sharex: str = False,
-             sharey: str = False,
-             squeeze: bool = True,
-             subplot_kw: Optional[dict] = None,
-             gridspec_kw: Optional[dict] = None,
-             **kwargs) -> Any: ...
-
-
-@_copy_docstring_and_deprecators(Figure.subplots_adjust)
-def subplots_adjust(left: Any = None,
-                    bottom: Any = None,
-                    right: Any = None,
-                    top: Any = None,
-                    wspace: Any = None,
-                    hspace: Any = None) -> Any: ...
-
-
-def summer() -> None: ...
-
-
-@_copy_docstring_and_deprecators(Figure.suptitle)
-def suptitle(t: Any,
-             **kwargs) -> Any: ...
-
-
-def switch_backend(newbackend: str) -> None: ...
+@_copy_docstring_and_deprecators(Axes.table)
+def table(cellText: Any = None,
+          cellColours: Any = None,
+          cellLoc: str = 'right',
+          colWidths: Any = None,
+          rowLabels: Any = None,
+          rowColours: Any = None,
+          rowLoc: str = 'left',
+          colLabels: Any = None,
+          colColours: Any = None,
+          colLoc: str = 'center',
+          loc: str = 'bottom',
+          bbox: Any = None,
+          edges: str = 'closed',
+          **kwargs) -> Any: ...
 
 
 @_copy_docstring_and_deprecators(Axes.text)
@@ -1212,26 +1390,6 @@ def text(x: Any,
          **kwargs) -> Any: ...
 
 
-def thetagrids(angles: Any = None,
-               labels: Any = None,
-               fmt: Optional[str] = None,
-               x: Any = ...,
-               y: Any = ...,
-               text: str = ...,
-               color: Any = ...,
-               verticalalignment: Any = ...,
-               horizontalalignment: Any = ...,
-               multialignment: Any = ...,
-               fontproperties: Any = ...,
-               rotation: float = ...,
-               linespacing: Any = ...,
-               rotation_mode: Optional[str] = ...,
-               usetex: Any = ...,
-               wrap: bool = ...,
-               transform_rotates_text: bool = ...,
-               **kwargs) -> Any: ...
-
-
 @_copy_docstring_and_deprecators(Axes.tick_params)
 def tick_params(axis: str = 'both',
                 **kwargs) -> Any: ...
@@ -1245,37 +1403,6 @@ def ticklabel_format(*,
                      useOffset: Any = None,
                      useLocale: Any = None,
                      useMathText: Any = None) -> Any: ...
-
-
-@_api.make_keyword_only("3.3", "pad")
-def tight_layout(pad: float = 1.08,
-                 h_pad: float = None,
-                 w_pad: float = None,
-                 rect: int = None) -> Optional[Any]: ...
-
-
-@_copy_docstring_and_deprecators(Axes.set_title)
-def title(label: Any,
-          fontdict: Any = None,
-          loc: Any = None,
-          pad: Any = None,
-          *,
-          y: Any = None,
-          x: Any = ...,
-          y: Any = ...,
-          text: str = ...,
-          color: Any = ...,
-          verticalalignment: Any = ...,
-          horizontalalignment: Any = ...,
-          multialignment: Any = ...,
-          fontproperties: Any = ...,
-          rotation: float = ...,
-          linespacing: Any = ...,
-          rotation_mode: Optional[str] = ...,
-          usetex: Any = ...,
-          wrap: bool = ...,
-          transform_rotates_text: bool = ...,
-          **kwargs) -> Any: ...
 
 
 @_copy_docstring_and_deprecators(Axes.tricontour)
@@ -1305,15 +1432,6 @@ def triplot(*args,
             **kwargs) -> Any: ...
 
 
-def twinx(ax: Optional[{twinx}] = None) -> Any: ...
-
-
-def twiny(ax: Optional[{twiny}] = None) -> Any: ...
-
-
-def uninstall_repl_displayhook() -> Any: ...
-
-
 @_copy_docstring_and_deprecators(Axes.violinplot)
 def violinplot(dataset: Any,
                positions: Any = None,
@@ -1327,9 +1445,6 @@ def violinplot(dataset: Any,
                bw_method: Any = None,
                *,
                data: Any = None) -> Any: ...
-
-
-def viridis() -> None: ...
 
 
 @_copy_docstring_and_deprecators(Axes.vlines)
@@ -1346,13 +1461,6 @@ def vlines(x: Any,
            **kwargs) -> Any: ...
 
 
-@_copy_docstring_and_deprecators(Figure.waitforbuttonpress)
-def waitforbuttonpress(timeout: int = -1) -> Any: ...
-
-
-def winter() -> None: ...
-
-
 @_copy_docstring_and_deprecators(Axes.xcorr)
 def xcorr(x: Any,
           y: Any,
@@ -1365,9 +1473,32 @@ def xcorr(x: Any,
           **kwargs) -> Any: ...
 
 
-def xkcd(scale: Optional[float] = 1,
-         length: Optional[float] = 100,
-         randomness: Optional[float] = 2) -> _xkcd: ...
+@_copy_docstring_and_deprecators(Axes._sci)
+def sci(im: ScalarMappable) -> Any: ...
+
+
+@_copy_docstring_and_deprecators(Axes.set_title)
+def title(label: Any,
+          fontdict: Any = None,
+          loc: Any = None,
+          pad: Any = None,
+          *,
+          y: Any = None,
+          x: Any = ...,
+          y: Any = ...,
+          text: str = ...,
+          color: Any = ...,
+          verticalalignment: Any = ...,
+          horizontalalignment: Any = ...,
+          multialignment: Any = ...,
+          fontproperties: Any = ...,
+          rotation: float = ...,
+          linespacing: Any = ...,
+          rotation_mode: Optional[str] = ...,
+          usetex: Any = ...,
+          wrap: bool = ...,
+          transform_rotates_text: bool = ...,
+          **kwargs) -> Any: ...
 
 
 @_copy_docstring_and_deprecators(Axes.set_xlabel)
@@ -1376,20 +1507,6 @@ def xlabel(xlabel: Any,
            labelpad: Any = None,
            *,
            loc: Any = None,
-           **kwargs) -> Any: ...
-
-
-def xlim(*args,
-         **kwargs) -> Any: ...
-
-
-@_copy_docstring_and_deprecators(Axes.set_xscale)
-def xscale(value: Any,
-           **kwargs) -> Any: ...
-
-
-def xticks(ticks: Union[ndarray, Iterable, int, float, None] = None,
-           labels: Union[ndarray, Iterable, int, float, None] = None,
            **kwargs) -> Any: ...
 
 
@@ -1402,8 +1519,9 @@ def ylabel(ylabel: Any,
            **kwargs) -> Any: ...
 
 
-def ylim(*args,
-         **kwargs) -> Any: ...
+@_copy_docstring_and_deprecators(Axes.set_xscale)
+def xscale(value: Any,
+           **kwargs) -> Any: ...
 
 
 @_copy_docstring_and_deprecators(Axes.set_yscale)
@@ -1411,243 +1529,58 @@ def yscale(value: Any,
            **kwargs) -> Any: ...
 
 
-def yticks(ticks: Union[ndarray, Iterable, int, float, None] = None,
-           labels: Union[ndarray, Iterable, int, float, None] = None,
-           **kwargs) -> Any: ...
+def autumn() -> None: ...
 
 
-@_copy_docstring_and_deprecators(matplotlib.image.imread)
-def imread(fname: Any,
-           format: Any = None) -> Any: ...
+def bone() -> None: ...
 
 
-@_copy_docstring_and_deprecators(matplotlib.image.imsave)
-def imsave(fname: Any,
-           arr: Any,
-           **kwargs) -> Any: ...
+def cool() -> None: ...
 
 
-class _IonContext(object):
-    def __init__(self: _IonContext) -> None: ...
-
-    def __enter__(self: _IonContext) -> None: ...
-
-    def __exit__(self: _IonContext,
-                 exc_type: Any,
-                 exc_value: Any,
-                 traceback: Any) -> None: ...
+def copper() -> None: ...
 
 
-class _xkcd(object):
-    def __init__(self: _xkcd,
-                 scale: Any,
-                 length: Any,
-                 randomness: Any) -> Any: ...
-
-    def __enter__(self: _xkcd) -> _xkcd: ...
-
-    def __exit__(self: _xkcd,
-                 *args) -> None: ...
+def flag() -> None: ...
 
 
-class _IoffContext(object):
-    def __init__(self: _IoffContext) -> None: ...
-
-    def __enter__(self: _IoffContext) -> None: ...
-
-    def __exit__(self: _IoffContext,
-                 exc_type: Any,
-                 exc_value: Any,
-                 traceback: Any) -> None: ...
+def gray() -> None: ...
 
 
-def plotting() -> None: ...
+def hot() -> None: ...
 
 
-def _warn_if_gui_out_of_main_thread() -> None: ...
+def hsv() -> None: ...
 
 
-def _get_required_interactive_framework(backend_mod: Type[backend_mod]) -> Optional[Any]: ...
+def jet() -> None: ...
 
 
-def _setup_pyplot_info_docstrings() -> None: ...
+def pink() -> None: ...
 
 
-def _auto_draw_if_interactive(fig: Figure,
-                              val: Any) -> None: ...
+def prism() -> None: ...
 
 
-@_copy_docstring_and_deprecators(Axes.specgram)
-def specgram(x: Any,
-             NFFT: Any = None,
-             Fs: Any = None,
-             Fc: Any = None,
-             detrend: Any = None,
-             window: Any = None,
-             noverlap: Any = None,
-             cmap: Any = None,
-             xextent: Any = None,
-             pad_to: Any = None,
-             sides: Any = None,
-             scale_by_freq: Any = None,
-             mode: Any = None,
-             scale: Any = None,
-             vmin: Any = None,
-             vmax: Any = None,
-             *,
-             data: Any = None,
-             **kwargs) -> Any: ...
+def spring() -> None: ...
 
 
-@_copy_docstring_and_deprecators(Axes.psd)
-def psd(x: Any,
-        NFFT: Any = None,
-        Fs: Any = None,
-        Fc: Any = None,
-        detrend: Any = None,
-        window: Any = None,
-        noverlap: Any = None,
-        pad_to: Any = None,
-        sides: Any = None,
-        scale_by_freq: Any = None,
-        return_line: Any = None,
-        *,
-        data: Any = None,
-        xdata: ndarray = ...,
-        ydata: ndarray = ...,
-        linewidth: Optional[Any] = ...,
-        linestyle: str = ...,
-        color: Any = ...,
-        marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
-        markersize: Any = ...,
-        markeredgewidth: Any = ...,
-        markeredgecolor: str = ...,
-        markerfacecolor: str = ...,
-        markerfacecoloralt: str = ...,
-        fillstyle: Optional[str] = ...,
-        antialiased: Any = ...,
-        dash_capstyle: Any = ...,
-        solid_capstyle: Any = ...,
-        dash_joinstyle: Any = ...,
-        solid_joinstyle: Any = ...,
-        pickradius: float = ...,
-        drawstyle: Any = ...,
-        markevery: Any = ...,
-        **kwargs) -> Any: ...
+def summer() -> None: ...
 
 
-@_copy_docstring_and_deprecators(Axes.csd)
-def csd(x: Any,
-        y: Any,
-        NFFT: Any = None,
-        Fs: Any = None,
-        Fc: Any = None,
-        detrend: Any = None,
-        window: Any = None,
-        noverlap: Any = None,
-        pad_to: Any = None,
-        sides: Any = None,
-        scale_by_freq: Any = None,
-        return_line: Any = None,
-        *,
-        data: Any = None,
-        xdata: ndarray = ...,
-        ydata: ndarray = ...,
-        linewidth: Optional[Any] = ...,
-        linestyle: str = ...,
-        color: Any = ...,
-        marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
-        markersize: Any = ...,
-        markeredgewidth: Any = ...,
-        markeredgecolor: str = ...,
-        markerfacecolor: str = ...,
-        markerfacecoloralt: str = ...,
-        fillstyle: Optional[str] = ...,
-        antialiased: Any = ...,
-        dash_capstyle: Any = ...,
-        solid_capstyle: Any = ...,
-        dash_joinstyle: Any = ...,
-        solid_joinstyle: Any = ...,
-        pickradius: float = ...,
-        drawstyle: Any = ...,
-        markevery: Any = ...,
-        **kwargs) -> Any: ...
+def winter() -> None: ...
 
 
-@_copy_docstring_and_deprecators(Axes.stackplot)
-def stackplot(*args,
-              x: Any,
-              labels: tuple = (),
-              colors: Any = None,
-              baseline: str = 'zero',
-              data: Any = None,
-              **kwargs) -> Any: ...
+def magma() -> None: ...
 
 
-@_copy_docstring_and_deprecators(Axes.stairs)
-def stairs(values: Any,
-           edges: Any = None,
-           *,
-           orientation: str = 'vertical',
-           baseline: int = 0,
-           fill: bool = False,
-           data: Any = None,
-           values: Any = ...,
-           edges: Any = ...,
-           orientation: Any = ...,
-           baseline: Any = ...,
-           **kwargs) -> Any: ...
+def inferno() -> None: ...
 
 
-@_copy_docstring_and_deprecators(Axes.cohere)
-def cohere(x: Any,
-           y: Any,
-           NFFT: int = 256,
-           Fs: int = 2,
-           Fc: int = 0,
-           detrend: (x: Any, axis: int),
-           window: (x: {__len__}),
-           noverlap: int = 0,
-           pad_to: Any = None,
-           sides: str = 'default',
-           scale_by_freq: Any = None,
-           *,
-           data: Any = None,
-           xdata: ndarray = ...,
-           ydata: ndarray = ...,
-           linewidth: Optional[Any] = ...,
-           linestyle: str = ...,
-           color: Any = ...,
-           marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
-           markersize: Any = ...,
-           markeredgewidth: Any = ...,
-           markeredgecolor: str = ...,
-           markerfacecolor: str = ...,
-           markerfacecoloralt: str = ...,
-           fillstyle: Optional[str] = ...,
-           antialiased: Any = ...,
-           dash_capstyle: Any = ...,
-           solid_capstyle: Any = ...,
-           dash_joinstyle: Any = ...,
-           solid_joinstyle: Any = ...,
-           pickradius: float = ...,
-           drawstyle: Any = ...,
-           markevery: Any = ...,
-           **kwargs) -> Any: ...
+def plasma() -> None: ...
 
 
-@_copy_docstring_and_deprecators(Axes.table)
-def table(cellText: Any = None,
-          cellColours: Any = None,
-          cellLoc: str = 'right',
-          colWidths: Any = None,
-          rowLabels: Any = None,
-          rowColours: Any = None,
-          rowLoc: str = 'left',
-          colLabels: Any = None,
-          colColours: Any = None,
-          colLoc: str = 'center',
-          loc: str = 'bottom',
-          bbox: Any = None,
-          edges: str = 'closed',
-          **kwargs) -> Any: ...
+def viridis() -> None: ...
+
+
+def nipy_spectral() -> None: ...

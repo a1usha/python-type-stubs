@@ -7,6 +7,40 @@ from typing import tuple
 from numpy.core._multiarray_umath import ndarray
 
 
+def _get_dash_pattern(style: str) -> tuple[int, Optional[tuple]]: ...
+
+
+def _scale_dashes(offset: int,
+                  dashes: Optional[tuple],
+                  lw: Optional[float]) -> Union[
+    tuple[int, Optional[tuple]], tuple[Union[int, float], Optional[list[Optional[float]]]]]: ...
+
+
+def segment_hits(cx: int,
+                 cy: int,
+                 x: {__len__},
+                 y: Any,
+                 radius: float) -> ndarray: ...
+
+
+def _mark_every_path(markevery: Any,
+                     tpath: {codes, vertices},
+                     affine: Any,
+                     ax_transform: Any) -> Path: ...
+
+
+@cbook._define_aliases({
+    "antialiased": ["aa"],
+    "color": ["c"],
+    "drawstyle": ["ds"],
+    "linestyle": ["ls"],
+    "linewidth": ["lw"],
+    "markeredgecolor": ["mec"],
+    "markeredgewidth": ["mew"],
+    "markerfacecolor": ["mfc"],
+    "markerfacecoloralt": ["mfcalt"],
+    "markersize": ["ms"],
+})
 class Line2D(Artist):
     @_api.deprecated("3.4")
     @_api.classproperty
@@ -229,25 +263,3 @@ class VertexSelector(object):
 
     def onpick(self: VertexSelector,
                event: {artist, ind}) -> None: ...
-
-
-def _scale_dashes(offset: int,
-                  dashes: Optional[tuple],
-                  lw: Optional[float]) -> Union[
-    tuple[int, Optional[tuple]], tuple[Union[int, float], Optional[list[Optional[float]]]]]: ...
-
-
-def _mark_every_path(markevery: Any,
-                     tpath: {codes, vertices},
-                     affine: Any,
-                     ax_transform: Any) -> Path: ...
-
-
-def _get_dash_pattern(style: str) -> tuple[int, Optional[tuple]]: ...
-
-
-def segment_hits(cx: int,
-                 cy: int,
-                 x: {__len__},
-                 y: Any,
-                 radius: float) -> ndarray: ...

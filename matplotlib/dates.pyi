@@ -9,70 +9,122 @@ from numpy.core import datetime64
 from numpy.core._multiarray_umath import ndarray
 
 
-class DateConverter(ConversionInterface):
-    def __init__(self: DateConverter,
+def _get_rc_timezone() -> Optional[tzinfo]: ...
+
+
+def _reset_epoch_test_example() -> None: ...
+
+
+def set_epoch(epoch: str) -> Any: ...
+
+
+def get_epoch() -> str: ...
+
+
+def _dt64_to_ordinalf(d: ndarray) -> float: ...
+
+
+def _from_ordinalf(x: {__mul__},
+                   tz: Any = None) -> timedelta: ...
+
+
+def datestr2num(d: Union[str, Iterable[str]],
+                default: Optional[datetime] = None) -> Union[ndarray, float]: ...
+
+
+def date2num(d: Union[datetime, datetime64]) -> Union[ndarray, float]: ...
+
+
+def julian2num(j: Union[float, Iterable]) -> None: ...
+
+
+def num2julian(n: Union[float, Iterable]) -> None: ...
+
+
+def num2date(x: Union[float, Iterable],
+             tz: str = None) -> Any: ...
+
+
+def num2timedelta(x: Union[float, Iterable]) -> Union[timedelta, list[timedelta]]: ...
+
+
+def drange(dstart: Any,
+           dend: Any,
+           delta: timedelta) -> Any: ...
+
+
+def _wrap_in_tex(text: str) -> str: ...
+
+
+class DateFormatter(Formatter):
+    @_api.deprecated("3.3")
+    @property
+    def illegal_s(self: DateFormatter) -> Pattern[str]: ...
+
+    def __init__(self: DateFormatter,
+                 fmt: str,
+                 tz: tzinfo = None,
                  *,
-                 interval_multiples: bool = True) -> None: ...
+                 usetex: bool = None) -> None: ...
 
-    def axisinfo(self: DateConverter,
-                 unit: Any,
-                 axis: Any) -> AxisInfo: ...
+    def __call__(self: DateFormatter,
+                 x: Any,
+                 pos: int = 0) -> str: ...
 
-    @staticmethod
-    def convert(value: Any,
-                unit: Any,
-                axis: Any) -> Union[ndarray, float]: ...
-
-    @staticmethod
-    def default_units(x: Any,
-                      axis: Any) -> Optional[Any]: ...
-
-
-class DateLocator(Locator):
-    def __init__(self: DateLocator,
-                 tz: tzinfo = None) -> None: ...
-
-    def set_tzinfo(self: DateLocator,
+    def set_tzinfo(self: DateFormatter,
                    tz: Any) -> None: ...
 
-    def datalim_to_dt(self: DateLocator) -> tuple[Any, Any]: ...
 
-    def viewlim_to_dt(self: DateLocator) -> tuple[Any, Any]: ...
+@_api.deprecated("3.3")
+class IndexDateFormatter(Formatter):
+    def __init__(self: IndexDateFormatter,
+                 t: Iterable[float],
+                 fmt: str,
+                 tz: Any = None) -> None: ...
 
-    def _get_unit(self: DateLocator) -> int: ...
-
-    def _get_interval(self: DateLocator) -> int: ...
-
-    def nonsingular(self: DateLocator,
-                    vmin: Any,
-                    vmax: {__lt__, __sub__}) -> Union[
-        tuple[Union[ndarray, float], Union[ndarray, float]], tuple[{__lt__, __sub__}, {__lt__, __sub__}]]: ...
-
-
-class SecondLocator(RRuleLocator):
-    def __init__(self: SecondLocator,
-                 bysecond: Any = None,
-                 interval: int = 1,
-                 tz: tzinfo = None) -> None: ...
+    def __call__(self: IndexDateFormatter,
+                 x: Any,
+                 pos: int = 0) -> str: ...
 
 
-class RRuleLocator(DateLocator):
-    def __init__(self: RRuleLocator,
-                 o: rrulewrapper,
-                 tz: tzinfo = None) -> None: ...
+class ConciseDateFormatter(Formatter):
+    def __init__(self: ConciseDateFormatter,
+                 locator: Any,
+                 tz: Any = None,
+                 formats: Any = None,
+                 offset_formats: Any = None,
+                 zero_formats: Any = None,
+                 show_offset: bool = True,
+                 *,
+                 usetex: Any = None) -> Any: ...
 
-    def __call__(self: RRuleLocator) -> Union[list, ndarray, float, {__len__}]: ...
+    def __call__(self: ConciseDateFormatter,
+                 x: Any,
+                 pos: Any = None) -> str: ...
 
-    def tick_values(self: RRuleLocator,
-                    vmin: {__gt__, year},
-                    vmax: {__add__}) -> Union[ndarray, float, {__len__}]: ...
+    def format_ticks(self: ConciseDateFormatter,
+                     values: Any) -> list[str]: ...
 
-    def _get_unit(self: RRuleLocator) -> Union[float, int]: ...
+    def get_offset(self: ConciseDateFormatter) -> str: ...
 
-    @staticmethod
-    def get_unit_generic(freq: int) -> Union[float, int]: ...
+    def format_data_short(self: ConciseDateFormatter,
+                          value: Any) -> Any: ...
 
-    def _get_interval(self: RRuleLocator) -> Any: ...
+
+class AutoDateFormatter(Formatter):
+    def __init__(self: AutoDateFormatter,
+                 locator: Any,
+                 tz: Optional[str] = None,
+                 defaultfmt: str = '%Y-%m-%d',
+                 *,
+                 usetex: bool = None) -> None: ...
+
+    def _set_locator(self: AutoDateFormatter,
+                     locator: Any) -> None: ...
+
+    def __call__(self: AutoDateFormatter,
+                 x: Any,
+                 pos: Any = None) -> str: ...
 
 
 class rrulewrapper(object):
@@ -102,36 +154,44 @@ class rrulewrapper(object):
                      state: Any) -> None: ...
 
 
-class MonthLocator(RRuleLocator):
-    def __init__(self: MonthLocator,
-                 bymonth: Any = None,
-                 bymonthday: int = 1,
-                 interval: int = 1,
+class DateLocator(Locator):
+    def __init__(self: DateLocator,
                  tz: tzinfo = None) -> None: ...
 
+    def set_tzinfo(self: DateLocator,
+                   tz: Any) -> None: ...
 
-class IndexDateFormatter(Formatter):
-    def __init__(self: IndexDateFormatter,
-                 t: Iterable[float],
-                 fmt: str,
-                 tz: Any = None) -> None: ...
+    def datalim_to_dt(self: DateLocator) -> tuple[Any, Any]: ...
 
-    def __call__(self: IndexDateFormatter,
-                 x: Any,
-                 pos: int = 0) -> str: ...
+    def viewlim_to_dt(self: DateLocator) -> tuple[Any, Any]: ...
+
+    def _get_unit(self: DateLocator) -> int: ...
+
+    def _get_interval(self: DateLocator) -> int: ...
+
+    def nonsingular(self: DateLocator,
+                    vmin: Any,
+                    vmax: {__lt__, __sub__}) -> Union[
+        tuple[Union[ndarray, float], Union[ndarray, float]], tuple[{__lt__, __sub__}, {__lt__, __sub__}]]: ...
 
 
-class _rcParam_helper(object):
-    @classmethod
-    def set_converter(cls: Type[_rcParam_helper],
-                      s: Any) -> Any: ...
+class RRuleLocator(DateLocator):
+    def __init__(self: RRuleLocator,
+                 o: rrulewrapper,
+                 tz: tzinfo = None) -> None: ...
 
-    @classmethod
-    def set_int_mult(cls: Type[_rcParam_helper],
-                     b: Any) -> None: ...
+    def __call__(self: RRuleLocator) -> Union[list, ndarray, float, {__len__}]: ...
 
-    @classmethod
-    def register_converters(cls: Type[_rcParam_helper]) -> None: ...
+    def tick_values(self: RRuleLocator,
+                    vmin: {__gt__, year},
+                    vmax: {__add__}) -> Union[ndarray, float, {__len__}]: ...
+
+    def _get_unit(self: RRuleLocator) -> Union[float, int]: ...
+
+    @staticmethod
+    def get_unit_generic(freq: int) -> Union[float, int]: ...
+
+    def _get_interval(self: RRuleLocator) -> Any: ...
 
 
 class AutoDateLocator(DateLocator):
@@ -173,18 +233,19 @@ class YearLocator(DateLocator):
                     vmax: {year}) -> Union[ndarray, float]: ...
 
 
-class ConciseDateConverter(DateConverter):
-    def __init__(self: ConciseDateConverter,
-                 formats: Any = None,
-                 zero_formats: Any = None,
-                 offset_formats: Any = None,
-                 show_offset: bool = True,
-                 *,
-                 interval_multiples: bool = True) -> None: ...
+class MonthLocator(RRuleLocator):
+    def __init__(self: MonthLocator,
+                 bymonth: Any = None,
+                 bymonthday: int = 1,
+                 interval: int = 1,
+                 tz: tzinfo = None) -> None: ...
 
-    def axisinfo(self: ConciseDateConverter,
-                 unit: Any,
-                 axis: Any) -> AxisInfo: ...
+
+class WeekdayLocator(RRuleLocator):
+    def __init__(self: WeekdayLocator,
+                 byweekday: int = 1,
+                 interval: int = 1,
+                 tz: tzinfo = None) -> None: ...
 
 
 class DayLocator(RRuleLocator):
@@ -194,9 +255,9 @@ class DayLocator(RRuleLocator):
                  tz: tzinfo = None) -> Any: ...
 
 
-class WeekdayLocator(RRuleLocator):
-    def __init__(self: WeekdayLocator,
-                 byweekday: int = 1,
+class HourLocator(RRuleLocator):
+    def __init__(self: HourLocator,
+                 byhour: Any = None,
                  interval: int = 1,
                  tz: tzinfo = None) -> None: ...
 
@@ -208,68 +269,9 @@ class MinuteLocator(RRuleLocator):
                  tz: tzinfo = None) -> None: ...
 
 
-class AutoDateFormatter(Formatter):
-    def __init__(self: AutoDateFormatter,
-                 locator: Any,
-                 tz: Optional[str] = None,
-                 defaultfmt: str = '%Y-%m-%d',
-                 *,
-                 usetex: bool = None) -> None: ...
-
-    def _set_locator(self: AutoDateFormatter,
-                     locator: Any) -> None: ...
-
-    def __call__(self: AutoDateFormatter,
-                 x: Any,
-                 pos: Any = None) -> str: ...
-
-
-class DateFormatter(Formatter):
-    @_api.deprecated("3.3")
-    @property
-    def illegal_s(self: DateFormatter) -> Pattern[str]: ...
-
-    def __init__(self: DateFormatter,
-                 fmt: str,
-                 tz: tzinfo = None,
-                 *,
-                 usetex: bool = None) -> None: ...
-
-    def __call__(self: DateFormatter,
-                 x: Any,
-                 pos: int = 0) -> str: ...
-
-    def set_tzinfo(self: DateFormatter,
-                   tz: Any) -> None: ...
-
-
-class ConciseDateFormatter(Formatter):
-    def __init__(self: ConciseDateFormatter,
-                 locator: Any,
-                 tz: Any = None,
-                 formats: Any = None,
-                 offset_formats: Any = None,
-                 zero_formats: Any = None,
-                 show_offset: bool = True,
-                 *,
-                 usetex: Any = None) -> Any: ...
-
-    def __call__(self: ConciseDateFormatter,
-                 x: Any,
-                 pos: Any = None) -> str: ...
-
-    def format_ticks(self: ConciseDateFormatter,
-                     values: Any) -> list[str]: ...
-
-    def get_offset(self: ConciseDateFormatter) -> str: ...
-
-    def format_data_short(self: ConciseDateFormatter,
-                          value: Any) -> Any: ...
-
-
-class HourLocator(RRuleLocator):
-    def __init__(self: HourLocator,
-                 byhour: Any = None,
+class SecondLocator(RRuleLocator):
+    def __init__(self: SecondLocator,
+                 bysecond: Any = None,
                  interval: int = 1,
                  tz: tzinfo = None) -> None: ...
 
@@ -301,17 +303,10 @@ class MicrosecondLocator(DateLocator):
     def _get_interval(self: MicrosecondLocator) -> int: ...
 
 
-def _reset_epoch_test_example() -> None: ...
+def epoch2num(e: Iterable) -> Any: ...
 
 
-def _wrap_in_tex(text: str) -> str: ...
-
-
-def num2julian(n: Union[float, Iterable]) -> None: ...
-
-
-def _from_ordinalf(x: {__mul__},
-                   tz: Any = None) -> timedelta: ...
+def num2epoch(d: Iterable) -> Any: ...
 
 
 def date_ticker_factory(span: {__eq__, __mul__, __truediv__},
@@ -320,41 +315,47 @@ def date_ticker_factory(span: {__eq__, __mul__, __truediv__},
     Union[MinuteLocator, HourLocator, DayLocator, WeekdayLocator, MonthLocator, YearLocator], DateFormatter]: ...
 
 
-def datestr2num(d: Union[str, Iterable[str]],
-                default: Optional[datetime] = None) -> Union[ndarray, float]: ...
+class DateConverter(ConversionInterface):
+    def __init__(self: DateConverter,
+                 *,
+                 interval_multiples: bool = True) -> None: ...
+
+    def axisinfo(self: DateConverter,
+                 unit: Any,
+                 axis: Any) -> AxisInfo: ...
+
+    @staticmethod
+    def convert(value: Any,
+                unit: Any,
+                axis: Any) -> Union[ndarray, float]: ...
+
+    @staticmethod
+    def default_units(x: Any,
+                      axis: Any) -> Optional[Any]: ...
 
 
-def num2epoch(d: Iterable) -> Any: ...
+class ConciseDateConverter(DateConverter):
+    def __init__(self: ConciseDateConverter,
+                 formats: Any = None,
+                 zero_formats: Any = None,
+                 offset_formats: Any = None,
+                 show_offset: bool = True,
+                 *,
+                 interval_multiples: bool = True) -> None: ...
+
+    def axisinfo(self: ConciseDateConverter,
+                 unit: Any,
+                 axis: Any) -> AxisInfo: ...
 
 
-def num2date(x: Union[float, Iterable],
-             tz: str = None) -> Any: ...
+class _rcParam_helper(object):
+    @classmethod
+    def set_converter(cls: Type[_rcParam_helper],
+                      s: Any) -> Any: ...
 
+    @classmethod
+    def set_int_mult(cls: Type[_rcParam_helper],
+                     b: Any) -> None: ...
 
-def julian2num(j: Union[float, Iterable]) -> None: ...
-
-
-def num2timedelta(x: Union[float, Iterable]) -> Union[timedelta, list[timedelta]]: ...
-
-
-def _get_rc_timezone() -> Optional[tzinfo]: ...
-
-
-def epoch2num(e: Iterable) -> Any: ...
-
-
-def drange(dstart: Any,
-           dend: Any,
-           delta: timedelta) -> Any: ...
-
-
-def get_epoch() -> str: ...
-
-
-def set_epoch(epoch: str) -> Any: ...
-
-
-def _dt64_to_ordinalf(d: ndarray) -> float: ...
-
-
-def date2num(d: Union[datetime, datetime64]) -> Union[ndarray, float]: ...
+    @classmethod
+    def register_converters(cls: Type[_rcParam_helper]) -> None: ...

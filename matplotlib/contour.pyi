@@ -12,6 +12,10 @@ from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedArray
 
 
+class ClabelText(Text):
+    def get_rotation(self: ClabelText) -> Any: ...
+
+
 class ContourLabeler(object):
     def clabel(self: ContourLabeler,
                levels: Union[ndarray, Iterable, int, float, None] = None,
@@ -114,6 +118,14 @@ class ContourLabeler(object):
                inline_spacing: Any) -> None: ...
 
 
+def _is_closed_polygon(X: {shape, T}) -> bool: ...
+
+
+def _find_closest_point_on_path(xys: int,
+                                p: tuple[float, float]) -> float: ...
+
+
+@docstring.dedent_interpd
 class ContourSet(ScalarMappable, ContourLabeler):
     def __init__(self: ContourSet,
                  ax: Any,
@@ -186,6 +198,7 @@ class ContourSet(ScalarMappable, ContourLabeler):
                              pixel: bool = True) -> Any: ...
 
 
+@docstring.dedent_interpd
 class QuadContourSet(ContourSet):
     def _process_args(self: QuadContourSet,
                       corner_mask: Any = None,
@@ -204,14 +217,3 @@ class QuadContourSet(ContourSet):
 
     def _initialize_x_y(self: QuadContourSet,
                         z: MaskedArray) -> str: ...
-
-
-class ClabelText(Text):
-    def get_rotation(self: ClabelText) -> Any: ...
-
-
-def _is_closed_polygon(X: {shape, T}) -> bool: ...
-
-
-def _find_closest_point_on_path(xys: int,
-                                p: tuple[float, float]) -> float: ...

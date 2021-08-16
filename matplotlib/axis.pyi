@@ -10,6 +10,167 @@ from matplotlib.lines import Line2D
 from matplotlib.text import Text
 
 
+class Tick(Artist):
+    @_api.delete_parameter("3.3", "label")
+    def __init__(self: Tick,
+                 axes: {figure},
+                 loc: Any,
+                 label: Any = None,
+                 size: Any = None,
+                 width: Any = None,
+                 color: Any = None,
+                 tickdir: Any = None,
+                 pad: Any = None,
+                 labelsize: Any = None,
+                 labelcolor: Optional[{__eq__}] = None,
+                 zorder: Any = None,
+                 gridOn: Any = None,
+                 tick1On: bool = True,
+                 tick2On: bool = True,
+                 label1On: bool = True,
+                 label2On: bool = False,
+                 major: bool = True,
+                 labelrotation: int = 0,
+                 grid_color: Any = None,
+                 grid_linestyle: Any = None,
+                 grid_linewidth: Any = None,
+                 grid_alpha: Any = None,
+                 **kwargs) -> Optional[Any]: ...
+
+    @property
+    @_api.deprecated("3.1", alternative="Tick.label1", pending=True)
+    def label(self: Tick) -> Text: ...
+
+    def _set_labelrotation(self: Tick,
+                           labelrotation: int) -> None: ...
+
+    def apply_tickdir(self: Tick,
+                      tickdir: Any) -> None: ...
+
+    def get_tickdir(self: Tick) -> Optional[Any]: ...
+
+    def get_tick_padding(self: Tick) -> float: ...
+
+    def get_children(self: Tick) -> list[Union[Line2D, Text]]: ...
+
+    def set_clip_path(self: Tick,
+                      clippath: Any,
+                      transform: Any = None) -> None: ...
+
+    def get_pad_pixels(self: Tick) -> float: ...
+
+    def contains(self: Tick,
+                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict]]: ...
+
+    def set_pad(self: Tick,
+                val: float) -> None: ...
+
+    def get_pad(self: Tick) -> Optional[Any]: ...
+
+    def _get_text1(self: Tick) -> None: ...
+
+    def _get_text2(self: Tick) -> None: ...
+
+    def _get_tick1line(self: Tick) -> None: ...
+
+    def _get_tick2line(self: Tick) -> None: ...
+
+    def _get_gridline(self: Tick) -> None: ...
+
+    def get_loc(self: Tick) -> Any: ...
+
+    @martist.allow_rasterization
+    def draw(self: Tick,
+             renderer: {open_group, get_rasterized, get_agg_filter, figure, close_group}) -> Optional[Any]: ...
+
+    def set_label1(self: Tick,
+                   s: str) -> None: ...
+
+    def set_label2(self: Tick,
+                   s: str) -> None: ...
+
+    def set_url(self: Tick,
+                url: str) -> None: ...
+
+    def _set_artist_props(self: Tick,
+                          a: Union[Line2D, Text]) -> None: ...
+
+    def get_view_interval(self: Tick) -> Any: ...
+
+    def _apply_params(self: Tick,
+                      **kwargs) -> None: ...
+
+    def update_position(self: Tick,
+                        loc: Any) -> Any: ...
+
+    def _get_text1_transform(self: Tick) -> Any: ...
+
+    def _get_text2_transform(self: Tick) -> Any: ...
+
+
+class XTick(Tick):
+    def __init__(self: XTick,
+                 *args,
+                 **kwargs) -> None: ...
+
+    def _get_text1_transform(self: XTick) -> Any: ...
+
+    def _get_text2_transform(self: XTick) -> Any: ...
+
+    def apply_tickdir(self: XTick,
+                      tickdir: Any) -> None: ...
+
+    def update_position(self: XTick,
+                        loc: Any) -> None: ...
+
+    def get_view_interval(self: XTick) -> Any: ...
+
+
+class YTick(Tick):
+    def __init__(self: YTick,
+                 *args,
+                 **kwargs) -> None: ...
+
+    def _get_text1_transform(self: YTick) -> Any: ...
+
+    def _get_text2_transform(self: YTick) -> Any: ...
+
+    def apply_tickdir(self: YTick,
+                      tickdir: Any) -> None: ...
+
+    def update_position(self: YTick,
+                        loc: Any) -> None: ...
+
+    def get_view_interval(self: YTick) -> Any: ...
+
+
+class Ticker(object):
+    def __init__(self: Ticker) -> None: ...
+
+    @property
+    def locator(self: Ticker) -> Any: ...
+
+    @locator.setter
+    def locator(self: Ticker,
+                locator: Any) -> Any: ...
+
+    @property
+    def formatter(self: Ticker) -> Any: ...
+
+    @formatter.setter
+    def formatter(self: Ticker,
+                  formatter: Any) -> Any: ...
+
+
+class _LazyTickList(object):
+    def __init__(self: _LazyTickList,
+                 major: Any) -> None: ...
+
+    def __get__(self: _LazyTickList,
+                instance: Any,
+                cls: Any) -> Union[_LazyTickList, list]: ...
+
+
 class Axis(Artist):
     def __str__(self: Axis) -> str: ...
 
@@ -291,6 +452,11 @@ class Axis(Artist):
     def get_minpos(self: Axis) -> Any: ...
 
 
+def _make_getset_interval(method_name: str,
+                          lim_name: str,
+                          attr_name: str) -> tuple[(self: {stale}) ->
+
+
 class XAxis(Axis):
     def __init__(self: XAxis,
                  *args,
@@ -378,169 +544,3 @@ class YAxis(Axis):
     def set_default_intervals(self: YAxis) -> None: ...
 
     def get_tick_space(self: YAxis) -> int: ...
-
-
-class Ticker(object):
-    def __init__(self: Ticker) -> None: ...
-
-    @property
-    def locator(self: Ticker) -> Any: ...
-
-    @locator.setter
-    def locator(self: Ticker,
-                locator: Any) -> Any: ...
-
-    @property
-    def formatter(self: Ticker) -> Any: ...
-
-    @formatter.setter
-    def formatter(self: Ticker,
-                  formatter: Any) -> Any: ...
-
-
-class Tick(Artist):
-    @_api.delete_parameter("3.3", "label")
-    def __init__(self: Tick,
-                 axes: {figure},
-                 loc: Any,
-                 label: Any = None,
-                 size: Any = None,
-                 width: Any = None,
-                 color: Any = None,
-                 tickdir: Any = None,
-                 pad: Any = None,
-                 labelsize: Any = None,
-                 labelcolor: Optional[{__eq__}] = None,
-                 zorder: Any = None,
-                 gridOn: Any = None,
-                 tick1On: bool = True,
-                 tick2On: bool = True,
-                 label1On: bool = True,
-                 label2On: bool = False,
-                 major: bool = True,
-                 labelrotation: int = 0,
-                 grid_color: Any = None,
-                 grid_linestyle: Any = None,
-                 grid_linewidth: Any = None,
-                 grid_alpha: Any = None,
-                 **kwargs) -> Optional[Any]: ...
-
-    @property
-    @_api.deprecated("3.1", alternative="Tick.label1", pending=True)
-    def label(self: Tick) -> Text: ...
-
-    def _set_labelrotation(self: Tick,
-                           labelrotation: int) -> None: ...
-
-    def apply_tickdir(self: Tick,
-                      tickdir: Any) -> None: ...
-
-    def get_tickdir(self: Tick) -> Optional[Any]: ...
-
-    def get_tick_padding(self: Tick) -> float: ...
-
-    def get_children(self: Tick) -> list[Union[Line2D, Text]]: ...
-
-    def set_clip_path(self: Tick,
-                      clippath: Any,
-                      transform: Any = None) -> None: ...
-
-    def get_pad_pixels(self: Tick) -> float: ...
-
-    def contains(self: Tick,
-                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict]]: ...
-
-    def set_pad(self: Tick,
-                val: float) -> None: ...
-
-    def get_pad(self: Tick) -> Optional[Any]: ...
-
-    def _get_text1(self: Tick) -> None: ...
-
-    def _get_text2(self: Tick) -> None: ...
-
-    def _get_tick1line(self: Tick) -> None: ...
-
-    def _get_tick2line(self: Tick) -> None: ...
-
-    def _get_gridline(self: Tick) -> None: ...
-
-    def get_loc(self: Tick) -> Any: ...
-
-    @martist.allow_rasterization
-    def draw(self: Tick,
-             renderer: {open_group, get_rasterized, get_agg_filter, figure, close_group}) -> Optional[Any]: ...
-
-    def set_label1(self: Tick,
-                   s: str) -> None: ...
-
-    def set_label2(self: Tick,
-                   s: str) -> None: ...
-
-    def set_url(self: Tick,
-                url: str) -> None: ...
-
-    def _set_artist_props(self: Tick,
-                          a: Union[Line2D, Text]) -> None: ...
-
-    def get_view_interval(self: Tick) -> Any: ...
-
-    def _apply_params(self: Tick,
-                      **kwargs) -> None: ...
-
-    def update_position(self: Tick,
-                        loc: Any) -> Any: ...
-
-    def _get_text1_transform(self: Tick) -> Any: ...
-
-    def _get_text2_transform(self: Tick) -> Any: ...
-
-
-class XTick(Tick):
-    def __init__(self: XTick,
-                 *args,
-                 **kwargs) -> None: ...
-
-    def _get_text1_transform(self: XTick) -> Any: ...
-
-    def _get_text2_transform(self: XTick) -> Any: ...
-
-    def apply_tickdir(self: XTick,
-                      tickdir: Any) -> None: ...
-
-    def update_position(self: XTick,
-                        loc: Any) -> None: ...
-
-    def get_view_interval(self: XTick) -> Any: ...
-
-
-class YTick(Tick):
-    def __init__(self: YTick,
-                 *args,
-                 **kwargs) -> None: ...
-
-    def _get_text1_transform(self: YTick) -> Any: ...
-
-    def _get_text2_transform(self: YTick) -> Any: ...
-
-    def apply_tickdir(self: YTick,
-                      tickdir: Any) -> None: ...
-
-    def update_position(self: YTick,
-                        loc: Any) -> None: ...
-
-    def get_view_interval(self: YTick) -> Any: ...
-
-
-class _LazyTickList(object):
-    def __init__(self: _LazyTickList,
-                 major: Any) -> None: ...
-
-    def __get__(self: _LazyTickList,
-                instance: Any,
-                cls: Any) -> Union[_LazyTickList, list]: ...
-
-
-def _make_getset_interval(method_name: str,
-                          lim_name: str,
-                          attr_name: str) -> tuple[(self: {stale}) ->

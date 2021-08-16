@@ -6,49 +6,51 @@ from typing import Union
 from numpy.core._multiarray_umath import ndarray
 
 
-class Barbs(PolyCollection):
-    @docstring.interpd
-    def __init__(self: Barbs,
-                 ax: {transData},
-                 pivot: str = 'tip',
-                 length: int = 7,
-                 barbcolor: Any = None,
-                 flagcolor: Any = None,
-                 sizes: Union[ndarray, Iterable, int, float] = None,
-                 fill_empty: bool = False,
-                 barb_increments: Any = None,
-                 rounding: bool = True,
-                 flip_barb: bool = False,
-                 *args,
-                 **kwargs) -> Optional[Any]: ...
+class QuiverKey(Artist):
+    def __init__(self: QuiverKey,
+                 Q: Quiver,
+                 X: float,
+                 Y: float,
+                 U: float,
+                 label: str,
+                 *,
+                 angle: float = 0,
+                 coordinates: str = 'axes',
+                 color: Any = None,
+                 labelsep: float = 0.1,
+                 labelpos: str = 'N',
+                 labelcolor: Any = None,
+                 fontproperties: Optional[dict] = None,
+                 **kwargs) -> None: ...
 
-    def _find_tails(self: Barbs,
-                    mag: Optional[Any],
-                    rounding: bool = True,
-                    half: int = 5,
-                    full: int = 10,
-                    flag: int = 50) -> tuple[Any, Any, bool, int]: ...
+    def remove(self: QuiverKey) -> None: ...
 
-    def _make_barbs(self: Barbs,
-                    u: Any,
-                    v: Any,
-                    nflags: {__getitem__},
-                    nbarbs: {__getitem__},
-                    half_barb: {__getitem__},
-                    empty_flag: {__getitem__},
-                    length: {__mul__, __neg__},
-                    pivot: str,
-                    sizes: dict,
-                    fill_empty: bool,
-                    flip: Iterable[bool]) -> list[Union[list, ndarray]]: ...
+    def _init(self: QuiverKey) -> None: ...
 
-    def set_UVC(self: Barbs,
-                U: Any,
-                V: Any,
-                C: Any = None) -> None: ...
+    def _text_x(self: QuiverKey,
+                x: Any) -> float: ...
 
-    def set_offsets(self: Barbs,
-                    xy: Any) -> None: ...
+    def _text_y(self: QuiverKey,
+                y: Any) -> float: ...
+
+    @martist.allow_rasterization
+    def draw(self: QuiverKey,
+             renderer: {get_rasterized, get_agg_filter, figure}) -> Optional[Any]: ...
+
+    def _set_transform(self: QuiverKey) -> None: ...
+
+    def set_figure(self: QuiverKey,
+                   fig: Any) -> None: ...
+
+    def contains(self: QuiverKey,
+                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict]]: ...
+
+
+def _parse_args(*args,
+                caller_name: str = 'function') -> tuple[Any, Any, Any, Any, Optional[Any]]: ...
+
+
+def _check_consistent_shapes(*args) -> Any: ...
 
 
 class Quiver(PolyCollection):
@@ -108,48 +110,46 @@ class Quiver(PolyCollection):
                   length: float) -> tuple[Any, None]: ...
 
 
-class QuiverKey(Artist):
-    def __init__(self: QuiverKey,
-                 Q: Quiver,
-                 X: float,
-                 Y: float,
-                 U: float,
-                 label: str,
-                 *,
-                 angle: float = 0,
-                 coordinates: str = 'axes',
-                 color: Any = None,
-                 labelsep: float = 0.1,
-                 labelpos: str = 'N',
-                 labelcolor: Any = None,
-                 fontproperties: Optional[dict] = None,
-                 **kwargs) -> None: ...
+class Barbs(PolyCollection):
+    @docstring.interpd
+    def __init__(self: Barbs,
+                 ax: {transData},
+                 pivot: str = 'tip',
+                 length: int = 7,
+                 barbcolor: Any = None,
+                 flagcolor: Any = None,
+                 sizes: Union[ndarray, Iterable, int, float] = None,
+                 fill_empty: bool = False,
+                 barb_increments: Any = None,
+                 rounding: bool = True,
+                 flip_barb: bool = False,
+                 *args,
+                 **kwargs) -> Optional[Any]: ...
 
-    def remove(self: QuiverKey) -> None: ...
+    def _find_tails(self: Barbs,
+                    mag: Optional[Any],
+                    rounding: bool = True,
+                    half: int = 5,
+                    full: int = 10,
+                    flag: int = 50) -> tuple[Any, Any, bool, int]: ...
 
-    def _init(self: QuiverKey) -> None: ...
+    def _make_barbs(self: Barbs,
+                    u: Any,
+                    v: Any,
+                    nflags: {__getitem__},
+                    nbarbs: {__getitem__},
+                    half_barb: {__getitem__},
+                    empty_flag: {__getitem__},
+                    length: {__mul__, __neg__},
+                    pivot: str,
+                    sizes: dict,
+                    fill_empty: bool,
+                    flip: Iterable[bool]) -> list[Union[list, ndarray]]: ...
 
-    def _text_x(self: QuiverKey,
-                x: Any) -> float: ...
+    def set_UVC(self: Barbs,
+                U: Any,
+                V: Any,
+                C: Any = None) -> None: ...
 
-    def _text_y(self: QuiverKey,
-                y: Any) -> float: ...
-
-    @martist.allow_rasterization
-    def draw(self: QuiverKey,
-             renderer: {get_rasterized, get_agg_filter, figure}) -> Optional[Any]: ...
-
-    def _set_transform(self: QuiverKey) -> None: ...
-
-    def set_figure(self: QuiverKey,
-                   fig: Any) -> None: ...
-
-    def contains(self: QuiverKey,
-                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict]]: ...
-
-
-def _parse_args(*args,
-                caller_name: str = 'function') -> tuple[Any, Any, Any, Any, Optional[Any]]: ...
-
-
-def _check_consistent_shapes(*args) -> Any: ...
+    def set_offsets(self: Barbs,
+                    xy: Any) -> None: ...

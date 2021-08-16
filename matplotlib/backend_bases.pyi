@@ -15,68 +15,15 @@ from matplotlib.transforms import Affine2D
 from numpy.core._multiarray_umath import ndarray
 
 
-class Event(object):
-    def __init__(self: Event,
-                 name: Any,
-                 canvas: {get_width_height},
-                 guiEvent: Any = None) -> None: ...
+def _safe_pyplot_import() -> pyplot.py: ...
 
 
-class LocationEvent(Event):
-    def __init__(self: LocationEvent,
-                 name: Any,
-                 canvas: Any,
-                 x: Any,
-                 y: Any,
-                 guiEvent: Any = None) -> None: ...
-
-    def _update_enter_leave(self: LocationEvent) -> None: ...
+def register_backend(format: str,
+                     backend: Any,
+                     description: str = None) -> None: ...
 
 
-class MouseEvent(LocationEvent):
-    def __init__(self: MouseEvent,
-                 name: Any,
-                 canvas: Any,
-                 x: Any,
-                 y: Any,
-                 button: Any = None,
-                 key: Any = None,
-                 step: int = 0,
-                 dblclick: bool = False,
-                 guiEvent: Any = None) -> None: ...
-
-    def __str__(self: MouseEvent) -> str: ...
-
-
-class FigureManagerBase(object):
-    def __init__(self: FigureManagerBase,
-                 canvas: {manager, figure},
-                 num: Any) -> None: ...
-
-    def show(self: FigureManagerBase) -> None: ...
-
-    def destroy(self: FigureManagerBase) -> None: ...
-
-    def full_screen_toggle(self: FigureManagerBase) -> None: ...
-
-    def resize(self: FigureManagerBase,
-               w: Any,
-               h: Any) -> None: ...
-
-    @_api.deprecated(
-        "3.4", alternative="self.canvas.callbacks.process(event.name, event)")
-    def key_press(self: FigureManagerBase,
-                  event: Any) -> Optional[Any]: ...
-
-    @_api.deprecated(
-        "3.4", alternative="self.canvas.callbacks.process(event.name, event)")
-    def button_press(self: FigureManagerBase,
-                     event: Any) -> Optional[Any]: ...
-
-    def get_window_title(self: FigureManagerBase) -> str: ...
-
-    def set_window_title(self: FigureManagerBase,
-                         title: str) -> None: ...
+def get_registered_canvas_class(format: str) -> Optional[str]: ...
 
 
 class RendererBase(object):
@@ -255,102 +202,237 @@ class RendererBase(object):
     def _draw_disabled(self: RendererBase) -> Generator[Any, Any, None]: ...
 
 
-class NavigationToolbar2(object):
-    def __init__(self: NavigationToolbar2,
-                 canvas: {toolbar}) -> None: ...
+class GraphicsContextBase(object):
+    def __init__(self: GraphicsContextBase) -> None: ...
 
-    def set_message(self: NavigationToolbar2,
-                    s: _Mode) -> None: ...
+    def copy_properties(self: GraphicsContextBase,
+                        gc: {get_linewidth}) -> None: ...
 
-    def draw_rubberband(self: NavigationToolbar2,
-                        event: {x, y, key},
-                        x0: Any,
-                        y0: Any,
-                        x1: Any,
-                        y1: Any) -> None: ...
+    def restore(self: GraphicsContextBase) -> None: ...
 
-    def remove_rubberband(self: NavigationToolbar2) -> None: ...
+    def get_alpha(self: GraphicsContextBase) -> float: ...
 
-    def home(self: NavigationToolbar2,
-             *args) -> None: ...
+    def get_antialiased(self: GraphicsContextBase) -> int: ...
 
-    def back(self: NavigationToolbar2,
-             *args) -> None: ...
+    def get_capstyle(self: GraphicsContextBase) -> Any: ...
 
-    def forward(self: NavigationToolbar2,
-                *args) -> None: ...
+    def get_clip_rectangle(self: GraphicsContextBase) -> Any: ...
 
-    @_api.deprecated("3.3", alternative="__init__")
-    def _init_toolbar(self: NavigationToolbar2) -> Any: ...
+    def get_clip_path(self: GraphicsContextBase) -> Union[tuple[Any, Any], tuple[None, None]]: ...
 
-    def _update_cursor(self: NavigationToolbar2,
-                       event: Union[KeyEvent, {inaxes}]) -> None: ...
+    def get_dashes(self: GraphicsContextBase) -> tuple[int, None]: ...
 
-    @contextmanager
-    def _wait_cursor_for_draw_cm(self: NavigationToolbar2) -> Generator[Any, Any, None]: ...
+    def get_forced_alpha(self: GraphicsContextBase) -> bool: ...
 
-    @staticmethod
-    def _mouse_event_to_message(event: {inaxes}) -> Any: ...
+    def get_joinstyle(self: GraphicsContextBase) -> Any: ...
 
-    def mouse_move(self: NavigationToolbar2,
-                   event: Any) -> None: ...
+    def get_linewidth(self: GraphicsContextBase) -> int: ...
 
-    def _zoom_pan_handler(self: NavigationToolbar2,
-                          event: Any) -> None: ...
+    def get_rgb(self: GraphicsContextBase) -> tuple[float, float, float, float]: ...
 
-    @_api.deprecated("3.3")
-    def press(self: NavigationToolbar2,
-              event: Any) -> Optional[Any]: ...
+    def get_url(self: GraphicsContextBase) -> Any: ...
 
-    @_api.deprecated("3.3")
-    def release(self: NavigationToolbar2,
-                event: Any) -> Optional[Any]: ...
+    def get_gid(self: GraphicsContextBase) -> Any: ...
 
-    def pan(self: NavigationToolbar2,
-            *args) -> None: ...
+    def get_snap(self: GraphicsContextBase) -> Any: ...
 
-    def press_pan(self: NavigationToolbar2,
-                  event: {button, x, y}) -> None: ...
+    def set_alpha(self: GraphicsContextBase,
+                  alpha: Any) -> None: ...
 
-    def drag_pan(self: NavigationToolbar2,
-                 event: {key, x, y}) -> None: ...
+    def set_antialiased(self: GraphicsContextBase,
+                        b: Any) -> None: ...
 
-    def release_pan(self: NavigationToolbar2,
-                    event: Any) -> None: ...
+    @docstring.interpd
+    def set_capstyle(self: GraphicsContextBase,
+                     cs: Any) -> Optional[Any]: ...
 
-    def zoom(self: NavigationToolbar2,
-             *args) -> None: ...
+    def set_clip_rectangle(self: GraphicsContextBase,
+                           rectangle: Any) -> None: ...
 
-    def press_zoom(self: NavigationToolbar2,
-                   event: {button, x, y}) -> None: ...
+    def set_clip_path(self: GraphicsContextBase,
+                      path: Any) -> None: ...
 
-    def drag_zoom(self: NavigationToolbar2,
-                  event: {x, y, key}) -> None: ...
+    def set_dashes(self: GraphicsContextBase,
+                   dash_offset: Optional[float],
+                   dash_list: Union[ndarray, Iterable, int, float, None]) -> Any: ...
 
-    def release_zoom(self: NavigationToolbar2,
-                     event: {x, key, y}) -> None: ...
+    def set_foreground(self: GraphicsContextBase,
+                       fg: Any,
+                       isRGBA: bool = False) -> None: ...
 
-    def push_current(self: NavigationToolbar2) -> None: ...
+    @docstring.interpd
+    def set_joinstyle(self: GraphicsContextBase,
+                      js: Any) -> Optional[Any]: ...
 
-    @_api.deprecated("3.3", alternative="toolbar.canvas.draw_idle()")
-    def draw(self: NavigationToolbar2) -> Optional[Any]: ...
+    def set_linewidth(self: GraphicsContextBase,
+                      w: Union[float, None, int]) -> None: ...
 
-    def _draw(self: NavigationToolbar2) -> None: ...
+    def set_url(self: GraphicsContextBase,
+                url: Optional[Any]) -> None: ...
 
-    def _update_view(self: NavigationToolbar2) -> None: ...
+    def set_gid(self: GraphicsContextBase,
+                id: Any) -> None: ...
 
-    def configure_subplots(self: NavigationToolbar2,
-                           *args) -> None: ...
+    def set_snap(self: GraphicsContextBase,
+                 snap: Any) -> None: ...
 
-    def save_figure(self: NavigationToolbar2,
-                    *args) -> Any: ...
+    def set_hatch(self: GraphicsContextBase,
+                  hatch: Any) -> None: ...
 
-    def set_cursor(self: NavigationToolbar2,
-                   cursor: Cursors) -> None: ...
+    def get_hatch(self: GraphicsContextBase) -> Any: ...
 
-    def update(self: NavigationToolbar2) -> None: ...
+    def get_hatch_path(self: GraphicsContextBase,
+                       density: float = 6.0) -> Optional[Path]: ...
 
-    def set_history_buttons(self: NavigationToolbar2) -> None: ...
+    def get_hatch_color(self: GraphicsContextBase) -> Union[Iterable, tuple]: ...
+
+    def set_hatch_color(self: GraphicsContextBase,
+                        hatch_color: Any) -> None: ...
+
+    def get_hatch_linewidth(self: GraphicsContextBase) -> Optional[Any]: ...
+
+    def get_sketch_params(self: GraphicsContextBase) -> Optional[tuple]: ...
+
+    def set_sketch_params(self: GraphicsContextBase,
+                          scale: Optional[float] = None,
+                          length: float = None,
+                          randomness: float = None) -> None: ...
+
+
+class TimerBase(object):
+    def __init__(self: TimerBase,
+                 interval: int = None,
+                 callbacks: Union[Iterable, tuple] = None) -> None: ...
+
+    def __del__(self: TimerBase) -> None: ...
+
+    def start(self: TimerBase,
+              interval: Optional[int] = None) -> None: ...
+
+    def stop(self: TimerBase) -> None: ...
+
+    def _timer_start(self: TimerBase) -> None: ...
+
+    def _timer_stop(self: TimerBase) -> None: ...
+
+    @property
+    def interval(self: TimerBase) -> int: ...
+
+    @interval.setter
+    def interval(self: TimerBase,
+                 interval: Any) -> None: ...
+
+    @property
+    def single_shot(self: TimerBase) -> Any: ...
+
+    @single_shot.setter
+    def single_shot(self: TimerBase,
+                    ss: Any) -> None: ...
+
+    def add_callback(self: TimerBase,
+                     func: Any,
+                     *args,
+                     **kwargs) -> Any: ...
+
+    def remove_callback(self: TimerBase,
+                        func: Any,
+                        *args,
+                        **kwargs) -> None: ...
+
+    def _timer_set_interval(self: TimerBase) -> None: ...
+
+    def _timer_set_single_shot(self: TimerBase) -> None: ...
+
+    def _on_timer(self: TimerBase) -> None: ...
+
+
+class Event(object):
+    def __init__(self: Event,
+                 name: Any,
+                 canvas: {get_width_height},
+                 guiEvent: Any = None) -> None: ...
+
+
+class DrawEvent(Event):
+    def __init__(self: DrawEvent,
+                 name: Any,
+                 canvas: {get_width_height},
+                 renderer: Any) -> None: ...
+
+
+class ResizeEvent(Event):
+    def __init__(self: ResizeEvent,
+                 name: Any,
+                 canvas: {get_width_height}) -> None: ...
+
+
+class CloseEvent(Event):
+    pass
+
+
+class LocationEvent(Event):
+    def __init__(self: LocationEvent,
+                 name: Any,
+                 canvas: Any,
+                 x: Any,
+                 y: Any,
+                 guiEvent: Any = None) -> None: ...
+
+    def _update_enter_leave(self: LocationEvent) -> None: ...
+
+
+class MouseButton(IntEnum):
+    pass
+
+
+class MouseEvent(LocationEvent):
+    def __init__(self: MouseEvent,
+                 name: Any,
+                 canvas: Any,
+                 x: Any,
+                 y: Any,
+                 button: Any = None,
+                 key: Any = None,
+                 step: int = 0,
+                 dblclick: bool = False,
+                 guiEvent: Any = None) -> None: ...
+
+    def __str__(self: MouseEvent) -> str: ...
+
+
+class PickEvent(Event):
+    def __init__(self: PickEvent,
+                 name: Any,
+                 canvas: Any,
+                 mouseevent: Any,
+                 artist: Any,
+                 guiEvent: Any = None,
+                 **kwargs) -> None: ...
+
+
+class KeyEvent(LocationEvent):
+    def __init__(self: KeyEvent,
+                 name: Any,
+                 canvas: Any,
+                 key: Any,
+                 x: int = 0,
+                 y: int = 0,
+                 guiEvent: Any = None) -> None: ...
+
+
+def _get_renderer(figure: Union[{draw}, Figure],
+                  print_method: partial = None) -> Any: ...
+
+
+def _no_output_draw(figure: {draw}) -> None: ...
+
+
+def _is_non_interactive_terminal_ipython(ip: {parent}) -> bool: ...
+
+
+def _check_savefig_extra_args(func: Any = None,
+                              extra_kwargs: tuple = ()) -> Union[
+    partial, (args: tuple[Any, ...], kwargs: dict[str, Any]) ->
 
 
 class FigureCanvasBase(object):
@@ -510,28 +592,154 @@ class FigureCanvasBase(object):
     def stop_event_loop(self: FigureCanvasBase) -> None: ...
 
 
-class _Backend(object):
-    @classmethod
-    def new_figure_manager(cls: Type[_Backend],
-                           num: Any,
-                           *args,
-                           **kwargs) -> FigureManagerBase: ...
+def key_press_handler(event: KeyEvent,
+                      canvas: FigureCanvasBase = None,
+                      toolbar: NavigationToolbar2 = None) -> None: ...
 
-    @classmethod
-    def new_figure_manager_given_figure(cls: Type[_Backend],
-                                        num: Any,
-                                        figure: Any) -> FigureManagerBase: ...
 
-    @classmethod
-    def draw_if_interactive(cls: Type[_Backend]) -> None: ...
+def button_press_handler(event: Any,
+                         canvas: Any = None,
+                         toolbar: Any = None) -> None: ...
 
-    @classmethod
-    def show(cls: Type[_Backend],
-             *,
-             block: Any = None) -> None: ...
+
+class NonGuiException(Exception):
+    pass
+
+
+class FigureManagerBase(object):
+    def __init__(self: FigureManagerBase,
+                 canvas: {manager, figure},
+                 num: Any) -> None: ...
+
+    def show(self: FigureManagerBase) -> None: ...
+
+    def destroy(self: FigureManagerBase) -> None: ...
+
+    def full_screen_toggle(self: FigureManagerBase) -> None: ...
+
+    def resize(self: FigureManagerBase,
+               w: Any,
+               h: Any) -> None: ...
+
+    @_api.deprecated(
+        "3.4", alternative="self.canvas.callbacks.process(event.name, event)")
+    def key_press(self: FigureManagerBase,
+                  event: Any) -> Optional[Any]: ...
+
+    @_api.deprecated(
+        "3.4", alternative="self.canvas.callbacks.process(event.name, event)")
+    def button_press(self: FigureManagerBase,
+                     event: Any) -> Optional[Any]: ...
+
+    def get_window_title(self: FigureManagerBase) -> str: ...
+
+    def set_window_title(self: FigureManagerBase,
+                         title: str) -> None: ...
+
+
+class _Mode(str, Enum):
+    def __str__(self: _Mode) -> str: ...
+
+    @property
+    def _navigate_mode(self: _Mode) -> Optional[Any]: ...
+
+
+class NavigationToolbar2(object):
+    def __init__(self: NavigationToolbar2,
+                 canvas: {toolbar}) -> None: ...
+
+    def set_message(self: NavigationToolbar2,
+                    s: _Mode) -> None: ...
+
+    def draw_rubberband(self: NavigationToolbar2,
+                        event: {x, y, key},
+                        x0: Any,
+                        y0: Any,
+                        x1: Any,
+                        y1: Any) -> None: ...
+
+    def remove_rubberband(self: NavigationToolbar2) -> None: ...
+
+    def home(self: NavigationToolbar2,
+             *args) -> None: ...
+
+    def back(self: NavigationToolbar2,
+             *args) -> None: ...
+
+    def forward(self: NavigationToolbar2,
+                *args) -> None: ...
+
+    @_api.deprecated("3.3", alternative="__init__")
+    def _init_toolbar(self: NavigationToolbar2) -> Any: ...
+
+    def _update_cursor(self: NavigationToolbar2,
+                       event: Union[KeyEvent, {inaxes}]) -> None: ...
+
+    @contextmanager
+    def _wait_cursor_for_draw_cm(self: NavigationToolbar2) -> Generator[Any, Any, None]: ...
 
     @staticmethod
-    def export(cls: {__module__}) -> {__module__}: ...
+    def _mouse_event_to_message(event: {inaxes}) -> Any: ...
+
+    def mouse_move(self: NavigationToolbar2,
+                   event: Any) -> None: ...
+
+    def _zoom_pan_handler(self: NavigationToolbar2,
+                          event: Any) -> None: ...
+
+    @_api.deprecated("3.3")
+    def press(self: NavigationToolbar2,
+              event: Any) -> Optional[Any]: ...
+
+    @_api.deprecated("3.3")
+    def release(self: NavigationToolbar2,
+                event: Any) -> Optional[Any]: ...
+
+    def pan(self: NavigationToolbar2,
+            *args) -> None: ...
+
+    def press_pan(self: NavigationToolbar2,
+                  event: {button, x, y}) -> None: ...
+
+    def drag_pan(self: NavigationToolbar2,
+                 event: {key, x, y}) -> None: ...
+
+    def release_pan(self: NavigationToolbar2,
+                    event: Any) -> None: ...
+
+    def zoom(self: NavigationToolbar2,
+             *args) -> None: ...
+
+    def press_zoom(self: NavigationToolbar2,
+                   event: {button, x, y}) -> None: ...
+
+    def drag_zoom(self: NavigationToolbar2,
+                  event: {x, y, key}) -> None: ...
+
+    def release_zoom(self: NavigationToolbar2,
+                     event: {x, key, y}) -> None: ...
+
+    def push_current(self: NavigationToolbar2) -> None: ...
+
+    @_api.deprecated("3.3", alternative="toolbar.canvas.draw_idle()")
+    def draw(self: NavigationToolbar2) -> Optional[Any]: ...
+
+    def _draw(self: NavigationToolbar2) -> None: ...
+
+    def _update_view(self: NavigationToolbar2) -> None: ...
+
+    def configure_subplots(self: NavigationToolbar2,
+                           *args) -> None: ...
+
+    def save_figure(self: NavigationToolbar2,
+                    *args) -> Any: ...
+
+    def set_cursor(self: NavigationToolbar2,
+                   cursor: Cursors) -> None: ...
+
+    def update(self: NavigationToolbar2) -> None: ...
+
+    def set_history_buttons(self: NavigationToolbar2) -> None: ...
 
 
 class ToolContainerBase(object):
@@ -571,207 +779,7 @@ class ToolContainerBase(object):
                     s: str) -> Any: ...
 
 
-class _Mode(str, Enum):
-    def __str__(self: _Mode) -> str: ...
-
-    @property
-    def _navigate_mode(self: _Mode) -> Optional[Any]: ...
-
-
-class TimerBase(object):
-    def __init__(self: TimerBase,
-                 interval: int = None,
-                 callbacks: Union[Iterable, tuple] = None) -> None: ...
-
-    def __del__(self: TimerBase) -> None: ...
-
-    def start(self: TimerBase,
-              interval: Optional[int] = None) -> None: ...
-
-    def stop(self: TimerBase) -> None: ...
-
-    def _timer_start(self: TimerBase) -> None: ...
-
-    def _timer_stop(self: TimerBase) -> None: ...
-
-    @property
-    def interval(self: TimerBase) -> int: ...
-
-    @interval.setter
-    def interval(self: TimerBase,
-                 interval: Any) -> None: ...
-
-    @property
-    def single_shot(self: TimerBase) -> Any: ...
-
-    @single_shot.setter
-    def single_shot(self: TimerBase,
-                    ss: Any) -> None: ...
-
-    def add_callback(self: TimerBase,
-                     func: Any,
-                     *args,
-                     **kwargs) -> Any: ...
-
-    def remove_callback(self: TimerBase,
-                        func: Any,
-                        *args,
-                        **kwargs) -> None: ...
-
-    def _timer_set_interval(self: TimerBase) -> None: ...
-
-    def _timer_set_single_shot(self: TimerBase) -> None: ...
-
-    def _on_timer(self: TimerBase) -> None: ...
-
-
-class NonGuiException(Exception):
-    pass
-
-
-class ResizeEvent(Event):
-    def __init__(self: ResizeEvent,
-                 name: Any,
-                 canvas: {get_width_height}) -> None: ...
-
-
-class PickEvent(Event):
-    def __init__(self: PickEvent,
-                 name: Any,
-                 canvas: Any,
-                 mouseevent: Any,
-                 artist: Any,
-                 guiEvent: Any = None,
-                 **kwargs) -> None: ...
-
-
-class MouseButton(IntEnum):
-    pass
-
-
-class CloseEvent(Event):
-    pass
-
-
-class GraphicsContextBase(object):
-    def __init__(self: GraphicsContextBase) -> None: ...
-
-    def copy_properties(self: GraphicsContextBase,
-                        gc: {get_linewidth}) -> None: ...
-
-    def restore(self: GraphicsContextBase) -> None: ...
-
-    def get_alpha(self: GraphicsContextBase) -> float: ...
-
-    def get_antialiased(self: GraphicsContextBase) -> int: ...
-
-    def get_capstyle(self: GraphicsContextBase) -> Any: ...
-
-    def get_clip_rectangle(self: GraphicsContextBase) -> Any: ...
-
-    def get_clip_path(self: GraphicsContextBase) -> Union[tuple[Any, Any], tuple[None, None]]: ...
-
-    def get_dashes(self: GraphicsContextBase) -> tuple[int, None]: ...
-
-    def get_forced_alpha(self: GraphicsContextBase) -> bool: ...
-
-    def get_joinstyle(self: GraphicsContextBase) -> Any: ...
-
-    def get_linewidth(self: GraphicsContextBase) -> int: ...
-
-    def get_rgb(self: GraphicsContextBase) -> tuple[float, float, float, float]: ...
-
-    def get_url(self: GraphicsContextBase) -> Any: ...
-
-    def get_gid(self: GraphicsContextBase) -> Any: ...
-
-    def get_snap(self: GraphicsContextBase) -> Any: ...
-
-    def set_alpha(self: GraphicsContextBase,
-                  alpha: Any) -> None: ...
-
-    def set_antialiased(self: GraphicsContextBase,
-                        b: Any) -> None: ...
-
-    @docstring.interpd
-    def set_capstyle(self: GraphicsContextBase,
-                     cs: Any) -> Optional[Any]: ...
-
-    def set_clip_rectangle(self: GraphicsContextBase,
-                           rectangle: Any) -> None: ...
-
-    def set_clip_path(self: GraphicsContextBase,
-                      path: Any) -> None: ...
-
-    def set_dashes(self: GraphicsContextBase,
-                   dash_offset: Optional[float],
-                   dash_list: Union[ndarray, Iterable, int, float, None]) -> Any: ...
-
-    def set_foreground(self: GraphicsContextBase,
-                       fg: Any,
-                       isRGBA: bool = False) -> None: ...
-
-    @docstring.interpd
-    def set_joinstyle(self: GraphicsContextBase,
-                      js: Any) -> Optional[Any]: ...
-
-    def set_linewidth(self: GraphicsContextBase,
-                      w: Union[float, None, int]) -> None: ...
-
-    def set_url(self: GraphicsContextBase,
-                url: Optional[Any]) -> None: ...
-
-    def set_gid(self: GraphicsContextBase,
-                id: Any) -> None: ...
-
-    def set_snap(self: GraphicsContextBase,
-                 snap: Any) -> None: ...
-
-    def set_hatch(self: GraphicsContextBase,
-                  hatch: Any) -> None: ...
-
-    def get_hatch(self: GraphicsContextBase) -> Any: ...
-
-    def get_hatch_path(self: GraphicsContextBase,
-                       density: float = 6.0) -> Optional[Path]: ...
-
-    def get_hatch_color(self: GraphicsContextBase) -> Union[Iterable, tuple]: ...
-
-    def set_hatch_color(self: GraphicsContextBase,
-                        hatch_color: Any) -> None: ...
-
-    def get_hatch_linewidth(self: GraphicsContextBase) -> Optional[Any]: ...
-
-    def get_sketch_params(self: GraphicsContextBase) -> Optional[tuple]: ...
-
-    def set_sketch_params(self: GraphicsContextBase,
-                          scale: Optional[float] = None,
-                          length: float = None,
-                          randomness: float = None) -> None: ...
-
-
-class ShowBase(_Backend):
-    def __call__(self: ShowBase,
-                 block: Any = None) -> None: ...
-
-
-class KeyEvent(LocationEvent):
-    def __init__(self: KeyEvent,
-                 name: Any,
-                 canvas: Any,
-                 key: Any,
-                 x: int = 0,
-                 y: int = 0,
-                 guiEvent: Any = None) -> None: ...
-
-
-class DrawEvent(Event):
-    def __init__(self: DrawEvent,
-                 name: Any,
-                 canvas: {get_width_height},
-                 renderer: Any) -> None: ...
-
-
+@_api.deprecated("3.3")
 class StatusbarBase(object):
     def __init__(self: StatusbarBase,
                  toolmanager: Any) -> None: ...
@@ -783,37 +791,30 @@ class StatusbarBase(object):
                     s: str) -> None: ...
 
 
-def key_press_handler(event: KeyEvent,
-                      canvas: FigureCanvasBase = None,
-                      toolbar: NavigationToolbar2 = None) -> None: ...
+class _Backend(object):
+    @classmethod
+    def new_figure_manager(cls: Type[_Backend],
+                           num: Any,
+                           *args,
+                           **kwargs) -> FigureManagerBase: ...
+
+    @classmethod
+    def new_figure_manager_given_figure(cls: Type[_Backend],
+                                        num: Any,
+                                        figure: Any) -> FigureManagerBase: ...
+
+    @classmethod
+    def draw_if_interactive(cls: Type[_Backend]) -> None: ...
+
+    @classmethod
+    def show(cls: Type[_Backend],
+             *,
+             block: Any = None) -> None: ...
+
+    @staticmethod
+    def export(cls: {__module__}) -> {__module__}: ...
 
 
-def button_press_handler(event: Any,
-                         canvas: Any = None,
-                         toolbar: Any = None) -> None: ...
-
-
-def get_registered_canvas_class(format: str) -> Optional[str]: ...
-
-
-def _get_renderer(figure: Union[{draw}, Figure],
-                  print_method: partial = None) -> Any: ...
-
-
-def _safe_pyplot_import() -> pyplot.py: ...
-
-
-def _check_savefig_extra_args(func: Any = None,
-                              extra_kwargs: tuple = ()) -> Union[
-    partial, (args: tuple[Any, ...], kwargs: dict[str, Any]) ->
-
-
-def _no_output_draw(figure: {draw}) -> None: ...
-
-
-def register_backend(format: str,
-                     backend: Any,
-                     description: str = None) -> None: ...
-
-
-def _is_non_interactive_terminal_ipython(ip: {parent}) -> bool: ...
+class ShowBase(_Backend):
+    def __call__(self: ShowBase,
+                 block: Any = None) -> None: ...

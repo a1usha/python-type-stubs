@@ -12,6 +12,69 @@ from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedArray
 
 
+class _ColorMapping(dict):
+    def __init__(self: _ColorMapping,
+                 mapping: Any) -> None: ...
+
+    def __setitem__(self: _ColorMapping,
+                    key: Any,
+                    value: Any) -> None: ...
+
+    def __delitem__(self: _ColorMapping,
+                    key: Any) -> None: ...
+
+
+def get_named_colors_mapping() -> Union[dict, _ColorMapping]: ...
+
+
+def _sanitize_extrema(ex: Optional[float]) -> Optional[float]: ...
+
+
+def _is_nth_color(c: Any) -> Union[bool, Match[str], None]: ...
+
+
+def is_color_like(c: Any) -> bool: ...
+
+
+def _check_color_like(**kwargs) -> Any: ...
+
+
+def same_color(c1: Any,
+               c2: Any) -> bool: ...
+
+
+def to_rgba(c: Any,
+            alpha: Optional[float] = None) -> tuple: ...
+
+
+def _to_rgba_no_colorcycle(c: {__len__},
+                           alpha: Optional[float] = None) -> Union[
+    tuple[float, float, float, float], tuple[float, ...], tuple[Any, ...]]: ...
+
+
+def to_rgba_array(c: Any,
+                  alpha: Union[float, Iterable, None] = None) -> array.pyi: ...
+
+
+def to_rgb(c: Any) -> Union[_T_co, tuple[_T_co, ...]]: ...
+
+
+def to_hex(c: ndarray,
+           keep_alpha: bool = False) -> str: ...
+
+
+class ColorConverter(object):
+    pass
+
+
+def _create_lookup_table(N: int,
+                         data: int,
+                         gamma: float = 1.0) -> array.pyi: ...
+
+
+def _warn_if_global_cmap_modified(cmap: Colormap) -> None: ...
+
+
 class Colormap(object):
     def __init__(self: Colormap,
                  name: str,
@@ -156,6 +219,54 @@ class TwoSlopeNorm(Normalize):
                  clip: bool = None) -> None: ...
 
 
+class CenteredNorm(Normalize):
+    def __init__(self: CenteredNorm,
+                 vcenter: float = 0,
+                 halfrange: Optional[float] = None,
+                 clip: bool = False) -> None: ...
+
+    def _set_vmin_vmax(self: CenteredNorm) -> None: ...
+
+    def autoscale(self: CenteredNorm,
+                  A: MaskedArray) -> None: ...
+
+    def autoscale_None(self: CenteredNorm,
+                       A: MaskedArray) -> None: ...
+
+    @property
+    def vcenter(self: CenteredNorm) -> float: ...
+
+    @vcenter.setter
+    def vcenter(self: CenteredNorm,
+                vcenter: Any) -> None: ...
+
+    @property
+    def halfrange(self: CenteredNorm) -> float: ...
+
+    @halfrange.setter
+    def halfrange(self: CenteredNorm,
+                  halfrange: Any) -> None: ...
+
+    def __call__(self: CenteredNorm,
+                 value: Any,
+                 clip: bool = None) -> Optional[Any]: ...
+
+
+def _make_norm_from_scale(scale_cls: Union[Type[FuncScale], partial[LogScale], Type[SymmetricalLogScale]],
+                          base_norm_cls: Optional[{__name__, __qualname__, __module__}] = None,
+                          *,
+                          init: Union[(functions: Any, vmin: Any, vmax: Any, clip: Any)) -> Union[
+    partial, Type[Norm]]: ...
+
+
+@_make_norm_from_scale(
+    scale.FuncScale,
+    init=lambda functions, vmin=None, vmax=None, clip=False: None)
+class FuncNorm(Normalize):
+    pass
+
+
+@_make_norm_from_scale(functools.partial(scale.LogScale, nonpositive="mask"))
 class LogNorm(Normalize):
     def autoscale(self: LogNorm,
                   A: MaskedArray) -> None: ...
@@ -164,6 +275,10 @@ class LogNorm(Normalize):
                        A: MaskedArray) -> None: ...
 
 
+@_make_norm_from_scale(
+    scale.SymmetricalLogScale,
+    init=lambda linthresh, linscale=1., vmin=None, vmax=None, clip=False, *,
+                base=10: None)
 class SymLogNorm(Normalize):
     @property
     def linthresh(self: SymLogNorm) -> Any: ...
@@ -211,6 +326,15 @@ class NoNorm(Normalize):
 
     def inverse(self: NoNorm,
                 value: Any) -> Any: ...
+
+
+def rgb_to_hsv(arr: Union[ndarray, Iterable, int, float]) -> Any: ...
+
+
+def hsv_to_rgb(hsv: Union[ndarray, Iterable, int, float]) -> Any: ...
+
+
+def _vector_magnitude(arr: Optional[Any]) -> None: ...
 
 
 class LightSource(object):
@@ -279,119 +403,3 @@ class LightSource(object):
 def from_levels_and_colors(levels: Iterable[numbers.pyi],
                            colors: Iterable,
                            extend: Optional[str] = 'neither') -> Any: ...
-
-
-def hsv_to_rgb(hsv: Union[ndarray, Iterable, int, float]) -> Any: ...
-
-
-def rgb_to_hsv(arr: Union[ndarray, Iterable, int, float]) -> Any: ...
-
-
-def to_hex(c: ndarray,
-           keep_alpha: bool = False) -> str: ...
-
-
-def to_rgb(c: Any) -> Union[_T_co, tuple[_T_co, ...]]: ...
-
-
-def to_rgba(c: Any,
-            alpha: Optional[float] = None) -> tuple: ...
-
-
-def to_rgba_array(c: Any,
-                  alpha: Union[float, Iterable, None] = None) -> array.pyi: ...
-
-
-def is_color_like(c: Any) -> bool: ...
-
-
-def same_color(c1: Any,
-               c2: Any) -> bool: ...
-
-
-def get_named_colors_mapping() -> Union[dict, _ColorMapping]: ...
-
-
-class ColorConverter(object):
-    pass
-
-
-class FuncNorm(Normalize):
-    pass
-
-
-class _ColorMapping(dict):
-    def __init__(self: _ColorMapping,
-                 mapping: Any) -> None: ...
-
-    def __setitem__(self: _ColorMapping,
-                    key: Any,
-                    value: Any) -> None: ...
-
-    def __delitem__(self: _ColorMapping,
-                    key: Any) -> None: ...
-
-
-class CenteredNorm(Normalize):
-    def __init__(self: CenteredNorm,
-                 vcenter: float = 0,
-                 halfrange: Optional[float] = None,
-                 clip: bool = False) -> None: ...
-
-    def _set_vmin_vmax(self: CenteredNorm) -> None: ...
-
-    def autoscale(self: CenteredNorm,
-                  A: MaskedArray) -> None: ...
-
-    def autoscale_None(self: CenteredNorm,
-                       A: MaskedArray) -> None: ...
-
-    @property
-    def vcenter(self: CenteredNorm) -> float: ...
-
-    @vcenter.setter
-    def vcenter(self: CenteredNorm,
-                vcenter: Any) -> None: ...
-
-    @property
-    def halfrange(self: CenteredNorm) -> float: ...
-
-    @halfrange.setter
-    def halfrange(self: CenteredNorm,
-                  halfrange: Any) -> None: ...
-
-    def __call__(self: CenteredNorm,
-                 value: Any,
-                 clip: bool = None) -> Optional[Any]: ...
-
-
-def _create_lookup_table(N: int,
-                         data: int,
-                         gamma: float = 1.0) -> array.pyi: ...
-
-
-def _to_rgba_no_colorcycle(c: {__len__},
-                           alpha: Optional[float] = None) -> Union[
-    tuple[float, float, float, float], tuple[float, ...], tuple[Any, ...]]: ...
-
-
-def _sanitize_extrema(ex: Optional[float]) -> Optional[float]: ...
-
-
-def _check_color_like(**kwargs) -> Any: ...
-
-
-def _is_nth_color(c: Any) -> Union[bool, Match[str], None]: ...
-
-
-def _warn_if_global_cmap_modified(cmap: Colormap) -> None: ...
-
-
-def _make_norm_from_scale(scale_cls: Union[Type[FuncScale], partial[LogScale], Type[SymmetricalLogScale]],
-                          base_norm_cls: Optional[{__name__, __qualname__, __module__}] = None,
-                          *,
-                          init: Union[(functions: Any, vmin: Any, vmax: Any, clip: Any)) -> Union[
-    partial, Type[Norm]]: ...
-
-
-def _vector_magnitude(arr: Optional[Any]) -> None: ...

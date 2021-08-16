@@ -3,6 +3,179 @@ from typing import Optional
 from typing import Union
 
 
+class PolarTransform(Transform):
+    def __init__(self: PolarTransform,
+                 axis: Any = None,
+                 use_rmin: bool = True,
+                 _apply_theta_transforms: bool = True) -> None: ...
+
+    def transform_non_affine(self: PolarTransform,
+                             tr: Optional[Any]) -> Any: ...
+
+    def transform_path_non_affine(self: PolarTransform,
+                                  path: {vertices, codes}) -> Path: ...
+
+    def inverted(self: PolarTransform) -> InvertedPolarTransform: ...
+
+
+class PolarAffine(Affine2DBase):
+    def __init__(self: PolarAffine,
+                 scale_transform: Any,
+                 limits: Any) -> None: ...
+
+    def get_matrix(self: PolarAffine) -> Any: ...
+
+
+class InvertedPolarTransform(Transform):
+    def __init__(self: InvertedPolarTransform,
+                 axis: Any = None,
+                 use_rmin: bool = True,
+                 _apply_theta_transforms: bool = True) -> None: ...
+
+    def transform_non_affine(self: InvertedPolarTransform,
+                             xy: {T}) -> Any: ...
+
+    def inverted(self: InvertedPolarTransform) -> PolarTransform: ...
+
+
+class ThetaFormatter(Formatter):
+    def __call__(self: ThetaFormatter,
+                 x: Any,
+                 pos: Any = None) -> str: ...
+
+
+class _AxisWrapper(object):
+    def __init__(self: _AxisWrapper,
+                 axis: Any) -> None: ...
+
+    def get_view_interval(self: _AxisWrapper) -> None: ...
+
+    def set_view_interval(self: _AxisWrapper,
+                          vmin: Any,
+                          vmax: Any) -> None: ...
+
+    def get_minpos(self: _AxisWrapper) -> None: ...
+
+    def get_data_interval(self: _AxisWrapper) -> None: ...
+
+    def set_data_interval(self: _AxisWrapper,
+                          vmin: Any,
+                          vmax: Any) -> None: ...
+
+    def get_tick_space(self: _AxisWrapper) -> Any: ...
+
+
+class ThetaLocator(Locator):
+    def __init__(self: ThetaLocator,
+                 base: Any) -> None: ...
+
+    def set_axis(self: ThetaLocator,
+                 axis: Any) -> None: ...
+
+    def __call__(self: ThetaLocator) -> Optional[float]: ...
+
+    @_api.deprecated("3.3")
+    def pan(self: ThetaLocator,
+            numsteps: Any) -> Any: ...
+
+    def refresh(self: ThetaLocator) -> Any: ...
+
+    def view_limits(self: ThetaLocator,
+                    vmin: Any,
+                    vmax: Any) -> None: ...
+
+    @_api.deprecated("3.3")
+    def zoom(self: ThetaLocator,
+             direction: Any) -> Any: ...
+
+
+class ThetaTick(XTick):
+    def __init__(self: ThetaTick,
+                 axes: {figure},
+                 *args,
+                 **kwargs) -> None: ...
+
+    def _apply_params(self: ThetaTick,
+                      **kwargs) -> None: ...
+
+    def _update_padding(self: ThetaTick,
+                        pad: Union[float, int],
+                        angle: Any) -> None: ...
+
+    def update_position(self: ThetaTick,
+                        loc: {__mul__}) -> None: ...
+
+
+class ThetaAxis(XAxis):
+    def _get_tick(self: ThetaAxis,
+                  major: Any) -> ThetaTick: ...
+
+    def _wrap_locator_formatter(self: ThetaAxis) -> None: ...
+
+    def clear(self: ThetaAxis) -> None: ...
+
+    @_api.deprecated("3.4", alternative="ThetaAxis.clear()")
+    def cla(self: ThetaAxis) -> Optional[Any]: ...
+
+    def _set_scale(self: ThetaAxis,
+                   value: Any,
+                   **kwargs) -> None: ...
+
+    def _copy_tick_props(self: ThetaAxis,
+                         src: Optional[{label1, label2, tick1line, tick2line, gridline}],
+                         dest: Optional[{label1, label2, tick1line, tick2line, gridline}]) -> None: ...
+
+
+class RadialLocator(Locator):
+    def __init__(self: RadialLocator,
+                 base: Any,
+                 axes: Any = None) -> None: ...
+
+    def __call__(self: RadialLocator) -> list: ...
+
+    @_api.deprecated("3.3")
+    def pan(self: RadialLocator,
+            numsteps: Any) -> Any: ...
+
+    @_api.deprecated("3.3")
+    def zoom(self: RadialLocator,
+             direction: Any) -> Any: ...
+
+    @_api.deprecated("3.3")
+    def refresh(self: RadialLocator) -> Any: ...
+
+    def nonsingular(self: RadialLocator,
+                    vmin: Any,
+                    vmax: Any) -> tuple[int, int]: ...
+
+    def view_limits(self: RadialLocator,
+                    vmin: Any,
+                    vmax: Any) -> float: ...
+
+
+class _ThetaShift(ScaledTranslation):
+    def __init__(self: _ThetaShift,
+                 axes: Any,
+                 pad: float,
+                 mode: str) -> None: ...
+
+    def get_matrix(self: _ThetaShift) -> None: ...
+
+
+class RadialTick(YTick):
+    def __init__(self: RadialTick,
+                 *args,
+                 **kwargs) -> None: ...
+
+    def _determine_anchor(self: RadialTick,
+                          mode: str,
+                          angle: int,
+                          start: Any) -> tuple[str, str]: ...
+
+    def update_position(self: RadialTick,
+                        loc: Any) -> None: ...
+
+
 class RadialAxis(YAxis):
     def __init__(self: RadialAxis,
                  *args,
@@ -21,6 +194,14 @@ class RadialAxis(YAxis):
     def _set_scale(self: RadialAxis,
                    value: Any,
                    **kwargs) -> None: ...
+
+
+def _is_full_circle_deg(thetamin: Any,
+                        thetamax: {__sub__}) -> bool: ...
+
+
+def _is_full_circle_rad(thetamin: Any,
+                        thetamax: {__sub__}) -> bool: ...
 
 
 class _WedgeBbox(Bbox):
@@ -230,184 +411,3 @@ class PolarAxes(Axes):
                  key: Optional[str],
                  x: float,
                  y: float) -> None: ...
-
-
-class RadialTick(YTick):
-    def __init__(self: RadialTick,
-                 *args,
-                 **kwargs) -> None: ...
-
-    def _determine_anchor(self: RadialTick,
-                          mode: str,
-                          angle: int,
-                          start: Any) -> tuple[str, str]: ...
-
-    def update_position(self: RadialTick,
-                        loc: Any) -> None: ...
-
-
-class RadialLocator(Locator):
-    def __init__(self: RadialLocator,
-                 base: Any,
-                 axes: Any = None) -> None: ...
-
-    def __call__(self: RadialLocator) -> list: ...
-
-    @_api.deprecated("3.3")
-    def pan(self: RadialLocator,
-            numsteps: Any) -> Any: ...
-
-    @_api.deprecated("3.3")
-    def zoom(self: RadialLocator,
-             direction: Any) -> Any: ...
-
-    @_api.deprecated("3.3")
-    def refresh(self: RadialLocator) -> Any: ...
-
-    def nonsingular(self: RadialLocator,
-                    vmin: Any,
-                    vmax: Any) -> tuple[int, int]: ...
-
-    def view_limits(self: RadialLocator,
-                    vmin: Any,
-                    vmax: Any) -> float: ...
-
-
-class PolarTransform(Transform):
-    def __init__(self: PolarTransform,
-                 axis: Any = None,
-                 use_rmin: bool = True,
-                 _apply_theta_transforms: bool = True) -> None: ...
-
-    def transform_non_affine(self: PolarTransform,
-                             tr: Optional[Any]) -> Any: ...
-
-    def transform_path_non_affine(self: PolarTransform,
-                                  path: {vertices, codes}) -> Path: ...
-
-    def inverted(self: PolarTransform) -> InvertedPolarTransform: ...
-
-
-class _ThetaShift(ScaledTranslation):
-    def __init__(self: _ThetaShift,
-                 axes: Any,
-                 pad: float,
-                 mode: str) -> None: ...
-
-    def get_matrix(self: _ThetaShift) -> None: ...
-
-
-class ThetaTick(XTick):
-    def __init__(self: ThetaTick,
-                 axes: {figure},
-                 *args,
-                 **kwargs) -> None: ...
-
-    def _apply_params(self: ThetaTick,
-                      **kwargs) -> None: ...
-
-    def _update_padding(self: ThetaTick,
-                        pad: Union[float, int],
-                        angle: Any) -> None: ...
-
-    def update_position(self: ThetaTick,
-                        loc: {__mul__}) -> None: ...
-
-
-class _AxisWrapper(object):
-    def __init__(self: _AxisWrapper,
-                 axis: Any) -> None: ...
-
-    def get_view_interval(self: _AxisWrapper) -> None: ...
-
-    def set_view_interval(self: _AxisWrapper,
-                          vmin: Any,
-                          vmax: Any) -> None: ...
-
-    def get_minpos(self: _AxisWrapper) -> None: ...
-
-    def get_data_interval(self: _AxisWrapper) -> None: ...
-
-    def set_data_interval(self: _AxisWrapper,
-                          vmin: Any,
-                          vmax: Any) -> None: ...
-
-    def get_tick_space(self: _AxisWrapper) -> Any: ...
-
-
-class ThetaLocator(Locator):
-    def __init__(self: ThetaLocator,
-                 base: Any) -> None: ...
-
-    def set_axis(self: ThetaLocator,
-                 axis: Any) -> None: ...
-
-    def __call__(self: ThetaLocator) -> Optional[float]: ...
-
-    @_api.deprecated("3.3")
-    def pan(self: ThetaLocator,
-            numsteps: Any) -> Any: ...
-
-    def refresh(self: ThetaLocator) -> Any: ...
-
-    def view_limits(self: ThetaLocator,
-                    vmin: Any,
-                    vmax: Any) -> None: ...
-
-    @_api.deprecated("3.3")
-    def zoom(self: ThetaLocator,
-             direction: Any) -> Any: ...
-
-
-class ThetaAxis(XAxis):
-    def _get_tick(self: ThetaAxis,
-                  major: Any) -> ThetaTick: ...
-
-    def _wrap_locator_formatter(self: ThetaAxis) -> None: ...
-
-    def clear(self: ThetaAxis) -> None: ...
-
-    @_api.deprecated("3.4", alternative="ThetaAxis.clear()")
-    def cla(self: ThetaAxis) -> Optional[Any]: ...
-
-    def _set_scale(self: ThetaAxis,
-                   value: Any,
-                   **kwargs) -> None: ...
-
-    def _copy_tick_props(self: ThetaAxis,
-                         src: Optional[{label1, label2, tick1line, tick2line, gridline}],
-                         dest: Optional[{label1, label2, tick1line, tick2line, gridline}]) -> None: ...
-
-
-class InvertedPolarTransform(Transform):
-    def __init__(self: InvertedPolarTransform,
-                 axis: Any = None,
-                 use_rmin: bool = True,
-                 _apply_theta_transforms: bool = True) -> None: ...
-
-    def transform_non_affine(self: InvertedPolarTransform,
-                             xy: {T}) -> Any: ...
-
-    def inverted(self: InvertedPolarTransform) -> PolarTransform: ...
-
-
-class PolarAffine(Affine2DBase):
-    def __init__(self: PolarAffine,
-                 scale_transform: Any,
-                 limits: Any) -> None: ...
-
-    def get_matrix(self: PolarAffine) -> Any: ...
-
-
-class ThetaFormatter(Formatter):
-    def __call__(self: ThetaFormatter,
-                 x: Any,
-                 pos: Any = None) -> str: ...
-
-
-def _is_full_circle_deg(thetamin: Any,
-                        thetamax: {__sub__}) -> bool: ...
-
-
-def _is_full_circle_rad(thetamin: Any,
-                        thetamax: {__sub__}) -> bool: ...

@@ -3,16 +3,6 @@ from typing import Optional
 from typing import tuple
 
 
-class SpinesProxy(object):
-    def __init__(self: SpinesProxy,
-                 spine_dict: Any) -> None: ...
-
-    def __getattr__(self: SpinesProxy,
-                    name: {startswith}) -> partial[None]: ...
-
-    def __dir__(self: SpinesProxy) -> list[Optional[str]]: ...
-
-
 class Spine(Patch):
     def __str__(self: Spine) -> str: ...
 
@@ -99,6 +89,16 @@ class Spine(Patch):
 
     def set_color(self: Spine,
                   c: Any) -> None: ...
+
+
+class SpinesProxy(object):
+    def __init__(self: SpinesProxy,
+                 spine_dict: Any) -> None: ...
+
+    def __getattr__(self: SpinesProxy,
+                    name: {startswith}) -> partial[None]: ...
+
+    def __dir__(self: SpinesProxy) -> list[Optional[str]]: ...
 
 
 class Spines(MutableMapping):

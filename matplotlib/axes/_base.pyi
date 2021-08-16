@@ -7,6 +7,80 @@ from typing import tuple
 from matplotlib.text import Text
 
 
+class _axis_method_wrapper(object):
+    def __init__(self: _axis_method_wrapper,
+                 attr_name: Any,
+                 method_name: Any,
+                 *,
+                 doc_sub: Any = None) -> None: ...
+
+    def __set_name__(self: _axis_method_wrapper,
+                     owner: {__module__, __qualname__},
+                     name: Any) -> Any: ...
+
+
+class _TransformedBoundsLocator(object):
+    def __init__(self: _TransformedBoundsLocator,
+                 bounds: Any,
+                 transform: Any) -> None: ...
+
+    def __call__(self: _TransformedBoundsLocator,
+                 ax: {figure},
+                 renderer: Any) -> TransformedBbox: ...
+
+
+def _process_plot_format(fmt: {__ne__, __len__, __getitem__}) -> Union[
+    tuple[None, None, Union[Iterable, tuple]], tuple[str, str, Union[Iterable, tuple, None]]]: ...
+
+
+class _process_plot_var_args(object):
+    def __init__(self: _process_plot_var_args,
+                 axes: Any,
+                 command: str = 'plot') -> None: ...
+
+    def __getstate__(self: _process_plot_var_args) -> dict[str, str]: ...
+
+    def __setstate__(self: _process_plot_var_args,
+                     state: {copy}) -> None: ...
+
+    def set_prop_cycle(self: _process_plot_var_args,
+                       *args,
+                       **kwargs) -> None: ...
+
+    def __call__(self: _process_plot_var_args,
+                 data: Any = None,
+                 *args,
+                 **kwargs) -> Generator[Any, Any, None]: ...
+
+    def get_next_color(self: _process_plot_var_args) -> str: ...
+
+    def _getdefaults(self: _process_plot_var_args,
+                     ignore: Union[set, set[str]],
+                     kw: {get}) -> dict: ...
+
+    def _setdefaults(self: _process_plot_var_args,
+                     defaults: dict,
+                     kw: {get}) -> None: ...
+
+    def _makeline(self: _process_plot_var_args,
+                  x: Any,
+                  y: Any,
+                  kw: Any,
+                  kwargs: Any) -> tuple[Line2D, dict]: ...
+
+    def _makefill(self: _process_plot_var_args,
+                  x: Any,
+                  y: Any,
+                  kw: Any,
+                  kwargs: Any) -> tuple[Polygon, Any]: ...
+
+    def _plot_args(self: _process_plot_var_args,
+                   tup: Union[Iterable, tuple],
+                   kwargs: dict,
+                   return_kwargs: bool = False) -> Any: ...
+
+
+@cbook._define_aliases({"facecolor": ["fc"]})
 class _AxesBase(Artist):
     def __str__(self: _AxesBase) -> str: ...
 
@@ -537,76 +611,3 @@ class _AxesBase(Artist):
     def get_shared_x_axes(self: _AxesBase) -> Grouper: ...
 
     def get_shared_y_axes(self: _AxesBase) -> Grouper: ...
-
-
-class _process_plot_var_args(object):
-    def __init__(self: _process_plot_var_args,
-                 axes: Any,
-                 command: str = 'plot') -> None: ...
-
-    def __getstate__(self: _process_plot_var_args) -> dict[str, str]: ...
-
-    def __setstate__(self: _process_plot_var_args,
-                     state: {copy}) -> None: ...
-
-    def set_prop_cycle(self: _process_plot_var_args,
-                       *args,
-                       **kwargs) -> None: ...
-
-    def __call__(self: _process_plot_var_args,
-                 data: Any = None,
-                 *args,
-                 **kwargs) -> Generator[Any, Any, None]: ...
-
-    def get_next_color(self: _process_plot_var_args) -> str: ...
-
-    def _getdefaults(self: _process_plot_var_args,
-                     ignore: Union[set, set[str]],
-                     kw: {get}) -> dict: ...
-
-    def _setdefaults(self: _process_plot_var_args,
-                     defaults: dict,
-                     kw: {get}) -> None: ...
-
-    def _makeline(self: _process_plot_var_args,
-                  x: Any,
-                  y: Any,
-                  kw: Any,
-                  kwargs: Any) -> tuple[Line2D, dict]: ...
-
-    def _makefill(self: _process_plot_var_args,
-                  x: Any,
-                  y: Any,
-                  kw: Any,
-                  kwargs: Any) -> tuple[Polygon, Any]: ...
-
-    def _plot_args(self: _process_plot_var_args,
-                   tup: Union[Iterable, tuple],
-                   kwargs: dict,
-                   return_kwargs: bool = False) -> Any: ...
-
-
-class _axis_method_wrapper(object):
-    def __init__(self: _axis_method_wrapper,
-                 attr_name: Any,
-                 method_name: Any,
-                 *,
-                 doc_sub: Any = None) -> None: ...
-
-    def __set_name__(self: _axis_method_wrapper,
-                     owner: {__module__, __qualname__},
-                     name: Any) -> Any: ...
-
-
-class _TransformedBoundsLocator(object):
-    def __init__(self: _TransformedBoundsLocator,
-                 bounds: Any,
-                 transform: Any) -> None: ...
-
-    def __call__(self: _TransformedBoundsLocator,
-                 ax: {figure},
-                 renderer: Any) -> TransformedBbox: ...
-
-
-def _process_plot_format(fmt: {__ne__, __len__, __getitem__}) -> Union[
-    tuple[None, None, Union[Iterable, tuple]], tuple[str, str, Union[Iterable, tuple, None]]]: ...

@@ -2,38 +2,27 @@ from typing import Any
 from typing import tuple
 
 
-class BlockingContourLabeler(BlockingMouseInput):
-    def __init__(self: BlockingContourLabeler,
-                 cs: {axes}) -> None: ...
+class BlockingInput(object):
+    def __init__(self: BlockingInput,
+                 fig: Any,
+                 eventslist: tuple = ()) -> None: ...
 
-    def add_click(self: BlockingContourLabeler,
+    def on_event(self: BlockingInput,
+                 event: Any) -> None: ...
+
+    def post_event(self: BlockingInput) -> None: ...
+
+    def cleanup(self: BlockingInput) -> None: ...
+
+    def add_event(self: BlockingInput,
                   event: Any) -> None: ...
 
-    def pop_click(self: BlockingContourLabeler,
-                  event: Any,
+    def pop_event(self: BlockingInput,
                   index: int = -1) -> None: ...
 
-    def button1(self: BlockingContourLabeler,
-                event: Any) -> None: ...
-
-    def button3(self: BlockingContourLabeler,
-                event: Any) -> None: ...
-
-    def __call__(self: BlockingContourLabeler,
-                 inline: Any,
-                 inline_spacing: int = 5,
-                 n: int = -1,
-                 timeout: int = -1) -> None: ...
-
-
-class BlockingKeyMouseInput(BlockingInput):
-    def __init__(self: BlockingKeyMouseInput,
-                 fig: Any) -> None: ...
-
-    def post_event(self: BlockingKeyMouseInput) -> None: ...
-
-    def __call__(self: BlockingKeyMouseInput,
-                 timeout: int = 30) -> None: ...
+    def __call__(self: BlockingInput,
+                 n: int = 1,
+                 timeout: int = 30) -> list: ...
 
 
 class BlockingMouseInput(BlockingInput):
@@ -78,24 +67,35 @@ class BlockingMouseInput(BlockingInput):
                  show_clicks: bool = True) -> list: ...
 
 
-class BlockingInput(object):
-    def __init__(self: BlockingInput,
-                 fig: Any,
-                 eventslist: tuple = ()) -> None: ...
+class BlockingContourLabeler(BlockingMouseInput):
+    def __init__(self: BlockingContourLabeler,
+                 cs: {axes}) -> None: ...
 
-    def on_event(self: BlockingInput,
-                 event: Any) -> None: ...
-
-    def post_event(self: BlockingInput) -> None: ...
-
-    def cleanup(self: BlockingInput) -> None: ...
-
-    def add_event(self: BlockingInput,
+    def add_click(self: BlockingContourLabeler,
                   event: Any) -> None: ...
 
-    def pop_event(self: BlockingInput,
+    def pop_click(self: BlockingContourLabeler,
+                  event: Any,
                   index: int = -1) -> None: ...
 
-    def __call__(self: BlockingInput,
-                 n: int = 1,
-                 timeout: int = 30) -> list: ...
+    def button1(self: BlockingContourLabeler,
+                event: Any) -> None: ...
+
+    def button3(self: BlockingContourLabeler,
+                event: Any) -> None: ...
+
+    def __call__(self: BlockingContourLabeler,
+                 inline: Any,
+                 inline_spacing: int = 5,
+                 n: int = -1,
+                 timeout: int = -1) -> None: ...
+
+
+class BlockingKeyMouseInput(BlockingInput):
+    def __init__(self: BlockingKeyMouseInput,
+                 fig: Any) -> None: ...
+
+    def post_event(self: BlockingKeyMouseInput) -> None: ...
+
+    def __call__(self: BlockingKeyMouseInput,
+                 timeout: int = 30) -> None: ...

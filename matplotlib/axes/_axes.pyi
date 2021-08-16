@@ -680,8 +680,7 @@ class Axes(_AxesBase):
                     shading: str = 'flat',
                     *args,
                     **kwargs) -> Union[tuple[Any, Any, Union[ndarray, Iterable, int, float, None], str], tuple[
-        Union[None, object, ndarray], Union[None, object, ndarray], Union[
-            ndarray, Iterable, int, float, None], str]]: ...
+        Optional[ndarray], Optional[ndarray], Union[ndarray, Iterable, int, float, None], str]]: ...
 
     @_preprocess_data()
     @docstring.dedent_interpd

@@ -5,14 +5,37 @@ from typing import Union
 from typing import tuple
 
 
-class Encoding(object):
-    def __init__(self: Encoding,
-                 filename: Any) -> None: ...
+def _arg_raw(dvi: Any,
+             delta: Any) -> Any: ...
 
-    def __iter__(self: Encoding) -> Generator[Any, Any, None]: ...
 
-    @staticmethod
-    def _parse(file: Any) -> list: ...
+def _arg(nbytes: Any,
+         signed: Any,
+         dvi: {_arg},
+         _: Any) -> Any: ...
+
+
+def _arg_slen(dvi: {_arg},
+              delta: {__eq__}) -> Optional[Any]: ...
+
+
+def _arg_slen1(dvi: {_arg},
+               delta: {__add__}) -> Any: ...
+
+
+def _arg_ulen1(dvi: {_arg},
+               delta: {__add__}) -> Any: ...
+
+
+def _arg_olen1(dvi: {_arg},
+               delta: {__add__, __eq__}) -> Any: ...
+
+
+def _dispatch(table: Any,
+              min: Any,
+              max: Any = None,
+              state: Any = None,
+              args: tuple[str] = ('raw',)) -> (method: Any) ->
 
 
 class Dvi(object):
@@ -175,23 +198,6 @@ class Dvi(object):
                    offset: Any) -> Any: ...
 
 
-class Tfm(object):
-    def __init__(self: Tfm,
-                 filename: Any) -> None: ...
-
-
-class PsfontsMap(object):
-    @lru_cache()
-    def __new__(cls: Type[PsfontsMap],
-                filename: Any) -> PsfontsMap: ...
-
-    def __getitem__(self: PsfontsMap,
-                    texname: {decode}) -> Any: ...
-
-    def _parse(self: PsfontsMap,
-               file: BinaryIO) -> None: ...
-
-
 class DviFont(object):
     def __init__(self: DviFont,
                  scale: float,
@@ -237,50 +243,42 @@ class Vf(Dvi):
              ds: Any) -> Any: ...
 
 
-def _dispatch(table: Any,
-              min: Any,
-              max: Any = None,
-              state: Any = None,
-              args: tuple[str] = ('raw',)) -> (method: Any) ->
-
-
-def _arg_slen(dvi: {_arg},
-              delta: {__eq__}) -> Optional[Any]: ...
-
-
-def _arg(nbytes: Any,
-         signed: Any,
-         dvi: {_arg},
-         _: Any) -> Any: ...
-
-
-def _arg_ulen1(dvi: {_arg},
-               delta: {__add__}) -> Any: ...
-
-
-def _arg_slen1(dvi: {_arg},
-               delta: {__add__}) -> Any: ...
-
-
-def _arg_raw(dvi: Any,
-             delta: Any) -> Any: ...
-
-
 def _fix2comp(num: {__and__}) -> {__and__}: ...
-
-
-@lru_cache()
-def _fontfile(cls: Any,
-              suffix: Any,
-              texname: {__add__}) -> Optional[Any]: ...
 
 
 def _mul2012(num1: {__and__},
              num2: float) -> int: ...
 
 
-def _arg_olen1(dvi: {_arg},
-               delta: {__add__, __eq__}) -> Any: ...
+class Tfm(object):
+    def __init__(self: Tfm,
+                 filename: Any) -> None: ...
+
+
+class PsfontsMap(object):
+    @lru_cache()
+    def __new__(cls: Type[PsfontsMap],
+                filename: Any) -> PsfontsMap: ...
+
+    def __getitem__(self: PsfontsMap,
+                    texname: {decode}) -> Any: ...
+
+    def _parse(self: PsfontsMap,
+               file: BinaryIO) -> None: ...
+
+
+@_api.deprecated("3.3")
+class Encoding(object):
+    def __init__(self: Encoding,
+                 filename: Any) -> None: ...
+
+    def __iter__(self: Encoding) -> Generator[Any, Any, None]: ...
+
+    @staticmethod
+    def _parse(file: Any) -> list: ...
+
+
+def _parse_enc(path: PathLike) -> list: ...
 
 
 @lru_cache()
@@ -288,4 +286,7 @@ def find_tex_file(filename: Any,
                   format: Union[str, bytes] = None) -> Union[str, bytes]: ...
 
 
-def _parse_enc(path: PathLike) -> list: ...
+@lru_cache()
+def _fontfile(cls: Any,
+              suffix: Any,
+              texname: {__add__}) -> Optional[Any]: ...

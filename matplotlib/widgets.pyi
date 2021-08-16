@@ -8,6 +8,24 @@ from matplotlib.axes._axes import Axes
 from numpy.core._multiarray_umath import ndarray
 
 
+class LockDraw(object):
+    def __init__(self: LockDraw) -> None: ...
+
+    def __call__(self: LockDraw,
+                 o: Any) -> Any: ...
+
+    def release(self: LockDraw,
+                o: Any) -> Any: ...
+
+    def available(self: LockDraw,
+                  o: Any) -> bool: ...
+
+    def isowner(self: LockDraw,
+                o: Any) -> Any: ...
+
+    def locked(self: LockDraw) -> Any: ...
+
+
 class Widget(object):
     def set_active(self: Widget,
                    active: Any) -> None: ...
@@ -21,6 +39,234 @@ class Widget(object):
                                                                                                                 xdata,
                                                                                                                 ydata}, {
                        inaxes}, {inaxes, button, xdata, ydata}]) -> bool: ...
+
+
+class AxesWidget(Widget):
+    def __init__(self: AxesWidget,
+                 ax: Union[{name, set_xticks, set_yticks, set_navigate}, Axes]) -> None: ...
+
+    def connect_event(self: AxesWidget,
+                      event: str,
+                      callback: Union[(event: {canvas, inaxes})) -> None: ...
+
+    def disconnect_events(self: AxesWidget) -> None: ...
+
+
+class Button(AxesWidget):
+    def __init__(self: Button,
+                 ax: Any,
+                 label: str,
+                 image: Any = None,
+                 color: Any = '0.85',
+                 hovercolor: Any = '0.95') -> None: ...
+
+    def _click(self: Button,
+               event: {inaxes, canvas}) -> None: ...
+
+    def _release(self: Button,
+                 event: {canvas, inaxes}) -> None: ...
+
+    def _motion(self: Button,
+                event: {inaxes}) -> None: ...
+
+    def on_clicked(self: Button,
+                   func: (event: Any)) -> int: ...
+
+    def disconnect(self: Button,
+                   cid: Any) -> None: ...
+
+
+class SliderBase(AxesWidget):
+    def __init__(self: SliderBase,
+                 ax: Axes,
+                 orientation: str,
+                 closedmin: bool,
+                 closedmax: Any,
+                 valmin: Any,
+                 valmax: Any,
+                 valfmt: Any,
+                 dragging: Any,
+                 valstep: Any) -> Any: ...
+
+    def _stepped_value(self: SliderBase,
+                       val: Optional[float]) -> Union[float, int, None]: ...
+
+    def disconnect(self: SliderBase,
+                   cid: int) -> None: ...
+
+    def reset(self: SliderBase) -> None: ...
+
+
+class Slider(SliderBase):
+    def __init__(self: Slider,
+                 ax: Any,
+                 label: str,
+                 valmin: float,
+                 valmax: float,
+                 valinit: float = 0.5,
+                 valfmt: str = None,
+                 closedmin: bool = True,
+                 closedmax: bool = True,
+                 slidermin: Slider = None,
+                 slidermax: Slider = None,
+                 dragging: bool = True,
+                 valstep: Union[float, ndarray, Iterable, int] = None,
+                 orientation: str = 'horizontal',
+                 *,
+                 initcolor: Any = 'r',
+                 **kwargs) -> Any: ...
+
+    def _value_in_bounds(self: Slider,
+                         val: float) -> Union[None, float, int]: ...
+
+    def _update(self: Slider,
+                event: {button, name, inaxes}) -> None: ...
+
+    def _format(self: Slider,
+                val: Union[float, int]) -> Union[float, int]: ...
+
+    def set_val(self: Slider,
+                val: float) -> None: ...
+
+    def on_changed(self: Slider,
+                   func: Callable) -> int: ...
+
+
+class RangeSlider(SliderBase):
+    def __init__(self: RangeSlider,
+                 ax: Any,
+                 label: str,
+                 valmin: float,
+                 valmax: float,
+                 valinit: Union[Iterable, tuple[float], None] = None,
+                 valfmt: str = None,
+                 closedmin: bool = True,
+                 closedmax: bool = True,
+                 dragging: bool = True,
+                 valstep: float = None,
+                 orientation: str = "horizontal",
+                 **kwargs) -> None: ...
+
+    def _min_in_bounds(self: RangeSlider,
+                       min: Optional[Any]) -> Optional[int]: ...
+
+    def _max_in_bounds(self: RangeSlider,
+                       max: Optional[Any]) -> Union[None, float, int]: ...
+
+    def _value_in_bounds(self: RangeSlider,
+                         vals: {__getitem__}) -> tuple[Union[None, float, int], Union[None, float, int]]: ...
+
+    def _update_val_from_pos(self: RangeSlider,
+                             pos: Any) -> None: ...
+
+    def _update(self: RangeSlider,
+                event: {button, name, inaxes}) -> None: ...
+
+    def _format(self: RangeSlider,
+                val: ndarray) -> str: ...
+
+    def set_min(self: RangeSlider,
+                min: float) -> None: ...
+
+    def set_max(self: RangeSlider,
+                max: float) -> None: ...
+
+    def set_val(self: RangeSlider,
+                val: Union[Iterable, tuple, ndarray, int, float[float]]) -> Any: ...
+
+    def on_changed(self: RangeSlider,
+                   func: Callable) -> int: ...
+
+
+class CheckButtons(AxesWidget):
+    def __init__(self: CheckButtons,
+                 ax: Any,
+                 labels: Iterable[str],
+                 actives: Optional[Iterable[bool]] = None) -> None: ...
+
+    def _clicked(self: CheckButtons,
+                 event: {button, inaxes, x, y}) -> None: ...
+
+    def set_active(self: CheckButtons,
+                   index: int) -> Any: ...
+
+    def get_status(self: CheckButtons) -> list: ...
+
+    def on_clicked(self: CheckButtons,
+                   func: Any) -> int: ...
+
+    def disconnect(self: CheckButtons,
+                   cid: Any) -> None: ...
+
+
+class TextBox(AxesWidget):
+    def __init__(self: TextBox,
+                 ax: Any,
+                 label: str,
+                 initial: str = '',
+                 color: Any = '.95',
+                 hovercolor: Any = '1',
+                 label_pad: float = .01) -> None: ...
+
+    @property
+    def text(self: TextBox) -> Any: ...
+
+    def _rendercursor(self: TextBox) -> None: ...
+
+    def _release(self: TextBox,
+                 event: {canvas}) -> None: ...
+
+    def _keypress(self: TextBox,
+                  event: Any) -> None: ...
+
+    def set_val(self: TextBox,
+                val: Any) -> None: ...
+
+    def begin_typing(self: TextBox,
+                     x: Any) -> None: ...
+
+    def stop_typing(self: TextBox) -> None: ...
+
+    def position_cursor(self: TextBox,
+                        x: Any) -> None: ...
+
+    def _click(self: TextBox,
+               event: {inaxes, canvas, x}) -> None: ...
+
+    def _resize(self: TextBox,
+                event: Any) -> None: ...
+
+    def _motion(self: TextBox,
+                event: {inaxes}) -> None: ...
+
+    def on_text_change(self: TextBox,
+                       func: Any) -> int: ...
+
+    def on_submit(self: TextBox,
+                  func: Any) -> int: ...
+
+    def disconnect(self: TextBox,
+                   cid: Any) -> None: ...
+
+
+class RadioButtons(AxesWidget):
+    def __init__(self: RadioButtons,
+                 ax: Any,
+                 labels: Iterable[str],
+                 active: int = 0,
+                 activecolor: Any = 'blue') -> None: ...
+
+    def _clicked(self: RadioButtons,
+                 event: {button, inaxes, x, y}) -> None: ...
+
+    def set_active(self: RadioButtons,
+                   index: int) -> Any: ...
+
+    def on_clicked(self: RadioButtons,
+                   func: {__self__, __func__}) -> int: ...
+
+    def disconnect(self: RadioButtons,
+                   cid: Any) -> None: ...
 
 
 class SubplotTool(Widget):
@@ -76,167 +322,6 @@ class Cursor(AxesWidget):
     def _update(self: Cursor) -> bool: ...
 
 
-class LassoSelector(_SelectorWidget):
-    def __init__(self: LassoSelector,
-                 ax: Any,
-                 onselect: function = None,
-                 useblit: bool = True,
-                 lineprops: Optional[{update}] = None,
-                 button: Any = None) -> None: ...
-
-    def onpress(self: LassoSelector,
-                event: Any) -> None: ...
-
-    def _press(self: LassoSelector,
-               event: {xdata, ydata}) -> None: ...
-
-    def onrelease(self: LassoSelector,
-                  event: Any) -> None: ...
-
-    def _release(self: LassoSelector,
-                 event: Any) -> None: ...
-
-    def _onmove(self: LassoSelector,
-                event: Any) -> None: ...
-
-
-class Slider(SliderBase):
-    def __init__(self: Slider,
-                 ax: Any,
-                 label: str,
-                 valmin: float,
-                 valmax: float,
-                 valinit: float = 0.5,
-                 valfmt: str = None,
-                 closedmin: bool = True,
-                 closedmax: bool = True,
-                 slidermin: Slider = None,
-                 slidermax: Slider = None,
-                 dragging: bool = True,
-                 valstep: Union[float, ndarray, Iterable, int] = None,
-                 orientation: str = 'horizontal',
-                 *,
-                 initcolor: Any = 'r',
-                 **kwargs) -> Any: ...
-
-    def _value_in_bounds(self: Slider,
-                         val: float) -> Union[None, float, int]: ...
-
-    def _update(self: Slider,
-                event: {button, name, inaxes}) -> None: ...
-
-    def _format(self: Slider,
-                val: Union[float, int]) -> Union[float, int]: ...
-
-    def set_val(self: Slider,
-                val: float) -> None: ...
-
-    def on_changed(self: Slider,
-                   func: Callable) -> int: ...
-
-
-class LockDraw(object):
-    def __init__(self: LockDraw) -> None: ...
-
-    def __call__(self: LockDraw,
-                 o: Any) -> Any: ...
-
-    def release(self: LockDraw,
-                o: Any) -> Any: ...
-
-    def available(self: LockDraw,
-                  o: Any) -> bool: ...
-
-    def isowner(self: LockDraw,
-                o: Any) -> Any: ...
-
-    def locked(self: LockDraw) -> Any: ...
-
-
-class EllipseSelector(RectangleSelector):
-    def draw_shape(self: EllipseSelector,
-                   extents: Any) -> None: ...
-
-    @property
-    def _rect_bbox(self: EllipseSelector) -> Union[tuple[float, float, Any, Any], tuple[Any, Any, Any, Any]]: ...
-
-
-class RectangleSelector(_SelectorWidget):
-    def __init__(self: RectangleSelector,
-                 ax: Any,
-                 onselect: function,
-                 drawtype: str = 'box',
-                 minspanx: float = 0,
-                 minspany: float = 0,
-                 useblit: bool = False,
-                 lineprops: Optional[dict] = None,
-                 rectprops: Optional[dict] = None,
-                 spancoords: str = 'data',
-                 button: Any = None,
-                 maxdist: float = 10,
-                 marker_props: dict = None,
-                 interactive: bool = False,
-                 state_modifier_keys: Optional[dict] = None) -> None: ...
-
-    def _press(self: RectangleSelector,
-               event: Any) -> None: ...
-
-    def _release(self: RectangleSelector,
-                 event: Any) -> Optional[bool]: ...
-
-    def _onmove(self: RectangleSelector,
-                event: Any) -> None: ...
-
-    @property
-    def _rect_bbox(self: RectangleSelector) -> tuple[Any, Any, Any, Any]: ...
-
-    @property
-    def corners(self: RectangleSelector) -> tuple[tuple[Any, Any, Any, Any], tuple[Any, Any, Any, Any]]: ...
-
-    @property
-    def edge_centers(self: RectangleSelector) -> tuple[
-        tuple[Any, float, Any, float], tuple[float, Any, float, Any]]: ...
-
-    @property
-    def center(self: RectangleSelector) -> tuple[float, float]: ...
-
-    @property
-    def extents(self: RectangleSelector) -> tuple[Any, Any, Any, Any]: ...
-
-    @extents.setter
-    def extents(self: RectangleSelector,
-                extents: Any) -> None: ...
-
-    def draw_shape(self: RectangleSelector,
-                   extents: Any) -> None: ...
-
-    def _set_active_handle(self: RectangleSelector,
-                           event: {x, y}) -> None: ...
-
-    @property
-    def geometry(self: RectangleSelector) -> ndarray: ...
-
-
-class RadioButtons(AxesWidget):
-    def __init__(self: RadioButtons,
-                 ax: Any,
-                 labels: Iterable[str],
-                 active: int = 0,
-                 activecolor: Any = 'blue') -> None: ...
-
-    def _clicked(self: RadioButtons,
-                 event: {button, inaxes, x, y}) -> None: ...
-
-    def set_active(self: RadioButtons,
-                   index: int) -> Any: ...
-
-    def on_clicked(self: RadioButtons,
-                   func: {__self__, __func__}) -> int: ...
-
-    def disconnect(self: RadioButtons,
-                   cid: Any) -> None: ...
-
-
 class MultiCursor(Widget):
     def __init__(self: MultiCursor,
                  canvas: Any,
@@ -257,67 +342,6 @@ class MultiCursor(Widget):
                event: {inaxes}) -> None: ...
 
     def _update(self: MultiCursor) -> None: ...
-
-
-class AxesWidget(Widget):
-    def __init__(self: AxesWidget,
-                 ax: Union[{name, set_xticks, set_yticks, set_navigate}, Axes]) -> None: ...
-
-    def connect_event(self: AxesWidget,
-                      event: str,
-                      callback: Union[(event: {canvas, inaxes})) -> None: ...
-
-    def disconnect_events(self: AxesWidget) -> None: ...
-
-
-class TextBox(AxesWidget):
-    def __init__(self: TextBox,
-                 ax: Any,
-                 label: str,
-                 initial: str = '',
-                 color: Any = '.95',
-                 hovercolor: Any = '1',
-                 label_pad: float = .01) -> None: ...
-
-    @property
-    def text(self: TextBox) -> Any: ...
-
-    def _rendercursor(self: TextBox) -> None: ...
-
-    def _release(self: TextBox,
-                 event: {canvas}) -> None: ...
-
-    def _keypress(self: TextBox,
-                  event: Any) -> None: ...
-
-    def set_val(self: TextBox,
-                val: Any) -> None: ...
-
-    def begin_typing(self: TextBox,
-                     x: Any) -> None: ...
-
-    def stop_typing(self: TextBox) -> None: ...
-
-    def position_cursor(self: TextBox,
-                        x: Any) -> None: ...
-
-    def _click(self: TextBox,
-               event: {inaxes, canvas, x}) -> None: ...
-
-    def _resize(self: TextBox,
-                event: Any) -> None: ...
-
-    def _motion(self: TextBox,
-                event: {inaxes}) -> None: ...
-
-    def on_text_change(self: TextBox,
-                       func: Any) -> int: ...
-
-    def on_submit(self: TextBox,
-                  func: Any) -> int: ...
-
-    def disconnect(self: TextBox,
-                   cid: Any) -> None: ...
 
 
 class _SelectorWidget(AxesWidget):
@@ -392,50 +416,6 @@ class _SelectorWidget(AxesWidget):
                     visible: bool) -> None: ...
 
 
-class ToolHandles(object):
-    def __init__(self: ToolHandles,
-                 ax: Axes,
-                 x: int,
-                 y: int,
-                 marker: str = 'o',
-                 marker_props: dict = None,
-                 useblit: bool = True) -> None: ...
-
-    @property
-    def x(self: ToolHandles) -> ndarray: ...
-
-    @property
-    def y(self: ToolHandles) -> ndarray: ...
-
-    def set_data(self: ToolHandles,
-                 pts: list[int],
-                 y: list[int] = None) -> None: ...
-
-    def set_visible(self: ToolHandles,
-                    val: Any) -> None: ...
-
-    def set_animated(self: ToolHandles,
-                     val: Any) -> None: ...
-
-    def closest(self: ToolHandles,
-                x: Any,
-                y: Any) -> tuple[ndarray[int], Any]: ...
-
-
-class Lasso(AxesWidget):
-    def __init__(self: Lasso,
-                 ax: Any,
-                 xy: tuple[float, float],
-                 callback: Callable = None,
-                 useblit: bool = True) -> None: ...
-
-    def onrelease(self: Lasso,
-                  event: Any) -> None: ...
-
-    def onmove(self: Lasso,
-               event: {inaxes, button, xdata, ydata}) -> None: ...
-
-
 class SpanSelector(_SelectorWidget):
     def __init__(self: SpanSelector,
                  ax: Axes,
@@ -472,50 +452,122 @@ class SpanSelector(_SelectorWidget):
                      event: Any) -> None: ...
 
 
-class RangeSlider(SliderBase):
-    def __init__(self: RangeSlider,
+class ToolHandles(object):
+    def __init__(self: ToolHandles,
+                 ax: Axes,
+                 x: int,
+                 y: int,
+                 marker: str = 'o',
+                 marker_props: dict = None,
+                 useblit: bool = True) -> None: ...
+
+    @property
+    def x(self: ToolHandles) -> ndarray: ...
+
+    @property
+    def y(self: ToolHandles) -> ndarray: ...
+
+    def set_data(self: ToolHandles,
+                 pts: list[int],
+                 y: list[int] = None) -> None: ...
+
+    def set_visible(self: ToolHandles,
+                    val: Any) -> None: ...
+
+    def set_animated(self: ToolHandles,
+                     val: Any) -> None: ...
+
+    def closest(self: ToolHandles,
+                x: Any,
+                y: Any) -> tuple[ndarray[int], Any]: ...
+
+
+class RectangleSelector(_SelectorWidget):
+    def __init__(self: RectangleSelector,
                  ax: Any,
-                 label: str,
-                 valmin: float,
-                 valmax: float,
-                 valinit: Union[Iterable, tuple[float], None] = None,
-                 valfmt: str = None,
-                 closedmin: bool = True,
-                 closedmax: bool = True,
-                 dragging: bool = True,
-                 valstep: float = None,
-                 orientation: str = "horizontal",
-                 **kwargs) -> None: ...
+                 onselect: function,
+                 drawtype: str = 'box',
+                 minspanx: float = 0,
+                 minspany: float = 0,
+                 useblit: bool = False,
+                 lineprops: Optional[dict] = None,
+                 rectprops: Optional[dict] = None,
+                 spancoords: str = 'data',
+                 button: Any = None,
+                 maxdist: float = 10,
+                 marker_props: dict = None,
+                 interactive: bool = False,
+                 state_modifier_keys: Optional[dict] = None) -> None: ...
 
-    def _min_in_bounds(self: RangeSlider,
-                       min: Optional[Any]) -> Optional[int]: ...
+    def _press(self: RectangleSelector,
+               event: Any) -> None: ...
 
-    def _max_in_bounds(self: RangeSlider,
-                       max: Optional[Any]) -> Union[None, float, int]: ...
+    def _release(self: RectangleSelector,
+                 event: Any) -> Optional[bool]: ...
 
-    def _value_in_bounds(self: RangeSlider,
-                         vals: {__getitem__}) -> tuple[Union[None, float, int], Union[None, float, int]]: ...
+    def _onmove(self: RectangleSelector,
+                event: Any) -> None: ...
 
-    def _update_val_from_pos(self: RangeSlider,
-                             pos: Any) -> None: ...
+    @property
+    def _rect_bbox(self: RectangleSelector) -> tuple[Any, Any, Any, Any]: ...
 
-    def _update(self: RangeSlider,
-                event: {button, name, inaxes}) -> None: ...
+    @property
+    def corners(self: RectangleSelector) -> tuple[tuple[Any, Any, Any, Any], tuple[Any, Any, Any, Any]]: ...
 
-    def _format(self: RangeSlider,
-                val: ndarray) -> str: ...
+    @property
+    def edge_centers(self: RectangleSelector) -> tuple[
+        tuple[Any, float, Any, float], tuple[float, Any, float, Any]]: ...
 
-    def set_min(self: RangeSlider,
-                min: float) -> None: ...
+    @property
+    def center(self: RectangleSelector) -> tuple[float, float]: ...
 
-    def set_max(self: RangeSlider,
-                max: float) -> None: ...
+    @property
+    def extents(self: RectangleSelector) -> tuple[Any, Any, Any, Any]: ...
 
-    def set_val(self: RangeSlider,
-                val: Union[Iterable, tuple, ndarray, int, float[float]]) -> Any: ...
+    @extents.setter
+    def extents(self: RectangleSelector,
+                extents: Any) -> None: ...
 
-    def on_changed(self: RangeSlider,
-                   func: Callable) -> int: ...
+    def draw_shape(self: RectangleSelector,
+                   extents: Any) -> None: ...
+
+    def _set_active_handle(self: RectangleSelector,
+                           event: {x, y}) -> None: ...
+
+    @property
+    def geometry(self: RectangleSelector) -> ndarray: ...
+
+
+class EllipseSelector(RectangleSelector):
+    def draw_shape(self: EllipseSelector,
+                   extents: Any) -> None: ...
+
+    @property
+    def _rect_bbox(self: EllipseSelector) -> Union[tuple[float, float, Any, Any], tuple[Any, Any, Any, Any]]: ...
+
+
+class LassoSelector(_SelectorWidget):
+    def __init__(self: LassoSelector,
+                 ax: Any,
+                 onselect: function = None,
+                 useblit: bool = True,
+                 lineprops: Optional[{update}] = None,
+                 button: Any = None) -> None: ...
+
+    def onpress(self: LassoSelector,
+                event: Any) -> None: ...
+
+    def _press(self: LassoSelector,
+               event: {xdata, ydata}) -> None: ...
+
+    def onrelease(self: LassoSelector,
+                  event: Any) -> None: ...
+
+    def _release(self: LassoSelector,
+                 event: Any) -> None: ...
+
+    def _onmove(self: LassoSelector,
+                event: Any) -> None: ...
 
 
 class PolygonSelector(_SelectorWidget):
@@ -551,67 +603,15 @@ class PolygonSelector(_SelectorWidget):
     def verts(self: PolygonSelector) -> list[tuple[int, int]]: ...
 
 
-class SliderBase(AxesWidget):
-    def __init__(self: SliderBase,
-                 ax: Axes,
-                 orientation: str,
-                 closedmin: bool,
-                 closedmax: Any,
-                 valmin: Any,
-                 valmax: Any,
-                 valfmt: Any,
-                 dragging: Any,
-                 valstep: Any) -> Any: ...
-
-    def _stepped_value(self: SliderBase,
-                       val: Optional[float]) -> Union[float, int, None]: ...
-
-    def disconnect(self: SliderBase,
-                   cid: int) -> None: ...
-
-    def reset(self: SliderBase) -> None: ...
-
-
-class CheckButtons(AxesWidget):
-    def __init__(self: CheckButtons,
+class Lasso(AxesWidget):
+    def __init__(self: Lasso,
                  ax: Any,
-                 labels: Iterable[str],
-                 actives: Optional[Iterable[bool]] = None) -> None: ...
+                 xy: tuple[float, float],
+                 callback: Callable = None,
+                 useblit: bool = True) -> None: ...
 
-    def _clicked(self: CheckButtons,
-                 event: {button, inaxes, x, y}) -> None: ...
+    def onrelease(self: Lasso,
+                  event: Any) -> None: ...
 
-    def set_active(self: CheckButtons,
-                   index: int) -> Any: ...
-
-    def get_status(self: CheckButtons) -> list: ...
-
-    def on_clicked(self: CheckButtons,
-                   func: Any) -> int: ...
-
-    def disconnect(self: CheckButtons,
-                   cid: Any) -> None: ...
-
-
-class Button(AxesWidget):
-    def __init__(self: Button,
-                 ax: Any,
-                 label: str,
-                 image: Any = None,
-                 color: Any = '0.85',
-                 hovercolor: Any = '0.95') -> None: ...
-
-    def _click(self: Button,
-               event: {inaxes, canvas}) -> None: ...
-
-    def _release(self: Button,
-                 event: {canvas, inaxes}) -> None: ...
-
-    def _motion(self: Button,
-                event: {inaxes}) -> None: ...
-
-    def on_clicked(self: Button,
-                   func: (event: Any)) -> int: ...
-
-    def disconnect(self: Button,
-                   cid: Any) -> None: ...
+    def onmove(self: Lasso,
+               event: {inaxes, button, xdata, ydata}) -> None: ...

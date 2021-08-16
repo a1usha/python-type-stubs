@@ -8,6 +8,52 @@ from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedConstant
 
 
+def _set_ticks_on_axis_warn(*args,
+                            **kwargs) -> None: ...
+
+
+class _ColorbarAutoLocator(MaxNLocator):
+    def __init__(self: _ColorbarAutoLocator,
+                 colorbar: Any) -> None: ...
+
+    def tick_values(self: _ColorbarAutoLocator,
+                    vmin: {__gt__},
+                    vmax: Any) -> Any: ...
+
+
+class _ColorbarAutoMinorLocator(AutoMinorLocator):
+    def __init__(self: _ColorbarAutoMinorLocator,
+                 colorbar: Any,
+                 n: Any = None) -> None: ...
+
+    def __call__(self: _ColorbarAutoMinorLocator) -> list: ...
+
+
+class _ColorbarLogLocator(LogLocator):
+    def __init__(self: _ColorbarLogLocator,
+                 colorbar: Any,
+                 *args,
+                 **kwargs) -> None: ...
+
+    def tick_values(self: _ColorbarLogLocator,
+                    vmin: {__le__},
+                    vmax: {__lt__}) -> None: ...
+
+
+class _ColorbarSpine(Spine):
+    def __init__(self: _ColorbarSpine,
+                 axes: Any) -> None: ...
+
+    def get_window_extent(self: _ColorbarSpine,
+                          renderer: Any = None) -> Any: ...
+
+    def set_xy(self: _ColorbarSpine,
+               xy: Any) -> None: ...
+
+    def draw(self: _ColorbarSpine,
+             renderer: {open_group, new_gc, draw_path, close_group}) -> Any: ...
+
+
 class ColorbarBase(object):
     @_api.make_keyword_only("3.3", "cmap")
     def __init__(self: ColorbarBase,
@@ -123,6 +169,10 @@ class ColorbarBase(object):
     def remove(self: ColorbarBase) -> None: ...
 
 
+def _add_disjoint_kwargs(d: dict[str, Any],
+                         **kwargs) -> None: ...
+
+
 class Colorbar(ColorbarBase):
     def __init__(self: Colorbar,
                  ax: Any,
@@ -147,58 +197,8 @@ class Colorbar(ColorbarBase):
     def remove(self: Colorbar) -> None: ...
 
 
-class _ColorbarAutoMinorLocator(AutoMinorLocator):
-    def __init__(self: _ColorbarAutoMinorLocator,
-                 colorbar: Any,
-                 n: Any = None) -> None: ...
-
-    def __call__(self: _ColorbarAutoMinorLocator) -> list: ...
-
-
-class _ColorbarAutoLocator(MaxNLocator):
-    def __init__(self: _ColorbarAutoLocator,
-                 colorbar: Any) -> None: ...
-
-    def tick_values(self: _ColorbarAutoLocator,
-                    vmin: {__gt__},
-                    vmax: Any) -> Any: ...
-
-
-class _ColorbarLogLocator(LogLocator):
-    def __init__(self: _ColorbarLogLocator,
-                 colorbar: Any,
-                 *args,
-                 **kwargs) -> None: ...
-
-    def tick_values(self: _ColorbarLogLocator,
-                    vmin: {__le__},
-                    vmax: {__lt__}) -> None: ...
-
-
-class ColorbarPatch(Colorbar):
-    pass
-
-
-class _ColorbarSpine(Spine):
-    def __init__(self: _ColorbarSpine,
-                 axes: Any) -> None: ...
-
-    def get_window_extent(self: _ColorbarSpine,
-                          renderer: Any = None) -> Any: ...
-
-    def set_xy(self: _ColorbarSpine,
-               xy: Any) -> None: ...
-
-    def draw(self: _ColorbarSpine,
-             renderer: {open_group, new_gc, draw_path, close_group}) -> Any: ...
-
-
-def _add_disjoint_kwargs(d: dict[str, Any],
-                         **kwargs) -> None: ...
-
-
-def _set_ticks_on_axis_warn(*args,
-                            **kwargs) -> None: ...
+def _normalize_location_orientation(location: Any,
+                                    orientation: Optional[{__ne__}]) -> Any: ...
 
 
 @docstring.Substitution(_make_axes_param_doc, _make_axes_other_param_doc)
@@ -223,10 +223,11 @@ def make_axes_gridspec(parent: Any,
 
 
 @_api.deprecated("3.4", alternative="Colorbar")
+class ColorbarPatch(Colorbar):
+    pass
+
+
+@_api.deprecated("3.4", alternative="Colorbar")
 def colorbar_factory(cax: Any,
                      mappable: Any,
                      **kwargs) -> Any: ...
-
-
-def _normalize_location_orientation(location: Any,
-                                    orientation: Optional[{__ne__}]) -> Any: ...

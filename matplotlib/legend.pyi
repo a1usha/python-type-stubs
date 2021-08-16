@@ -5,6 +5,21 @@ from typing import tuple
 from matplotlib.patches import FancyBboxPatch
 
 
+class DraggableLegend(DraggableOffsetBox):
+    def __init__(self: DraggableLegend,
+                 legend: Any,
+                 use_blit: Optional[bool] = False,
+                 update: Optional[str] = "loc") -> None: ...
+
+    def finalize_offset(self: DraggableLegend) -> None: ...
+
+    def _update_loc(self: DraggableLegend,
+                    loc_in_canvas: tuple[Any, Any]) -> None: ...
+
+    def _update_bbox_to_anchor(self: DraggableLegend,
+                               loc_in_canvas: Any) -> None: ...
+
+
 class Legend(Artist):
     def __str__(self: Legend) -> str: ...
 
@@ -153,19 +168,12 @@ class Legend(Artist):
     def get_draggable(self: Legend) -> Any: ...
 
 
-class DraggableLegend(DraggableOffsetBox):
-    def __init__(self: DraggableLegend,
-                 legend: Any,
-                 use_blit: Optional[bool] = False,
-                 update: Optional[str] = "loc") -> None: ...
+def _get_legend_handles(axs: {__iter__},
+                        legend_handler_map: dict = None) -> Generator[Any, Any, None]: ...
 
-    def finalize_offset(self: DraggableLegend) -> None: ...
 
-    def _update_loc(self: DraggableLegend,
-                    loc_in_canvas: tuple[Any, Any]) -> None: ...
-
-    def _update_bbox_to_anchor(self: DraggableLegend,
-                               loc_in_canvas: Any) -> None: ...
+def _get_legend_handles_labels(axs: Any,
+                               legend_handler_map: dict = None) -> tuple[list, list]: ...
 
 
 def _parse_legend_args(*args,
@@ -173,11 +181,3 @@ def _parse_legend_args(*args,
                        handles: Any = None,
                        labels: Any = None,
                        **kwargs) -> Any: ...
-
-
-def _get_legend_handles(axs: {__iter__},
-                        legend_handler_map: dict = None) -> Generator[Any, Any, None]: ...
-
-
-def _get_legend_handles_labels(axs: Any,
-                               legend_handler_map: dict = None) -> tuple[list, list]: ...

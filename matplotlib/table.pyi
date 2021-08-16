@@ -4,25 +4,61 @@ from typing import Optional
 from typing import Union
 
 
-@docstring.dedent_interpd
-def table(ax: {add_table},
-          cellText: Optional[int] = None,
-          cellColours: Optional[int] = None,
-          cellLoc: str = 'right',
-          colWidths: Optional[Iterable[float]] = None,
-          rowLabels: Optional[Iterable[str]] = None,
-          rowColours: Optional[Iterable] = None,
-          rowLoc: str = 'left',
-          colLabels: Optional[Iterable[str]] = None,
-          colColours: Optional[Iterable] = None,
-          colLoc: str = 'center',
-          loc: Optional[str] = 'bottom',
-          bbox: Any = None,
-          edges: str = 'closed',
-          ax: Any = ...,
-          loc: Any = ...,
-          bbox: Any = ...,
-          **kwargs) -> Any: ...
+class Cell(Rectangle):
+    def __init__(self: Cell,
+                 xy: Any,
+                 width: float,
+                 height: float,
+                 edgecolor: Any = 'k',
+                 facecolor: Any = 'w',
+                 fill: bool = True,
+                 text: str = '',
+                 loc: str = None,
+                 fontproperties: dict = None,
+                 *,
+                 visible_edges: str = 'closed') -> None: ...
+
+    def set_transform(self: Cell,
+                      trans: Any) -> None: ...
+
+    def set_figure(self: Cell,
+                   fig: Any) -> None: ...
+
+    def get_text(self: Cell) -> Text: ...
+
+    def set_fontsize(self: Cell,
+                     size: Any) -> None: ...
+
+    def get_fontsize(self: Cell) -> Any: ...
+
+    def auto_set_font_size(self: Cell,
+                           renderer: Any) -> Any: ...
+
+    @allow_rasterization
+    def draw(self: Cell,
+             renderer: {open_group, new_gc, draw_path, close_group}) -> Optional[Any]: ...
+
+    def _set_text_position(self: Cell,
+                           renderer: {open_group, new_gc, draw_path, close_group}) -> None: ...
+
+    def get_text_bounds(self: Cell,
+                        renderer: Any) -> Any: ...
+
+    def get_required_width(self: Cell,
+                           renderer: Any) -> float: ...
+
+    @docstring.dedent_interpd
+    def set_text_props(self: Cell,
+                       **kwargs) -> Optional[Any]: ...
+
+    @property
+    def visible_edges(self: Cell) -> str: ...
+
+    @visible_edges.setter
+    def visible_edges(self: Cell,
+                      value: Any) -> Any: ...
+
+    def get_path(self: Cell) -> Path: ...
 
 
 class Table(Artist):
@@ -101,58 +137,22 @@ class Table(Artist):
     def get_celld(self: Table) -> dict: ...
 
 
-class Cell(Rectangle):
-    def __init__(self: Cell,
-                 xy: Any,
-                 width: float,
-                 height: float,
-                 edgecolor: Any = 'k',
-                 facecolor: Any = 'w',
-                 fill: bool = True,
-                 text: str = '',
-                 loc: str = None,
-                 fontproperties: dict = None,
-                 *,
-                 visible_edges: str = 'closed') -> None: ...
-
-    def set_transform(self: Cell,
-                      trans: Any) -> None: ...
-
-    def set_figure(self: Cell,
-                   fig: Any) -> None: ...
-
-    def get_text(self: Cell) -> Text: ...
-
-    def set_fontsize(self: Cell,
-                     size: Any) -> None: ...
-
-    def get_fontsize(self: Cell) -> Any: ...
-
-    def auto_set_font_size(self: Cell,
-                           renderer: Any) -> Any: ...
-
-    @allow_rasterization
-    def draw(self: Cell,
-             renderer: {open_group, new_gc, draw_path, close_group}) -> Optional[Any]: ...
-
-    def _set_text_position(self: Cell,
-                           renderer: {open_group, new_gc, draw_path, close_group}) -> None: ...
-
-    def get_text_bounds(self: Cell,
-                        renderer: Any) -> Any: ...
-
-    def get_required_width(self: Cell,
-                           renderer: Any) -> float: ...
-
-    @docstring.dedent_interpd
-    def set_text_props(self: Cell,
-                       **kwargs) -> Optional[Any]: ...
-
-    @property
-    def visible_edges(self: Cell) -> str: ...
-
-    @visible_edges.setter
-    def visible_edges(self: Cell,
-                      value: Any) -> Any: ...
-
-    def get_path(self: Cell) -> Path: ...
+@docstring.dedent_interpd
+def table(ax: {add_table},
+          cellText: Optional[int] = None,
+          cellColours: Optional[int] = None,
+          cellLoc: str = 'right',
+          colWidths: Optional[Iterable[float]] = None,
+          rowLabels: Optional[Iterable[str]] = None,
+          rowColours: Optional[Iterable] = None,
+          rowLoc: str = 'left',
+          colLabels: Optional[Iterable[str]] = None,
+          colColours: Optional[Iterable] = None,
+          colLoc: str = 'center',
+          loc: Optional[str] = 'bottom',
+          bbox: Any = None,
+          edges: str = 'closed',
+          ax: Any = ...,
+          loc: Any = ...,
+          bbox: Any = ...,
+          **kwargs) -> Any: ...

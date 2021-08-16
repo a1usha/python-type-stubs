@@ -8,6 +8,18 @@ from matplotlib.backend_bases import MouseEvent
 from numpy.core._multiarray_umath import ndarray
 
 
+def allow_rasterization(draw: Any) -> (artist
+: {get_rasterized, get_agg_filter, figure}, renderer: {_rasterizing}, args: tuple[Any, ...], kwargs: dict[str, Any]) ->
+
+
+def _finalize_rasterization(draw: Any) -> (artist
+: Any, renderer: {_rasterizing}, args: tuple[Any, ...], kwargs: dict[str, Any]) ->
+
+
+def _stale_axes_callback(self: {axes},
+                         val: Any) -> None: ...
+
+
 class Artist(object):
     def __init__(self: Artist) -> None: ...
 
@@ -263,22 +275,10 @@ def getp(obj: Any,
          property: Optional[str] = None) -> Optional[Any]: ...
 
 
-def allow_rasterization(draw: Any) -> (artist
-: {get_rasterized, get_agg_filter, figure}, renderer: {_rasterizing}, args: tuple[Any, ...], kwargs: dict[str, Any]) ->
-
-
-def kwdoc(artist: Any) -> str: ...
-
-
-def _finalize_rasterization(draw: Any) -> (artist
-: Any, renderer: {_rasterizing}, args: tuple[Any, ...], kwargs: dict[str, Any]) ->
-
-
-def _stale_axes_callback(self: {axes},
-                         val: Any) -> None: ...
-
-
 def setp(*args,
          obj: Any,
          file: Any = None,
          **kwargs) -> Optional[list[Optional[Any]]]: ...
+
+
+def kwdoc(artist: Any) -> str: ...

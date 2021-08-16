@@ -1,22 +1,6 @@
 from typing import Optional
 
 
-class GridSpecFromSubplotSpec(GridSpecBase):
-    def __init__(self: GridSpecFromSubplotSpec,
-                 nrows: int,
-                 ncols: int,
-                 subplot_spec: {get_gridspec},
-                 wspace: Any = None,
-                 hspace: Any = None,
-                 height_ratios: Any = None,
-                 width_ratios: Any = None) -> None: ...
-
-    def get_subplot_params(self: GridSpecFromSubplotSpec,
-                           figure: Optional[{subplotpars}] = None) -> Any: ...
-
-    def get_topmost_subplotspec(self: GridSpecFromSubplotSpec) -> Any: ...
-
-
 class GridSpecBase(object):
     def __init__(self: GridSpecBase,
                  nrows: int,
@@ -64,6 +48,55 @@ class GridSpecBase(object):
                  sharey: bool = False,
                  squeeze: bool = True,
                  subplot_kw: Any = None) -> Union[int, float, complex, None, ndarray]: ...
+
+
+class GridSpec(GridSpecBase):
+    def __init__(self: GridSpec,
+                 nrows: int,
+                 ncols: int,
+                 figure: Any = None,
+                 left: Optional[float] = None,
+                 bottom: Optional[float] = None,
+                 right: Optional[float] = None,
+                 top: Optional[float] = None,
+                 wspace: Optional[float] = None,
+                 hspace: Optional[float] = None,
+                 width_ratios: Any = None,
+                 height_ratios: Any = None) -> None: ...
+
+    def __getstate__(self: GridSpec) -> dict[str, None]: ...
+
+    def update(self: GridSpec,
+               **kwargs) -> Any: ...
+
+    def get_subplot_params(self: GridSpec,
+                           figure: Any = None) -> Any: ...
+
+    def locally_modified_subplot_params(self: GridSpec) -> list[str]: ...
+
+    def tight_layout(self: GridSpec,
+                     figure: {axes},
+                     renderer: Any = None,
+                     pad: float = 1.08,
+                     h_pad: Optional[float] = None,
+                     w_pad: Optional[float] = None,
+                     rect: int = None) -> None: ...
+
+
+class GridSpecFromSubplotSpec(GridSpecBase):
+    def __init__(self: GridSpecFromSubplotSpec,
+                 nrows: int,
+                 ncols: int,
+                 subplot_spec: {get_gridspec},
+                 wspace: Any = None,
+                 hspace: Any = None,
+                 height_ratios: Any = None,
+                 width_ratios: Any = None) -> None: ...
+
+    def get_subplot_params(self: GridSpecFromSubplotSpec,
+                           figure: Optional[{subplotpars}] = None) -> Any: ...
+
+    def get_topmost_subplotspec(self: GridSpecFromSubplotSpec) -> Any: ...
 
 
 class SubplotSpec(object):
@@ -131,36 +164,3 @@ class SubplotSpec(object):
                     height_ratios: Any = ...,
                     width_ratios: Any = ...,
                     **kwargs) -> Any: ...
-
-
-class GridSpec(GridSpecBase):
-    def __init__(self: GridSpec,
-                 nrows: int,
-                 ncols: int,
-                 figure: Any = None,
-                 left: Optional[float] = None,
-                 bottom: Optional[float] = None,
-                 right: Optional[float] = None,
-                 top: Optional[float] = None,
-                 wspace: Optional[float] = None,
-                 hspace: Optional[float] = None,
-                 width_ratios: Any = None,
-                 height_ratios: Any = None) -> None: ...
-
-    def __getstate__(self: GridSpec) -> dict[str, None]: ...
-
-    def update(self: GridSpec,
-               **kwargs) -> Any: ...
-
-    def get_subplot_params(self: GridSpec,
-                           figure: Any = None) -> Any: ...
-
-    def locally_modified_subplot_params(self: GridSpec) -> list[str]: ...
-
-    def tight_layout(self: GridSpec,
-                     figure: {axes},
-                     renderer: Any = None,
-                     pad: float = 1.08,
-                     h_pad: Optional[float] = None,
-                     w_pad: Optional[float] = None,
-                     rect: int = None) -> None: ...

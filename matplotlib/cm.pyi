@@ -5,6 +5,47 @@ from matplotlib.colors import Colormap
 from numpy.core._multiarray_umath import ndarray
 
 
+def _gen_cmap_registry() -> dict[str, Union[LinearSegmentedColormap, ListedColormap]]: ...
+
+
+class _DeprecatedCmapDictWrapper(MutableMapping):
+    def __init__(self: _DeprecatedCmapDictWrapper,
+                 cmap_registry: Any) -> None: ...
+
+    def __delitem__(self: _DeprecatedCmapDictWrapper,
+                    key: Any) -> None: ...
+
+    def __getitem__(self: _DeprecatedCmapDictWrapper,
+                    key: Any) -> _VT_co: ...
+
+    def __iter__(self: _DeprecatedCmapDictWrapper) -> Iterator[_T_co]: ...
+
+    def __len__(self: _DeprecatedCmapDictWrapper) -> int: ...
+
+    def __setitem__(self: _DeprecatedCmapDictWrapper,
+                    key: Any,
+                    val: Any) -> None: ...
+
+    def get(self: _DeprecatedCmapDictWrapper,
+            key: Any,
+            default: Any = None) -> Any: ...
+
+    def _warn_deprecated(self: _DeprecatedCmapDictWrapper) -> None: ...
+
+
+def register_cmap(name: Optional[str] = None,
+                  cmap: Colormap = None,
+                  *,
+                  override_builtin: bool = False) -> None: ...
+
+
+def get_cmap(name: Union[Colormap, str, None] = None,
+             lut: Optional[int] = None) -> Union[Colormap, LinearSegmentedColormap, ListedColormap]: ...
+
+
+def unregister_cmap(name: str) -> Union[None, LinearSegmentedColormap, ListedColormap]: ...
+
+
 class ScalarMappable(object):
     def __init__(self: ScalarMappable,
                  norm: Any = None,
@@ -61,44 +102,3 @@ class ScalarMappable(object):
     @_api.deprecated("3.3")
     def check_update(self: ScalarMappable,
                      checker: Any) -> bool: ...
-
-
-def get_cmap(name: Union[Colormap, str, None] = None,
-             lut: Optional[int] = None) -> Union[Colormap, LinearSegmentedColormap, ListedColormap]: ...
-
-
-def register_cmap(name: Optional[str] = None,
-                  cmap: Colormap = None,
-                  *,
-                  override_builtin: bool = False) -> None: ...
-
-
-class _DeprecatedCmapDictWrapper(MutableMapping):
-    def __init__(self: _DeprecatedCmapDictWrapper,
-                 cmap_registry: Any) -> None: ...
-
-    def __delitem__(self: _DeprecatedCmapDictWrapper,
-                    key: Any) -> None: ...
-
-    def __getitem__(self: _DeprecatedCmapDictWrapper,
-                    key: Any) -> _VT_co: ...
-
-    def __iter__(self: _DeprecatedCmapDictWrapper) -> Iterator[_T_co]: ...
-
-    def __len__(self: _DeprecatedCmapDictWrapper) -> int: ...
-
-    def __setitem__(self: _DeprecatedCmapDictWrapper,
-                    key: Any,
-                    val: Any) -> None: ...
-
-    def get(self: _DeprecatedCmapDictWrapper,
-            key: Any,
-            default: Any = None) -> Any: ...
-
-    def _warn_deprecated(self: _DeprecatedCmapDictWrapper) -> None: ...
-
-
-def unregister_cmap(name: str) -> Union[None, LinearSegmentedColormap, ListedColormap]: ...
-
-
-def _gen_cmap_registry() -> dict[str, Union[LinearSegmentedColormap, ListedColormap]]: ...

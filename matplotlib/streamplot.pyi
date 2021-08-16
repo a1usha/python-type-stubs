@@ -8,41 +8,31 @@ from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedConstant
 
 
+def streamplot(axes: {add_patch, add_collection, autoscale_view},
+               x: int,
+               y: int,
+               u: int,
+               v: int,
+               density: Union[float, tuple[float, float]] = 1,
+               linewidth: Any = None,
+               color: Any = None,
+               cmap: Any = None,
+               norm: Any = None,
+               arrowsize: float = 1,
+               arrowstyle: str = '-|>',
+               minlength: float = 0.1,
+               transform: Any = None,
+               zorder: int = None,
+               start_points: Any = None,
+               maxlength: float = 4.0,
+               integration_direction: str = 'both') -> StreamplotSet: ...
+
+
 class StreamplotSet(object):
     def __init__(self: StreamplotSet,
                  lines: Any,
                  arrows: Any,
                  **kwargs) -> None: ...
-
-
-class TerminateTrajectory(Exception):
-    pass
-
-
-class OutOfBounds(IndexError):
-    pass
-
-
-class InvalidIndexError(Exception):
-    pass
-
-
-class StreamMask(object):
-    def __init__(self: StreamMask,
-                 density: Any) -> Any: ...
-
-    def __getitem__(self: StreamMask,
-                    args: Any) -> None: ...
-
-    def _start_trajectory(self: StreamMask,
-                          xm: Any,
-                          ym: Any) -> None: ...
-
-    def _undo_trajectory(self: StreamMask) -> None: ...
-
-    def _update_trajectory(self: StreamMask,
-                           xm: Any,
-                           ym: Any) -> Any: ...
 
 
 class DomainMap(object):
@@ -94,25 +84,30 @@ class Grid(object):
                     yi: Any) -> bool: ...
 
 
-def _euler_step(xf_traj: list[{__mul__}],
-                yf_traj: list,
-                dmap: DomainMap,
-                f: Union[(xi: Any, yi: Any)) -> tuple[float, list[{__mul__}], list]: ...
+class StreamMask(object):
+    def __init__(self: StreamMask,
+                 density: Any) -> Any: ...
+
+    def __getitem__(self: StreamMask,
+                    args: Any) -> None: ...
+
+    def _start_trajectory(self: StreamMask,
+                          xm: Any,
+                          ym: Any) -> None: ...
+
+    def _undo_trajectory(self: StreamMask) -> None: ...
+
+    def _update_trajectory(self: StreamMask,
+                           xm: Any,
+                           ym: Any) -> Any: ...
 
 
-def _integrate_rk12(x0: {__mul__},
-                    y0: Any,
-                    dmap: DomainMap,
-                    f: Union[(xi: Any, yi: Any),
-                    maxlength: float) -> tuple[int, list[{__mul__}], list]: ...
+class InvalidIndexError(Exception):
+    pass
 
 
-def interpgrid(a: Union[ndarray, None, MaskedConstant, float],
-               xi: ndarray,
-               yi: ndarray) -> Union[_NotImplementedType, MaskedConstant, int]: ...
-
-
-def _gen_starting_points(shape: tuple) -> Generator[tuple[int, int], Any, None]: ...
+class TerminateTrajectory(Exception):
+    pass
 
 
 def get_integrator(u: Optional[Any],
@@ -123,21 +118,26 @@ def get_integrator(u: Optional[Any],
                    integration_direction: str) -> (x0: {__mul__}, y0: Any) ->
 
 
-def streamplot(axes: {add_patch, add_collection, autoscale_view},
-               x: int,
-               y: int,
-               u: int,
-               v: int,
-               density: Union[float, tuple[float, float]] = 1,
-               linewidth: Any = None,
-               color: Any = None,
-               cmap: Any = None,
-               norm: Any = None,
-               arrowsize: float = 1,
-               arrowstyle: str = '-|>',
-               minlength: float = 0.1,
-               transform: Any = None,
-               zorder: int = None,
-               start_points: Any = None,
-               maxlength: float = 4.0,
-               integration_direction: str = 'both') -> StreamplotSet: ...
+class OutOfBounds(IndexError):
+    pass
+
+
+def _integrate_rk12(x0: {__mul__},
+                    y0: Any,
+                    dmap: DomainMap,
+                    f: Union[(xi: Any, yi: Any),
+                    maxlength: float) -> tuple[int, list[{__mul__}], list]: ...
+
+
+def _euler_step(xf_traj: list[{__mul__}],
+                yf_traj: list,
+                dmap: DomainMap,
+                f: Union[(xi: Any, yi: Any)) -> tuple[float, list[{__mul__}], list]: ...
+
+
+def interpgrid(a: Union[ndarray, None, MaskedConstant, float],
+               xi: ndarray,
+               yi: ndarray) -> Union[_NotImplementedType, MaskedConstant, int]: ...
+
+
+def _gen_starting_points(shape: tuple) -> Generator[tuple[int, int], Any, None]: ...
