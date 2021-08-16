@@ -22,7 +22,6 @@ class Axes(_AxesBase):
                   *,
                   y: float = None,
                   x: Any = ...,
-                  y: Any = ...,
                   text: str = ...,
                   color: Any = ...,
                   verticalalignment: Any = ...,
@@ -91,8 +90,6 @@ class Axes(_AxesBase):
              y: float,
              s: str,
              fontdict: dict = None,
-             x: Any = ...,
-             y: Any = ...,
              text: str = ...,
              color: Any = ...,
              verticalalignment: Any = ...,
@@ -374,8 +371,6 @@ class Axes(_AxesBase):
             *,
             align: str = "center",
             xy: tuple[float, float] = ...,
-            width: float = ...,
-            height: float = ...,
             angle: Any = ...,
             **kwargs) -> Any: ...
 
@@ -388,8 +383,6 @@ class Axes(_AxesBase):
              *,
              align: str = "center",
              xy: tuple[float, float] = ...,
-             width: float = ...,
-             height: float = ...,
              angle: Any = ...,
              **kwargs) -> Any: ...
 
@@ -407,8 +400,6 @@ class Axes(_AxesBase):
     def broken_barh(self: Axes,
                     xranges: Any,
                     yrange: Any,
-                    xranges: Any = ...,
-                    yrange: Any = ...,
                     **kwargs) -> Any: ...
 
     @_preprocess_data()
@@ -540,17 +531,13 @@ class Axes(_AxesBase):
                 *,
                 edgecolors: str = None,
                 plotnonfinite: bool = False,
-                edgecolors: Any = ...,
                 facecolors: Any = ...,
-                linewidths: Any = ...,
                 linestyles: Any = ...,
                 capstyle: Any = ...,
                 joinstyle: Any = ...,
                 antialiaseds: Any = ...,
                 offsets: Any = ...,
                 transOffset: Any = ...,
-                norm: Any = ...,
-                cmap: Any = ...,
                 pickradius: float = ...,
                 hatch: str = ...,
                 urls: Union[Iterable[str], list[None]] = ...,
@@ -710,8 +697,6 @@ class Axes(_AxesBase):
                    meshWidth: Any = ...,
                    meshHeight: Any = ...,
                    coordinates: Any = ...,
-                   antialiased: Any = ...,
-                   shading: Any = ...,
                    *args,
                    **kwargs) -> Any: ...
 
@@ -760,7 +745,6 @@ class Axes(_AxesBase):
              stacked: bool = False,
              edgecolor: Any = ...,
              facecolor: Any = ...,
-             color: Any = ...,
              linewidth: int = ...,
              linestyle: str = ...,
              antialiased: Optional[Any] = ...,
@@ -778,10 +762,6 @@ class Axes(_AxesBase):
                orientation: str = 'vertical',
                baseline: Union[float, ndarray, Iterable, int, None] = 0,
                fill: bool = False,
-               values: Any = ...,
-               edges: Any = ...,
-               orientation: Any = ...,
-               baseline: Any = ...,
                **kwargs) -> Any: ...
 
     @_preprocess_data(replace_names=["x", "y", "weights"])

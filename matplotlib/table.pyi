@@ -152,7 +152,4 @@ def table(ax: {add_table},
           loc: Optional[str] = 'bottom',
           bbox: Any = None,
           edges: str = 'closed',
-          ax: Any = ...,
-          loc: Any = ...,
-          bbox: Any = ...,
           **kwargs) -> Any: ...
