@@ -2,9 +2,12 @@ from typing import Any
 from typing import Callable
 from typing import Iterable
 from typing import Optional
+from typing import Tuple
 from typing import Union
 
+from matplotlib.mlab import GaussianKDE
 from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 def window_hanning(x: {__len__}) -> Optional[Any]: ...
@@ -45,7 +48,7 @@ def _spectral_helper(x: Union[{__len__}, ndarray, Iterable, int, float],
                      pad_to: int = None,
                      sides: str = None,
                      scale_by_freq: bool = None,
-                     mode: Union[{__ne__}, str] = None) -> tuple[
+                     mode: Union[{__ne__}, str] = None) -> Tuple[
     Union[ndarray, int, float, complex], Optional[ndarray], None]: ...
 
 
@@ -54,11 +57,10 @@ def _single_spectrum_helper(mode: {__ne__},
                             Fs: Any = None,
                             window: Any = None,
                             pad_to: Any = None,
-                            sides: Any = None) -> tuple[
+                            sides: Any = None) -> Tuple[
     Union[None, ndarray, int, float, complex], Optional[ndarray]]: ...
 
 
-@docstring.dedent_interpd
 def psd(x: Any,
         NFFT: int = None,
         Fs: int = None,
@@ -70,7 +72,6 @@ def psd(x: Any,
         scale_by_freq: Any = None) -> Any: ...
 
 
-@docstring.dedent_interpd
 def csd(x: Any,
         y: Any,
         NFFT: int = None,
@@ -83,7 +84,6 @@ def csd(x: Any,
         scale_by_freq: Any = None) -> Any: ...
 
 
-@docstring.dedent_interpd
 def specgram(x: Union[ndarray, Iterable, int, float],
              NFFT: Any = None,
              Fs: Any = None,
@@ -96,7 +96,6 @@ def specgram(x: Union[ndarray, Iterable, int, float],
              mode: str = None) -> Any: ...
 
 
-@docstring.dedent_interpd
 def cohere(x: {__len__},
            y: Any,
            NFFT: int = 256,

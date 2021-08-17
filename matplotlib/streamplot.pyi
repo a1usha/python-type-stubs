@@ -1,11 +1,18 @@
 from typing import Any
+from typing import Generator
 from typing import Optional
+from typing import Tuple
 from typing import Union
-from typing import tuple
 
+from Exception import Exception
+from IndexError import IndexError
 from matplotlib.streamplot import DomainMap
+from matplotlib.streamplot import Grid
+from matplotlib.streamplot import StreamMask
+from matplotlib.streamplot import StreamplotSet
 from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedConstant
+from object import object
 
 
 def streamplot(axes: {add_patch, add_collection, autoscale_view},
@@ -42,31 +49,31 @@ class DomainMap(object):
 
     def grid2mask(self: DomainMap,
                   xi: {__mul__},
-                  yi: {__mul__}) -> tuple[int, int]: ...
+                  yi: {__mul__}) -> Tuple[int, int]: ...
 
     def mask2grid(self: DomainMap,
                   xm: int,
-                  ym: {__mul__}) -> tuple[Union[int, float], float]: ...
+                  ym: {__mul__}) -> Tuple[Union[int, float], float]: ...
 
     def data2grid(self: DomainMap,
                   xd: Optional[Any],
-                  yd: Optional[Any]) -> tuple[float, float]: ...
+                  yd: Optional[Any]) -> Tuple[float, float]: ...
 
     def grid2data(self: DomainMap,
                   xg: {__truediv__},
-                  yg: {__truediv__}) -> tuple[float, float]: ...
+                  yg: {__truediv__}) -> Tuple[float, float]: ...
 
     def start_trajectory(self: DomainMap,
                          xg: {__mul__},
                          yg: {__mul__}) -> None: ...
 
     def reset_start_point(self: DomainMap,
-                          xg: Any,
+                          xg: {__mul__},
                           yg: {__mul__}) -> None: ...
 
     def update_trajectory(self: DomainMap,
-                          xg: Any,
-                          yg: Any) -> Any: ...
+                          xg: {__mul__},
+                          yg: {__mul__}) -> Any: ...
 
     def undo_trajectory(self: DomainMap) -> None: ...
 
@@ -76,8 +83,7 @@ class Grid(object):
                  x: {ndim, __len__, __getitem__},
                  y: {ndim, __len__, __getitem__}) -> Any: ...
 
-    @property
-    def shape(self: Grid) -> tuple[int, int]: ...
+    def shape(self: Grid) -> Tuple[int, int]: ...
 
     def within_grid(self: Grid,
                     xi: Any,
@@ -126,13 +132,13 @@ def _integrate_rk12(x0: {__mul__},
                     y0: Any,
                     dmap: DomainMap,
                     f: Union[(xi: Any, yi: Any),
-                    maxlength: float) -> tuple[int, list[{__mul__}], list]: ...
+                    maxlength: float) -> Tuple[int, list[{__mul__}], list]: ...
 
 
 def _euler_step(xf_traj: list[{__mul__}],
                 yf_traj: list,
                 dmap: DomainMap,
-                f: Union[(xi: Any, yi: Any)) -> tuple[float, list[{__mul__}], list]: ...
+                f: Union[(xi: Any, yi: Any)) -> Tuple[float, list[{__mul__}], list]: ...
 
 
 def interpgrid(a: Union[ndarray, None, MaskedConstant, float],
@@ -140,4 +146,4 @@ def interpgrid(a: Union[ndarray, None, MaskedConstant, float],
                yi: ndarray) -> Union[_NotImplementedType, MaskedConstant, int]: ...
 
 
-def _gen_starting_points(shape: tuple) -> Generator[tuple[int, int], Any, None]: ...
+def _gen_starting_points(shape: tuple) -> Generator[Tuple[int, int], Any, None]: ...

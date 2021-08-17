@@ -1,11 +1,17 @@
 from typing import Any
 from typing import Iterable
+from typing import Optional
 from typing import Sized
 from typing import Union
 
+from matplotlib import _api
+from matplotlib._enums import CapStyle
+from matplotlib._enums import JoinStyle
 from matplotlib.markers import MarkerStyle
 from matplotlib.path import Path
+from matplotlib.transforms import IdentityTransform
 from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 class MarkerStyle(object):

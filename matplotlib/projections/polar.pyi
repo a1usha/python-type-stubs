@@ -1,6 +1,43 @@
+from collections import OrderedDict
 from typing import Any
 from typing import Optional
+from typing import OrderedDict
+from typing import Tuple
 from typing import Union
+
+from matplotlib import _api
+from matplotlib.axes._axes import Axes
+from matplotlib.axis import XAxis
+from matplotlib.axis import XTick
+from matplotlib.axis import YAxis
+from matplotlib.axis import YTick
+from matplotlib.patches import Wedge
+from matplotlib.path import Path
+from matplotlib.projections.polar import InvertedPolarTransform
+from matplotlib.projections.polar import PolarAffine
+from matplotlib.projections.polar import PolarAxes
+from matplotlib.projections.polar import PolarTransform
+from matplotlib.projections.polar import RadialAxis
+from matplotlib.projections.polar import RadialLocator
+from matplotlib.projections.polar import RadialTick
+from matplotlib.projections.polar import ThetaAxis
+from matplotlib.projections.polar import ThetaFormatter
+from matplotlib.projections.polar import ThetaLocator
+from matplotlib.projections.polar import ThetaTick
+from matplotlib.projections.polar import _AxisWrapper
+from matplotlib.projections.polar import _ThetaShift
+from matplotlib.projections.polar import _WedgeBbox
+from matplotlib.ticker import Formatter
+from matplotlib.ticker import Locator
+from matplotlib.transforms import Affine2DBase
+from matplotlib.transforms import Bbox
+from matplotlib.transforms import CompositeAffine2D
+from matplotlib.transforms import CompositeGenericTransform
+from matplotlib.transforms import ScaledTranslation
+from matplotlib.transforms import Transform
+from matplotlib.transforms import TransformWrapper
+from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 class PolarTransform(Transform):
@@ -146,7 +183,7 @@ class RadialLocator(Locator):
 
     def nonsingular(self: RadialLocator,
                     vmin: Any,
-                    vmax: Any) -> tuple[int, int]: ...
+                    vmax: Any) -> Tuple[int, int]: ...
 
     def view_limits(self: RadialLocator,
                     vmin: Any,
@@ -170,7 +207,7 @@ class RadialTick(YTick):
     def _determine_anchor(self: RadialTick,
                           mode: str,
                           angle: int,
-                          start: Any) -> tuple[str, str]: ...
+                          start: Any) -> Tuple[str, str]: ...
 
     def update_position(self: RadialTick,
                         loc: Any) -> None: ...
@@ -233,11 +270,11 @@ class PolarAxes(Axes):
                                                                                       input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
 
     def get_xaxis_text1_transform(self: PolarAxes,
-                                  pad: Any) -> tuple[Union[{input_dims, output_dims}, {output_dims,
+                                  pad: Any) -> Tuple[Union[{input_dims, output_dims}, {output_dims,
                                                                                        input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]: ...
 
     def get_xaxis_text2_transform(self: PolarAxes,
-                                  pad: Any) -> tuple[Union[{input_dims, output_dims}, {output_dims,
+                                  pad: Any) -> Tuple[Union[{input_dims, output_dims}, {output_dims,
                                                                                        input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]: ...
 
     def get_yaxis_transform(self: PolarAxes,
@@ -245,13 +282,13 @@ class PolarAxes(Axes):
                                                                                                         input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
 
     def get_yaxis_text1_transform(self: PolarAxes,
-                                  pad: float) -> Union[tuple[TransformWrapper, str, str], tuple[Union[{input_dims,
+                                  pad: float) -> Union[Tuple[TransformWrapper, str, str], Tuple[Union[{input_dims,
                                                                                                        output_dims}, {
                                                                                                           output_dims,
                                                                                                           input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]]: ...
 
     def get_yaxis_text2_transform(self: PolarAxes,
-                                  pad: float) -> tuple[Union[{input_dims, output_dims}, {output_dims,
+                                  pad: float) -> Tuple[Union[{input_dims, output_dims}, {output_dims,
                                                                                          input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]: ...
 
     @_api.delete_parameter("3.3", "args")
@@ -277,7 +314,7 @@ class PolarAxes(Axes):
 
     def set_thetalim(self: PolarAxes,
                      *args,
-                     **kwargs) -> tuple: ...
+                     **kwargs) -> Tuple: ...
 
     def set_theta_offset(self: PolarAxes,
                          offset: Union[int, float]) -> None: ...
@@ -315,7 +352,7 @@ class PolarAxes(Axes):
                  top: Any = None,
                  emit: bool = True,
                  auto: bool = False,
-                 **kwargs) -> tuple[float, float]: ...
+                 **kwargs) -> Tuple[float, float]: ...
 
     def set_ylim(self: PolarAxes,
                  bottom: Optional[float] = None,
@@ -324,7 +361,7 @@ class PolarAxes(Axes):
                  auto: Optional[bool] = False,
                  *,
                  ymin: Optional[float] = None,
-                 ymax: Optional[float] = None) -> tuple[float, float]: ...
+                 ymax: Optional[float] = None) -> Tuple[float, float]: ...
 
     def get_rlabel_position(self: PolarAxes) -> float: ...
 

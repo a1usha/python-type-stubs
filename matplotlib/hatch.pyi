@@ -2,6 +2,19 @@ from typing import Any
 from typing import Optional
 from typing import Union
 
+from matplotlib.hatch import Circles
+from matplotlib.hatch import HorizontalHatch
+from matplotlib.hatch import LargeCircles
+from matplotlib.hatch import NorthEastHatch
+from matplotlib.hatch import Shapes
+from matplotlib.hatch import SmallCircles
+from matplotlib.hatch import SmallFilledCircles
+from matplotlib.hatch import SouthEastHatch
+from matplotlib.hatch import Stars
+from matplotlib.hatch import VerticalHatch
+from matplotlib.path import Path
+from object import object
+
 
 class HatchPatternBase(object):
     pass

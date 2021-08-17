@@ -2,9 +2,18 @@ from typing import Any
 from typing import Type
 from typing import Union
 
+from matplotlib.backend_bases import RendererBase
+from matplotlib.font_manager import FontProperties
+from matplotlib.patheffects import AbstractPathEffect
+from matplotlib.patheffects import PathEffectRenderer
+from matplotlib.patheffects import PathPatchEffect
+from matplotlib.patheffects import SimpleLineShadow
 from matplotlib.patheffects import SimplePatchShadow
 from matplotlib.patheffects import Stroke
 from matplotlib.patheffects import TickedStroke
+from matplotlib.transforms import Affine2D
+from matplotlib.transforms import Transform
+from object import object
 
 
 class AbstractPathEffect(object):

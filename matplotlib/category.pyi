@@ -1,21 +1,26 @@
 from typing import Any
 
+from matplotlib.category import StrCategoryFormatter
+from matplotlib.category import StrCategoryLocator
+from matplotlib.category import UnitData
+from matplotlib.ticker import Formatter
+from matplotlib.ticker import Locator
+from matplotlib.units import ConversionInterface
+from numpy.core._multiarray_umath import ndarray
+from object import object
+
 
 class StrCategoryConverter(ConversionInterface):
-    @staticmethod
     def convert(value: str,
                 unit: Any,
                 axis: Any) -> ndarray: ...
 
-    @staticmethod
     def axisinfo(unit: Any,
                  axis: Any) -> Any: ...
 
-    @staticmethod
     def default_units(data: str,
                       axis: Any) -> Any: ...
 
-    @staticmethod
     def _validate_unit(unit: Any) -> Any: ...
 
 
@@ -39,9 +44,8 @@ class StrCategoryFormatter(Formatter):
                  pos: Any = None) -> str: ...
 
     def format_ticks(self: StrCategoryFormatter,
-                     values: Any) -> list[str]: ...
+                     values: list) -> list[str]: ...
 
-    @staticmethod
     def _text(value: Any) -> str: ...
 
 
@@ -49,7 +53,6 @@ class UnitData(object):
     def __init__(self: UnitData,
                  data: Any = None) -> None: ...
 
-    @staticmethod
     def _str_is_convertible(val: Any) -> bool: ...
 
     def update(self: UnitData,

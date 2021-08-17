@@ -1,5 +1,25 @@
 from typing import Any
 from typing import Optional
+from typing import Tuple
+from typing import Union
+
+from matplotlib.axes._axes import Axes
+from matplotlib.patches import Circle
+from matplotlib.path import Path
+from matplotlib.projections.geo import AitoffAxes
+from matplotlib.projections.geo import GeoAxes
+from matplotlib.projections.geo import HammerAxes
+from matplotlib.projections.geo import LambertAxes
+from matplotlib.projections.geo import MollweideAxes
+from matplotlib.projections.geo import _GeoTransform
+from matplotlib.projections.geo.AitoffAxes import AitoffTransform
+from matplotlib.projections.geo.HammerAxes import HammerTransform
+from matplotlib.projections.geo.LambertAxes import LambertTransform
+from matplotlib.projections.geo.MollweideAxes import MollweideTransform
+from matplotlib.transforms import Affine2D
+from matplotlib.transforms import CompositeAffine2D
+from matplotlib.transforms import CompositeGenericTransform
+from matplotlib.transforms import Transform
 
 
 class GeoAxes(Axes):
@@ -16,11 +36,11 @@ class GeoAxes(Axes):
                                                                                       input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
 
     def get_xaxis_text1_transform(self: GeoAxes,
-                                  pad: Any) -> tuple[Union[{input_dims, output_dims}, {output_dims,
+                                  pad: Any) -> Tuple[Union[{input_dims, output_dims}, {output_dims,
                                                                                        input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]: ...
 
     def get_xaxis_text2_transform(self: GeoAxes,
-                                  pad: Any) -> tuple[Union[{input_dims, output_dims}, {output_dims,
+                                  pad: Any) -> Tuple[Union[{input_dims, output_dims}, {output_dims,
                                                                                        input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]: ...
 
     def get_yaxis_transform(self: GeoAxes,
@@ -28,11 +48,11 @@ class GeoAxes(Axes):
                                                                                       input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
 
     def get_yaxis_text1_transform(self: GeoAxes,
-                                  pad: Any) -> tuple[Union[{input_dims, output_dims}, {output_dims,
+                                  pad: Any) -> Tuple[Union[{input_dims, output_dims}, {output_dims,
                                                                                        input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]: ...
 
     def get_yaxis_text2_transform(self: GeoAxes,
-                                  pad: Any) -> tuple[Union[{input_dims, output_dims}, {output_dims,
+                                  pad: Any) -> Tuple[Union[{input_dims, output_dims}, {output_dims,
                                                                                        input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]: ...
 
     def _gen_axes_patch(self: GeoAxes) -> Circle: ...

@@ -1,10 +1,16 @@
 from typing import Any
+from typing import Callable
+from typing import Tuple
+from typing import Union
 
+from ValueError import ValueError
+from matplotlib import _api
+from matplotlib.bezier import BezierSegment
+from matplotlib.path import Path
 from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
-@np.vectorize
-@lru_cache(maxsize=128)
 def _comb(n: {__sub__, __add__},
           k: {__gt__}) -> Union[int, ndarray]: ...
 
@@ -20,14 +26,14 @@ def get_intersection(cx1: float,
                      cx2: float,
                      cy2: float,
                      cos_t2: {__mul__, __neg__},
-                     sin_t2: {__mul__}) -> tuple[float, float]: ...
+                     sin_t2: {__mul__}) -> Tuple[float, float]: ...
 
 
 def get_normal_points(cx: float,
                       cy: float,
                       cos_t: {__neg__},
                       sin_t: {__neg__},
-                      length: float) -> tuple[float, float, float, float]: ...
+                      length: float) -> Tuple[float, float, float, float]: ...
 
 
 def _de_casteljau1(beta: ndarray,
@@ -35,7 +41,7 @@ def _de_casteljau1(beta: ndarray,
 
 
 def split_de_casteljau(beta: int,
-                       t: float) -> tuple[list[None], list[None]]: ...
+                       t: float) -> Tuple[list[None], list[None]]: ...
 
 
 def find_bezier_t_intersecting_with_closedpath(bezier_point_at_t: Callable,
@@ -53,18 +59,14 @@ class BezierSegment(object):
                  t: Any) -> Any: ...
 
     def point_at_t(self: BezierSegment,
-                   t: Any) -> tuple: ...
+                   t: Any) -> Tuple: ...
 
-    @property
     def control_points(self: BezierSegment) -> ndarray: ...
 
-    @property
     def dimension(self: BezierSegment) -> Any: ...
 
-    @property
     def degree(self: BezierSegment) -> int: ...
 
-    @property
     def polynomial_coefficients(self: BezierSegment) -> Any: ...
 
     def axis_aligned_extrema(self: BezierSegment) -> array.pyi: ...
@@ -78,7 +80,7 @@ def split_bezier_intersecting_with_closedpath(bezier: int,
 def split_path_inout(path: {iter_segments, codes},
                      inside: Any,
                      tolerance: float = 0.01,
-                     reorder_inout: bool = False) -> tuple[Path, Path]: ...
+                     reorder_inout: bool = False) -> Tuple[Path, Path]: ...
 
 
 def inside_circle(cx: Any,
@@ -89,7 +91,7 @@ def inside_circle(cx: Any,
 def get_cos_sin(x0: float,
                 y0: float,
                 x1: float,
-                y1: float) -> Union[tuple[float, float], tuple[float, float]]: ...
+                y1: float) -> Union[Tuple[float, float], Tuple[float, float]]: ...
 
 
 def check_if_parallel(dx1: float,
@@ -100,7 +102,7 @@ def check_if_parallel(dx1: float,
 
 
 def get_parallels(bezier2: {__getitem__},
-                  width: Any) -> tuple[list[tuple[float, float]], list[tuple[float, float]]]: ...
+                  width: Any) -> Tuple[list[Tuple[float, float]], list[Tuple[float, float]]]: ...
 
 
 def find_control_points(c1x: float,
@@ -108,14 +110,14 @@ def find_control_points(c1x: float,
                         mmx: float,
                         mmy: float,
                         c2x: float,
-                        c2y: float) -> list[tuple[float, float]]: ...
+                        c2y: float) -> list[Tuple[float, float]]: ...
 
 
 def make_wedged_bezier2(bezier2: {__getitem__},
                         width: {__mul__},
                         w1: float = 1.,
                         wm: float = 0.5,
-                        w2: float = 0.) -> tuple[list[tuple[float, float]], list[tuple[float, float]]]: ...
+                        w2: float = 0.) -> Tuple[list[Tuple[float, float]], list[Tuple[float, float]]]: ...
 
 
 @_api.deprecated(

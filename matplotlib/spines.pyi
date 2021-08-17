@@ -1,12 +1,28 @@
+from functools import partial
 from typing import Any
+from typing import Iterator
+from typing import MutableMapping
 from typing import Optional
-from typing import tuple
+from typing import Type
+from typing import Union
+
+from matplotlib import _api
+from matplotlib.patches import Patch
+from matplotlib.spines import Spine
+from matplotlib.spines import Spines
+from matplotlib.spines import SpinesProxy
+from matplotlib.transforms import Bbox
+from matplotlib.transforms import BlendedAffine2D
+from matplotlib.transforms import BlendedGenericTransform
+from matplotlib.transforms import CompositeAffine2D
+from matplotlib.transforms import CompositeGenericTransform
+from matplotlib.transforms import IdentityTransform
+from object import object
 
 
 class Spine(Patch):
     def __str__(self: Spine) -> str: ...
 
-    @docstring.dedent_interpd
     def __init__(self: Spine,
                  axes: Any,
                  spine_type: str,
@@ -46,7 +62,6 @@ class Spine(Patch):
 
     def _adjust_location(self: Spine) -> None: ...
 
-    @allow_rasterization
     def draw(self: Spine,
              renderer: {open_group, new_gc, draw_path, close_group}) -> Any: ...
 
@@ -64,13 +79,11 @@ class Spine(Patch):
 
     def get_bounds(self: Spine) -> Any: ...
 
-    @classmethod
     def linear_spine(cls: Type[Spine],
                      axes: Any,
                      spine_type: {__eq__},
                      **kwargs) -> Spine: ...
 
-    @classmethod
     def arc_spine(cls: Type[Spine],
                   axes: Any,
                   spine_type: Any,
@@ -80,7 +93,6 @@ class Spine(Patch):
                   theta2: {__sub__, __ne__},
                   **kwargs) -> Spine: ...
 
-    @classmethod
     def circular_spine(cls: Type[Spine],
                        axes: Any,
                        center: Any,
@@ -105,7 +117,6 @@ class Spines(MutableMapping):
     def __init__(self: Spines,
                  **kwargs) -> None: ...
 
-    @classmethod
     def from_dict(cls: Type[Spines],
                   d: Any) -> Spines: ...
 

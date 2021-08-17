@@ -1,12 +1,27 @@
 from typing import Any
+from typing import Generator
+from typing import Iterable
 from typing import Optional
+from typing import Tuple
 from typing import Union
-from typing import tuple
 
+from matplotlib.artist import Artist
+from matplotlib.backend_bases import MouseEvent
+from matplotlib.offsetbox import DraggableAnnotation
+from matplotlib.text import Annotation
+from matplotlib.text import OffsetFrom
 from matplotlib.text import Text
+from matplotlib.text import _AnnotationBase
+from matplotlib.transforms import Affine2D
+from matplotlib.transforms import Bbox
+from matplotlib.transforms import BboxTransformTo
+from matplotlib.transforms import BlendedAffine2D
+from matplotlib.transforms import BlendedGenericTransform
+from matplotlib.transforms import Transform
+from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
-@contextlib.contextmanager
 def _wrap_text(textobj: Text) -> Generator[Text, Any, None]: ...
 
 
@@ -14,23 +29,9 @@ def get_rotation(rotation: str) -> float: ...
 
 
 def _get_textbox(text: Text,
-                 renderer: Optional[Any]) -> tuple[Any, Any, Any, Any]: ...
+                 renderer: Optional[Any]) -> Tuple[Any, Any, Any, Any]: ...
 
 
-@cbook._define_aliases({
-    "color": ["c"],
-    "fontfamily": ["family"],
-    "fontproperties": ["font", "font_properties"],
-    "horizontalalignment": ["ha"],
-    "multialignment": ["ma"],
-    "fontname": ["name"],
-    "fontsize": ["size"],
-    "fontstretch": ["stretch"],
-    "fontstyle": ["style"],
-    "fontvariant": ["variant"],
-    "verticalalignment": ["va"],
-    "fontweight": ["weight"],
-})
 class Text(Artist):
     def __repr__(self: Text) -> str: ...
 
@@ -57,7 +58,7 @@ class Text(Artist):
     def __getstate__(self: Text) -> dict[str, Any]: ...
 
     def contains(self: Text,
-                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict], tuple[bool, dict[str, Any]]]: ...
+                 mouseevent: MouseEvent) -> Union[Tuple[Any, Any], Tuple[bool, dict], Tuple[bool, dict[str, Any]]]: ...
 
     def _get_xy_display(self: Text) -> Any: ...
 
@@ -77,7 +78,7 @@ class Text(Artist):
                             _path_effects, sticky_edges}) -> None: ...
 
     def _get_layout(self: Text,
-                    renderer: Optional[Any]) -> tuple[Bbox, list[tuple[str, tuple[int, int], Any]], int]: ...
+                    renderer: Optional[Any]) -> Tuple[Bbox, list[Tuple[str, Tuple[int, int], Any]], int]: ...
 
     def set_bbox(self: Text,
                  rectprops: Any) -> None: ...
@@ -107,7 +108,7 @@ class Text(Artist):
     def _get_wrap_line_width(self: Text) -> Union[float, int]: ...
 
     def _get_dist_to_box(self: Text,
-                         rotation: float,
+                         rotation: Union[int, float],
                          x0: Any,
                          y0: Any,
                          figure_box: Any) -> float: ...
@@ -117,7 +118,6 @@ class Text(Artist):
 
     def _get_wrapped_text(self: Text) -> str: ...
 
-    @artist.allow_rasterization
     def draw(self: Text,
              renderer: Optional[{open_group, get_canvas_width_height, new_gc, flipy, close_group}]) -> Optional[
         Any]: ...
@@ -142,12 +142,12 @@ class Text(Artist):
 
     def get_horizontalalignment(self: Text) -> Any: ...
 
-    def get_unitless_position(self: Text) -> tuple[float, float]: ...
+    def get_unitless_position(self: Text) -> Tuple[float, float]: ...
 
-    def get_position(self: Text) -> tuple[int, int]: ...
+    def get_position(self: Text) -> Tuple[int, int]: ...
 
     def get_prop_tup(self: Text,
-                     renderer: Optional[Any] = None) -> tuple[
+                     renderer: Optional[Any] = None) -> Tuple[
         float, float, str, Any, Any, Any, int, Any, Optional[str], bool, Any, ReferenceType, float]: ...
 
     def get_text(self: Text) -> str: ...
@@ -218,7 +218,7 @@ class Text(Artist):
                  s: object) -> None: ...
 
     def _preprocess_math(self: Text,
-                         s: str) -> Union[tuple[str, str], tuple[str, bool], tuple[str, bool]]: ...
+                         s: str) -> Union[Tuple[str, str], Tuple[str, bool], Tuple[str, bool]]: ...
 
     def set_fontproperties(self: Text,
                            fp: Any) -> None: ...
@@ -300,19 +300,15 @@ class Annotation(Text, _AnnotationBase):
                  **kwargs) -> Any: ...
 
     def contains(self: Annotation,
-                 event: {canvas}) -> tuple[Any, Any]: ...
+                 event: {canvas}) -> Tuple[Any, Any]: ...
 
-    @property
     def xycoords(self: Annotation) -> Any: ...
 
-    @xycoords.setter
     def xycoords(self: Annotation,
                  xycoords: Any) -> Any: ...
 
-    @property
-    def xyann(self: Annotation) -> tuple[int, int]: ...
+    def xyann(self: Annotation) -> Tuple[int, int]: ...
 
-    @xyann.setter
     def xyann(self: Annotation,
               xytext: Any) -> None: ...
 
@@ -327,7 +323,6 @@ class Annotation(Text, _AnnotationBase):
     def update_positions(self: Annotation,
                          renderer: Optional[Any]) -> None: ...
 
-    @artist.allow_rasterization
     def draw(self: Annotation,
              renderer: Optional[{open_group, get_canvas_width_height, new_gc, flipy, close_group}]) -> Optional[
         Any]: ...

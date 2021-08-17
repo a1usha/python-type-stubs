@@ -1,10 +1,20 @@
 from typing import Any
 from typing import Iterable
 from typing import Optional
+from typing import Tuple
 from typing import Union
-from typing import tuple
 
+from matplotlib.tri.triinterpolate import CubicTriInterpolator
+from matplotlib.tri.triinterpolate import LinearTriInterpolator
+from matplotlib.tri.triinterpolate import TriInterpolator
+from matplotlib.tri.triinterpolate import _DOF_estimator
+from matplotlib.tri.triinterpolate import _DOF_estimator_geom
+from matplotlib.tri.triinterpolate import _DOF_estimator_min_E
+from matplotlib.tri.triinterpolate import _DOF_estimator_user
+from matplotlib.tri.triinterpolate import _ReducedHCT_Element
+from matplotlib.tri.triinterpolate import _Sparse_Matrix_coo
 from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 class TriInterpolator(object):
@@ -73,15 +83,12 @@ class CubicTriInterpolator(TriInterpolator):
                      kind: str,
                      dz: Any = None) -> Any: ...
 
-    @staticmethod
     def _get_alpha_vec(x: Any,
                        y: Any,
                        tris_pts: int) -> Any: ...
 
-    @staticmethod
     def _get_jacobian(tris_pts: int) -> Any: ...
 
-    @staticmethod
     def _compute_tri_eccentricities(tris_pts: int) -> Any: ...
 
 
@@ -93,7 +100,7 @@ class _ReducedHCT_Element(object):
 
     def get_function_derivatives(self: _ReducedHCT_Element,
                                  alpha: Any,
-                                 J: Any,
+                                 J: tuple[Any, Any, Any, Any],
                                  ecc: Any,
                                  dofs: {__matmul__}) -> None: ...
 
@@ -113,7 +120,7 @@ class _ReducedHCT_Element(object):
 
     def get_Hrot_from_J(self: _ReducedHCT_Element,
                         J: tuple[Any, Any, Any, Any],
-                        return_area: bool = False) -> tuple[Any, float]: ...
+                        return_area: bool = False) -> Tuple[Any, float]: ...
 
     def get_Kff_and_Ff(self: _ReducedHCT_Element,
                        J: tuple[Any, Any, Any, Any],
@@ -132,10 +139,9 @@ class _DOF_estimator(object):
 
     def compute_dof_from_df(self: _DOF_estimator) -> Any: ...
 
-    @staticmethod
     def get_dof_vec(tri_z: Any,
                     tri_dz: int,
-                    J: {__matmul__}) -> Any: ...
+                    J: tuple[Any, Any, Any, Any]) -> Any: ...
 
 
 class _DOF_estimator_user(_DOF_estimator):
@@ -176,7 +182,6 @@ class _Sparse_Matrix_coo(object):
 
     def __str__(self: _Sparse_Matrix_coo) -> None: ...
 
-    @property
     def diag(self: _Sparse_Matrix_coo) -> ndarray: ...
 
 

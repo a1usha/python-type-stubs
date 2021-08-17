@@ -1,6 +1,11 @@
 from typing import Any
 from typing import BinaryIO
 from typing import Generator
+from typing import Tuple
+from typing import Type
+
+from matplotlib.type1font import Type1Font
+from object import object
 
 
 class Type1Font(object):
@@ -11,15 +16,13 @@ class Type1Font(object):
               file: BinaryIO) -> bytes: ...
 
     def _split(self: Type1Font,
-               data: bytes) -> tuple[Union[int, bytes], bytes, Union[int, bytes]]: ...
+               data: bytes) -> Tuple[Union[int, bytes], bytes, Union[int, bytes]]: ...
 
-    @classmethod
     def _tokens(cls: Type[Type1Font],
-                text: {__len__, __getitem__}) -> Generator[Union[tuple[Any, bytes], tuple[Any, Any]], Any, None]: ...
+                text: {__len__, __getitem__}) -> Generator[Union[Tuple[Any, bytes], Tuple[Any, Any]], Any, None]: ...
 
     def _parse(self: Type1Font) -> None: ...
 
-    @classmethod
     def _transformer(cls: Type[Type1Font],
                      tokens: Generator[Union[tuple[Any, bytes], tuple[Any, Any]], Any, None],
                      slant: Any,

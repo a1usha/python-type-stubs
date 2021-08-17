@@ -1,22 +1,49 @@
+from functools import partial
+from numbers import Number
 from typing import Any
+from typing import Callable
+from typing import Generator
 from typing import Iterable
 from typing import Optional
+from typing import StairData
+from typing import Tuple
+from typing import Type
 from typing import Union
-from typing import tuple
 
+from matplotlib import _api
+from matplotlib.artist import Artist
+from matplotlib.backend_bases import MouseEvent
+from matplotlib.patches import Arc
+from matplotlib.patches import Arrow
 from matplotlib.patches import ArrowStyle
 from matplotlib.patches import BoxStyle
+from matplotlib.patches import Circle
+from matplotlib.patches import CirclePolygon
+from matplotlib.patches import ConnectionPatch
+from matplotlib.patches import Ellipse
+from matplotlib.patches import FancyArrow
+from matplotlib.patches import FancyArrowPatch
+from matplotlib.patches import FancyBboxPatch
+from matplotlib.patches import Patch
+from matplotlib.patches import PathPatch
+from matplotlib.patches import Polygon
+from matplotlib.patches import Rectangle
+from matplotlib.patches import RegularPolygon
+from matplotlib.patches import Shadow
+from matplotlib.patches import StepPatch
+from matplotlib.patches import Wedge
+from matplotlib.patches import _Style
+from matplotlib.patches.ArrowStyle import _Base
 from matplotlib.path import Path
+from matplotlib.transforms import Affine2D
+from matplotlib.transforms import Bbox
+from matplotlib.transforms import CompositeAffine2D
+from matplotlib.transforms import CompositeGenericTransform
+from matplotlib.transforms import IdentityTransform
 from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
-@cbook._define_aliases({
-    "antialiased": ["aa"],
-    "edgecolor": ["ec"],
-    "facecolor": ["fc"],
-    "linestyle": ["ls"],
-    "linewidth": ["lw"],
-})
 class Patch(Artist):
     @_api.deprecated("3.4")
     @_api.classproperty
@@ -111,13 +138,11 @@ class Patch(Artist):
 
     def get_fill(self: Patch) -> bool: ...
 
-    @docstring.interpd
     def set_capstyle(self: Patch,
                      s: Any) -> Optional[Any]: ...
 
     def get_capstyle(self: Patch) -> Any: ...
 
-    @docstring.interpd
     def set_joinstyle(self: Patch,
                       s: Any) -> Optional[Any]: ...
 
@@ -128,11 +153,9 @@ class Patch(Artist):
 
     def get_hatch(self: Patch) -> Any: ...
 
-    @contextlib.contextmanager
     def _bind_draw_path_function(self: Patch,
                                  renderer: Optional[Any]) -> Generator[partial[None], Any, None]: ...
 
-    @artist.allow_rasterization
     def draw(self: Patch,
              renderer: Any) -> Optional[Any]: ...
 
@@ -142,14 +165,13 @@ class Patch(Artist):
                           renderer: Any = None) -> Any: ...
 
     def _convert_xy_units(self: Patch,
-                          xy: {__getitem__}) -> tuple[Any, Any]: ...
+                          xy: {__getitem__}) -> Tuple[Any, Any]: ...
 
 
 class Shadow(Patch):
     def __str__(self: Shadow) -> str: ...
 
     @_api.delete_parameter("3.3", "props")
-    @docstring.dedent_interpd
     def __init__(self: Shadow,
                  patch: Any,
                  ox: float,
@@ -173,7 +195,6 @@ class Shadow(Patch):
 class Rectangle(Patch):
     def __str__(self: Rectangle) -> str: ...
 
-    @docstring.dedent_interpd
     def __init__(self: Rectangle,
                  xy: tuple[float, float],
                  width: float,
@@ -193,7 +214,7 @@ class Rectangle(Patch):
 
     def get_path(self: Rectangle) -> Path: ...
 
-    def _convert_units(self: Rectangle) -> tuple[Any, Any, Any, Any]: ...
+    def _convert_units(self: Rectangle) -> Tuple[Any, Any, Any, Any]: ...
 
     def get_patch_transform(self: Rectangle) -> Union[{input_dims, output_dims}, {output_dims,
                                                                                   input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
@@ -202,7 +223,7 @@ class Rectangle(Patch):
 
     def get_y(self: Rectangle) -> float: ...
 
-    def get_xy(self: Rectangle) -> tuple[float, float]: ...
+    def get_xy(self: Rectangle) -> Tuple[float, float]: ...
 
     def get_width(self: Rectangle) -> float: ...
 
@@ -232,7 +253,6 @@ class Rectangle(Patch):
 class RegularPolygon(Patch):
     def __str__(self: RegularPolygon) -> str: ...
 
-    @docstring.dedent_interpd
     def __init__(self: RegularPolygon,
                  xy: tuple[float, float],
                  numVertices: int,
@@ -248,7 +268,6 @@ class RegularPolygon(Patch):
 class PathPatch(Patch):
     def __str__(self: PathPatch) -> str: ...
 
-    @docstring.dedent_interpd
     def __init__(self: PathPatch,
                  path: Path,
                  **kwargs) -> Optional[Any]: ...
@@ -260,7 +279,6 @@ class PathPatch(Patch):
 
 
 class StepPatch(PathPatch):
-    @docstring.dedent_interpd
     def __init__(self: StepPatch,
                  values: Union[ndarray, Iterable, int, float],
                  edges: Union[ndarray, Iterable, int, float],
@@ -282,7 +300,6 @@ class StepPatch(PathPatch):
 class Polygon(Patch):
     def __str__(self: Polygon) -> str: ...
 
-    @docstring.dedent_interpd
     def __init__(self: Polygon,
                  xy: Optional[ndarray],
                  closed: bool = True,
@@ -304,7 +321,6 @@ class Polygon(Patch):
 class Wedge(Patch):
     def __str__(self: Wedge) -> str: ...
 
-    @docstring.dedent_interpd
     def __init__(self: Wedge,
                  center: Any,
                  r: Any,
@@ -336,7 +352,6 @@ class Wedge(Patch):
 class Arrow(Patch):
     def __str__(self: Arrow) -> str: ...
 
-    @docstring.dedent_interpd
     def __init__(self: Arrow,
                  x: float,
                  y: float,
@@ -353,7 +368,6 @@ class Arrow(Patch):
 class FancyArrow(Polygon):
     def __str__(self: FancyArrow) -> str: ...
 
-    @docstring.dedent_interpd
     def __init__(self: FancyArrow,
                  x: Any,
                  y: Any,
@@ -372,7 +386,6 @@ class FancyArrow(Polygon):
 class CirclePolygon(RegularPolygon):
     def __str__(self: CirclePolygon) -> str: ...
 
-    @docstring.dedent_interpd
     def __init__(self: CirclePolygon,
                  xy: tuple[float, float],
                  radius: float = 5,
@@ -383,7 +396,6 @@ class CirclePolygon(RegularPolygon):
 class Ellipse(Patch):
     def __str__(self: Ellipse) -> str: ...
 
-    @docstring.dedent_interpd
     def __init__(self: Ellipse,
                  xy: tuple[float, float],
                  width: float,
@@ -400,7 +412,7 @@ class Ellipse(Patch):
     def set_center(self: Ellipse,
                    xy: tuple[float, float]) -> None: ...
 
-    def get_center(self: Ellipse) -> tuple[float, float]: ...
+    def get_center(self: Ellipse) -> Tuple[float, float]: ...
 
     def set_width(self: Ellipse,
                   width: float) -> None: ...
@@ -421,7 +433,6 @@ class Ellipse(Patch):
 class Circle(Ellipse):
     def __str__(self: Circle) -> str: ...
 
-    @docstring.dedent_interpd
     def __init__(self: Circle,
                  xy: tuple[float, float],
                  radius: int = 5,
@@ -436,7 +447,6 @@ class Circle(Ellipse):
 class Arc(Ellipse):
     def __str__(self: Arc) -> str: ...
 
-    @docstring.dedent_interpd
     def __init__(self: Arc,
                  xy: tuple[float, float],
                  width: float,
@@ -456,7 +466,6 @@ class Arc(Ellipse):
                  joinstyle: Any = ...,
                  **kwargs) -> Any: ...
 
-    @artist.allow_rasterization
     def draw(self: Arc,
              renderer: Any) -> Optional[Any]: ...
 
@@ -481,13 +490,10 @@ class _Style(object):
                 stylename: {replace},
                 **kwargs) -> Any: ...
 
-    @classmethod
     def get_styles(cls: Type[_Style]) -> Any: ...
 
-    @classmethod
     def pprint_styles(cls: Type[_Style]) -> str: ...
 
-    @classmethod
     def register(cls: Type[_Style],
                  name: Any,
                  style: Any) -> Any: ...
@@ -511,7 +517,7 @@ def _point_along_a_line(x0: {__sub__},
                         y0: {__sub__},
                         x1: Any,
                         y1: Any,
-                        d: float) -> tuple[float, float]: ...
+                        d: float) -> Tuple[float, float]: ...
 
 
 class ArrowStyle(_Style):
@@ -521,7 +527,6 @@ class ArrowStyle(_Style):
 class FancyBboxPatch(Patch):
     def __str__(self: FancyBboxPatch) -> str: ...
 
-    @docstring.dedent_interpd
     @_api.delete_parameter("3.4", "bbox_transmuter", alternative="boxstyle")
     def __init__(self: FancyBboxPatch,
                  xy: float,
@@ -543,7 +548,6 @@ class FancyBboxPatch(Patch):
                  joinstyle: Any = ...,
                  **kwargs) -> Any: ...
 
-    @docstring.dedent_interpd
     def set_boxstyle(self: FancyBboxPatch,
                      boxstyle: Union[str, BoxStyle] = None,
                      **kwargs) -> str: ...
@@ -591,7 +595,6 @@ class FancyBboxPatch(Patch):
 class FancyArrowPatch(Patch):
     def __str__(self: FancyArrowPatch) -> str: ...
 
-    @docstring.dedent_interpd
     @_api.delete_parameter("3.4", "dpi_cor")
     def __init__(self: FancyArrowPatch,
                  posA: Any = None,
@@ -659,7 +662,7 @@ class FancyArrowPatch(Patch):
 
     def get_path(self: FancyArrowPatch) -> Path: ...
 
-    def get_path_in_displaycoord(self: FancyArrowPatch) -> tuple[Any, Any]: ...
+    def get_path_in_displaycoord(self: FancyArrowPatch) -> Tuple[Any, Any]: ...
 
     def draw(self: FancyArrowPatch,
              renderer: {open_group, new_gc, draw_path, close_group}) -> None: ...
@@ -668,7 +671,6 @@ class FancyArrowPatch(Patch):
 class ConnectionPatch(FancyArrowPatch):
     def __str__(self: ConnectionPatch) -> str: ...
 
-    @docstring.dedent_interpd
     @_api.delete_parameter("3.4", "dpi_cor")
     def __init__(self: ConnectionPatch,
                  xyA: Any,
@@ -692,14 +694,14 @@ class ConnectionPatch(FancyArrowPatch):
     def _get_xy(self: ConnectionPatch,
                 xy: Any,
                 s: {__eq__},
-                axes: Any = None) -> Union[float, tuple[Any, Any], ndarray, Iterable, int]: ...
+                axes: Any = None) -> Union[float, Tuple[Any, Any], ndarray, Iterable, int]: ...
 
     def set_annotation_clip(self: ConnectionPatch,
                             b: Optional[bool]) -> None: ...
 
     def get_annotation_clip(self: ConnectionPatch) -> Any: ...
 
-    def get_path_in_displaycoord(self: ConnectionPatch) -> tuple[Any, Any]: ...
+    def get_path_in_displaycoord(self: ConnectionPatch) -> Tuple[Any, Any]: ...
 
     def _check_xy(self: ConnectionPatch,
                   renderer: Optional[{open_group, new_gc, draw_path, close_group}]) -> bool: ...

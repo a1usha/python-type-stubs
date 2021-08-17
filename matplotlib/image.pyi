@@ -1,10 +1,18 @@
 from typing import Any
 from typing import Iterable
 from typing import Optional
+from typing import Tuple
 from typing import Union
-from typing import tuple
 
 from PIL.PngImagePlugin import PngImageFile
+from matplotlib.artist import Artist
+from matplotlib.backend_bases import MouseEvent
+from matplotlib.cm import ScalarMappable
+from matplotlib.image import AxesImage
+from matplotlib.image import BboxImage
+from matplotlib.image import FigureImage
+from matplotlib.image import NonUniformImage
+from matplotlib.image import PcolorImage
 from matplotlib.image import _ImageBase
 from matplotlib.transforms import Bbox
 from matplotlib.transforms import BboxBase
@@ -51,7 +59,7 @@ class _ImageBase(Artist, ScalarMappable):
 
     def __getstate__(self: _ImageBase) -> dict[str, Any]: ...
 
-    def get_size(self: _ImageBase) -> Union[_T_co, tuple[_T_co, ...]]: ...
+    def get_size(self: _ImageBase) -> Union[_T_co, Tuple[_T_co, ...]]: ...
 
     def set_alpha(self: _ImageBase,
                   alpha: Any) -> Any: ...
@@ -76,14 +84,13 @@ class _ImageBase(Artist, ScalarMappable):
 
     def _check_unsampled_image(self: _ImageBase) -> bool: ...
 
-    @martist.allow_rasterization
     def draw(self: _ImageBase,
              renderer: {new_gc, option_scale_image},
              *args,
              **kwargs) -> Optional[Any]: ...
 
     def contains(self: _ImageBase,
-                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict]]: ...
+                 mouseevent: MouseEvent) -> Union[Tuple[Any, Any], Tuple[bool, dict]]: ...
 
     def write_png(self: _ImageBase,
                   fname: Any) -> None: ...
@@ -138,7 +145,7 @@ class AxesImage(_ImageBase):
     def make_image(self: AxesImage,
                    renderer: {new_gc, option_scale_image},
                    magnification: float = 1.0,
-                   unsampled: bool = False) -> tuple[int, float, Affine2D]: ...
+                   unsampled: bool = False) -> Tuple[int, float, Affine2D]: ...
 
     def _check_unsampled_image(self: AxesImage) -> bool: ...
 
@@ -146,7 +153,7 @@ class AxesImage(_ImageBase):
                    extent: Any) -> None: ...
 
     def get_extent(self: AxesImage) -> Union[
-        Iterable, tuple, tuple[float, float, float, float], tuple[float, float, float, float]]: ...
+        Iterable, Tuple, Tuple[float, float, float, float], Tuple[float, float, float, float]]: ...
 
     def get_cursor_data(self: AxesImage,
                         event: MouseEvent) -> Optional[Any]: ...
@@ -167,7 +174,7 @@ class NonUniformImage(AxesImage):
     def make_image(self: NonUniformImage,
                    renderer: {new_gc, option_scale_image},
                    magnification: float = 1.0,
-                   unsampled: bool = False) -> tuple[None, Any, Any, IdentityTransform]: ...
+                   unsampled: bool = False) -> Tuple[None, Any, Any, IdentityTransform]: ...
 
     def set_data(self: NonUniformImage,
                  x: int,
@@ -180,7 +187,7 @@ class NonUniformImage(AxesImage):
     def set_interpolation(self: NonUniformImage,
                           s: str) -> Any: ...
 
-    def get_extent(self: NonUniformImage) -> tuple[None, None, None, None]: ...
+    def get_extent(self: NonUniformImage) -> Tuple[None, None, None, None]: ...
 
     def set_filternorm(self: NonUniformImage,
                        s: Any) -> None: ...
@@ -208,7 +215,7 @@ class PcolorImage(AxesImage):
     def make_image(self: PcolorImage,
                    renderer: {new_gc, option_scale_image},
                    magnification: float = 1.0,
-                   unsampled: bool = False) -> tuple[None, Any, Any, IdentityTransform]: ...
+                   unsampled: bool = False) -> Tuple[None, Any, Any, IdentityTransform]: ...
 
     def _check_unsampled_image(self: PcolorImage) -> bool: ...
 
@@ -234,12 +241,12 @@ class FigureImage(_ImageBase):
                  origin: Any = None,
                  **kwargs) -> None: ...
 
-    def get_extent(self: FigureImage) -> tuple[float, Union[float, int], float, Union[float, int]]: ...
+    def get_extent(self: FigureImage) -> Tuple[float, Union[float, int], float, Union[float, int]]: ...
 
     def make_image(self: FigureImage,
                    renderer: {new_gc, option_scale_image},
                    magnification: float = 1.0,
-                   unsampled: bool = False) -> tuple[int, float, Affine2D]: ...
+                   unsampled: bool = False) -> Tuple[int, float, Affine2D]: ...
 
     def set_data(self: FigureImage,
                  A: Union[ndarray, Iterable, int, float]) -> None: ...
@@ -261,12 +268,12 @@ class BboxImage(_ImageBase):
                           renderer: {new_gc, option_scale_image} = None) -> BboxBase: ...
 
     def contains(self: BboxImage,
-                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict]]: ...
+                 mouseevent: MouseEvent) -> Union[Tuple[Any, Any], Tuple[bool, dict]]: ...
 
     def make_image(self: BboxImage,
                    renderer: {new_gc, option_scale_image},
                    magnification: float = 1.0,
-                   unsampled: bool = False) -> tuple[int, float, Affine2D]: ...
+                   unsampled: bool = False) -> Tuple[int, float, Affine2D]: ...
 
 
 def imread(fname: Any,

@@ -1,11 +1,35 @@
 from typing import Any
+from typing import Callable
 from typing import Iterable
 from typing import Optional
+from typing import Tuple
 from typing import Union
-from typing import tuple
 
+from matplotlib import _api
 from matplotlib.axes._axes import Axes
+from matplotlib.widgets import AxesWidget
+from matplotlib.widgets import Button
+from matplotlib.widgets import CheckButtons
+from matplotlib.widgets import Cursor
+from matplotlib.widgets import EllipseSelector
+from matplotlib.widgets import Lasso
+from matplotlib.widgets import LassoSelector
+from matplotlib.widgets import LockDraw
+from matplotlib.widgets import MultiCursor
+from matplotlib.widgets import PolygonSelector
+from matplotlib.widgets import RadioButtons
+from matplotlib.widgets import RangeSlider
+from matplotlib.widgets import RectangleSelector
+from matplotlib.widgets import Slider
+from matplotlib.widgets import SliderBase
+from matplotlib.widgets import SpanSelector
+from matplotlib.widgets import SubplotTool
+from matplotlib.widgets import TextBox
+from matplotlib.widgets import ToolHandles
+from matplotlib.widgets import Widget
+from matplotlib.widgets import _SelectorWidget
 from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 class LockDraw(object):
@@ -123,7 +147,7 @@ class Slider(SliderBase):
                 event: {button, name, inaxes}) -> None: ...
 
     def _format(self: Slider,
-                val: Union[float, int]) -> Union[float, int]: ...
+                val: Union[float, int]) -> str: ...
 
     def set_val(self: Slider,
                 val: float) -> None: ...
@@ -154,7 +178,7 @@ class RangeSlider(SliderBase):
                        max: Optional[Any]) -> Union[None, float, int]: ...
 
     def _value_in_bounds(self: RangeSlider,
-                         vals: {__getitem__}) -> tuple[Union[None, float, int], Union[None, float, int]]: ...
+                         vals: {__getitem__}) -> Tuple[Union[None, float, int], Union[None, float, int]]: ...
 
     def _update_val_from_pos(self: RangeSlider,
                              pos: Any) -> None: ...
@@ -163,7 +187,7 @@ class RangeSlider(SliderBase):
                 event: {button, name, inaxes}) -> None: ...
 
     def _format(self: RangeSlider,
-                val: ndarray) -> str: ...
+                val: Union[ndarray, tuple[Union[None, float, int], Union[None, float, int]]]) -> str: ...
 
     def set_min(self: RangeSlider,
                 min: float) -> None: ...
@@ -208,7 +232,6 @@ class TextBox(AxesWidget):
                  hovercolor: Any = '1',
                  label_pad: float = .01) -> None: ...
 
-    @property
     def text(self: TextBox) -> Any: ...
 
     def _rendercursor(self: TextBox) -> None: ...
@@ -371,7 +394,7 @@ class _SelectorWidget(AxesWidget):
     def update(self: _SelectorWidget) -> bool: ...
 
     def _get_data(self: _SelectorWidget,
-                  event: {key}) -> Union[tuple[None, None], tuple[ndarray, ndarray]]: ...
+                  event: {key}) -> Union[Tuple[None, None], Tuple[ndarray, ndarray]]: ...
 
     def _clean_event(self: _SelectorWidget,
                      event: {key}) -> {key}: ...
@@ -443,13 +466,13 @@ class SpanSelector(_SelectorWidget):
                event: {xdata, ydata}) -> bool: ...
 
     def _release(self: SpanSelector,
-                 event: Any) -> Optional[bool]: ...
+                 event: {xdata, ydata}) -> Optional[bool]: ...
 
     def _onmove(self: SpanSelector,
                 event: Any) -> Optional[bool]: ...
 
     def _set_span_xy(self: SpanSelector,
-                     event: Any) -> None: ...
+                     event: {xdata, ydata}) -> None: ...
 
 
 class ToolHandles(object):
@@ -461,10 +484,8 @@ class ToolHandles(object):
                  marker_props: dict = None,
                  useblit: bool = True) -> None: ...
 
-    @property
     def x(self: ToolHandles) -> ndarray: ...
 
-    @property
     def y(self: ToolHandles) -> ndarray: ...
 
     def set_data(self: ToolHandles,
@@ -479,7 +500,7 @@ class ToolHandles(object):
 
     def closest(self: ToolHandles,
                 x: Any,
-                y: Any) -> tuple[ndarray[int], Any]: ...
+                y: Any) -> Tuple[ndarray[int], Any]: ...
 
 
 class RectangleSelector(_SelectorWidget):
@@ -508,23 +529,17 @@ class RectangleSelector(_SelectorWidget):
     def _onmove(self: RectangleSelector,
                 event: Any) -> None: ...
 
-    @property
-    def _rect_bbox(self: RectangleSelector) -> tuple[Any, Any, Any, Any]: ...
+    def _rect_bbox(self: RectangleSelector) -> Tuple[Any, Any, Any, Any]: ...
 
-    @property
-    def corners(self: RectangleSelector) -> tuple[tuple[Any, Any, Any, Any], tuple[Any, Any, Any, Any]]: ...
+    def corners(self: RectangleSelector) -> Tuple[Tuple[Any, Any, Any, Any], Tuple[Any, Any, Any, Any]]: ...
 
-    @property
-    def edge_centers(self: RectangleSelector) -> tuple[
-        tuple[Any, float, Any, float], tuple[float, Any, float, Any]]: ...
+    def edge_centers(self: RectangleSelector) -> Tuple[
+        Tuple[Any, float, Any, float], Tuple[float, Any, float, Any]]: ...
 
-    @property
-    def center(self: RectangleSelector) -> tuple[float, float]: ...
+    def center(self: RectangleSelector) -> Tuple[float, float]: ...
 
-    @property
-    def extents(self: RectangleSelector) -> tuple[Any, Any, Any, Any]: ...
+    def extents(self: RectangleSelector) -> Tuple[Any, Any, Any, Any]: ...
 
-    @extents.setter
     def extents(self: RectangleSelector,
                 extents: Any) -> None: ...
 
@@ -534,7 +549,6 @@ class RectangleSelector(_SelectorWidget):
     def _set_active_handle(self: RectangleSelector,
                            event: {x, y}) -> None: ...
 
-    @property
     def geometry(self: RectangleSelector) -> ndarray: ...
 
 
@@ -542,8 +556,7 @@ class EllipseSelector(RectangleSelector):
     def draw_shape(self: EllipseSelector,
                    extents: Any) -> None: ...
 
-    @property
-    def _rect_bbox(self: EllipseSelector) -> Union[tuple[float, float, Any, Any], tuple[Any, Any, Any, Any]]: ...
+    def _rect_bbox(self: EllipseSelector) -> Union[Tuple[float, float, Any, Any], Tuple[Any, Any, Any, Any]]: ...
 
 
 class LassoSelector(_SelectorWidget):
@@ -567,7 +580,7 @@ class LassoSelector(_SelectorWidget):
                  event: Any) -> None: ...
 
     def _onmove(self: LassoSelector,
-                event: Any) -> None: ...
+                event: {xdata, ydata}) -> None: ...
 
 
 class PolygonSelector(_SelectorWidget):
@@ -599,8 +612,7 @@ class PolygonSelector(_SelectorWidget):
 
     def _draw_polygon(self: PolygonSelector) -> None: ...
 
-    @property
-    def verts(self: PolygonSelector) -> list[tuple[int, int]]: ...
+    def verts(self: PolygonSelector) -> list[Tuple[int, int]]: ...
 
 
 class Lasso(AxesWidget):

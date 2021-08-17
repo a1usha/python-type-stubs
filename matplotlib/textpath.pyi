@@ -1,9 +1,16 @@
 from typing import Any
+from typing import Iterable
 from typing import Optional
+from typing import Tuple
 from typing import Union
 
 from matplotlib.font_manager import FontProperties
 from matplotlib.ft2font import FT2Font
+from matplotlib.path import Path
+from matplotlib.texmanager import TexManager
+from matplotlib.textpath import TextPath
+from matplotlib.textpath import TextToPath
+from object import object
 
 
 class TextToPath(object):
@@ -21,7 +28,7 @@ class TextToPath(object):
     def get_text_width_height_descent(self: TextToPath,
                                       s: Any,
                                       prop: {get_size_in_points},
-                                      ismath: {__eq__}) -> Union[tuple[Any, Any, Any], tuple[float, float, float]]: ...
+                                      ismath: {__eq__}) -> Union[Tuple[Any, Any, Any], Tuple[float, float, float]]: ...
 
     def get_text_path(self: TextToPath,
                       prop: Any,
@@ -32,16 +39,16 @@ class TextToPath(object):
                              font: FT2Font,
                              s: Any,
                              glyph_map: Any = None,
-                             return_new_glyphs_only: bool = False) -> tuple[
-        list[tuple[str, Any, int, float]], Union[OrderedDict[str, None], OrderedDict], list]: ...
+                             return_new_glyphs_only: bool = False) -> Tuple[
+        list[Tuple[str, Any, int, float]], Union[OrderedDict[str, None], OrderedDict], list]: ...
 
     def get_glyphs_mathtext(self: TextToPath,
                             prop: Any,
                             s: Any,
                             glyph_map: Any = None,
-                            return_new_glyphs_only: bool = False) -> tuple[
-        list[tuple[str, Any, Any, float]], Union[OrderedDict[str, Any], OrderedDict], list[
-            tuple[list[Union[tuple[Any, Any], tuple[int, int]]], list[uint8]]]]: ...
+                            return_new_glyphs_only: bool = False) -> Tuple[
+        list[Tuple[str, Any, Any, float]], Union[OrderedDict[str, Any], OrderedDict], list[
+            Tuple[list[Union[Tuple[Any, Any], Tuple[int, int]]], list[uint8]]]]: ...
 
     def get_texmanager(self: TextToPath) -> TexManager: ...
 
@@ -49,13 +56,11 @@ class TextToPath(object):
                        prop: Any,
                        s: Any,
                        glyph_map: Any = None,
-                       return_new_glyphs_only: bool = False) -> tuple[
-        list[tuple[str, Any, Any, float]], Union[OrderedDict[str, None], OrderedDict], list[
-            tuple[list[Union[tuple[Any, Any], tuple[int, int]]], list[uint8]]]]: ...
+                       return_new_glyphs_only: bool = False) -> Tuple[
+        list[Tuple[str, Any, Any, float]], Union[OrderedDict[str, None], OrderedDict], list[
+            Tuple[list[Union[Tuple[Any, Any], Tuple[int, int]]], list[uint8]]]]: ...
 
-    @staticmethod
-    @functools.lru_cache(50)
-    def _get_ps_font_and_encoding(texname: Any) -> tuple[FT2Font, Optional[Iterable]]: ...
+    def _get_ps_font_and_encoding(texname: Any) -> Tuple[FT2Font, Optional[Iterable]]: ...
 
 
 class TextPath(Path):
@@ -72,10 +77,8 @@ class TextPath(Path):
 
     def get_size(self: TextPath) -> Union[None, float, int]: ...
 
-    @property
     def vertices(self: TextPath) -> Any: ...
 
-    @property
     def codes(self: TextPath) -> Iterable: ...
 
     def _revalidate_path(self: TextPath) -> None: ...

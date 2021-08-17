@@ -1,18 +1,47 @@
+from enum import Enum
+from enum import IntEnum
 from functools import partial
 from typing import Any
+from typing import Callable
+from typing import Generator
 from typing import Iterable
 from typing import Optional
+from typing import Tuple
+from typing import Type
 from typing import Union
-from typing import tuple
 
+from Exception import Exception
+from matplotlib import _api
+from matplotlib.backend_bases import DrawEvent
+from matplotlib.backend_bases import Event
+from matplotlib.backend_bases import FigureCanvasBase
+from matplotlib.backend_bases import FigureManagerBase
 from matplotlib.backend_bases import GraphicsContextBase
 from matplotlib.backend_bases import KeyEvent
+from matplotlib.backend_bases import LocationEvent
+from matplotlib.backend_bases import MouseEvent
+from matplotlib.backend_bases import NavigationToolbar2
+from matplotlib.backend_bases import PickEvent
+from matplotlib.backend_bases import RendererBase
+from matplotlib.backend_bases import ResizeEvent
+from matplotlib.backend_bases import ShowBase
+from matplotlib.backend_bases import StatusbarBase
+from matplotlib.backend_bases import TimerBase
+from matplotlib.backend_bases import ToolContainerBase
+from matplotlib.backend_bases import _Backend
 from matplotlib.backend_bases import _Mode
 from matplotlib.backend_tools import Cursors
 from matplotlib.figure import Figure
+from matplotlib.font_manager import FontProperties
 from matplotlib.path import Path
+from matplotlib.texmanager import TexManager
+from matplotlib.text import Text
 from matplotlib.transforms import Affine2D
+from matplotlib.transforms import Affine2DBase
+from matplotlib.transforms import Transform
 from numpy.core._multiarray_umath import ndarray
+from object import object
+from str import str
 
 
 def _safe_pyplot_import() -> pyplot.py: ...
@@ -94,7 +123,7 @@ class RendererBase(object):
     def _iter_collection_raw_paths(self: RendererBase,
                                    master_transform: Any,
                                    paths: list[Path],
-                                   all_transforms: {__len__}) -> Generator[tuple[Path, Union[
+                                   all_transforms: {__len__}) -> Generator[Tuple[Path, Union[
         {input_dims, output_dims}, {output_dims,
                                     input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]], Any, None]: ...
 
@@ -121,7 +150,7 @@ class RendererBase(object):
                          antialiaseds: {__len__, __getitem__},
                          urls: {__len__},
                          offset_position: {__eq__}) -> Generator[
-        tuple[int, int, Any, GraphicsContextBase, Optional[Any]], Any, None]: ...
+        Tuple[int, int, Any, GraphicsContextBase, Optional[Any]], Any, None]: ...
 
     def get_image_magnification(self: RendererBase) -> float: ...
 
@@ -158,16 +187,16 @@ class RendererBase(object):
                   mtext: Text = None) -> None: ...
 
     def _get_text_path_transform(self: RendererBase,
-                                 x: Any,
+                                 x: float,
                                  y: Any,
                                  s: str,
                                  prop: FontProperties,
                                  angle: Any,
-                                 ismath: Any) -> tuple[Path, Affine2D]: ...
+                                 ismath: Any) -> Tuple[Path, Affine2D]: ...
 
     def _draw_text_as_path(self: RendererBase,
                            gc: {get_rgb, set_linewidth},
-                           x: Any,
+                           x: float,
                            y: Any,
                            s: str,
                            prop: FontProperties,
@@ -177,11 +206,11 @@ class RendererBase(object):
     def get_text_width_height_descent(self: RendererBase,
                                       s: Any,
                                       prop: {get_size_in_points},
-                                      ismath: {__eq__}) -> Union[tuple[Any, Any, Any], tuple[Any, Any, None]]: ...
+                                      ismath: {__eq__}) -> Union[Tuple[Any, Any, Any], Tuple[Any, Any, None]]: ...
 
     def flipy(self: RendererBase) -> bool: ...
 
-    def get_canvas_width_height(self: RendererBase) -> tuple[int, int]: ...
+    def get_canvas_width_height(self: RendererBase) -> Tuple[int, int]: ...
 
     def get_texmanager(self: RendererBase) -> TexManager: ...
 
@@ -218,9 +247,9 @@ class GraphicsContextBase(object):
 
     def get_clip_rectangle(self: GraphicsContextBase) -> Any: ...
 
-    def get_clip_path(self: GraphicsContextBase) -> Union[tuple[Any, Any], tuple[None, None]]: ...
+    def get_clip_path(self: GraphicsContextBase) -> Union[Tuple[Any, Any], Tuple[None, None]]: ...
 
-    def get_dashes(self: GraphicsContextBase) -> tuple[int, None]: ...
+    def get_dashes(self: GraphicsContextBase) -> Tuple[int, None]: ...
 
     def get_forced_alpha(self: GraphicsContextBase) -> bool: ...
 
@@ -228,7 +257,7 @@ class GraphicsContextBase(object):
 
     def get_linewidth(self: GraphicsContextBase) -> int: ...
 
-    def get_rgb(self: GraphicsContextBase) -> tuple[float, float, float, float]: ...
+    def get_rgb(self: GraphicsContextBase) -> Tuple[float, float, float, float]: ...
 
     def get_url(self: GraphicsContextBase) -> Any: ...
 
@@ -242,7 +271,6 @@ class GraphicsContextBase(object):
     def set_antialiased(self: GraphicsContextBase,
                         b: Any) -> None: ...
 
-    @docstring.interpd
     def set_capstyle(self: GraphicsContextBase,
                      cs: Any) -> Optional[Any]: ...
 
@@ -260,7 +288,6 @@ class GraphicsContextBase(object):
                        fg: Any,
                        isRGBA: bool = False) -> None: ...
 
-    @docstring.interpd
     def set_joinstyle(self: GraphicsContextBase,
                       js: Any) -> Optional[Any]: ...
 
@@ -284,14 +311,14 @@ class GraphicsContextBase(object):
     def get_hatch_path(self: GraphicsContextBase,
                        density: float = 6.0) -> Optional[Path]: ...
 
-    def get_hatch_color(self: GraphicsContextBase) -> Union[Iterable, tuple]: ...
+    def get_hatch_color(self: GraphicsContextBase) -> Union[Iterable, Tuple]: ...
 
     def set_hatch_color(self: GraphicsContextBase,
                         hatch_color: Any) -> None: ...
 
     def get_hatch_linewidth(self: GraphicsContextBase) -> Optional[Any]: ...
 
-    def get_sketch_params(self: GraphicsContextBase) -> Optional[tuple]: ...
+    def get_sketch_params(self: GraphicsContextBase) -> Optional[Tuple]: ...
 
     def set_sketch_params(self: GraphicsContextBase,
                           scale: Optional[float] = None,
@@ -315,17 +342,13 @@ class TimerBase(object):
 
     def _timer_stop(self: TimerBase) -> None: ...
 
-    @property
     def interval(self: TimerBase) -> int: ...
 
-    @interval.setter
     def interval(self: TimerBase,
                  interval: Any) -> None: ...
 
-    @property
     def single_shot(self: TimerBase) -> Any: ...
 
-    @single_shot.setter
     def single_shot(self: TimerBase,
                     ss: Any) -> None: ...
 
@@ -432,7 +455,7 @@ def _is_non_interactive_terminal_ipython(ip: {parent}) -> bool: ...
 
 def _check_savefig_extra_args(func: Any = None,
                               extra_kwargs: tuple = ()) -> Union[
-    partial, (args: tuple[Any, ...], kwargs: dict[str, Any]) ->
+    partial, (args: Tuple[Any, ...], kwargs: dict[str, Any]) ->
 
 
 class FigureCanvasBase(object):
@@ -442,11 +465,8 @@ class FigureCanvasBase(object):
     def __init__(self: FigureCanvasBase,
                  figure: Optional[{set_canvas}] = None) -> None: ...
 
-    @classmethod
-    @functools.lru_cache()
     def _fix_ipython_backend2gui(cls: Type[FigureCanvasBase]) -> None: ...
 
-    @contextmanager
     def _idle_draw_cntx(self: FigureCanvasBase) -> Generator[Any, Any, None]: ...
 
     def is_saving(self: FigureCanvasBase) -> bool: ...
@@ -530,12 +550,10 @@ class FigureCanvasBase(object):
                   *args,
                   **kwargs) -> None: ...
 
-    def get_width_height(self: FigureCanvasBase) -> tuple[int, int]: ...
+    def get_width_height(self: FigureCanvasBase) -> Tuple[int, int]: ...
 
-    @classmethod
     def get_supported_filetypes(cls: Type[FigureCanvasBase]) -> dict[str, str]: ...
 
-    @classmethod
     def get_supported_filetypes_grouped(cls: Type[FigureCanvasBase]) -> dict: ...
 
     def _get_output_canvas(self: FigureCanvasBase,
@@ -556,7 +574,6 @@ class FigureCanvasBase(object):
                      backend: Optional[str] = None,
                      **kwargs) -> Any: ...
 
-    @classmethod
     def get_default_filetype(cls: Type[FigureCanvasBase]) -> Optional[Any]: ...
 
     @_api.deprecated(
@@ -640,7 +657,6 @@ class FigureManagerBase(object):
 class _Mode(str, Enum):
     def __str__(self: _Mode) -> str: ...
 
-    @property
     def _navigate_mode(self: _Mode) -> Optional[Any]: ...
 
 
@@ -675,10 +691,8 @@ class NavigationToolbar2(object):
     def _update_cursor(self: NavigationToolbar2,
                        event: Union[KeyEvent, {inaxes}]) -> None: ...
 
-    @contextmanager
     def _wait_cursor_for_draw_cm(self: NavigationToolbar2) -> Generator[Any, Any, None]: ...
 
-    @staticmethod
     def _mouse_event_to_message(event: {inaxes}) -> Any: ...
 
     def mouse_move(self: NavigationToolbar2,
@@ -792,26 +806,21 @@ class StatusbarBase(object):
 
 
 class _Backend(object):
-    @classmethod
     def new_figure_manager(cls: Type[_Backend],
                            num: Any,
                            *args,
                            **kwargs) -> FigureManagerBase: ...
 
-    @classmethod
     def new_figure_manager_given_figure(cls: Type[_Backend],
                                         num: Any,
                                         figure: Any) -> FigureManagerBase: ...
 
-    @classmethod
     def draw_if_interactive(cls: Type[_Backend]) -> None: ...
 
-    @classmethod
     def show(cls: Type[_Backend],
              *,
              block: Any = None) -> None: ...
 
-    @staticmethod
     def export(cls: {__module__}) -> {__module__}: ...
 
 

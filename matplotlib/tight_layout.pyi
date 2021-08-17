@@ -1,5 +1,7 @@
 from typing import Any
+from typing import Iterable
 from typing import Optional
+from typing import Union
 
 
 def auto_adjust_subplotpars(fig: {transFigure, get_size_inches},

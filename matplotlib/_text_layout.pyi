@@ -1,3 +1,6 @@
+from typing import Generator
+
+
 def layout(string: str,
            font: Any,
            *,

@@ -1,11 +1,33 @@
+from abc import ABC
+from itertools import islice
 from typing import Any
 from typing import Callable
+from typing import Generator
 from typing import Iterable
+from typing import Iterator
 from typing import Optional
+from typing import Tuple
+from typing import Type
 from typing import Union
-from typing import tuple
 
+from matplotlib import _api
+from matplotlib.animation import AbstractMovieWriter
+from matplotlib.animation import Animation
+from matplotlib.animation import ArtistAnimation
+from matplotlib.animation import FFMpegBase
+from matplotlib.animation import FFMpegFileWriter
+from matplotlib.animation import FFMpegWriter
+from matplotlib.animation import FileMovieWriter
+from matplotlib.animation import FuncAnimation
+from matplotlib.animation import HTMLWriter
+from matplotlib.animation import ImageMagickBase
+from matplotlib.animation import ImageMagickFileWriter
+from matplotlib.animation import ImageMagickWriter
 from matplotlib.animation import MovieWriter
+from matplotlib.animation import MovieWriterRegistry
+from matplotlib.animation import PillowWriter
+from matplotlib.animation import TimedAnimation
+from object import object
 
 
 def adjusted_figsize(w: float,
@@ -38,23 +60,18 @@ class AbstractMovieWriter(ABC):
                  codec: Any = None,
                  bitrate: Any = None) -> None: ...
 
-    @abc.abstractmethod
     def setup(self: AbstractMovieWriter,
               fig: Any,
               outfile: str,
               dpi: float = None) -> Any: ...
 
-    @property
-    def frame_size(self: AbstractMovieWriter) -> tuple[int, int]: ...
+    def frame_size(self: AbstractMovieWriter) -> Tuple[int, int]: ...
 
-    @abc.abstractmethod
     def grab_frame(self: AbstractMovieWriter,
                    **kwargs) -> Any: ...
 
-    @abc.abstractmethod
     def finish(self: AbstractMovieWriter) -> Any: ...
 
-    @contextlib.contextmanager
     def saving(self: AbstractMovieWriter,
                fig: Any,
                outfile: Any,
@@ -71,7 +88,7 @@ class MovieWriter(AbstractMovieWriter):
                  extra_args: Optional[Iterable[str]] = None,
                  metadata: Any = None) -> Any: ...
 
-    def _adjust_frame_size(self: MovieWriter) -> tuple[Any, Any]: ...
+    def _adjust_frame_size(self: MovieWriter) -> Tuple[Any, Any]: ...
 
     def setup(self: MovieWriter,
               fig: Any,
@@ -92,10 +109,8 @@ class MovieWriter(AbstractMovieWriter):
     @_api.deprecated("3.4")
     def cleanup(self: MovieWriter) -> Optional[Any]: ...
 
-    @classmethod
     def bin_path(cls: Type[MovieWriter]) -> str: ...
 
-    @classmethod
     def isAvailable(cls: Type[MovieWriter]) -> Any: ...
 
 
@@ -115,17 +130,13 @@ class FileMovieWriter(MovieWriter):
     def __del__(self: FileMovieWriter) -> None: ...
 
     @_api.deprecated("3.3")
-    @property
     def clear_temp(self: FileMovieWriter) -> Optional[bool]: ...
 
-    @clear_temp.setter
     def clear_temp(self: FileMovieWriter,
                    value: Any) -> None: ...
 
-    @property
     def frame_format(self: FileMovieWriter) -> Any: ...
 
-    @frame_format.setter
     def frame_format(self: FileMovieWriter,
                      frame_format: Any) -> None: ...
 
@@ -139,9 +150,7 @@ class FileMovieWriter(MovieWriter):
     def _cleanup(self: FileMovieWriter) -> None: ...
 
 
-@writers.register('pillow')
 class PillowWriter(AbstractMovieWriter):
-    @classmethod
     def isAvailable(cls: Type[PillowWriter]) -> bool: ...
 
     def setup(self: PillowWriter,
@@ -156,19 +165,15 @@ class PillowWriter(AbstractMovieWriter):
 
 
 class FFMpegBase(object):
-    @property
     def output_args(self: FFMpegBase) -> list[str]: ...
 
-    @classmethod
     def isAvailable(cls: Type[FFMpegBase]) -> Any: ...
 
 
-@writers.register('ffmpeg')
 class FFMpegWriter(FFMpegBase, MovieWriter):
     def _args(self: FFMpegWriter) -> list[str]: ...
 
 
-@writers.register('ffmpeg_file')
 class FFMpegFileWriter(FFMpegBase, FileMovieWriter):
     def _args(self: FFMpegFileWriter) -> list[str]: ...
 
@@ -178,36 +183,28 @@ class AVConvBase(FFMpegBase):
     pass
 
 
-@writers.register('avconv')
 class AVConvWriter(AVConvBase, FFMpegWriter):
     pass
 
 
-@writers.register('avconv_file')
 class AVConvFileWriter(AVConvBase, FFMpegFileWriter):
     pass
 
 
 class ImageMagickBase(object):
-    @property
     def delay(self: ImageMagickBase) -> float: ...
 
-    @property
     def output_args(self: ImageMagickBase) -> list: ...
 
-    @classmethod
     def bin_path(cls: Type[ImageMagickBase]) -> Any: ...
 
-    @classmethod
     def isAvailable(cls: Type[ImageMagickBase]) -> bool: ...
 
 
-@writers.register('imagemagick')
 class ImageMagickWriter(ImageMagickBase, MovieWriter):
     def _args(self: ImageMagickWriter) -> list[str]: ...
 
 
-@writers.register('imagemagick_file')
 class ImageMagickFileWriter(ImageMagickBase, FileMovieWriter):
     def _args(self: ImageMagickFileWriter) -> list[str]: ...
 
@@ -220,9 +217,7 @@ def _embedded_frames(frame_list: list,
                      frame_format: {__eq__}) -> str: ...
 
 
-@writers.register('html')
 class HTMLWriter(FileMovieWriter):
-    @classmethod
     def isAvailable(cls: Type[HTMLWriter]) -> bool: ...
 
     def __init__(self: HTMLWriter,

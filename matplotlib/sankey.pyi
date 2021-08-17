@@ -1,6 +1,11 @@
 from typing import Any
+from typing import Iterable
+from typing import Tuple
 from typing import Union
-from typing import tuple
+
+from matplotlib.sankey import Sankey
+from numpy.core import uint8
+from object import object
 
 
 class Sankey(object):
@@ -22,14 +27,14 @@ class Sankey(object):
              quadrant: int = 0,
              cw: bool = True,
              radius: int = 1,
-             center: tuple[int, int] = (0, 0)) -> list[tuple[uint8, Any]]: ...
+             center: tuple[int, int] = (0, 0)) -> list[Tuple[uint8, Any]]: ...
 
     def _add_input(self: Sankey,
                    path: Union[list[tuple[uint8, list[float]]], list[
                        Union[tuple[uint8, list[float]], tuple[uint8, list[float]]]]],
                    angle: Any,
                    flow: Any,
-                   length: Any) -> Union[tuple[list[int], list[int]], tuple[
+                   length: Any) -> Union[Tuple[list[int], list[int]], Tuple[
         Union[list[float], list[Union[float, int]]], Union[list[float], list[Union[float, int]]]]]: ...
 
     def _add_output(self: Sankey,
@@ -37,14 +42,13 @@ class Sankey(object):
                         tuple[uint8, list[float]]]],
                     angle: Any,
                     flow: Any,
-                    length: Any) -> Union[tuple[list[int], list[int]], tuple[
+                    length: Any) -> Union[Tuple[list[int], list[int]], Tuple[
         Union[list[float], list[Union[float, int]]], Union[list[float], list[Union[float, int]]]]]: ...
 
     def _revert(self: Sankey,
                 path: list[tuple[uint8, list[float]]],
-                first_action: uint8 = Path.LINETO) -> list[tuple[uint8, Any]]: ...
+                first_action: uint8 = Path.LINETO) -> list[Tuple[uint8, Any]]: ...
 
-    @docstring.dedent_interpd
     def add(self: Sankey,
             patchlabel: str = '',
             flows: Iterable[float] = None,

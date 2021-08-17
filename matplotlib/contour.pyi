@@ -2,14 +2,20 @@ from numbers import Integral
 from typing import Any
 from typing import Iterable
 from typing import Optional
+from typing import Tuple
 from typing import Union
-from typing import tuple
 
+from matplotlib import _api
+from matplotlib.cm import ScalarMappable
 from matplotlib.contour import ClabelText
+from matplotlib.contour import ContourLabeler
+from matplotlib.contour import ContourSet
+from matplotlib.contour import QuadContourSet
 from matplotlib.text import Text
 from matplotlib.ticker import ScalarFormatter
 from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedArray
+from object import object
 
 
 class ClabelText(Text):
@@ -45,7 +51,7 @@ class ContourLabeler(object):
                          XX: {__getitem__},
                          YY: {__getitem__},
                          ysize: {__truediv__},
-                         lw: Any) -> Union[tuple[Any, Any, Any], tuple[Any, Any, None]]: ...
+                         lw: Any) -> Union[Tuple[Any, Any, Any], Tuple[Any, Any, None]]: ...
 
     def get_label_width(self: ContourLabeler,
                         lev: Any,
@@ -63,14 +69,14 @@ class ContourLabeler(object):
 
     def locate_label(self: ContourLabeler,
                      linecontour: {__len__},
-                     labelwidth: {__gt__}) -> tuple[None, None, int]: ...
+                     labelwidth: {__gt__}) -> Tuple[None, None, int]: ...
 
     def calc_label_rot_and_inline(self: ContourLabeler,
                                   slc: {__getitem__, shape, T},
                                   ind: int,
                                   lw: {__truediv__},
                                   lc: Optional[{__len__}] = None,
-                                  spacing: int = 5) -> tuple[Optional[int], list[ndarray]]: ...
+                                  spacing: int = 5) -> Tuple[Optional[int], list[ndarray]]: ...
 
     def _get_label_text(self: ContourLabeler,
                         x: Any,
@@ -83,7 +89,7 @@ class ContourLabeler(object):
                               rotation: Any) -> ClabelText: ...
 
     def _add_label(self: ContourLabeler,
-                   t: ClabelText,
+                   t: Union[Text, ClabelText],
                    x: Any,
                    y: Any,
                    lev: Any,
@@ -125,7 +131,6 @@ def _find_closest_point_on_path(xys: int,
                                 p: tuple[float, float]) -> float: ...
 
 
-@docstring.dedent_interpd
 class ContourSet(ScalarMappable, ContourLabeler):
     def __init__(self: ContourSet,
                  ax: Any,
@@ -162,9 +167,9 @@ class ContourSet(ScalarMappable, ContourLabeler):
                       *args,
                       **kwargs) -> dict[str, Any]: ...
 
-    def _get_allsegs_and_allkinds(self: ContourSet) -> tuple[Any, list[None]]: ...
+    def _get_allsegs_and_allkinds(self: ContourSet) -> Tuple[Any, list[None]]: ...
 
-    def _get_lowers_and_uppers(self: ContourSet) -> tuple[list[float], list[float]]: ...
+    def _get_lowers_and_uppers(self: ContourSet) -> Tuple[list[float], list[float]]: ...
 
     def _make_paths(self: ContourSet,
                     segs: Any,
@@ -182,7 +187,7 @@ class ContourSet(ScalarMappable, ContourLabeler):
 
     def _process_colors(self: ContourSet) -> None: ...
 
-    def _process_linewidths(self: ContourSet) -> Union[list[tuple[Optional[Any]]], list[tuple[Any]]]: ...
+    def _process_linewidths(self: ContourSet) -> Union[list[Tuple[Optional[Any]]], list[Tuple[Any]]]: ...
 
     def _process_linestyles(self: ContourSet) -> Union[list[str], list[Optional[Any]]]: ...
 
@@ -198,22 +203,21 @@ class ContourSet(ScalarMappable, ContourLabeler):
                              pixel: bool = True) -> Any: ...
 
 
-@docstring.dedent_interpd
 class QuadContourSet(ContourSet):
     def _process_args(self: QuadContourSet,
                       corner_mask: Any = None,
                       *args,
                       **kwargs) -> dict[str, Any]: ...
 
-    def _get_allsegs_and_allkinds(self: QuadContourSet) -> tuple[list[Optional[Any]], Optional[list]]: ...
+    def _get_allsegs_and_allkinds(self: QuadContourSet) -> Tuple[list[Optional[Any]], Optional[list]]: ...
 
     def _contour_args(self: QuadContourSet,
                       args: tuple[Any, ...],
-                      kwargs: Any) -> tuple[ndarray, ndarray, Optional[MaskedArray]]: ...
+                      kwargs: Any) -> Tuple[ndarray, ndarray, Optional[MaskedArray]]: ...
 
     def _check_xyz(self: QuadContourSet,
                    args: tuple[Any, ...],
-                   kwargs: Any) -> tuple[ndarray, ndarray, MaskedArray]: ...
+                   kwargs: Any) -> Tuple[ndarray, ndarray, MaskedArray]: ...
 
     def _initialize_x_y(self: QuadContourSet,
                         z: MaskedArray) -> str: ...

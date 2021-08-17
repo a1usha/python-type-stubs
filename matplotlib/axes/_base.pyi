@@ -1,10 +1,28 @@
+from functools import partial
 from typing import Any
+from typing import Generator
 from typing import Iterable
 from typing import Optional
+from typing import Tuple
 from typing import Union
-from typing import tuple
 
+from matplotlib import _api
+from matplotlib.artist import Artist
+from matplotlib.axes._base import _AxesBase
+from matplotlib.axes._base import _TransformedBoundsLocator
+from matplotlib.axes._base import _axis_method_wrapper
+from matplotlib.axes._base import _process_plot_var_args
+from matplotlib.axis import XAxis
+from matplotlib.axis import YAxis
+from matplotlib.backend_bases import MouseEvent
+from matplotlib.cbook import Grouper
+from matplotlib.cbook import silent_list
 from matplotlib.text import Text
+from matplotlib.transforms import Bbox
+from matplotlib.transforms import BlendedAffine2D
+from matplotlib.transforms import BlendedGenericTransform
+from matplotlib.transforms import TransformedBbox
+from object import object
 
 
 class _axis_method_wrapper(object):
@@ -30,7 +48,7 @@ class _TransformedBoundsLocator(object):
 
 
 def _process_plot_format(fmt: {__ne__, __len__, __getitem__}) -> Union[
-    tuple[None, None, Union[Iterable, tuple]], tuple[str, str, Union[Iterable, tuple, None]]]: ...
+    Tuple[None, None, Union[Iterable, Tuple]], Tuple[str, str, Union[Iterable, Tuple, None]]]: ...
 
 
 class _process_plot_var_args(object):
@@ -66,13 +84,13 @@ class _process_plot_var_args(object):
                   x: Any,
                   y: Any,
                   kw: Any,
-                  kwargs: Any) -> tuple[Line2D, dict]: ...
+                  kwargs: Any) -> Tuple[Line2D, dict]: ...
 
     def _makefill(self: _process_plot_var_args,
                   x: Any,
                   y: Any,
                   kw: Any,
-                  kwargs: Any) -> tuple[Polygon, Any]: ...
+                  kwargs: Any) -> Tuple[Polygon, Any]: ...
 
     def _plot_args(self: _process_plot_var_args,
                    tup: Union[Iterable, tuple],
@@ -80,7 +98,6 @@ class _process_plot_var_args(object):
                    return_kwargs: bool = False) -> Any: ...
 
 
-@cbook._define_aliases({"facecolor": ["fc"]})
 class _AxesBase(Artist):
     def __str__(self: _AxesBase) -> str: ...
 
@@ -116,7 +133,6 @@ class _AxesBase(Artist):
 
     def _unstale_viewLim(self: _AxesBase) -> None: ...
 
-    @property
     def viewLim(self: _AxesBase) -> Bbox: ...
 
     def _request_autoscale_view(self: _AxesBase,
@@ -281,7 +297,7 @@ class _AxesBase(Artist):
                   txt: {_remove_method}) -> {_remove_method}: ...
 
     def _update_line_limits(self: _AxesBase,
-                            line: {get_path, get_transform}) -> None: ...
+                            line: {get_clip_path, get_label, _remove_method}) -> None: ...
 
     def add_patch(self: _AxesBase,
                   p: {get_clip_path, get_width, get_height, get_path, _remove_method}) -> {get_clip_path, get_width,
@@ -289,7 +305,7 @@ class _AxesBase(Artist):
                                                                                            _remove_method}: ...
 
     def _update_patch_limits(self: _AxesBase,
-                             patch: {get_width, get_height, get_path}) -> None: ...
+                             patch: {get_clip_path, _remove_method}) -> None: ...
 
     def add_table(self: _AxesBase,
                   tab: {set_clip_path, _remove_method}) -> {set_clip_path, _remove_method}: ...
@@ -338,10 +354,8 @@ class _AxesBase(Artist):
     def set_autoscaley_on(self: _AxesBase,
                           b: bool) -> None: ...
 
-    @property
     def use_sticky_edges(self: _AxesBase) -> bool: ...
 
-    @use_sticky_edges.setter
     def use_sticky_edges(self: _AxesBase,
                          b: Any) -> None: ...
 
@@ -372,14 +386,13 @@ class _AxesBase(Artist):
                        scalex: bool = True,
                        scaley: bool = True) -> None: ...
 
-    def _get_axis_list(self: _AxesBase) -> tuple[XAxis, YAxis]: ...
+    def _get_axis_list(self: _AxesBase) -> Tuple[XAxis, YAxis]: ...
 
     def _get_axis_map(self: _AxesBase) -> dict[str, Any]: ...
 
     def _update_title_position(self: _AxesBase,
                                renderer: Optional[{open_group, option_image_nocomposite, close_group}]) -> None: ...
 
-    @martist.allow_rasterization
     @_api.delete_parameter(
         "3.3", "inframe", alternative="Axes.redraw_in_frame()")
     def draw(self: _AxesBase,
@@ -403,7 +416,6 @@ class _AxesBase(Artist):
     def set_axisbelow(self: _AxesBase,
                       b: Any) -> Any: ...
 
-    @docstring.dedent_interpd
     def grid(self: _AxesBase,
              b: Optional[bool] = None,
              which: Optional[str] = 'major',
@@ -458,13 +470,13 @@ class _AxesBase(Artist):
 
     def invert_xaxis(self: _AxesBase) -> None: ...
 
-    def get_xbound(self: _AxesBase) -> tuple[float, float]: ...
+    def get_xbound(self: _AxesBase) -> Tuple[float, float]: ...
 
     def set_xbound(self: _AxesBase,
                    lower: Optional[float] = None,
                    upper: Optional[float] = None) -> None: ...
 
-    def get_xlim(self: _AxesBase) -> tuple[float, float]: ...
+    def get_xlim(self: _AxesBase) -> Tuple[float, float]: ...
 
     def _validate_converted_limits(self: _AxesBase,
                                    limit: Optional[float],
@@ -477,7 +489,7 @@ class _AxesBase(Artist):
                  auto: Optional[bool] = False,
                  *,
                  xmin: Optional[float] = None,
-                 xmax: Optional[float] = None) -> tuple[float, float]: ...
+                 xmax: Optional[float] = None) -> Tuple[float, float]: ...
 
     def set_xscale(self: _AxesBase,
                    value: str,
@@ -509,13 +521,13 @@ class _AxesBase(Artist):
 
     def invert_yaxis(self: _AxesBase) -> None: ...
 
-    def get_ybound(self: _AxesBase) -> tuple[float, float]: ...
+    def get_ybound(self: _AxesBase) -> Tuple[float, float]: ...
 
     def set_ybound(self: _AxesBase,
                    lower: Optional[float] = None,
                    upper: Optional[float] = None) -> None: ...
 
-    def get_ylim(self: _AxesBase) -> tuple[float, float]: ...
+    def get_ylim(self: _AxesBase) -> Tuple[float, float]: ...
 
     def set_ylim(self: _AxesBase,
                  bottom: Optional[float] = None,
@@ -524,7 +536,7 @@ class _AxesBase(Artist):
                  auto: Optional[bool] = False,
                  *,
                  ymin: Optional[float] = None,
-                 ymax: Optional[float] = None) -> tuple[float, float]: ...
+                 ymax: Optional[float] = None) -> Tuple[float, float]: ...
 
     def set_yscale(self: _AxesBase,
                    value: str,
@@ -558,7 +570,7 @@ class _AxesBase(Artist):
     def set_navigate_mode(self: _AxesBase,
                           b: Optional[Any]) -> None: ...
 
-    def _get_view(self: _AxesBase) -> tuple[float, float, float, float]: ...
+    def _get_view(self: _AxesBase) -> Tuple[float, float, float, float]: ...
 
     def _set_view(self: _AxesBase,
                   view: Any) -> None: ...
@@ -586,7 +598,7 @@ class _AxesBase(Artist):
     def get_children(self: _AxesBase) -> list[Text]: ...
 
     def contains(self: _AxesBase,
-                 mouseevent: MouseEvent) -> tuple[Any, Any]: ...
+                 mouseevent: MouseEvent) -> Tuple[Any, Any]: ...
 
     def contains_point(self: _AxesBase,
                        point: Any) -> Any: ...

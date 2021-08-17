@@ -2,18 +2,26 @@ from typing import Any
 from typing import Callable
 from typing import Iterable
 from typing import Optional
+from typing import Tuple
 from typing import Union
+from typing import _XYPair
 
+from matplotlib import _api
+from matplotlib.artist import Artist
+from matplotlib.artist import ArtistInspector
 from matplotlib.backend_bases import MouseEvent
+from matplotlib.transforms import Bbox
+from matplotlib.transforms import IdentityTransform
 from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 def allow_rasterization(draw: Any) -> (artist
-: {get_rasterized, get_agg_filter, figure}, renderer: {_rasterizing}, args: tuple[Any, ...], kwargs: dict[str, Any]) ->
+: {get_rasterized, get_agg_filter, figure}, renderer: {_rasterizing}, args: Tuple[Any, ...], kwargs: dict[str, Any]) ->
 
 
 def _finalize_rasterization(draw: Any) -> (artist
-: Any, renderer: {_rasterizing}, args: tuple[Any, ...], kwargs: dict[str, Any]) ->
+: Any, renderer: {_rasterizing}, args: Tuple[Any, ...], kwargs: dict[str, Any]) ->
 
 
 def _stale_axes_callback(self: {axes},
@@ -35,17 +43,13 @@ class Artist(object):
     def convert_yunits(self: Artist,
                        y: Any) -> Any: ...
 
-    @property
     def axes(self: Artist) -> Any: ...
 
-    @axes.setter
     def axes(self: Artist,
              new_axes: Optional[{__ne__}]) -> Any: ...
 
-    @property
     def stale(self: Artist) -> bool: ...
 
-    @stale.setter
     def stale(self: Artist,
               val: Any) -> None: ...
 
@@ -76,7 +80,7 @@ class Artist(object):
 
     def _default_contains(self: Artist,
                           mouseevent: MouseEvent,
-                          figure: Optional[{canvas}] = None) -> Union[tuple[bool, dict], tuple[None, dict]]: ...
+                          figure: Optional[{canvas}] = None) -> Union[Tuple[bool, dict], Tuple[None, dict]]: ...
 
     def contains(self: Artist,
                  mouseevent: MouseEvent) -> bool: ...
@@ -151,7 +155,7 @@ class Artist(object):
 
     def get_clip_path(self: Artist) -> Any: ...
 
-    def get_transformed_clip_path_and_affine(self: Artist) -> tuple[None, None]: ...
+    def get_transformed_clip_path_and_affine(self: Artist) -> Tuple[None, None]: ...
 
     def set_clip_on(self: Artist,
                     b: bool) -> None: ...
@@ -204,7 +208,6 @@ class Artist(object):
     def set_zorder(self: Artist,
                    level: float) -> None: ...
 
-    @property
     def sticky_edges(self: Artist) -> _XYPair: ...
 
     def update_from(self: Artist,
@@ -226,10 +229,8 @@ class Artist(object):
     def format_cursor_data(self: Artist,
                            data: {__getitem__}) -> str: ...
 
-    @property
     def mouseover(self: Artist) -> bool: ...
 
-    @mouseover.setter
     def mouseover(self: Artist,
                   val: Any) -> None: ...
 

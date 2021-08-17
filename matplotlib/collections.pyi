@@ -1,23 +1,36 @@
 from typing import Any
+from typing import Collection
 from typing import Iterable
 from typing import Optional
+from typing import Tuple
+from typing import Type
 from typing import Union
-from typing import tuple
 
+from matplotlib import _api
+from matplotlib.artist import Artist
+from matplotlib.backend_bases import MouseEvent
+from matplotlib.cm import ScalarMappable
+from matplotlib.collections import BrokenBarHCollection
+from matplotlib.collections import CircleCollection
+from matplotlib.collections import Collection
+from matplotlib.collections import EllipseCollection
+from matplotlib.collections import EventCollection
+from matplotlib.collections import LineCollection
+from matplotlib.collections import PatchCollection
+from matplotlib.collections import PathCollection
+from matplotlib.collections import PolyCollection
+from matplotlib.collections import QuadMesh
+from matplotlib.collections import RegularPolyCollection
+from matplotlib.collections import TriMesh
+from matplotlib.collections import _CollectionWithSizes
+from matplotlib.transforms import Bbox
 from matplotlib.transforms import IdentityTransform
+from matplotlib.transforms import Transform
 from numpy.core._multiarray_umath import ndarray
 
 
-@cbook._define_aliases({
-    "antialiased": ["antialiaseds", "aa"],
-    "edgecolor": ["edgecolors", "ec"],
-    "facecolor": ["facecolors", "fc"],
-    "linestyle": ["linestyles", "dashes", "ls"],
-    "linewidth": ["linewidths", "lw"],
-})
 class Collection(Artist, ScalarMappable):
     @_api.delete_parameter("3.3", "offset_position")
-    @docstring.interpd
     def __init__(self: Collection,
                  edgecolors: Iterable = None,
                  facecolors: Iterable = None,
@@ -51,11 +64,10 @@ class Collection(Artist, ScalarMappable):
     def get_window_extent(self: Collection,
                           renderer: Any) -> Bbox: ...
 
-    def _prepare_points(self: Collection) -> tuple[
+    def _prepare_points(self: Collection) -> Tuple[
         IdentityTransform, Union[IdentityTransform, Transform], Union[ndarray, Iterable, int, float], Union[
             list[{vertices, codes}], list[Path]]]: ...
 
-    @artist.allow_rasterization
     def draw(self: Collection,
              renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
 
@@ -65,7 +77,7 @@ class Collection(Artist, ScalarMappable):
     def get_pickradius(self: Collection) -> float: ...
 
     def contains(self: Collection,
-                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict], tuple[bool, dict[Any, None]]]: ...
+                 mouseevent: MouseEvent) -> Union[Tuple[Any, Any], Tuple[bool, dict], Tuple[bool, dict[Any, None]]]: ...
 
     def set_urls(self: Collection,
                  urls: Optional[Iterable[str]]) -> None: ...
@@ -97,19 +109,16 @@ class Collection(Artist, ScalarMappable):
     def set_linestyle(self: Collection,
                       ls: Any) -> Any: ...
 
-    @docstring.interpd
     def set_capstyle(self: Collection,
                      cs: Any) -> Optional[Any]: ...
 
     def get_capstyle(self: Collection) -> Any: ...
 
-    @docstring.interpd
     def set_joinstyle(self: Collection,
                       js: Any) -> Optional[Any]: ...
 
     def get_joinstyle(self: Collection) -> Any: ...
 
-    @staticmethod
     def _bcast_lwls(linewidths: Iterable,
                     dashes: Iterable) -> list: ...
 
@@ -146,7 +155,7 @@ class Collection(Artist, ScalarMappable):
 
     def get_linewidth(self: Collection) -> list[int]: ...
 
-    def get_linestyle(self: Collection) -> list[tuple[int, None]]: ...
+    def get_linestyle(self: Collection) -> list[Tuple[int, None]]: ...
 
     def _set_mappable_flags(self: Collection) -> bool: ...
 
@@ -166,7 +175,6 @@ class _CollectionWithSizes(Collection):
                   sizes: Optional[ndarray],
                   dpi: float = 72.0) -> None: ...
 
-    @artist.allow_rasterization
     def draw(self: _CollectionWithSizes,
              renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
 
@@ -212,7 +220,6 @@ class BrokenBarHCollection(PolyCollection):
                  yrange: tuple[float, float],
                  **kwargs) -> None: ...
 
-    @classmethod
     def span_where(cls: Type[BrokenBarHCollection],
                    x: Any,
                    ymin: Any,
@@ -232,7 +239,6 @@ class RegularPolyCollection(_CollectionWithSizes):
 
     def get_rotation(self: RegularPolyCollection) -> float: ...
 
-    @artist.allow_rasterization
     def draw(self: RegularPolyCollection,
              renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
 
@@ -336,7 +342,6 @@ class EllipseCollection(Collection):
 
     def _set_transforms(self: EllipseCollection) -> Any: ...
 
-    @artist.allow_rasterization
     def draw(self: EllipseCollection,
              renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
 
@@ -360,10 +365,8 @@ class TriMesh(Collection):
 
     def set_paths(self: TriMesh) -> None: ...
 
-    @staticmethod
-    def convert_mesh_to_paths(tri: {get_masked_triangles, x, y}) -> list[Path]: ...
+    def convert_mesh_to_paths(tri: {x, y}) -> list[Path]: ...
 
-    @artist.allow_rasterization
     def draw(self: TriMesh,
              renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
 
@@ -384,7 +387,6 @@ class QuadMesh(Collection):
     def get_datalim(self: QuadMesh,
                     transData: IdentityTransform) -> Bbox: ...
 
-    @staticmethod
     def convert_mesh_to_paths(meshWidth: {__add__},
                               meshHeight: Any,
                               coordinates: Any) -> list[Path]: ...
@@ -392,8 +394,7 @@ class QuadMesh(Collection):
     def convert_mesh_to_triangles(self: QuadMesh,
                                   meshWidth: {__add__},
                                   meshHeight: {__add__},
-                                  coordinates: Any) -> tuple[None, None]: ...
+                                  coordinates: Any) -> Tuple[None, None]: ...
 
-    @artist.allow_rasterization
     def draw(self: QuadMesh,
              renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...

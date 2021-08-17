@@ -1,15 +1,32 @@
 from functools import partial
 from typing import Any
 from typing import Iterable
+from typing import Match
 from typing import Optional
+from typing import Tuple
 from typing import Type
 from typing import Union
 
+from dict import dict
+from matplotlib.colors import BoundaryNorm
+from matplotlib.colors import CenteredNorm
 from matplotlib.colors import Colormap
+from matplotlib.colors import LightSource
+from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.colors import ListedColormap
+from matplotlib.colors import LogNorm
+from matplotlib.colors import NoNorm
+from matplotlib.colors import Normalize
+from matplotlib.colors import PowerNorm
+from matplotlib.colors import SymLogNorm
+from matplotlib.colors import TwoSlopeNorm
+from matplotlib.colors import _ColorMapping
 from matplotlib.scale import FuncScale
 from matplotlib.scale import SymmetricalLogScale
 from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedArray
+from numpy.ma.core import MaskedConstant
+from object import object
 
 
 class _ColorMapping(dict):
@@ -44,19 +61,19 @@ def same_color(c1: Any,
 
 
 def to_rgba(c: Any,
-            alpha: Optional[float] = None) -> tuple: ...
+            alpha: Optional[float] = None) -> Tuple: ...
 
 
 def _to_rgba_no_colorcycle(c: {__len__},
                            alpha: Optional[float] = None) -> Union[
-    tuple[float, float, float, float], tuple[float, ...], tuple[Any, ...]]: ...
+    Tuple[float, float, float, float], Tuple[float, ...], Tuple[Any, ...]]: ...
 
 
 def to_rgba_array(c: Any,
                   alpha: Union[float, Iterable, None] = None) -> array.pyi: ...
 
 
-def to_rgb(c: Any) -> Union[_T_co, tuple[_T_co, ...]]: ...
+def to_rgb(c: Any) -> Union[_T_co, Tuple[_T_co, ...]]: ...
 
 
 def to_hex(c: ndarray,
@@ -83,7 +100,7 @@ class Colormap(object):
     def __call__(self: Colormap,
                  X: Union[float, int, ndarray, complex],
                  alpha: Union[float, ndarray, Iterable, int, None] = None,
-                 bytes: bool = False) -> Union[tuple, ndarray]: ...
+                 bytes: bool = False) -> Union[Tuple, ndarray]: ...
 
     def __copy__(self: Colormap) -> Colormap: ...
 
@@ -148,7 +165,6 @@ class LinearSegmentedColormap(Colormap):
     def set_gamma(self: LinearSegmentedColormap,
                   gamma: Any) -> None: ...
 
-    @staticmethod
     def from_list(name: str,
                   colors: Any,
                   N: int = 256,
@@ -157,7 +173,6 @@ class LinearSegmentedColormap(Colormap):
     def _resample(self: LinearSegmentedColormap,
                   lutsize: Any) -> LinearSegmentedColormap: ...
 
-    @staticmethod
     def _reverser(func: Any,
                   x: Any) -> Any: ...
 
@@ -186,7 +201,6 @@ class Normalize(object):
                  vmax: Optional[float] = None,
                  clip: bool = False) -> None: ...
 
-    @staticmethod
     def process_value(value: Optional[float]) -> Any: ...
 
     def __call__(self: Normalize,
@@ -233,17 +247,13 @@ class CenteredNorm(Normalize):
     def autoscale_None(self: CenteredNorm,
                        A: MaskedArray) -> None: ...
 
-    @property
     def vcenter(self: CenteredNorm) -> float: ...
 
-    @vcenter.setter
     def vcenter(self: CenteredNorm,
                 vcenter: Any) -> None: ...
 
-    @property
     def halfrange(self: CenteredNorm) -> float: ...
 
-    @halfrange.setter
     def halfrange(self: CenteredNorm,
                   halfrange: Any) -> None: ...
 
@@ -259,14 +269,10 @@ def _make_norm_from_scale(scale_cls: Union[Type[FuncScale], partial[LogScale], T
     partial, Type[Norm]]: ...
 
 
-@_make_norm_from_scale(
-    scale.FuncScale,
-    init=lambda functions, vmin=None, vmax=None, clip=False: None)
 class FuncNorm(Normalize):
     pass
 
 
-@_make_norm_from_scale(functools.partial(scale.LogScale, nonpositive="mask"))
 class LogNorm(Normalize):
     def autoscale(self: LogNorm,
                   A: MaskedArray) -> None: ...
@@ -275,15 +281,9 @@ class LogNorm(Normalize):
                        A: MaskedArray) -> None: ...
 
 
-@_make_norm_from_scale(
-    scale.SymmetricalLogScale,
-    init=lambda linthresh, linscale=1., vmin=None, vmax=None, clip=False, *,
-                base=10: None)
 class SymLogNorm(Normalize):
-    @property
     def linthresh(self: SymLogNorm) -> Any: ...
 
-    @linthresh.setter
     def linthresh(self: SymLogNorm,
                   value: Any) -> None: ...
 
@@ -346,7 +346,6 @@ class LightSource(object):
                  hsv_min_sat: int = 1,
                  hsv_max_sat: int = 0) -> None: ...
 
-    @property
     def direction(self: LightSource) -> ndarray: ...
 
     def hillshade(self: LightSource,

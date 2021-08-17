@@ -1,8 +1,18 @@
 from typing import Any
 from typing import Iterable
 from typing import Optional
+from typing import Tuple
 from typing import Union
 
+from matplotlib import _api
+from matplotlib.artist import Artist
+from matplotlib.backend_bases import MouseEvent
+from matplotlib.collections import PolyCollection
+from matplotlib.quiver import Barbs
+from matplotlib.quiver import Quiver
+from matplotlib.quiver import QuiverKey
+from matplotlib.transforms import Affine2D
+from matplotlib.transforms import Bbox
 from numpy.core._multiarray_umath import ndarray
 
 
@@ -33,7 +43,6 @@ class QuiverKey(Artist):
     def _text_y(self: QuiverKey,
                 y: Any) -> float: ...
 
-    @martist.allow_rasterization
     def draw(self: QuiverKey,
              renderer: {get_rasterized, get_agg_filter, figure}) -> Optional[Any]: ...
 
@@ -43,18 +52,17 @@ class QuiverKey(Artist):
                    fig: Any) -> None: ...
 
     def contains(self: QuiverKey,
-                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict]]: ...
+                 mouseevent: MouseEvent) -> Union[Tuple[Any, Any], Tuple[bool, dict]]: ...
 
 
 def _parse_args(*args,
-                caller_name: str = 'function') -> tuple[Any, Any, Any, Any, Optional[Any]]: ...
+                caller_name: str = 'function') -> Tuple[Any, Any, Any, Any, Optional[Any]]: ...
 
 
 def _check_consistent_shapes(*args) -> Any: ...
 
 
 class Quiver(PolyCollection):
-    @docstring.Substitution(_quiver_doc)
     def __init__(self: Quiver,
                  ax: {transData, figure},
                  scale: Any = None,
@@ -82,7 +90,6 @@ class Quiver(PolyCollection):
     def get_datalim(self: Quiver,
                     transData: {depth}) -> Bbox: ...
 
-    @martist.allow_rasterization
     def draw(self: Quiver,
              renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
 
@@ -99,7 +106,7 @@ class Quiver(PolyCollection):
     def _angles_lengths(self: Quiver,
                         U: {__add__},
                         V: ndarray,
-                        eps: int = 1) -> tuple[None, float]: ...
+                        eps: int = 1) -> Tuple[None, float]: ...
 
     def _make_verts(self: Quiver,
                     U: ndarray,
@@ -107,11 +114,10 @@ class Quiver(PolyCollection):
                     angles: str) -> Optional[ndarray]: ...
 
     def _h_arrows(self: Quiver,
-                  length: float) -> tuple[Any, None]: ...
+                  length: float) -> Tuple[Any, None]: ...
 
 
 class Barbs(PolyCollection):
-    @docstring.interpd
     def __init__(self: Barbs,
                  ax: {transData},
                  pivot: str = 'tip',
@@ -131,7 +137,7 @@ class Barbs(PolyCollection):
                     rounding: bool = True,
                     half: int = 5,
                     full: int = 10,
-                    flag: int = 50) -> tuple[Any, Any, bool, int]: ...
+                    flag: int = 50) -> Tuple[Any, Any, bool, int]: ...
 
     def _make_barbs(self: Barbs,
                     u: Any,

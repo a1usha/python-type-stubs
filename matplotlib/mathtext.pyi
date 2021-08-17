@@ -1,7 +1,25 @@
 from typing import Any
 from typing import Optional
+from typing import Tuple
+from typing import Type
+from typing import _PDFResult
+from typing import _PSResult
+from typing import _Result
 
+from Warning import Warning
+from matplotlib import _api
 from matplotlib.font_manager import FontProperties
+from matplotlib.mathtext import GlueSpec
+from matplotlib.mathtext import MathTextParser
+from matplotlib.mathtext import MathtextBackend
+from matplotlib.mathtext import MathtextBackendAgg
+from matplotlib.mathtext import MathtextBackendBitmap
+from matplotlib.mathtext import MathtextBackendCairo
+from matplotlib.mathtext import MathtextBackendPath
+from matplotlib.mathtext import MathtextBackendPdf
+from matplotlib.mathtext import MathtextBackendPs
+from matplotlib.mathtext import MathtextBackendSvg
+from object import object
 
 
 class MathtextBackend(object):
@@ -56,7 +74,7 @@ class MathtextBackendAgg(MathtextBackend):
 
     def get_results(self: MathtextBackendAgg,
                     box: {height, depth, glue_order, glue_sign, children},
-                    used_characters: Any) -> tuple[int, int, int, int, int, Any, Any]: ...
+                    used_characters: Any) -> Tuple[int, int, int, int, int, Any, Any]: ...
 
     def get_hinting_type(self: MathtextBackendAgg) -> int: ...
 
@@ -65,7 +83,7 @@ class MathtextBackendAgg(MathtextBackend):
 class MathtextBackendBitmap(MathtextBackendAgg):
     def get_results(self: MathtextBackendBitmap,
                     box: {height, depth, glue_order, glue_sign, children},
-                    used_characters: Any) -> tuple[Any, int]: ...
+                    used_characters: Any) -> Tuple[Any, int]: ...
 
 
 @_api.deprecated("3.4", alternative="MathtextBackendPath")
@@ -125,7 +143,7 @@ class MathtextBackendSvg(MathtextBackend):
 
     def get_results(self: MathtextBackendSvg,
                     box: {height, glue_order, glue_sign, children},
-                    used_characters: Any) -> tuple[int, int, int, SimpleNamespace, Any]: ...
+                    used_characters: Any) -> Tuple[int, int, int, SimpleNamespace, Any]: ...
 
 
 class MathtextBackendPath(MathtextBackend):
@@ -164,7 +182,7 @@ class MathtextBackendCairo(MathtextBackend):
 
     def get_results(self: MathtextBackendCairo,
                     box: {height, glue_order, glue_sign, children},
-                    used_characters: Any) -> tuple[int, int, int, list, list]: ...
+                    used_characters: Any) -> Tuple[int, int, int, list, list]: ...
 
 
 class MathTextWarning(Warning):
@@ -182,7 +200,6 @@ class GlueSpec(object):
 
     def copy(self: GlueSpec) -> GlueSpec: ...
 
-    @classmethod
     def factory(cls: Type[GlueSpec],
                 glue_type: Any) -> Any: ...
 
@@ -204,7 +221,6 @@ class MathTextParser(object):
               *,
               _force_standard_ps_fonts: bool = False) -> Any: ...
 
-    @functools.lru_cache(50)
     def _parse_cached(self: MathTextParser,
                       s: str,
                       dpi: Any,

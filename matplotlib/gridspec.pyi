@@ -1,4 +1,16 @@
+from typing import Any
 from typing import Optional
+from typing import Tuple
+from typing import Union
+
+from matplotlib import _api
+from matplotlib.gridspec import GridSpec
+from matplotlib.gridspec import GridSpecBase
+from matplotlib.gridspec import GridSpecFromSubplotSpec
+from matplotlib.gridspec import SubplotSpec
+from matplotlib.transforms import Bbox
+from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 class GridSpecBase(object):
@@ -10,7 +22,7 @@ class GridSpecBase(object):
 
     def __repr__(self: GridSpecBase) -> str: ...
 
-    def get_geometry(self: GridSpecBase) -> tuple[int, int]: ...
+    def get_geometry(self: GridSpecBase) -> Tuple[int, int]: ...
 
     def get_subplot_params(self: GridSpecBase,
                            figure: Any = None) -> None: ...
@@ -34,7 +46,6 @@ class GridSpecBase(object):
                            fig: Any,
                            raw: bool = False) -> array.pyi: ...
 
-    @staticmethod
     def _check_gridspec_exists(figure: {get_axes},
                                nrows: Any,
                                ncols: Any) -> GridSpec: ...
@@ -107,14 +118,11 @@ class SubplotSpec(object):
 
     def __repr__(self: SubplotSpec) -> str: ...
 
-    @staticmethod
     def _from_subplot_args(figure: {get_axes},
                            args: {__len__}) -> SubplotSpec: ...
 
-    @property
     def num2(self: SubplotSpec) -> int: ...
 
-    @num2.setter
     def num2(self: SubplotSpec,
              value: Any) -> None: ...
 
@@ -122,15 +130,13 @@ class SubplotSpec(object):
 
     def get_gridspec(self: SubplotSpec) -> Any: ...
 
-    def get_geometry(self: SubplotSpec) -> tuple[Any, Any, int, int]: ...
+    def get_geometry(self: SubplotSpec) -> Tuple[Any, Any, int, int]: ...
 
     @_api.deprecated("3.3", alternative="rowspan, colspan")
-    def get_rows_columns(self: SubplotSpec) -> tuple[Any, Any, Any, Any, Any, Any]: ...
+    def get_rows_columns(self: SubplotSpec) -> Tuple[Any, Any, Any, Any, Any, Any]: ...
 
-    @property
     def rowspan(self: SubplotSpec) -> range: ...
 
-    @property
     def colspan(self: SubplotSpec) -> range: ...
 
     def is_first_row(self: SubplotSpec) -> bool: ...
@@ -144,7 +150,7 @@ class SubplotSpec(object):
     @_api.delete_parameter("3.4", "return_all")
     def get_position(self: SubplotSpec,
                      figure: Any,
-                     return_all: bool = False) -> Union[tuple[Bbox, Any, Any, Any, Any], Bbox]: ...
+                     return_all: bool = False) -> Union[Tuple[Bbox, Any, Any, Any, Any], Bbox]: ...
 
     def get_topmost_subplotspec(self: SubplotSpec) -> SubplotSpec: ...
 

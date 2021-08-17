@@ -1,8 +1,10 @@
 from typing import Any
-from typing import tuple
+from typing import Tuple
+
+from matplotlib.contour import ContourSet
+from matplotlib.tri.tricontour import TriContourSet
 
 
-@docstring.dedent_interpd
 class TriContourSet(ContourSet):
     def __init__(self: TriContourSet,
                  ax: Any,
@@ -13,22 +15,18 @@ class TriContourSet(ContourSet):
                       *args,
                       **kwargs) -> dict[str, Any]: ...
 
-    def _get_allsegs_and_allkinds(self: TriContourSet) -> tuple[list[Optional[list]], Optional[list[list]]]: ...
+    def _get_allsegs_and_allkinds(self: TriContourSet) -> Tuple[list[Optional[list]], Optional[list[list]]]: ...
 
     def _contour_args(self: TriContourSet,
                       args: tuple[Any, ...],
-                      kwargs: Any) -> tuple[Triangulation, None]: ...
+                      kwargs: Any) -> Tuple[Triangulation, None]: ...
 
 
-@docstring.Substitution(func='tricontour', type='lines')
-@docstring.dedent_interpd
 def tricontour(*args,
                ax: Any,
                **kwargs) -> TriContourSet: ...
 
 
-@docstring.Substitution(func='tricontourf', type='regions')
-@docstring.dedent_interpd
 def tricontourf(*args,
                 ax: Any,
                 **kwargs) -> TriContourSet: ...

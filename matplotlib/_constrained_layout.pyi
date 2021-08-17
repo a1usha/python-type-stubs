@@ -1,4 +1,5 @@
 from typing import Any
+from typing import Tuple
 
 
 def do_constrained_layout(fig: Any,
@@ -39,7 +40,7 @@ def _make_margin_suptitles(fig: {transFigure, transSubfigure, subfigs, _suptitle
 def _match_submerged_margins(fig: {subfigs, get_axes}) -> None: ...
 
 
-def _get_cb_parent_spans(cbax: {_colorbar_info}) -> tuple[range, range]: ...
+def _get_cb_parent_spans(cbax: {_colorbar_info}) -> Tuple[range, range]: ...
 
 
 def _get_pos_and_bbox(ax: {figure, get_position, get_tightbbox},

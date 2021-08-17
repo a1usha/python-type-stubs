@@ -1,3 +1,9 @@
+from typing import Union
+
+from matplotlib.collections import PolyCollection
+from matplotlib.collections import TriMesh
+
+
 def tripcolor(*args,
               ax: {grid, update_datalim, autoscale_view, add_collection},
               alpha: float = 1.0,

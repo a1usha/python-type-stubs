@@ -1,6 +1,19 @@
+from functools import partial
+from logging import StreamHandler
+from ssl import SSLContext
 from typing import Any
+from typing import Generator
+from typing import MutableMapping
 from typing import Optional
+from typing import Tuple
 from typing import Union
+
+from FileNotFoundError import FileNotFoundError
+from dict import dict
+from matplotlib import RcParams
+from matplotlib import _api
+from matplotlib._api import classproperty
+from object import object
 
 
 class classproperty(object):
@@ -14,7 +27,6 @@ class classproperty(object):
                 instance: Any,
                 owner: Any) -> Any: ...
 
-    @property
     def fget(self: classproperty) -> Any: ...
 
 
@@ -43,7 +55,6 @@ def warn_external(message: Any,
 def _check_versions() -> Any: ...
 
 
-@functools.lru_cache()
 def _ensure_handler() -> StreamHandler: ...
 
 
@@ -58,8 +69,7 @@ class ExecutableNotFoundError(FileNotFoundError):
     pass
 
 
-@functools.lru_cache()
-def _get_executable_info(name: str) -> tuple: ...
+def _get_executable_info(name: str) -> Tuple: ...
 
 
 def checkdep_usetex(s: Any) -> bool: ...
@@ -74,22 +84,18 @@ def _get_xdg_cache_dir() -> Optional[str]: ...
 def _get_config_or_cache_dir(xdg_base_getter: Union[()) -> str: ...
 
 
-@_logged_cached('CONFIGDIR=%s')
 def get_configdir() -> str: ...
 
 
-@_logged_cached('CACHEDIR=%s')
 def get_cachedir() -> str: ...
 
 
-@_logged_cached('matplotlib data path: %s')
 def get_data_path() -> str: ...
 
 
 def matplotlib_fname() -> str: ...
 
 
-@docstring.Substitution("\n".join(map("- {}".format, rcsetup._validators)))
 class RcParams(MutableMapping, dict):
     def __init__(self: RcParams,
                  *args,
@@ -122,11 +128,9 @@ def rc_params(fail_on_error: bool = False) -> RcParams: ...
 def is_url(filename: Any) -> Any: ...
 
 
-@functools.lru_cache()
 def _get_ssl_context() -> Optional[SSLContext]: ...
 
 
-@contextlib.contextmanager
 def _open_file_or_url(fname: Any) -> Generator[Union[Generator[Any, Any, None], TextIO], Any, None]: ...
 
 
@@ -155,7 +159,6 @@ def rc_file(fname: Any,
             use_default_template: bool = True) -> None: ...
 
 
-@contextlib.contextmanager
 def rc_context(rc: dict = None,
                fname: Any = None) -> Generator[Any, Any, None]: ...
 
@@ -198,4 +201,4 @@ def _preprocess_data(func: Optional[{__name__}] = None,
                      *,
                      replace_names: Any = None,
                      label_namer: Any = None) -> Union[
-    partial, (ax: Any, args: tuple[Any, ...], data: Any, kwargs: dict[str, Any]) ->
+    partial, (ax: Any, args: Tuple[Any, ...], data: Any, kwargs: dict[str, Any]) ->

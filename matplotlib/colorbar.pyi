@@ -1,11 +1,24 @@
 from typing import Any
 from typing import Optional
+from typing import Tuple
 from typing import Union
 
+from matplotlib import _api
+from matplotlib.colorbar import Colorbar
+from matplotlib.colorbar import ColorbarBase
+from matplotlib.colorbar import _ColorbarAutoLocator
+from matplotlib.colorbar import _ColorbarAutoMinorLocator
+from matplotlib.colorbar import _ColorbarLogLocator
+from matplotlib.colorbar import _ColorbarSpine
+from matplotlib.spines import Spine
+from matplotlib.ticker import AutoMinorLocator
 from matplotlib.ticker import LogFormatterSciNotation
+from matplotlib.ticker import LogLocator
+from matplotlib.ticker import MaxNLocator
 from matplotlib.ticker import ScalarFormatter
 from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedConstant
+from object import object
 
 
 def _set_ticks_on_axis_warn(*args,
@@ -86,7 +99,7 @@ class ColorbarBase(object):
 
     def _config_axis(self: ColorbarBase) -> None: ...
 
-    def _get_ticker_locator_formatter(self: ColorbarBase) -> tuple[Union[
+    def _get_ticker_locator_formatter(self: ColorbarBase) -> Tuple[Union[
                                                                        SymmetricalLogLocator, _ColorbarLogLocator, FixedLocator, IndexLocator, MaxNLocator, _ColorbarAutoLocator],
                                                                    Union[LogFormatterSciNotation, ScalarFormatter]]: ...
 
@@ -141,7 +154,7 @@ class ColorbarBase(object):
 
     def _ticker(self: ColorbarBase,
                 locator: {create_dummy_axis, set_view_interval, set_data_interval},
-                formatter: Union[LogFormatterSciNotation, ScalarFormatter]) -> tuple[
+                formatter: Union[LogFormatterSciNotation, ScalarFormatter]) -> Tuple[
         Any, list, Union[str, {replace}]]: ...
 
     def _process_values(self: ColorbarBase,
@@ -154,11 +167,11 @@ class ColorbarBase(object):
                                default: float = 0.05) -> ndarray: ...
 
     def _uniform_y(self: ColorbarBase,
-                   N: int) -> Union[ndarray, tuple[ndarray, Optional[float]]]: ...
+                   N: int) -> Union[ndarray, Tuple[ndarray, Optional[float]]]: ...
 
     def _proportional_y(self: ColorbarBase) -> ndarray: ...
 
-    def _mesh(self: ColorbarBase) -> tuple[Any, Any]: ...
+    def _mesh(self: ColorbarBase) -> Tuple[Any, Any]: ...
 
     def _locate(self: ColorbarBase,
                 x: Union[ndarray, int, float, None]) -> Any: ...
@@ -192,7 +205,7 @@ class Colorbar(ColorbarBase):
 
     @_api.deprecated("3.3", alternative="update_normal")
     def update_bruteforce(self: Colorbar,
-                          mappable: Any) -> Optional[Any]: ...
+                          mappable: {norm, get_alpha, cmap}) -> Optional[Any]: ...
 
     def remove(self: Colorbar) -> None: ...
 
@@ -201,7 +214,6 @@ def _normalize_location_orientation(location: Any,
                                     orientation: Optional[{__ne__}]) -> Any: ...
 
 
-@docstring.Substitution(_make_axes_param_doc, _make_axes_other_param_doc)
 def make_axes(parents: Any,
               location: Any = None,
               orientation: Any = None,
@@ -211,7 +223,6 @@ def make_axes(parents: Any,
               **kwargs) -> Any: ...
 
 
-@docstring.Substitution(_make_axes_param_doc, _make_axes_other_param_doc)
 def make_axes_gridspec(parent: Any,
                        *,
                        location: Any = None,

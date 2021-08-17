@@ -1,10 +1,17 @@
+from typing import Any
+from typing import Generator
 from typing import Iterable
 from typing import Optional
+from typing import Tuple
+from typing import Type
 from typing import Union
 
+from matplotlib import _api
 from matplotlib.path import Path
+from matplotlib.transforms import Bbox
 from matplotlib.transforms import Transform
 from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 class Path(object):
@@ -15,7 +22,6 @@ class Path(object):
                  closed: Optional[bool] = False,
                  readonly: Optional[bool] = False) -> Any: ...
 
-    @classmethod
     def _fast_from_codes_and_verts(cls: Type[Path],
                                    verts: Any,
                                    codes: Any,
@@ -23,35 +29,26 @@ class Path(object):
 
     def _update_values(self: Path) -> None: ...
 
-    @property
     def vertices(self: Path) -> ndarray: ...
 
-    @vertices.setter
     def vertices(self: Path,
                  vertices: Any) -> Any: ...
 
-    @property
     def codes(self: Path) -> Optional[ndarray]: ...
 
-    @codes.setter
     def codes(self: Path,
               codes: Any) -> Any: ...
 
-    @property
     def simplify_threshold(self: Path) -> Optional[Any]: ...
 
-    @simplify_threshold.setter
     def simplify_threshold(self: Path,
                            threshold: Any) -> None: ...
 
-    @property
     def should_simplify(self: Path) -> Union[bool, None, ndarray]: ...
 
-    @should_simplify.setter
     def should_simplify(self: Path,
                         should_simplify: Any) -> None: ...
 
-    @property
     def readonly(self: Path) -> bool: ...
 
     def __copy__(self: Path) -> Path: ...
@@ -59,11 +56,9 @@ class Path(object):
     def __deepcopy__(self: Path,
                      memo: Any = None) -> Path: ...
 
-    @classmethod
     def make_compound_path_from_polys(cls: Type[Path],
                                       XY: {shape}) -> Path: ...
 
-    @classmethod
     def make_compound_path(cls: Type[Path],
                            *args) -> Path: ...
 
@@ -79,14 +74,14 @@ class Path(object):
                       stroke_width: Optional[float] = 1.0,
                       simplify: Optional[bool] = None,
                       curves: Optional[bool] = True,
-                      sketch: Optional[Iterable] = None) -> Generator[tuple[ndarray, Any], Any, None]: ...
+                      sketch: Optional[Iterable] = None) -> Generator[Tuple[ndarray, Any], Any, None]: ...
 
     def iter_bezier(self: Path,
-                    **kwargs) -> Generator[tuple[BezierSegment, Any], Any, None]: ...
+                    **kwargs) -> Generator[Tuple[BezierSegment, Any], Any, None]: ...
 
     @_api.delete_parameter("3.3", "quantize")
     def cleaned(self: Path,
-                transform: Any = None,
+                transform: Optional[Transform] = None,
                 remove_nans: bool = False,
                 clip: Any = None,
                 quantize: bool = False,
@@ -134,49 +129,38 @@ class Path(object):
                     height: int = 0,
                     closed_only: bool = True) -> Union[list, list[Union[list[Optional[Any]], ndarray]], None]: ...
 
-    @classmethod
     def unit_rectangle(cls: Type[Path]) -> Path: ...
 
-    @classmethod
     def unit_regular_polygon(cls: Type[Path],
                              numVertices: {__le__}) -> Path: ...
 
-    @classmethod
     def unit_regular_star(cls: Type[Path],
                           numVertices: {__le__},
                           innerCircle: float = 0.5) -> Path: ...
 
-    @classmethod
     def unit_regular_asterisk(cls: Type[Path],
                               numVertices: Any) -> Path: ...
 
-    @classmethod
     def unit_circle(cls: Type[Path]) -> Path: ...
 
-    @classmethod
     def circle(cls: Type[Path],
                center: int = (0., 0.),
                radius: float = 1.,
                readonly: bool = False) -> Path: ...
 
-    @classmethod
     def unit_circle_righthalf(cls: Type[Path]) -> Path: ...
 
-    @classmethod
     def arc(cls: Type[Path],
             theta1: Any,
             theta2: {__sub__, __ne__},
             n: Optional[{__lt__, __add__}] = None,
             is_wedge: bool = False) -> Path: ...
 
-    @classmethod
     def wedge(cls: Type[Path],
               theta1: Any,
               theta2: {__sub__, __ne__},
               n: Any = None) -> Path: ...
 
-    @staticmethod
-    @lru_cache(8)
     def hatch(hatchpattern: Optional[{count}],
               density: int = 6) -> Optional[Path]: ...
 

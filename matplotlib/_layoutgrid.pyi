@@ -1,6 +1,9 @@
 from typing import Any
 from typing import Union
-from typing import tuple
+
+from matplotlib._layoutgrid import LayoutGrid
+from matplotlib.transforms import Bbox
+from object import object
 
 
 class LayoutGrid(object):

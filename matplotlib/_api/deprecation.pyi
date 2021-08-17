@@ -1,5 +1,13 @@
+from functools import partial
 from typing import Any
+from typing import Generator
 from typing import Optional
+from typing import Union
+
+from UserWarning import UserWarning
+from matplotlib._api.deprecation import _deprecated_parameter_class
+from matplotlib._api.deprecation import deprecate_privatize_attribute
+from object import object
 
 
 class MatplotlibDeprecationWarning(UserWarning):
@@ -55,7 +63,7 @@ def rename_parameter(since: Any,
                      old: Any,
                      new: Any,
                      func: Optional[{__name__}] = None) -> Union[
-    partial, (args: tuple[Any, ...], kwargs: dict[str, Any]) ->
+    partial, (args: Tuple[Any, ...], kwargs: dict[str, Any]) ->
 
 
 class _deprecated_parameter_class(object):
@@ -65,13 +73,13 @@ class _deprecated_parameter_class(object):
 def delete_parameter(since: Any,
                      name: Any,
                      func: Any = None,
-                     **kwargs) -> Union[partial, (inner_args: tuple[Any, ...], inner_kwargs: dict[str, Any]) ->
+                     **kwargs) -> Union[partial, (inner_args: Tuple[Any, ...], inner_kwargs: dict[str, Any]) ->
 
 
 def make_keyword_only(since: Any,
                       name: Any,
                       func: Optional[{__name__, __signature__}] = None) -> Union[
-    partial, (args: tuple[Any, ...], kwargs: dict[str, Any]) ->
+    partial, (args: Tuple[Any, ...], kwargs: dict[str, Any]) ->
 
 
 def deprecate_method_override(method: {__name__, __get__},
@@ -81,5 +89,4 @@ def deprecate_method_override(method: {__name__, __get__},
                               **kwargs) -> Optional[Any]: ...
 
 
-@contextlib.contextmanager
 def suppress_matplotlib_deprecation_warning() -> Generator[Any, Any, None]: ...

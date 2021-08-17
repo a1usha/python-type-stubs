@@ -1,11 +1,18 @@
+from json.encoder import JSONEncoder
 from pathlib import Path
 from typing import Any
 from typing import Optional
+from typing import Type
+from typing import Union
 
+from matplotlib.font_manager import FontEntry
 from matplotlib.font_manager import FontManager
+from matplotlib.font_manager import FontProperties
+from matplotlib.font_manager import _JSONEncoder
+from matplotlib.ft2font import FT2Font
+from object import object
 
 
-@lru_cache(64)
 def _cached_realpath(path: str) -> str: ...
 
 
@@ -27,7 +34,6 @@ def win32InstalledFonts(directory: Any = None,
                         fontext: str = 'ttf') -> list[str]: ...
 
 
-@lru_cache()
 def _call_fc_list() -> Union[list, list[str]]: ...
 
 
@@ -69,7 +75,6 @@ class FontProperties(object):
                  fname: Any = None,
                  math_fontfamily: Any = None) -> None: ...
 
-    @classmethod
     def _from_any(cls: Type[FontProperties],
                   arg: Any) -> FontProperties: ...
 
@@ -158,18 +163,15 @@ class FontManager(object):
     def addfont(self: FontManager,
                 path: Any) -> None: ...
 
-    @property
     def defaultFont(self: FontManager) -> dict: ...
 
     def get_default_weight(self: FontManager) -> str: ...
 
-    @staticmethod
     def get_default_size() -> Optional[Any]: ...
 
     def set_default_weight(self: FontManager,
                            weight: Any) -> None: ...
 
-    @staticmethod
     def _expand_aliases(family: str) -> Optional[Any]: ...
 
     def score_family(self: FontManager,
@@ -203,7 +205,6 @@ class FontManager(object):
                  fallback_to_default: bool = True,
                  rebuild_if_missing: bool = True) -> str: ...
 
-    @lru_cache()
     def _findfont_cached(self: FontManager,
                          prop: Any,
                          fontext: {__eq__},
@@ -213,11 +214,9 @@ class FontManager(object):
                          rc_params: Any) -> str: ...
 
 
-@lru_cache()
 def is_opentype_cff_font(filename: Any) -> bool: ...
 
 
-@lru_cache(64)
 def _get_font(filename: str,
               hinting_factor: Optional[Any],
               *,

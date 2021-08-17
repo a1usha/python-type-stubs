@@ -1,6 +1,15 @@
 from decimal import Decimal
 from typing import Any
 from typing import Optional
+from typing import Union
+
+from TypeError import TypeError
+from dict import dict
+from matplotlib.units import AxisInfo
+from matplotlib.units import Registry
+from numpy.core._multiarray_umath import ndarray
+from numpy.ma.core import MaskedArray
+from object import object
 
 
 class ConversionError(TypeError):
@@ -21,34 +30,27 @@ class AxisInfo(object):
 
 
 class ConversionInterface(object):
-    @staticmethod
     def axisinfo(unit: Any,
                  axis: Any) -> None: ...
 
-    @staticmethod
     def default_units(x: Any,
                       axis: Any) -> None: ...
 
-    @staticmethod
     def convert(obj: Any,
                 unit: Any,
                 axis: Any) -> Any: ...
 
-    @staticmethod
     def is_numlike(x: Any) -> bool: ...
 
 
 class DecimalConverter(ConversionInterface):
-    @staticmethod
     def convert(value: Decimal,
                 unit: Any,
                 axis: Any) -> Union[float, MaskedArray, ndarray]: ...
 
-    @staticmethod
     def axisinfo(unit: Any,
                  axis: Any) -> AxisInfo: ...
 
-    @staticmethod
     def default_units(x: Any,
                       axis: Any) -> None: ...
 

@@ -1,3 +1,8 @@
+from typing import Any
+
+from numpy.core._multiarray_umath import ndarray
+
+
 def _flag_red(x: {__mul__}) -> float: ...
 
 

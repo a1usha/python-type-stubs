@@ -1,4 +1,5 @@
 from typing import Optional
+from typing import Tuple
 
 
 def adjust_bbox(fig: {bbox, bbox_inches, get_tight_layout, transFigure, set_tight_layout, axes, dpi, patch},
@@ -8,4 +9,4 @@ def adjust_bbox(fig: {bbox, bbox_inches, get_tight_layout, transFigure, set_tigh
 
 def process_figure_for_rasterizing(fig: Any,
                                    bbox_inches_restore: Any,
-                                   fixed_dpi: Any = None) -> tuple[Any, () ->
+                                   fixed_dpi: Any = None) -> Tuple[Any, () ->

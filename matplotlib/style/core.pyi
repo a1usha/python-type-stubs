@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Any
+from typing import Generator
 from typing import Iterable
 from typing import Union
 
@@ -17,7 +18,6 @@ def _apply_style(d: Union[str, Path, RcParams],
 def use(style: Union[str, dict, Path, Iterable]) -> Any: ...
 
 
-@contextlib.contextmanager
 def context(style: Union[str, dict, Path, Iterable],
             after_reset: bool = False) -> Generator[Any, Any, None]: ...
 

@@ -1,4 +1,9 @@
+from typing import Any
+from typing import Iterable
 from typing import Optional
+
+from matplotlib.axes._base import _AxesBase
+from matplotlib.axes._secondary_axes import SecondaryAxis
 
 
 class SecondaryAxis(_AxesBase):

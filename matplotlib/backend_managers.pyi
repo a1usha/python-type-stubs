@@ -1,8 +1,16 @@
 from typing import Any
+from typing import Callable
 from typing import Iterable
+from typing import Optional
 from typing import Union
 
+from matplotlib import _api
+from matplotlib.backend_managers import ToolEvent
+from matplotlib.backend_managers import ToolManager
+from matplotlib.backend_managers import ToolManagerMessageEvent
+from matplotlib.backend_managers import ToolTriggerEvent
 from matplotlib.backend_tools import ToolToggleBase
+from object import object
 
 
 class ToolEvent(object):
@@ -33,13 +41,10 @@ class ToolManager(object):
     def __init__(self: ToolManager,
                  figure: Any = None) -> None: ...
 
-    @property
     def canvas(self: ToolManager) -> Optional[Any]: ...
 
-    @property
     def figure(self: ToolManager) -> Any: ...
 
-    @figure.setter
     def figure(self: ToolManager,
                figure: Any) -> None: ...
 
@@ -58,7 +63,6 @@ class ToolManager(object):
                       message: Any,
                       sender: Any = None) -> None: ...
 
-    @property
     def active_toggle(self: ToolManager) -> dict: ...
 
     def get_tool_keymap(self: ToolManager,
@@ -109,7 +113,6 @@ class ToolManager(object):
     def _key_press(self: ToolManager,
                    event: {key}) -> None: ...
 
-    @property
     def tools(self: ToolManager) -> dict: ...
 
     def get_tool(self: ToolManager,

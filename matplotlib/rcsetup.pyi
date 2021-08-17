@@ -1,9 +1,14 @@
 from typing import Any
 from typing import Optional
+from typing import Tuple
 from typing import Type
 from typing import Union
 
+from cycler import Cycler
+from list import list
+from matplotlib import _api
 from matplotlib.rcsetup import ValidateInStrings
+from object import object
 
 
 class ValidateInStrings(object):
@@ -18,7 +23,6 @@ class ValidateInStrings(object):
                  s: {startswith, endswith}) -> Any: ...
 
 
-@lru_cache()
 def _listify_validator(scalar_validator: Union[(s: Any),
                        allow_stringlist: bool = False,
                        *,
@@ -119,7 +123,7 @@ def _validate_mathtext_fallback(s: Optional[{__eq__, lower}]) -> Optional[str]: 
 
 
 def validate_whiskers(s: Any) -> Union[list[Union[
-    None, str, int, float, slice, tuple, list, tuple[int, str], {__len__, __getitem__}, tuple[
+    None, str, int, float, slice, Tuple, list, Tuple[int, str], {__len__, __getitem__}, Tuple[
         int, Union[str, {__len__, __getitem__}]]]], float]: ...
 
 
@@ -127,10 +131,10 @@ def validate_ps_distiller(s: Any) -> Optional[Any]: ...
 
 
 def _validate_linestyle(ls: {__len__, __getitem__}) -> Union[
-    tuple[int, str], str, {__len__, __getitem__}, tuple[int, Union[str, {__len__, __getitem__}]]]: ...
+    Tuple[int, str], str, {__len__, __getitem__}, Tuple[int, Union[str, {__len__, __getitem__}]]]: ...
 
 
-def validate_markevery(s: Union[None, int, float, slice]) -> Union[slice, float, int, tuple, list]: ...
+def validate_markevery(s: Union[None, int, float, slice]) -> Union[slice, float, int, Tuple, list]: ...
 
 
 @_api.deprecated("3.3")
@@ -144,8 +148,8 @@ def validate_movie_writer(s: Any) -> Any: ...
 def validate_bbox(s: Any) -> Optional[str]: ...
 
 
-def validate_sketch(s: Optional[{__eq__}]) -> Optional[tuple[Union[None, str, int, float, slice, tuple, list, tuple[
-    int, str], {__len__, __getitem__}, tuple[int, Union[str, {__len__, __getitem__}]]], ...]]: ...
+def validate_sketch(s: Optional[{__eq__}]) -> Optional[Tuple[Union[None, str, int, float, slice, Tuple, list, Tuple[
+    int, str], {__len__, __getitem__}, Tuple[int, Union[str, {__len__, __getitem__}]]], ...]]: ...
 
 
 def _validate_greaterequal0_lessthan1(s: Any) -> Union[None, str, int, float]: ...
@@ -165,7 +169,7 @@ def validate_cycler(s: Any) -> Cycler: ...
 
 
 def validate_hist_bins(s: Any) -> Union[str, int, list[Union[
-    None, str, int, float, slice, tuple, list, tuple[int, str], {__len__, __getitem__}, tuple[
+    None, str, int, float, slice, Tuple, list, Tuple[int, str], {__len__, __getitem__}, Tuple[
         int, Union[str, {__len__, __getitem__}]]]]]: ...
 
 

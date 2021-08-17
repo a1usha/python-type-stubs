@@ -1,7 +1,33 @@
+from typing import Any
+from typing import Callable
 from typing import Iterable
+from typing import Optional
+from typing import Tuple
+from typing import Type
 from typing import Union
 
+from matplotlib import _api
+from matplotlib.axis import Axis
+from matplotlib.scale import FuncScale
+from matplotlib.scale import FuncScaleLog
+from matplotlib.scale import FuncTransform
+from matplotlib.scale import InvertedLogTransform
+from matplotlib.scale import InvertedSymmetricalLogTransform
+from matplotlib.scale import LinearScale
+from matplotlib.scale import LogScale
+from matplotlib.scale import LogTransform
+from matplotlib.scale import LogisticTransform
+from matplotlib.scale import LogitScale
+from matplotlib.scale import LogitTransform
+from matplotlib.scale import ScaleBase
+from matplotlib.scale import SymmetricalLogScale
+from matplotlib.scale import SymmetricalLogTransform
+from matplotlib.transforms import CompositeAffine2D
+from matplotlib.transforms import CompositeGenericTransform
+from matplotlib.transforms import IdentityTransform
+from matplotlib.transforms import Transform
 from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 class ScaleBase(object):
@@ -16,7 +42,7 @@ class ScaleBase(object):
     def limit_range_for_scale(self: ScaleBase,
                               vmin: Any,
                               vmax: Any,
-                              minpos: Any) -> tuple[Any, Any]: ...
+                              minpos: Any) -> Tuple[Any, Any]: ...
 
 
 class LinearScale(ScaleBase):
@@ -81,11 +107,9 @@ class InvertedLogTransform(Transform):
 
 class LogScale(ScaleBase):
     @_api.deprecated("3.3", alternative="scale.LogTransform")
-    @property
     def LogTransform(self: LogScale) -> Type[LogTransform]: ...
 
     @_api.deprecated("3.3", alternative="scale.InvertedLogTransform")
-    @property
     def InvertedLogTransform(self: LogScale) -> Type[InvertedLogTransform]: ...
 
     def __init__(self: LogScale,
@@ -101,7 +125,7 @@ class LogScale(ScaleBase):
     def limit_range_for_scale(self: LogScale,
                               vmin: {__le__},
                               vmax: {__le__},
-                              minpos: Any) -> tuple[Union[float, {__le__}], Union[float, {__le__}]]: ...
+                              minpos: Any) -> Tuple[Union[float, {__le__}], Union[float, {__le__}]]: ...
 
 
 class FuncScaleLog(LogScale):
@@ -110,7 +134,6 @@ class FuncScaleLog(LogScale):
                  functions: tuple[Any, Any],
                  base: float = 10) -> None: ...
 
-    @property
     def base(self: FuncScaleLog) -> Any: ...
 
     def get_transform(self: FuncScaleLog) -> Union[{input_dims, output_dims}, {output_dims,
@@ -143,12 +166,10 @@ class InvertedSymmetricalLogTransform(Transform):
 
 class SymmetricalLogScale(ScaleBase):
     @_api.deprecated("3.3", alternative="scale.SymmetricalLogTransform")
-    @property
     def SymmetricalLogTransform(self: SymmetricalLogScale) -> Type[SymmetricalLogTransform]: ...
 
     @_api.deprecated(
         "3.3", alternative="scale.InvertedSymmetricalLogTransform")
-    @property
     def InvertedSymmetricalLogTransform(self: SymmetricalLogScale) -> Type[InvertedSymmetricalLogTransform]: ...
 
     def __init__(self: SymmetricalLogScale,
@@ -206,7 +227,7 @@ class LogitScale(ScaleBase):
     def limit_range_for_scale(self: LogitScale,
                               vmin: {__le__},
                               vmax: {__ge__},
-                              minpos: Any) -> tuple[Union[float, {__le__}], Union[int, float, {__ge__}]]: ...
+                              minpos: Any) -> Tuple[Union[float, {__le__}], Union[int, float, {__ge__}]]: ...
 
 
 def get_scale_names() -> list[str]: ...

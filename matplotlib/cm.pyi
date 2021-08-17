@@ -1,8 +1,18 @@
+from typing import Any
+from typing import Iterator
+from typing import MutableMapping
 from typing import Optional
+from typing import Tuple
 from typing import Union
 
+from matplotlib import _api
+from matplotlib.cm import ScalarMappable
+from matplotlib.cm import _DeprecatedCmapDictWrapper
 from matplotlib.colors import Colormap
+from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.colors import ListedColormap
 from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 def _gen_cmap_registry() -> dict[str, Union[LinearSegmentedColormap, ListedColormap]]: ...
@@ -69,7 +79,7 @@ class ScalarMappable(object):
 
     def get_cmap(self: ScalarMappable) -> Any: ...
 
-    def get_clim(self: ScalarMappable) -> tuple[Any, Any]: ...
+    def get_clim(self: ScalarMappable) -> Tuple[Any, Any]: ...
 
     def set_clim(self: ScalarMappable,
                  vmin: float = None,

@@ -1,7 +1,14 @@
 from typing import Any
+from typing import Container
 from typing import Iterable
+from typing import Type
 from typing import Union
-from typing import tuple
+
+from matplotlib.container import BarContainer
+from matplotlib.container import Container
+from matplotlib.container import ErrorbarContainer
+from matplotlib.container import StemContainer
+from tuple import tuple
 
 
 class Container(tuple):

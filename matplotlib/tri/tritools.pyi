@@ -1,9 +1,14 @@
+from typing import Tuple
+
+from matplotlib.tri.tritools import TriAnalyzer
+from object import object
+
+
 class TriAnalyzer(object):
     def __init__(self: TriAnalyzer,
                  triangulation: Any) -> None: ...
 
-    @property
-    def scale_factors(self: TriAnalyzer) -> tuple[float, float]: ...
+    def scale_factors(self: TriAnalyzer) -> Tuple[float, float]: ...
 
     def circle_ratios(self: TriAnalyzer,
                       rescale: bool = True) -> Any: ...
@@ -14,5 +19,4 @@ class TriAnalyzer(object):
 
     def _get_compressed_triangulation(self: TriAnalyzer) -> Any: ...
 
-    @staticmethod
     def _total_to_compress_renum(valid: int) -> Any: ...

@@ -1,13 +1,37 @@
+from _typeshed import SupportsLessThan
 from datetime import datetime
 from datetime import tzinfo
 from typing import Any
 from typing import Iterable
 from typing import Optional
+from typing import Tuple
 from typing import Union
 
+from matplotlib import _api
+from matplotlib.artist import Artist
+from matplotlib.axes._axes import Axes
+from matplotlib.axis import Axis
+from matplotlib.axis import Tick
 from matplotlib.axis import Ticker
+from matplotlib.axis import XAxis
+from matplotlib.axis import XTick
+from matplotlib.axis import YAxis
+from matplotlib.axis import YTick
+from matplotlib.axis import _LazyTickList
+from matplotlib.backend_bases import MouseEvent
+from matplotlib.cbook import silent_list
 from matplotlib.lines import Line2D
+from matplotlib.scale import FuncTransform
+from matplotlib.scale import LogTransform
+from matplotlib.scale import LogitTransform
+from matplotlib.scale import SymmetricalLogTransform
 from matplotlib.text import Text
+from matplotlib.transforms import Bbox
+from matplotlib.transforms import CompositeAffine2D
+from matplotlib.transforms import CompositeGenericTransform
+from matplotlib.transforms import IdentityTransform
+from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 class Tick(Artist):
@@ -37,7 +61,6 @@ class Tick(Artist):
                  grid_alpha: Any = None,
                  **kwargs) -> Optional[Any]: ...
 
-    @property
     @_api.deprecated("3.1", alternative="Tick.label1", pending=True)
     def label(self: Tick) -> Text: ...
 
@@ -60,7 +83,7 @@ class Tick(Artist):
     def get_pad_pixels(self: Tick) -> float: ...
 
     def contains(self: Tick,
-                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict]]: ...
+                 mouseevent: MouseEvent) -> Union[Tuple[Any, Any], Tuple[bool, dict]]: ...
 
     def set_pad(self: Tick,
                 val: float) -> None: ...
@@ -79,7 +102,6 @@ class Tick(Artist):
 
     def get_loc(self: Tick) -> Any: ...
 
-    @martist.allow_rasterization
     def draw(self: Tick,
              renderer: {open_group, get_rasterized, get_agg_filter, figure, close_group}) -> Optional[Any]: ...
 
@@ -147,17 +169,13 @@ class YTick(Tick):
 class Ticker(object):
     def __init__(self: Ticker) -> None: ...
 
-    @property
     def locator(self: Ticker) -> Any: ...
 
-    @locator.setter
     def locator(self: Ticker,
                 locator: Any) -> Any: ...
 
-    @property
     def formatter(self: Ticker) -> Any: ...
 
-    @formatter.setter
     def formatter(self: Ticker,
                   formatter: Any) -> Any: ...
 
@@ -202,7 +220,7 @@ class Axis(Artist):
     def limit_range_for_scale(self: Axis,
                               vmin: {__le__},
                               vmax: {__le__, __ge__}) -> Union[
-        tuple[Any, Any], tuple[Union[float, {__le__}], Union[float, {__le__}]], tuple[
+        Tuple[Any, Any], Tuple[Union[float, {__le__}], Union[float, {__le__}]], Tuple[
             Union[float, {__le__}], Union[int, float, {__ge__}]]]: ...
 
     def get_children(self: Axis) -> list[Text]: ...
@@ -223,7 +241,6 @@ class Axis(Artist):
                         reset: bool = False,
                         **kwargs) -> None: ...
 
-    @staticmethod
     def _translate_tick_kw(kw: dict[str, Any]) -> dict[str, Any]: ...
 
     def set_clip_path(self: Axis,
@@ -255,13 +272,13 @@ class Axis(Artist):
                           a: Text) -> None: ...
 
     def get_ticklabel_extents(self: Axis,
-                              renderer: Any) -> tuple[Bbox, Bbox]: ...
+                              renderer: Any) -> Tuple[Bbox, Bbox]: ...
 
     def _update_ticks(self: Axis) -> list: ...
 
     def _get_tick_bboxes(self: Axis,
                          ticks: list,
-                         renderer: {open_group, get_rasterized, get_agg_filter, figure, close_group}) -> tuple[
+                         renderer: {open_group, get_rasterized, get_agg_filter, figure, close_group}) -> Tuple[
         list, list]: ...
 
     def get_tightbbox(self: Axis,
@@ -271,7 +288,6 @@ class Axis(Artist):
 
     def get_tick_padding(self: Axis) -> Union[SupportsLessThan, int]: ...
 
-    @martist.allow_rasterization
     def draw(self: Axis,
              renderer: {open_group, get_rasterized, get_agg_filter, figure, close_group},
              *args,
@@ -381,7 +397,6 @@ class Axis(Artist):
     def set_pickradius(self: Axis,
                        pickradius: float) -> None: ...
 
-    @staticmethod
     def _format_with_dict(tickd: {get},
                           x: Any,
                           pos: Any) -> Any: ...
@@ -419,7 +434,7 @@ class Axis(Artist):
                   minor: bool = False) -> list: ...
 
     def _get_tick_boxes_siblings(self: Axis,
-                                 renderer: {open_group, get_rasterized, get_agg_filter, figure, close_group}) -> tuple[
+                                 renderer: {open_group, get_rasterized, get_agg_filter, figure, close_group}) -> Tuple[
         list, list]: ...
 
     def _update_label_position(self: Axis,
@@ -454,7 +469,7 @@ class Axis(Artist):
 
 def _make_getset_interval(method_name: str,
                           lim_name: str,
-                          attr_name: str) -> tuple[(self: {stale}) ->
+                          attr_name: str) -> Tuple[(self: {stale}) ->
 
 
 class XAxis(Axis):
@@ -463,7 +478,7 @@ class XAxis(Axis):
                  **kwargs) -> None: ...
 
     def contains(self: XAxis,
-                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict], tuple[bool, dict]]: ...
+                 mouseevent: MouseEvent) -> Union[Tuple[Any, Any], Tuple[bool, dict], Tuple[bool, dict]]: ...
 
     def _get_tick(self: XAxis,
                   major: bool) -> XTick: ...
@@ -479,7 +494,7 @@ class XAxis(Axis):
                                      bboxes2: list) -> None: ...
 
     def get_text_heights(self: XAxis,
-                         renderer: Any) -> tuple[float, float]: ...
+                         renderer: Any) -> Tuple[float, float]: ...
 
     def set_ticks_position(self: XAxis,
                            position: str) -> None: ...
@@ -506,7 +521,7 @@ class YAxis(Axis):
                  **kwargs) -> None: ...
 
     def contains(self: YAxis,
-                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict], tuple[bool, dict]]: ...
+                 mouseevent: MouseEvent) -> Union[Tuple[Any, Any], Tuple[bool, dict], Tuple[bool, dict]]: ...
 
     def _get_tick(self: YAxis,
                   major: bool) -> YTick: ...
@@ -525,7 +540,7 @@ class YAxis(Axis):
                             position: str) -> None: ...
 
     def get_text_widths(self: YAxis,
-                        renderer: Any) -> tuple[float, float]: ...
+                        renderer: Any) -> Tuple[float, float]: ...
 
     def set_ticks_position(self: YAxis,
                            position: str) -> None: ...

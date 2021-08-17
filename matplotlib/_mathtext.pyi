@@ -1,15 +1,53 @@
+from types import SimpleNamespace
 from typing import Any
 from typing import List
 from typing import Optional
+from typing import Tuple
+from typing import Type
 from typing import Union
 
+from matplotlib import _api
+from matplotlib._mathtext import Accent
+from matplotlib._mathtext import AutoHeightChar
+from matplotlib._mathtext import AutoWidthChar
+from matplotlib._mathtext import BakomaFonts
+from matplotlib._mathtext import Box
+from matplotlib._mathtext import Char
+from matplotlib._mathtext import DejaVuFonts
+from matplotlib._mathtext import Fil
+from matplotlib._mathtext import Fill
+from matplotlib._mathtext import Filll
+from matplotlib._mathtext import Fonts
 from matplotlib._mathtext import Glue
+from matplotlib._mathtext import HCentered
 from matplotlib._mathtext import Hbox
 from matplotlib._mathtext import Hlist
+from matplotlib._mathtext import Hrule
 from matplotlib._mathtext import Kern
 from matplotlib._mathtext import List
+from matplotlib._mathtext import NegFil
+from matplotlib._mathtext import NegFill
+from matplotlib._mathtext import NegFilll
+from matplotlib._mathtext import Node
+from matplotlib._mathtext import Parser
+from matplotlib._mathtext import Rule
+from matplotlib._mathtext import Ship
+from matplotlib._mathtext import SsGlue
+from matplotlib._mathtext import StandardPsFonts
+from matplotlib._mathtext import StixFonts
+from matplotlib._mathtext import SubSuperCluster
+from matplotlib._mathtext import TruetypeFonts
+from matplotlib._mathtext import UnicodeFonts
+from matplotlib._mathtext import VCentered
+from matplotlib._mathtext import Vbox
+from matplotlib._mathtext import Vlist
+from matplotlib._mathtext import Vrule
 from matplotlib._mathtext.Parser import State
 from matplotlib._mathtext.Parser import _MathStyle
+from matplotlib.afm import AFM
+from matplotlib.ft2font import FT2Font
+from object import object
+from pyparsing import Empty
 
 
 def get_unicode_index(symbol: str,
@@ -81,7 +119,7 @@ class Fonts(object):
 
     def get_sized_alternatives_for_symbol(self: Fonts,
                                           fontname: Any,
-                                          sym: Any) -> list[tuple[Any, Any]]: ...
+                                          sym: Any) -> list[Tuple[Any, Any]]: ...
 
 
 class TruetypeFonts(Fonts):
@@ -142,11 +180,11 @@ class BakomaFonts(TruetypeFonts):
                    sym: {__eq__},
                    fontsize: Any,
                    math: bool = True) -> Union[
-        tuple[Optional[FT2Font], int, None, Any, bool], tuple[Optional[FT2Font], int, None, Any, bool]]: ...
+        Tuple[Optional[FT2Font], int, None, Any, bool], Tuple[Optional[FT2Font], int, None, Any, bool]]: ...
 
     def get_sized_alternatives_for_symbol(self: BakomaFonts,
                                           fontname: Any,
-                                          sym: Any) -> list[tuple[str, str]]: ...
+                                          sym: Any) -> list[Tuple[str, str]]: ...
 
 
 class UnicodeFonts(TruetypeFonts):
@@ -157,7 +195,7 @@ class UnicodeFonts(TruetypeFonts):
     def _map_virtual_font(self: UnicodeFonts,
                           fontname: str,
                           font_class: Any,
-                          uniindex: Any) -> tuple[str, Any]: ...
+                          uniindex: Any) -> Tuple[str, Any]: ...
 
     def _get_glyph(self: UnicodeFonts,
                    fontname: str,
@@ -165,12 +203,12 @@ class UnicodeFonts(TruetypeFonts):
                    sym: {__eq__},
                    fontsize: Any,
                    math: bool = True) -> Union[
-        tuple[Optional[FT2Font], int, None, Any, bool], tuple[Optional[FT2Font], int, None, Any, bool]]: ...
+        Tuple[Optional[FT2Font], int, None, Any, bool], Tuple[Optional[FT2Font], int, None, Any, bool]]: ...
 
     def get_sized_alternatives_for_symbol(self: UnicodeFonts,
                                           fontname: Any,
                                           sym: Any) -> Union[
-        list[tuple[Any, str]], list[tuple[int, str]], list[tuple[str, str]], list[tuple[Any, Any]]]: ...
+        list[Tuple[Any, str]], list[Tuple[int, str]], list[Tuple[str, str]], list[Tuple[Any, Any]]]: ...
 
 
 class DejaVuFonts(UnicodeFonts):
@@ -184,7 +222,7 @@ class DejaVuFonts(UnicodeFonts):
                    sym: {__eq__},
                    fontsize: Any,
                    math: bool = True) -> Union[
-        tuple[Optional[FT2Font], int, None, Any, bool], tuple[Optional[FT2Font], int, None, Any, bool]]: ...
+        Tuple[Optional[FT2Font], int, None, Any, bool], Tuple[Optional[FT2Font], int, None, Any, bool]]: ...
 
 
 class DejaVuSerifFonts(DejaVuFonts):
@@ -203,12 +241,11 @@ class StixFonts(UnicodeFonts):
     def _map_virtual_font(self: StixFonts,
                           fontname: str,
                           font_class: Any,
-                          uniindex: Any) -> tuple[Union[str, int, tuple[int, int, str, int], None], int]: ...
+                          uniindex: Any) -> Tuple[Union[str, int, Tuple[int, int, str, int], None], int]: ...
 
-    @functools.lru_cache()
     def get_sized_alternatives_for_symbol(self: StixFonts,
                                           fontname: Any,
-                                          sym: Any) -> Union[list[tuple[Any, str]], list[tuple[int, str]]]: ...
+                                          sym: Any) -> Union[list[Tuple[Any, str]], list[Tuple[int, str]]]: ...
 
 
 class StixSansFonts(StixFonts):
@@ -368,7 +405,6 @@ class List(Box):
 
     def __repr__(self: List) -> str: ...
 
-    @staticmethod
     def _determine_order(totals: list[float]) -> int: ...
 
     def _set_glue(self: List,
@@ -529,11 +565,10 @@ class Ship(object):
                  oy: {__add__},
                  box: {height}) -> None: ...
 
-    @staticmethod
     def clamp(value: {__lt__, __gt__}) -> Union[float, {__lt__, __gt__}]: ...
 
     def hlist_out(self: Ship,
-                  box: Hlist) -> None: ...
+                  box: Union[{height}, Hlist]) -> None: ...
 
     def vlist_out(self: Ship,
                   box: List) -> Any: ...

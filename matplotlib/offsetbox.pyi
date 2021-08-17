@@ -1,10 +1,35 @@
 from typing import Any
 from typing import Optional
+from typing import Tuple
 from typing import Union
-from typing import tuple
 
+from matplotlib import _api
+from matplotlib.artist import Artist
+from matplotlib.backend_bases import MouseEvent
+from matplotlib.offsetbox import AnchoredOffsetbox
+from matplotlib.offsetbox import AnchoredText
+from matplotlib.offsetbox import AnnotationBbox
+from matplotlib.offsetbox import AuxTransformBox
+from matplotlib.offsetbox import DraggableAnnotation
+from matplotlib.offsetbox import DraggableBase
+from matplotlib.offsetbox import DraggableOffsetBox
+from matplotlib.offsetbox import DrawingArea
+from matplotlib.offsetbox import HPacker
+from matplotlib.offsetbox import OffsetBox
+from matplotlib.offsetbox import OffsetImage
+from matplotlib.offsetbox import PackerBase
+from matplotlib.offsetbox import PaddedBox
+from matplotlib.offsetbox import TextArea
+from matplotlib.offsetbox import VPacker
+from matplotlib.text import _AnnotationBase
 from matplotlib.transforms import Bbox
+from matplotlib.transforms import BboxBase
+from matplotlib.transforms import CompositeAffine2D
+from matplotlib.transforms import CompositeGenericTransform
 from matplotlib.transforms import Transform
+from matplotlib.transforms import TransformedBbox
+from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 def bbox_artist(*args,
@@ -30,7 +55,6 @@ class OffsetBox(Artist):
     def set_figure(self: OffsetBox,
                    fig: Any) -> None: ...
 
-    @martist.Artist.axes.setter
     def axes(self: OffsetBox,
              ax: Any) -> Optional[Any]: ...
 
@@ -45,7 +69,7 @@ class OffsetBox(Artist):
                    height: Union[int, float],
                    xdescent: float,
                    ydescent: float,
-                   renderer: Any) -> tuple[int, int]: ...
+                   renderer: Any) -> Tuple[int, int]: ...
 
     def set_width(self: OffsetBox,
                   width: float) -> None: ...
@@ -61,7 +85,7 @@ class OffsetBox(Artist):
                            renderer: Any) -> Any: ...
 
     def get_extent(self: OffsetBox,
-                   renderer: Optional[Any]) -> tuple[Any, Any, Any, Any]: ...
+                   renderer: Optional[Any]) -> Tuple[Any, Any, Any, Any]: ...
 
     def get_window_extent(self: OffsetBox,
                           renderer: Optional[Any]) -> Bbox: ...
@@ -83,15 +107,15 @@ class PackerBase(OffsetBox):
 
 class VPacker(PackerBase):
     def get_extent_offsets(self: VPacker,
-                           renderer: {points_to_pixels}) -> tuple[
-        Union[int, float], float, float, float, list[tuple[Any, Any]]]: ...
+                           renderer: {points_to_pixels}) -> Tuple[
+        Union[int, float], float, float, float, list[Tuple[Any, Any]]]: ...
 
 
 class HPacker(PackerBase):
     def get_extent_offsets(self: HPacker,
                            renderer: {points_to_pixels}) -> Union[
-        tuple[Union[int, float], Union[int, float], float, float, list], tuple[
-            float, Union[int, float], float, float, list[tuple[Any, Any]]]]: ...
+        Tuple[Union[int, float], Union[int, float], float, float, list], Tuple[
+            float, Union[int, float], float, float, list[Tuple[Any, Any]]]]: ...
 
 
 class PaddedBox(OffsetBox):
@@ -102,8 +126,8 @@ class PaddedBox(OffsetBox):
                  patch_attrs: Optional[dict] = None) -> None: ...
 
     def get_extent_offsets(self: PaddedBox,
-                           renderer: Optional[Any]) -> tuple[
-        Union[int, float], Union[int, float], float, float, list[tuple[int, int]]]: ...
+                           renderer: Optional[Any]) -> Tuple[
+        Union[int, float], Union[int, float], float, float, list[Tuple[int, int]]]: ...
 
     def draw(self: PaddedBox,
              renderer: Optional[Any]) -> None: ...
@@ -124,10 +148,8 @@ class DrawingArea(OffsetBox):
                  ydescent: float = 0.,
                  clip: bool = False) -> None: ...
 
-    @property
     def clip_children(self: DrawingArea) -> bool: ...
 
-    @clip_children.setter
     def clip_children(self: DrawingArea,
                       val: Any) -> None: ...
 
@@ -140,13 +162,13 @@ class DrawingArea(OffsetBox):
     def set_offset(self: DrawingArea,
                    xy: tuple[float, float]) -> None: ...
 
-    def get_offset(self: DrawingArea) -> tuple[float, float]: ...
+    def get_offset(self: DrawingArea) -> Tuple[float, float]: ...
 
     def get_window_extent(self: DrawingArea,
                           renderer: Optional[Any]) -> Bbox: ...
 
     def get_extent(self: DrawingArea,
-                   renderer: Optional[Any]) -> tuple[float, float, float, float]: ...
+                   renderer: Optional[Any]) -> Tuple[float, float, float, float]: ...
 
     def add_artist(self: DrawingArea,
                    a: {is_transform_set}) -> None: ...
@@ -186,13 +208,13 @@ class TextArea(OffsetBox):
     def set_offset(self: TextArea,
                    xy: tuple[float, float]) -> None: ...
 
-    def get_offset(self: TextArea) -> tuple[float, float]: ...
+    def get_offset(self: TextArea) -> Tuple[float, float]: ...
 
     def get_window_extent(self: TextArea,
                           renderer: Optional[Any]) -> Bbox: ...
 
     def get_extent(self: TextArea,
-                   renderer: Optional[Any]) -> tuple[Any, int, Union[float, int], Union[float, int]]: ...
+                   renderer: Optional[Any]) -> Tuple[Any, int, Union[float, int], Union[float, int]]: ...
 
     def draw(self: TextArea,
              renderer: Optional[Any]) -> None: ...
@@ -213,13 +235,13 @@ class AuxTransformBox(OffsetBox):
     def set_offset(self: AuxTransformBox,
                    xy: tuple[float, float]) -> None: ...
 
-    def get_offset(self: AuxTransformBox) -> tuple[float, float]: ...
+    def get_offset(self: AuxTransformBox) -> Tuple[float, float]: ...
 
     def get_window_extent(self: AuxTransformBox,
                           renderer: Optional[Any]) -> Bbox: ...
 
     def get_extent(self: AuxTransformBox,
-                   renderer: Optional[Any]) -> tuple[Any, Any, float, float]: ...
+                   renderer: Optional[Any]) -> Tuple[Any, Any, float, float]: ...
 
     def draw(self: AuxTransformBox,
              renderer: Optional[Any]) -> None: ...
@@ -245,7 +267,7 @@ class AnchoredOffsetbox(OffsetBox):
     def get_children(self: AnchoredOffsetbox) -> list: ...
 
     def get_extent(self: AnchoredOffsetbox,
-                   renderer: Optional[Any]) -> tuple[Union[int, float], Union[int, float], float, float]: ...
+                   renderer: Optional[Any]) -> Tuple[Union[int, float], Union[int, float], float, float]: ...
 
     def get_bbox_to_anchor(self: AnchoredOffsetbox) -> Union[BboxBase, TransformedBbox]: ...
 
@@ -271,7 +293,7 @@ class AnchoredOffsetbox(OffsetBox):
                            loc: Any,
                            bbox: Bbox,
                            parentbbox: {padded},
-                           borderpad: {__neg__}) -> tuple[Any, Any]: ...
+                           borderpad: {__neg__}) -> Tuple[Any, Any]: ...
 
 
 class AnchoredText(AnchoredOffsetbox):
@@ -308,7 +330,7 @@ class OffsetImage(OffsetBox):
 
     def get_zoom(self: OffsetImage) -> int: ...
 
-    def get_offset(self: OffsetImage) -> tuple[int, int]: ...
+    def get_offset(self: OffsetImage) -> Tuple[int, int]: ...
 
     def get_children(self: OffsetImage) -> list[BboxImage]: ...
 
@@ -316,7 +338,7 @@ class OffsetImage(OffsetBox):
                           renderer: Optional[Any]) -> Bbox: ...
 
     def get_extent(self: OffsetImage,
-                   renderer: Optional[Any]) -> tuple[Union[float, int], Union[float, int], int, int]: ...
+                   renderer: Optional[Any]) -> Tuple[Union[float, int], Union[float, int], int, int]: ...
 
     def draw(self: OffsetImage,
              renderer: Optional[Any]) -> None: ...
@@ -325,7 +347,6 @@ class OffsetImage(OffsetBox):
 class AnnotationBbox(Artist, _AnnotationBase):
     def __str__(self: AnnotationBbox) -> str: ...
 
-    @docstring.dedent_interpd
     def __init__(self: AnnotationBbox,
                  offsetbox: OffsetBox,
                  xy: tuple[float, float],
@@ -341,22 +362,18 @@ class AnnotationBbox(Artist, _AnnotationBase):
                  fontsize: Any = None,
                  **kwargs) -> Optional[Any]: ...
 
-    @property
     def xyann(self: AnnotationBbox) -> Any: ...
 
-    @xyann.setter
     def xyann(self: AnnotationBbox,
               xyann: Any) -> None: ...
 
-    @property
     def anncoords(self: AnnotationBbox) -> Any: ...
 
-    @anncoords.setter
     def anncoords(self: AnnotationBbox,
                   coords: Any) -> None: ...
 
     def contains(self: AnnotationBbox,
-                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict], tuple[bool, dict]]: ...
+                 mouseevent: MouseEvent) -> Union[Tuple[Any, Any], Tuple[bool, dict], Tuple[bool, dict]]: ...
 
     def get_children(self: AnnotationBbox) -> list[Union[OffsetBox, FancyBboxPatch]]: ...
 
@@ -377,10 +394,10 @@ class AnnotationBbox(Artist, _AnnotationBase):
                       renderer: Any) -> Bbox: ...
 
     def update_positions(self: AnnotationBbox,
-                         renderer: {points_to_pixels}) -> None: ...
+                         renderer: Optional[Any]) -> None: ...
 
     def _update_position_xybox(self: AnnotationBbox,
-                               renderer: Any,
+                               renderer: Optional[Any],
                                xy_pixel: Any) -> None: ...
 
     def draw(self: AnnotationBbox,
@@ -435,7 +452,7 @@ class DraggableOffsetBox(DraggableBase):
                       dx: Any,
                       dy: Any) -> None: ...
 
-    def get_loc_in_canvas(self: DraggableOffsetBox) -> tuple[Any, Any]: ...
+    def get_loc_in_canvas(self: DraggableOffsetBox) -> Tuple[Any, Any]: ...
 
 
 class DraggableAnnotation(DraggableBase):

@@ -1,11 +1,16 @@
 from typing import Any
 from typing import Optional
+from typing import Tuple
+from typing import Type
 from typing import Union
-from typing import tuple
+
+from matplotlib import _api
+from matplotlib.texmanager import TexManager
+from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 class TexManager(object):
-    @functools.lru_cache()
     def __new__(cls: Type[TexManager]) -> TexManager: ...
 
     def get_font_config(self: TexManager) -> str: ...
@@ -65,4 +70,4 @@ class TexManager(object):
                                       tex: {strip},
                                       fontsize: Any,
                                       renderer: {points_to_pixels} = None) -> Union[
-        tuple[int, int, int], tuple[Any, Any, Any]]: ...
+        Tuple[int, int, int], Tuple[Any, Any, Any]]: ...

@@ -1,5 +1,11 @@
 from typing import Any
-from typing import tuple
+
+from matplotlib.backend_bases import MouseButton
+from matplotlib.blocking_input import BlockingContourLabeler
+from matplotlib.blocking_input import BlockingInput
+from matplotlib.blocking_input import BlockingKeyMouseInput
+from matplotlib.blocking_input import BlockingMouseInput
+from object import object
 
 
 class BlockingInput(object):

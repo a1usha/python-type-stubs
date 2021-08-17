@@ -1,4 +1,12 @@
+from typing import Any
 from typing import Optional
+from typing import Tuple
+
+from matplotlib._tri import Triangulation
+from matplotlib.tri.triangulation import Triangulation
+from matplotlib.tri.trifinder import TrapezoidMapTriFinder
+from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 class Triangulation(object):
@@ -11,20 +19,17 @@ class Triangulation(object):
     def calculate_plane_coefficients(self: Triangulation,
                                      z: Any) -> None: ...
 
-    @property
     def edges(self: Triangulation) -> Optional[Any]: ...
 
     def get_cpp_triangulation(self: Triangulation) -> Triangulation: ...
 
     def get_masked_triangles(self: Triangulation) -> Optional[ndarray]: ...
 
-    @staticmethod
     def get_from_args_and_kwargs(*args,
-                                 **kwargs) -> tuple[Triangulation, Any, dict[str, Any]]: ...
+                                 **kwargs) -> Tuple[Triangulation, Any, dict[str, Any]]: ...
 
     def get_trifinder(self: Triangulation) -> TrapezoidMapTriFinder: ...
 
-    @property
     def neighbors(self: Triangulation) -> Optional[Any]: ...
 
     def set_mask(self: Triangulation,

@@ -1,13 +1,41 @@
+from _typeshed import SupportsLessThan
 from typing import Any
+from typing import Generator
 from typing import Iterable
 from typing import Optional
+from typing import Tuple
+from typing import Type
 from typing import Union
-from typing import tuple
 
+from matplotlib import _api
 from matplotlib.path import Path
+from matplotlib.transforms import Affine2D
+from matplotlib.transforms import Affine2DBase
+from matplotlib.transforms import AffineBase
+from matplotlib.transforms import AffineDeltaTransform
 from matplotlib.transforms import Bbox
+from matplotlib.transforms import BboxBase
+from matplotlib.transforms import BboxTransform
+from matplotlib.transforms import BboxTransformFrom
+from matplotlib.transforms import BboxTransformTo
+from matplotlib.transforms import BboxTransformToMaxOnly
+from matplotlib.transforms import BlendedAffine2D
+from matplotlib.transforms import BlendedGenericTransform
+from matplotlib.transforms import CompositeAffine2D
+from matplotlib.transforms import CompositeGenericTransform
+from matplotlib.transforms import IdentityTransform
+from matplotlib.transforms import LockableBbox
+from matplotlib.transforms import ScaledTranslation
 from matplotlib.transforms import Transform
+from matplotlib.transforms import TransformNode
+from matplotlib.transforms import TransformWrapper
+from matplotlib.transforms import TransformedBbox
+from matplotlib.transforms import TransformedPatchPath
+from matplotlib.transforms import TransformedPath
+from matplotlib.transforms import _BlendedMixin
 from numpy.core._multiarray_umath import ndarray
+from numpy.ma.core import MaskedArray
+from object import object
 
 
 def _make_str_method(*args,
@@ -43,7 +71,6 @@ class TransformNode(object):
 
 
 class BboxBase(TransformNode):
-    @staticmethod
     def _check(points: ndarray) -> None: ...
 
     def frozen(self: BboxBase) -> Bbox: ...
@@ -52,61 +79,42 @@ class BboxBase(TransformNode):
                   *args,
                   **kwargs) -> Any: ...
 
-    @property
     def x0(self: BboxBase) -> Any: ...
 
-    @property
     def y0(self: BboxBase) -> Any: ...
 
-    @property
     def x1(self: BboxBase) -> Any: ...
 
-    @property
     def y1(self: BboxBase) -> Any: ...
 
-    @property
     def p0(self: BboxBase) -> Any: ...
 
-    @property
     def p1(self: BboxBase) -> Any: ...
 
-    @property
     def xmin(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
 
-    @property
     def ymin(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
 
-    @property
     def xmax(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
 
-    @property
     def ymax(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
 
-    @property
     def min(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
 
-    @property
     def max(self: BboxBase) -> Union[ndarray, int, float, complex]: ...
 
-    @property
     def intervalx(self: BboxBase) -> Any: ...
 
-    @property
     def intervaly(self: BboxBase) -> Any: ...
 
-    @property
     def width(self: BboxBase) -> Any: ...
 
-    @property
     def height(self: BboxBase) -> Any: ...
 
-    @property
     def size(self: BboxBase) -> Any: ...
 
-    @property
-    def bounds(self: BboxBase) -> tuple[Any, Any, Any, Any]: ...
+    def bounds(self: BboxBase) -> Tuple[Any, Any, Any, Any]: ...
 
-    @property
     def extents(self: BboxBase) -> Any: ...
 
     def get_points(self: BboxBase) -> Any: ...
@@ -185,10 +193,8 @@ class BboxBase(TransformNode):
     def rotated(self: BboxBase,
                 radians: Any) -> Bbox: ...
 
-    @staticmethod
     def union(bboxes: {__len__}) -> Bbox: ...
 
-    @staticmethod
     def intersection(bbox1: {xmin, xmax, ymin, ymax},
                      bbox2: {xmin, xmax, ymin, ymax}) -> Optional[Bbox]: ...
 
@@ -204,19 +210,15 @@ class Bbox(BboxBase):
 
     def invalidate(self: Bbox) -> None: ...
 
-    @staticmethod
     def unit() -> Bbox: ...
 
-    @staticmethod
     def null() -> Bbox: ...
 
-    @staticmethod
     def from_bounds(x0: {__add__},
                     y0: {__add__},
                     width: Any,
                     height: Any) -> Bbox: ...
 
-    @staticmethod
     def from_extents(*args,
                      minpos: Optional[float] = None) -> Bbox: ...
 
@@ -242,49 +244,37 @@ class Bbox(BboxBase):
                             updatex: bool = True,
                             updatey: bool = True) -> None: ...
 
-    @BboxBase.x0.setter
     def x0(self: Bbox,
            val: Any) -> Optional[Any]: ...
 
-    @BboxBase.y0.setter
     def y0(self: Bbox,
            val: Any) -> Optional[Any]: ...
 
-    @BboxBase.x1.setter
     def x1(self: Bbox,
            val: Any) -> Optional[Any]: ...
 
-    @BboxBase.y1.setter
     def y1(self: Bbox,
            val: Any) -> Optional[Any]: ...
 
-    @BboxBase.p0.setter
     def p0(self: Bbox,
            val: Any) -> Optional[Any]: ...
 
-    @BboxBase.p1.setter
     def p1(self: Bbox,
            val: Any) -> Optional[Any]: ...
 
-    @BboxBase.intervalx.setter
     def intervalx(self: Bbox,
                   interval: Any) -> Optional[Any]: ...
 
-    @BboxBase.intervaly.setter
     def intervaly(self: Bbox,
                   interval: Any) -> Optional[Any]: ...
 
-    @BboxBase.bounds.setter
     def bounds(self: Bbox,
                bounds: Any) -> Optional[Any]: ...
 
-    @property
     def minpos(self: Bbox) -> ndarray: ...
 
-    @property
     def minposx(self: Bbox) -> None: ...
 
-    @property
     def minposy(self: Bbox) -> None: ...
 
     def get_points(self: Bbox) -> ndarray: ...
@@ -326,31 +316,23 @@ class LockableBbox(BboxBase):
 
     def get_points(self: LockableBbox) -> ndarray: ...
 
-    @property
     def locked_x0(self: LockableBbox) -> Optional[Any]: ...
 
-    @locked_x0.setter
     def locked_x0(self: LockableBbox,
                   x0: Any) -> None: ...
 
-    @property
     def locked_y0(self: LockableBbox) -> Optional[Any]: ...
 
-    @locked_y0.setter
     def locked_y0(self: LockableBbox,
                   y0: Any) -> None: ...
 
-    @property
     def locked_x1(self: LockableBbox) -> Optional[Any]: ...
 
-    @locked_x1.setter
     def locked_x1(self: LockableBbox,
                   x1: Any) -> None: ...
 
-    @property
     def locked_y1(self: LockableBbox) -> Optional[Any]: ...
 
-    @locked_y1.setter
     def locked_y1(self: LockableBbox,
                   y1: Any) -> None: ...
 
@@ -362,9 +344,8 @@ class Transform(TransformNode):
                 other: Any) -> Union[Transform, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
 
     def _iter_break_from_left_to_right(self: Transform) -> Generator[
-        tuple[IdentityTransform, Transform], Any, None]: ...
+        Tuple[IdentityTransform, Transform], Any, None]: ...
 
-    @property
     def depth(self: Transform) -> int: ...
 
     def contains_branch(self: Transform,
@@ -404,7 +385,7 @@ class Transform(TransformNode):
                        path: {vertices, codes}) -> {vertices, codes}: ...
 
     def transform_path_affine(self: Transform,
-                              path: Any) -> {vertices, codes}: ...
+                              path: Path) -> Path: ...
 
     def transform_path_non_affine(self: Transform,
                                   path: {vertices, codes}) -> Path: ...
@@ -431,7 +412,7 @@ class TransformWrapper(Transform):
     def frozen(self: TransformWrapper) -> Any: ...
 
     def _set(self: TransformWrapper,
-             child: {input_dims, output_dims}) -> None: ...
+             child: Union[{input_dims, output_dims}, {input_dims, output_dims}]) -> None: ...
 
     def set(self: TransformWrapper,
             child: {input_dims, output_dims}) -> Any: ...
@@ -473,10 +454,9 @@ class AffineBase(Transform):
 class Affine2DBase(AffineBase):
     def frozen(self: Affine2DBase) -> Affine2D: ...
 
-    @property
     def is_separable(self: Affine2DBase) -> bool: ...
 
-    def to_values(self: Affine2DBase) -> tuple: ...
+    def to_values(self: Affine2DBase) -> Tuple: ...
 
     def transform_affine(self: Affine2DBase,
                          points: Any) -> None: ...
@@ -492,7 +472,6 @@ class Affine2D(Affine2DBase):
                  matrix: Optional[{copy}] = None,
                  **kwargs) -> None: ...
 
-    @staticmethod
     def from_values(a: Any,
                     b: Any,
                     c: Any,
@@ -508,7 +487,6 @@ class Affine2D(Affine2DBase):
     def set(self: Affine2D,
             other: {get_matrix}) -> None: ...
 
-    @staticmethod
     def identity() -> Affine2D: ...
 
     def clear(self: Affine2D) -> Affine2D: ...
@@ -522,12 +500,12 @@ class Affine2D(Affine2DBase):
     def rotate_around(self: Affine2D,
                       x: {__neg__},
                       y: {__neg__},
-                      theta: Any) -> Any: ...
+                      theta: Any) -> Affine2D: ...
 
     def rotate_deg_around(self: Affine2D,
                           x: Any,
                           y: Any,
-                          degrees: Any) -> Any: ...
+                          degrees: Any) -> Affine2D: ...
 
     def translate(self: Affine2D,
                   tx: float,
@@ -579,7 +557,7 @@ class _BlendedMixin(object):
                other: Any) -> Union[bool, _NotImplementedType]: ...
 
     def contains_branch_seperately(self: _BlendedMixin,
-                                   transform: Any) -> tuple[Any, Any]: ...
+                                   transform: Any) -> Tuple[Any, Any]: ...
 
 
 class BlendedGenericTransform(_BlendedMixin, Transform):
@@ -588,7 +566,6 @@ class BlendedGenericTransform(_BlendedMixin, Transform):
                  y_transform: Any,
                  **kwargs) -> None: ...
 
-    @property
     def depth(self: BlendedGenericTransform) -> SupportsLessThan: ...
 
     def contains_branch(self: BlendedGenericTransform,
@@ -632,7 +609,7 @@ class CompositeGenericTransform(Transform):
     def __eq__(self: CompositeGenericTransform,
                other: Any) -> bool: ...
 
-    def _iter_break_from_left_to_right(self: CompositeGenericTransform) -> Generator[tuple[Any, Any], Any, None]: ...
+    def _iter_break_from_left_to_right(self: CompositeGenericTransform) -> Generator[Tuple[Any, Any], Any, None]: ...
 
     def transform_affine(self: CompositeGenericTransform,
                          points: Any) -> Any: ...
@@ -654,10 +631,9 @@ class CompositeAffine2D(Affine2DBase):
                  b: {is_affine, input_dims, output_dims},
                  **kwargs) -> Any: ...
 
-    @property
     def depth(self: CompositeAffine2D) -> Any: ...
 
-    def _iter_break_from_left_to_right(self: CompositeAffine2D) -> Generator[tuple[Any, Any], Any, None]: ...
+    def _iter_break_from_left_to_right(self: CompositeAffine2D) -> Generator[Tuple[Any, Any], Any, None]: ...
 
     def get_matrix(self: CompositeAffine2D) -> ndarray: ...
 
@@ -720,9 +696,9 @@ class TransformedPath(TransformNode):
 
     def _revalidate(self: TransformedPath) -> None: ...
 
-    def get_transformed_points_and_affine(self: TransformedPath) -> tuple[Any, IdentityTransform]: ...
+    def get_transformed_points_and_affine(self: TransformedPath) -> Tuple[Any, IdentityTransform]: ...
 
-    def get_transformed_path_and_affine(self: TransformedPath) -> tuple[Any, IdentityTransform]: ...
+    def get_transformed_path_and_affine(self: TransformedPath) -> Tuple[Any, IdentityTransform]: ...
 
     def get_fully_transformed_path(self: TransformedPath) -> {vertices, codes}: ...
 

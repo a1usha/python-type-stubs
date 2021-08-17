@@ -1,8 +1,36 @@
+from enum import IntEnum
+from types import SimpleNamespace
 from typing import Any
 from typing import Iterable
 from typing import Optional
+from typing import Union
 
+from matplotlib import _api
+from matplotlib.axes._axes import Axes
+from matplotlib.backend_tools import AxisScaleBase
 from matplotlib.backend_tools import Cursors
+from matplotlib.backend_tools import RubberbandBase
+from matplotlib.backend_tools import SetCursorBase
+from matplotlib.backend_tools import ToolBase
+from matplotlib.backend_tools import ToolCopyToClipboardBase
+from matplotlib.backend_tools import ToolCursorPosition
+from matplotlib.backend_tools import ToolFullScreen
+from matplotlib.backend_tools import ToolGrid
+from matplotlib.backend_tools import ToolHelpBase
+from matplotlib.backend_tools import ToolMinorGrid
+from matplotlib.backend_tools import ToolPan
+from matplotlib.backend_tools import ToolQuit
+from matplotlib.backend_tools import ToolQuitAll
+from matplotlib.backend_tools import ToolToggleBase
+from matplotlib.backend_tools import ToolViewsPositions
+from matplotlib.backend_tools import ToolXScale
+from matplotlib.backend_tools import ToolYScale
+from matplotlib.backend_tools import ToolZoom
+from matplotlib.backend_tools import ViewsPositionsBase
+from matplotlib.backend_tools import ZoomPanBase
+from matplotlib.backend_tools import _ToolEnableAllNavigation
+from matplotlib.backend_tools import _ToolEnableNavigation
+from object import object
 
 
 class Cursors(IntEnum):
@@ -14,17 +42,13 @@ class ToolBase(object):
                  toolmanager: Any,
                  name: Any) -> None: ...
 
-    @property
     def figure(self: ToolBase) -> Any: ...
 
-    @figure.setter
     def figure(self: ToolBase,
                figure: Any) -> None: ...
 
-    @property
     def canvas(self: ToolBase) -> Optional[Any]: ...
 
-    @property
     def toolmanager(self: ToolBase) -> Any: ...
 
     def _make_classic_style_pseudo_toolbar(self: ToolBase) -> SimpleNamespace: ...
@@ -37,7 +61,6 @@ class ToolBase(object):
                 event: Any,
                 data: object = None) -> None: ...
 
-    @property
     def name(self: ToolBase) -> Any: ...
 
     def destroy(self: ToolBase) -> None: ...
@@ -59,7 +82,6 @@ class ToolToggleBase(ToolBase):
     def disable(self: ToolToggleBase,
                 event: Optional[{inaxes}] = None) -> None: ...
 
-    @property
     def toggled(self: ToolToggleBase) -> bool: ...
 
     def set_figure(self: ToolToggleBase,
@@ -295,7 +317,7 @@ class ToolZoom(ZoomPanBase):
                               event: Any) -> None: ...
 
     def _mouse_move(self: ToolZoom,
-                    event: Any) -> None: ...
+                    event: {key}) -> None: ...
 
     def _release(self: ToolZoom,
                  event: {x, y}) -> None: ...
@@ -318,13 +340,12 @@ class ToolPan(ZoomPanBase):
 
 
 class ToolHelpBase(ToolBase):
-    @staticmethod
     def format_shortcut(key_sequence: {__len__}) -> Union[{__len__}, str]: ...
 
     def _format_tool_keymap(self: ToolHelpBase,
                             name: Any) -> str: ...
 
-    def _get_help_entries(self: ToolHelpBase) -> list[tuple[Any, str, Any]]: ...
+    def _get_help_entries(self: ToolHelpBase) -> list[Tuple[Any, str, Any]]: ...
 
     def _get_help_text(self: ToolHelpBase) -> str: ...
 

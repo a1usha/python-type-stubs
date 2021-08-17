@@ -1,11 +1,25 @@
 from typing import Any
 from typing import Optional
+from typing import Tuple
 from typing import Union
-from typing import tuple
 
+from matplotlib import _api
+from matplotlib.artist import Artist
 from matplotlib.axes._subplots import SubplotBase
+from matplotlib.backend_bases import MouseEvent
+from matplotlib.cbook import Stack
+from matplotlib.colorbar import Colorbar
 from matplotlib.colors import Colormap
+from matplotlib.colors import Normalize
+from matplotlib.figure import Figure
+from matplotlib.figure import FigureBase
+from matplotlib.figure import SubFigure
+from matplotlib.figure import SubplotParams
+from matplotlib.figure import _AxesStack
+from matplotlib.image import FigureImage
 from matplotlib.patches import Rectangle
+from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 def _stale_figure_callback(self: {figure},
@@ -18,7 +32,7 @@ class _AxesStack(Stack):
     def as_list(self: _AxesStack) -> list: ...
 
     def _entry_from_axes(self: _AxesStack,
-                         e: {_shared_y_axes, _shared_x_axes}) -> Optional[tuple[Any, Any]]: ...
+                         e: {_shared_y_axes, _shared_x_axes}) -> Optional[Tuple[Any, Any]]: ...
 
     def remove(self: _AxesStack,
                a: {_shared_y_axes, _shared_x_axes}) -> None: ...
@@ -95,23 +109,14 @@ class FigureBase(Artist):
                    transform_rotates_text: bool = ...,
                    **kwargs) -> Any: ...
 
-    @docstring.Substitution(x0=0.5, y0=0.98, name='suptitle', ha='center',
-                            va='top')
-    @docstring.copy(_suplabels)
     def suptitle(self: FigureBase,
                  t: Any,
                  **kwargs) -> Any: ...
 
-    @docstring.Substitution(x0=0.5, y0=0.01, name='supxlabel', ha='center',
-                            va='bottom')
-    @docstring.copy(_suplabels)
     def supxlabel(self: FigureBase,
                   t: Any,
                   **kwargs) -> Any: ...
 
-    @docstring.Substitution(x0=0.02, y0=0.5, name='supylabel', ha='left',
-                            va='center')
-    @docstring.copy(_suplabels)
     def supylabel(self: FigureBase,
                   t: Any,
                   **kwargs) -> Any: ...
@@ -140,19 +145,17 @@ class FigureBase(Artist):
                    artist: Any,
                    clip: bool = False) -> Any: ...
 
-    @docstring.dedent_interpd
     def add_axes(self: FigureBase,
                  *args,
                  **kwargs) -> Optional[Any]: ...
 
-    @docstring.dedent_interpd
     def add_subplot(self: FigureBase,
                     *args,
                     **kwargs) -> Any: ...
 
     def _add_axes_internal(self: FigureBase,
                            ax: SubplotBase,
-                           key: Any) -> Any: ...
+                           key: tuple[Any, dict[str, Any]]) -> SubplotBase: ...
 
     @_api.make_keyword_only("3.3", "sharex")
     def subplots(self: FigureBase,
@@ -167,12 +170,10 @@ class FigureBase(Artist):
     def delaxes(self: FigureBase,
                 ax: {_shared_y_axes, _shared_x_axes}) -> None: ...
 
-    @docstring.dedent_interpd
     def legend(self: FigureBase,
                *args,
                **kwargs) -> Any: ...
 
-    @docstring.dedent_interpd
     def text(self: FigureBase,
              x: float,
              y: float,
@@ -192,7 +193,6 @@ class FigureBase(Artist):
              transform_rotates_text: bool = ...,
              **kwargs) -> Any: ...
 
-    @docstring.dedent_interpd
     def colorbar(self: FigureBase,
                  mappable: {get_array, cmap, norm, colorbar, colorbar_cid, callbacksSM},
                  cax: Any = None,
@@ -253,7 +253,6 @@ class FigureBase(Artist):
     def sca(self: FigureBase,
             a: SubplotBase) -> SubplotBase: ...
 
-    @docstring.dedent_interpd
     def gca(self: FigureBase,
             **kwargs) -> Any: ...
 
@@ -264,7 +263,7 @@ class FigureBase(Artist):
                                          polar: bool = False,
                                          projection: Any = None,
                                          *args,
-                                         **kwargs) -> tuple[Any, dict[str, Any]]: ...
+                                         **kwargs) -> Tuple[Any, dict[str, Any]]: ...
 
     def get_default_bbox_extra_artists(self: FigureBase) -> list: ...
 
@@ -272,7 +271,6 @@ class FigureBase(Artist):
                       renderer: Any,
                       bbox_extra_artists: Any = None) -> Any: ...
 
-    @staticmethod
     def _normalize_grid_string(layout: str) -> list[list]: ...
 
     def subplot_mosaic(self: FigureBase,
@@ -356,7 +354,7 @@ class Figure(FigureBase):
                                     **kwargs) -> None: ...
 
     def get_constrained_layout_pads(self: Figure,
-                                    relative: bool = False) -> tuple[Optional[Any], Optional[Any], None, None]: ...
+                                    relative: bool = False) -> Tuple[Optional[Any], Optional[Any], None, None]: ...
 
     def set_canvas(self: Figure,
                    canvas: Any) -> None: ...
@@ -404,8 +402,6 @@ class Figure(FigureBase):
     def clear(self: Figure,
               keep_observers: bool = False) -> None: ...
 
-    @_finalize_rasterization
-    @allow_rasterization
     def draw(self: Figure,
              renderer: {open_group, get_rasterized, get_agg_filter, figure, option_image_nocomposite, close_group}) -> \
     Optional[Any]: ...

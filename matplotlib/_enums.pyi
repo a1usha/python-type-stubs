@@ -1,3 +1,11 @@
+from enum import Enum
+
+from matplotlib._enums import CapStyle
+from matplotlib._enums import JoinStyle
+from matplotlib._enums import _AutoStringNameEnum
+from str import str
+
+
 class _AutoStringNameEnum(Enum):
     def _generate_next_value_(name: _AutoStringNameEnum,
                               start: Any,
@@ -14,7 +22,6 @@ class JoinStyle(str, _AutoStringNameEnum):
     def __init__(self: JoinStyle,
                  s: Any) -> None: ...
 
-    @staticmethod
     def demo() -> None: ...
 
 
@@ -22,5 +29,4 @@ class CapStyle(str, _AutoStringNameEnum):
     def __init__(self: CapStyle,
                  s: Any) -> None: ...
 
-    @staticmethod
     def demo() -> None: ...

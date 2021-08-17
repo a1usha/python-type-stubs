@@ -1,7 +1,18 @@
 from typing import Any
 from typing import Iterable
 from typing import Optional
+from typing import Tuple
 from typing import Union
+
+from matplotlib.artist import Artist
+from matplotlib.axes._axes import Axes
+from matplotlib.backend_bases import MouseEvent
+from matplotlib.patches import Rectangle
+from matplotlib.path import Path
+from matplotlib.table import Cell
+from matplotlib.table import Table
+from matplotlib.text import Text
+from matplotlib.transforms import Bbox
 
 
 class Cell(Rectangle):
@@ -34,7 +45,6 @@ class Cell(Rectangle):
     def auto_set_font_size(self: Cell,
                            renderer: Any) -> Any: ...
 
-    @allow_rasterization
     def draw(self: Cell,
              renderer: {open_group, new_gc, draw_path, close_group}) -> Optional[Any]: ...
 
@@ -47,14 +57,11 @@ class Cell(Rectangle):
     def get_required_width(self: Cell,
                            renderer: Any) -> float: ...
 
-    @docstring.dedent_interpd
     def set_text_props(self: Cell,
                        **kwargs) -> Optional[Any]: ...
 
-    @property
     def visible_edges(self: Cell) -> str: ...
 
-    @visible_edges.setter
     def visible_edges(self: Cell,
                       value: Any) -> Any: ...
 
@@ -81,16 +88,13 @@ class Table(Artist):
     def __getitem__(self: Table,
                     position: Any) -> Any: ...
 
-    @property
     def edges(self: Table) -> Any: ...
 
-    @edges.setter
     def edges(self: Table,
               value: Any) -> None: ...
 
     def _approx_text_height(self: Table) -> float: ...
 
-    @allow_rasterization
     def draw(self: Table,
              renderer: Optional[{open_group, close_group}]) -> Optional[Any]: ...
 
@@ -98,7 +102,7 @@ class Table(Artist):
                        renderer: Optional[{open_group, close_group}]) -> Bbox: ...
 
     def contains(self: Table,
-                 mouseevent: MouseEvent) -> Union[tuple[Any, Any], tuple[bool, dict]]: ...
+                 mouseevent: MouseEvent) -> Union[Tuple[Any, Any], Tuple[bool, dict]]: ...
 
     def get_children(self: Table) -> list: ...
 
@@ -137,7 +141,6 @@ class Table(Artist):
     def get_celld(self: Table) -> dict: ...
 
 
-@docstring.dedent_interpd
 def table(ax: {add_table},
           cellText: Optional[int] = None,
           cellColours: Optional[int] = None,

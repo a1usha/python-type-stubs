@@ -1,12 +1,41 @@
 from datetime import datetime
+from datetime import timedelta
+from datetime import tzinfo
 from typing import Any
 from typing import Iterable
 from typing import Optional
+from typing import Pattern
+from typing import Tuple
+from typing import Type
 from typing import Union
 
+from matplotlib import _api
+from matplotlib.dates import AutoDateFormatter
+from matplotlib.dates import AutoDateLocator
+from matplotlib.dates import ConciseDateConverter
+from matplotlib.dates import ConciseDateFormatter
+from matplotlib.dates import DateConverter
+from matplotlib.dates import DateFormatter
+from matplotlib.dates import DateLocator
+from matplotlib.dates import DayLocator
+from matplotlib.dates import HourLocator
+from matplotlib.dates import IndexDateFormatter
+from matplotlib.dates import MicrosecondLocator
+from matplotlib.dates import MinuteLocator
+from matplotlib.dates import MonthLocator
+from matplotlib.dates import RRuleLocator
+from matplotlib.dates import SecondLocator
+from matplotlib.dates import WeekdayLocator
+from matplotlib.dates import YearLocator
+from matplotlib.dates import _rcParam_helper
 from matplotlib.dates import rrulewrapper
+from matplotlib.ticker import Formatter
+from matplotlib.ticker import Locator
+from matplotlib.units import AxisInfo
+from matplotlib.units import ConversionInterface
 from numpy.core import datetime64
 from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
 def _get_rc_timezone() -> Optional[tzinfo]: ...
@@ -58,7 +87,6 @@ def _wrap_in_tex(text: str) -> str: ...
 
 class DateFormatter(Formatter):
     @_api.deprecated("3.3")
-    @property
     def illegal_s(self: DateFormatter) -> Pattern[str]: ...
 
     def __init__(self: DateFormatter,
@@ -145,10 +173,10 @@ class rrulewrapper(object):
 
     def _aware_return_wrapper(self: rrulewrapper,
                               f: Any,
-                              returns_list: bool = False) -> Union[(args: tuple[Any, ...], kwargs: dict[str, Any]) ->
+                              returns_list: bool = False) -> Union[(args: Tuple[Any, ...], kwargs: dict[str, Any]) ->
 
     def __getattr__(self: rrulewrapper,
-                    name: Any) -> Union[(args: tuple[Any, ...], kwargs: dict[str, Any]) ->
+                    name: Any) -> Union[(args: Tuple[Any, ...], kwargs: dict[str, Any]) ->
 
     def __setstate__(self: rrulewrapper,
                      state: Any) -> None: ...
@@ -161,9 +189,9 @@ class DateLocator(Locator):
     def set_tzinfo(self: DateLocator,
                    tz: Any) -> None: ...
 
-    def datalim_to_dt(self: DateLocator) -> tuple[Any, Any]: ...
+    def datalim_to_dt(self: DateLocator) -> Tuple[Any, Any]: ...
 
-    def viewlim_to_dt(self: DateLocator) -> tuple[Any, Any]: ...
+    def viewlim_to_dt(self: DateLocator) -> Tuple[Any, Any]: ...
 
     def _get_unit(self: DateLocator) -> int: ...
 
@@ -172,7 +200,7 @@ class DateLocator(Locator):
     def nonsingular(self: DateLocator,
                     vmin: Any,
                     vmax: {__lt__, __sub__}) -> Union[
-        tuple[Union[ndarray, float], Union[ndarray, float]], tuple[{__lt__, __sub__}, {__lt__, __sub__}]]: ...
+        Tuple[Union[ndarray, float], Union[ndarray, float]], Tuple[{__lt__, __sub__}, {__lt__, __sub__}]]: ...
 
 
 class RRuleLocator(DateLocator):
@@ -184,11 +212,10 @@ class RRuleLocator(DateLocator):
 
     def tick_values(self: RRuleLocator,
                     vmin: {__gt__, year},
-                    vmax: {__add__}) -> Union[ndarray, float, {__len__}]: ...
+                    vmax: {__sub__, year}) -> Union[ndarray, float, {__len__}]: ...
 
     def _get_unit(self: RRuleLocator) -> Union[float, int]: ...
 
-    @staticmethod
     def get_unit_generic(freq: int) -> Union[float, int]: ...
 
     def _get_interval(self: RRuleLocator) -> Any: ...
@@ -204,19 +231,19 @@ class AutoDateLocator(DateLocator):
     def __call__(self: AutoDateLocator) -> Union[list, ndarray, float, {__len__}]: ...
 
     def tick_values(self: AutoDateLocator,
-                    vmin: {__sub__, year},
+                    vmin: {__gt__, __sub__, year},
                     vmax: {__sub__, __add__, year}) -> Union[ndarray, float, {__len__}]: ...
 
     def nonsingular(self: AutoDateLocator,
                     vmin: {__eq__},
-                    vmax: {__lt__, __sub__}) -> Union[tuple[Union[ndarray, float], Union[ndarray, float]], tuple[
+                    vmax: {__lt__, __sub__}) -> Union[Tuple[Union[ndarray, float], Union[ndarray, float]], Tuple[
         Union[float, {__lt__, __sub__}, {__eq__}], Union[float, {__lt__, __sub__}, {__eq__}]]]: ...
 
     def _get_unit(self: AutoDateLocator) -> Union[float, int]: ...
 
     def get_locator(self: AutoDateLocator,
                     dmin: {__sub__, year},
-                    dmax: {__sub__}) -> Union[RRuleLocator, YearLocator, MicrosecondLocator]: ...
+                    dmax: {__add__, year}) -> Union[RRuleLocator, YearLocator, MicrosecondLocator]: ...
 
 
 class YearLocator(DateLocator):
@@ -311,7 +338,7 @@ def num2epoch(d: Iterable) -> Any: ...
 
 def date_ticker_factory(span: {__eq__, __mul__, __truediv__},
                         tz: Any = None,
-                        numticks: int = 5) -> tuple[
+                        numticks: int = 5) -> Tuple[
     Union[MinuteLocator, HourLocator, DayLocator, WeekdayLocator, MonthLocator, YearLocator], DateFormatter]: ...
 
 
@@ -324,12 +351,10 @@ class DateConverter(ConversionInterface):
                  unit: Any,
                  axis: Any) -> AxisInfo: ...
 
-    @staticmethod
     def convert(value: Any,
                 unit: Any,
                 axis: Any) -> Union[ndarray, float]: ...
 
-    @staticmethod
     def default_units(x: Any,
                       axis: Any) -> Optional[Any]: ...
 
@@ -349,13 +374,10 @@ class ConciseDateConverter(DateConverter):
 
 
 class _rcParam_helper(object):
-    @classmethod
     def set_converter(cls: Type[_rcParam_helper],
                       s: Any) -> Any: ...
 
-    @classmethod
     def set_int_mult(cls: Type[_rcParam_helper],
                      b: Any) -> None: ...
 
-    @classmethod
     def register_converters(cls: Type[_rcParam_helper]) -> None: ...

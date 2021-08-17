@@ -1,8 +1,16 @@
 from typing import Any
+from typing import Optional
+from typing import Tuple
 from typing import Type
+from typing import Union
 
+from matplotlib import _api
 from matplotlib.axes._axes import Axes
+from matplotlib.axes._subplots import SubplotBase
+from matplotlib.figure import Figure
 from matplotlib.gridspec import SubplotSpec
+from matplotlib.transforms import Bbox
+from object import object
 
 
 class SubplotBase(object):
@@ -11,12 +19,12 @@ class SubplotBase(object):
                  *args,
                  **kwargs) -> None: ...
 
-    def __reduce__(self: SubplotBase) -> tuple[(axes_class: Any) ->
+    def __reduce__(self: SubplotBase) -> Tuple[(axes_class: Any) ->
 
     @_api.deprecated(
         "3.4", alternative="get_subplotspec",
         addendum="(get_subplotspec returns a SubplotSpec instance.)")
-    def get_geometry(self: SubplotBase) -> tuple[Any, Any, int]: ...
+    def get_geometry(self: SubplotBase) -> Tuple[Any, Any, int]: ...
 
     @_api.deprecated("3.4", alternative="set_subplotspec")
     def change_geometry(self: SubplotBase,
@@ -33,15 +41,12 @@ class SubplotBase(object):
 
     @_api.deprecated(
         "3.4", alternative="get_subplotspec().get_position(self.figure)")
-    @property
-    def figbox(self: SubplotBase) -> Union[tuple[Bbox, Any, Any, Any, Any], Bbox]: ...
+    def figbox(self: SubplotBase) -> Union[Tuple[Bbox, Any, Any, Any, Any], Bbox]: ...
 
     @_api.deprecated("3.4", alternative="get_gridspec().nrows")
-    @property
     def numRows(self: SubplotBase) -> Any: ...
 
     @_api.deprecated("3.4", alternative="get_gridspec().ncols")
-    @property
     def numCols(self: SubplotBase) -> Any: ...
 
     @_api.deprecated("3.4")
@@ -66,7 +71,6 @@ class SubplotBase(object):
                         **kwargs) -> Any: ...
 
 
-@functools.lru_cache(None)
 def subplot_class_factory(axes_class: Type[Axes] = None) -> Union[Type[SubplotBase], type]: ...
 
 

@@ -1,19 +1,32 @@
 from typing import Any
 from typing import Iterable
 from typing import Optional
+from typing import Sized
+from typing import Tuple
 from typing import Union
-from typing import tuple
 
+from matplotlib import _api
+from matplotlib.artist import Artist
+from matplotlib.backend_bases import MouseEvent
+from matplotlib.lines import Line2D
+from matplotlib.lines import VertexSelector
+from matplotlib.lines import _AxLine
+from matplotlib.path import Path
+from matplotlib.transforms import Bbox
+from matplotlib.transforms import CompositeAffine2D
+from matplotlib.transforms import CompositeGenericTransform
+from matplotlib.transforms import Transform
 from numpy.core._multiarray_umath import ndarray
+from object import object
 
 
-def _get_dash_pattern(style: str) -> tuple[int, Optional[tuple]]: ...
+def _get_dash_pattern(style: str) -> Tuple[int, Optional[Tuple]]: ...
 
 
 def _scale_dashes(offset: int,
                   dashes: Optional[tuple],
                   lw: Optional[float]) -> Union[
-    tuple[int, Optional[tuple]], tuple[Union[int, float], Optional[list[Optional[float]]]]]: ...
+    Tuple[int, Optional[Tuple]], Tuple[Union[int, float], Optional[list[Optional[float]]]]]: ...
 
 
 def segment_hits(cx: int,
@@ -29,26 +42,14 @@ def _mark_every_path(markevery: Any,
                      ax_transform: Any) -> Path: ...
 
 
-@cbook._define_aliases({
-    "antialiased": ["aa"],
-    "color": ["c"],
-    "drawstyle": ["ds"],
-    "linestyle": ["ls"],
-    "linewidth": ["lw"],
-    "markeredgecolor": ["mec"],
-    "markeredgewidth": ["mew"],
-    "markerfacecolor": ["mfc"],
-    "markerfacecoloralt": ["mfcalt"],
-    "markersize": ["ms"],
-})
 class Line2D(Artist):
     @_api.deprecated("3.4")
     @_api.classproperty
-    def validCap(cls: Line2D) -> tuple[Any, ...]: ...
+    def validCap(cls: Line2D) -> Tuple[Any, ...]: ...
 
     @_api.deprecated("3.4")
     @_api.classproperty
-    def validJoin(cls: Line2D) -> tuple[Any, ...]: ...
+    def validJoin(cls: Line2D) -> Tuple[Any, ...]: ...
 
     def __str__(self: Line2D) -> str: ...
 
@@ -99,7 +100,6 @@ class Line2D(Artist):
     def get_window_extent(self: Line2D,
                           renderer: Any) -> Bbox: ...
 
-    @Artist.axes.setter
     def axes(self: Line2D,
              ax: Any) -> Optional[Any]: ...
 
@@ -122,7 +122,6 @@ class Line2D(Artist):
     def _is_sorted(self: Line2D,
                    x: Optional[Any]) -> None: ...
 
-    @allow_rasterization
     def draw(self: Line2D,
              renderer: {open_group, close_group}) -> Optional[Any]: ...
 
@@ -152,7 +151,7 @@ class Line2D(Artist):
     def get_markersize(self: Line2D) -> Any: ...
 
     def get_data(self: Line2D,
-                 orig: bool = True) -> tuple[ndarray, ndarray]: ...
+                 orig: bool = True) -> Tuple[ndarray, ndarray]: ...
 
     def get_xdata(self: Line2D,
                   orig: bool = True) -> ndarray: ...
@@ -179,7 +178,6 @@ class Line2D(Artist):
     def set_linestyle(self: Line2D,
                       ls: str) -> None: ...
 
-    @docstring.interpd
     def set_marker(self: Line2D,
                    marker: Any) -> Optional[Any]: ...
 
@@ -211,11 +209,9 @@ class Line2D(Artist):
                     other: {_transform, _transformSet, _visible, _alpha, clipbox, _clipon, _clippath, _label, _sketch,
                             _path_effects, sticky_edges}) -> None: ...
 
-    @docstring.interpd
     def set_dash_joinstyle(self: Line2D,
                            s: Any) -> Optional[Any]: ...
 
-    @docstring.interpd
     def set_solid_joinstyle(self: Line2D,
                             s: Any) -> Optional[Any]: ...
 
@@ -223,11 +219,9 @@ class Line2D(Artist):
 
     def get_solid_joinstyle(self: Line2D) -> Any: ...
 
-    @docstring.interpd
     def set_dash_capstyle(self: Line2D,
                           s: Any) -> Optional[Any]: ...
 
-    @docstring.interpd
     def set_solid_capstyle(self: Line2D,
                            s: Any) -> Optional[Any]: ...
 

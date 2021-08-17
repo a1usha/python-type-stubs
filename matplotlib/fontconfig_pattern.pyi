@@ -1,6 +1,9 @@
 from typing import Any
 from typing import Union
 
+from matplotlib.fontconfig_pattern import FontconfigPatternParser
+from object import object
+
 
 class FontconfigPatternParser(object):
     def __init__(self: FontconfigPatternParser) -> None: ...
