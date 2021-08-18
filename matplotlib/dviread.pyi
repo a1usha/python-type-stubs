@@ -1,5 +1,4 @@
 from os import PathLike
-from typing import Any
 from typing import BinaryIO
 from typing import Generator
 from typing import Optional

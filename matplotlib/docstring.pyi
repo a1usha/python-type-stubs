@@ -1,4 +1,3 @@
-from typing import Any
 from typing import Type
 
 from matplotlib import _api

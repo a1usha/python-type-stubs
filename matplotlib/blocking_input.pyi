@@ -1,5 +1,3 @@
-from typing import Any
-
 from matplotlib.backend_bases import MouseButton
 from matplotlib.blocking_input import BlockingContourLabeler
 from matplotlib.blocking_input import BlockingInput

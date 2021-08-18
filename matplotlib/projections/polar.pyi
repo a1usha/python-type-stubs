@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from typing import Any
 from typing import Optional
 from typing import OrderedDict
 from typing import Tuple

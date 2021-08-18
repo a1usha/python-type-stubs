@@ -1,5 +1,3 @@
-from typing import Any
-
 from numpy.core._multiarray_umath import ndarray
 
 

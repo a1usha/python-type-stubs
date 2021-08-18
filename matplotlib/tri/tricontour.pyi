@@ -1,4 +1,3 @@
-from typing import Any
 from typing import Tuple
 
 from matplotlib.contour import ContourSet

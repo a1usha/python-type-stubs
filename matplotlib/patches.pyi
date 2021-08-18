@@ -1,6 +1,5 @@
 from functools import partial
 from numbers import Number
-from typing import Any
 from typing import Callable
 from typing import Generator
 from typing import Iterable

@@ -1,5 +1,3 @@
-from typing import Any
-
 from matplotlib.projections import ProjectionRegistry
 from object import object
 

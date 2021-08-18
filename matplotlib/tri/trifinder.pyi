@@ -1,5 +1,3 @@
-from typing import Any
-
 from matplotlib.tri.trifinder import TrapezoidMapTriFinder
 from matplotlib.tri.trifinder import TriFinder
 from object import object

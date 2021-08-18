@@ -1,5 +1,3 @@
-from typing import Any
-
 from matplotlib.category import StrCategoryFormatter
 from matplotlib.category import StrCategoryLocator
 from matplotlib.category import UnitData

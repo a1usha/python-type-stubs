@@ -1,5 +1,4 @@
 from functools import partial
-from typing import Any
 from typing import Iterator
 from typing import MutableMapping
 from typing import Optional

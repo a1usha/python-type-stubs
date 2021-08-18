@@ -1,4 +1,3 @@
-from typing import Any
 from typing import Generator
 from typing import Iterable
 from typing import Optional

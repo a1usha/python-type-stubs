@@ -1,5 +1,4 @@
 from _typeshed import SupportsLessThan
-from typing import Any
 from typing import Generator
 from typing import Iterable
 from typing import Optional
@@ -500,12 +499,12 @@ class Affine2D(Affine2DBase):
     def rotate_around(self: Affine2D,
                       x: {__neg__},
                       y: {__neg__},
-                      theta: Any) -> Affine2D: ...
+                      theta: Any) -> Any: ...
 
     def rotate_deg_around(self: Affine2D,
                           x: Any,
                           y: Any,
-                          degrees: Any) -> Affine2D: ...
+                          degrees: Any) -> Any: ...
 
     def translate(self: Affine2D,
                   tx: float,

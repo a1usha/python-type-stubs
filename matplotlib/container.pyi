@@ -1,4 +1,3 @@
-from typing import Any
 from typing import Container
 from typing import Iterable
 from typing import Type

@@ -1,7 +1,6 @@
 from functools import partial
 from logging import StreamHandler
 from ssl import SSLContext
-from typing import Any
 from typing import Generator
 from typing import MutableMapping
 from typing import Optional

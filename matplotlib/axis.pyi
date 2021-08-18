@@ -1,7 +1,6 @@
 from _typeshed import SupportsLessThan
 from datetime import datetime
 from datetime import tzinfo
-from typing import Any
 from typing import Iterable
 from typing import Optional
 from typing import Tuple

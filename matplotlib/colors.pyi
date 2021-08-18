@@ -1,5 +1,4 @@
 from functools import partial
-from typing import Any
 from typing import Iterable
 from typing import Match
 from typing import Optional

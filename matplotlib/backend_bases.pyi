@@ -1,7 +1,6 @@
 from enum import Enum
 from enum import IntEnum
 from functools import partial
-from typing import Any
 from typing import Callable
 from typing import Generator
 from typing import Iterable
@@ -95,18 +94,16 @@ class RendererBase(object):
                              offset_position: {__eq__}) -> None: ...
 
     def draw_quad_mesh(self: RendererBase,
-                       gc: {get_linewidth, _alpha, _forced_alpha, _antialiased, _capstyle, _cliprect, _clippath,
-                            _dashes, _joinstyle, _linestyle, _linewidth, _rgb, _hatch, _hatch_color, _hatch_linewidth,
-                            _url, _gid, _snap, _sketch},
+                       gc: {get_linewidth},
                        master_transform: Any,
                        meshWidth: {__mul__},
                        meshHeight: Any,
                        coordinates: Any,
-                       offsets: {__len__},
+                       offsets: Any,
                        offsetTrans: Any,
-                       facecolors: {__len__},
+                       facecolors: Any,
                        antialiased: Any,
-                       edgecolors: Optional[{__len__}]) -> None: ...
+                       edgecolors: Any) -> None: ...
 
     def draw_gouraud_triangle(self: RendererBase,
                               gc: Any,

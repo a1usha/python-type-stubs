@@ -1,4 +1,3 @@
-from typing import Any
 from typing import Union
 
 from matplotlib._layoutgrid import LayoutGrid
