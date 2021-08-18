@@ -1,4 +1,6 @@
 from functools import partial
+from typing import Any
+from typing import Callable
 from typing import Generator
 from typing import Optional
 from typing import Union
@@ -13,7 +15,7 @@ class MatplotlibDeprecationWarning(UserWarning):
     pass
 
 
-def _generate_deprecation_warning(since: str,
+def _generate_deprecation_warning(since: Union[str, Any],
                                   message: str = '',
                                   name: str = '',
                                   alternative: str = '',
@@ -44,8 +46,9 @@ def deprecated(since: str,
                pending: Optional[bool] = False,
                obj_type: Optional[str] = None,
                addendum: Optional[str] = '',
-               removal: Optional[str] = '') -> (obj
-: Any, message: Optional[str], name: Optional[str], alternative: Optional[str], pending: Optional[bool], obj_type: Optional[str], addendum: Optional[str]) ->
+               removal: Optional[str] = '') -> Callable[
+    [Any, Optional[str], Optional[str], Optional[str], Optional[bool], Optional[str], Optional[str]], Union[
+        Union[_deprecated_property, Callable[[Tuple[Any, ...], dict[str, Any]], type]], Any]]: ...
 
 
 class deprecate_privatize_attribute(object):
@@ -62,7 +65,7 @@ def rename_parameter(since: Any,
                      old: Any,
                      new: Any,
                      func: Optional[{__name__}] = None) -> Union[
-    partial, (args: Tuple[Any, ...], kwargs: dict[str, Any]) ->
+    partial[Any], Callable[[Tuple[Any, ...], dict[str, Any]], Any]]: ...
 
 
 class _deprecated_parameter_class(object):
@@ -72,13 +75,13 @@ class _deprecated_parameter_class(object):
 def delete_parameter(since: Any,
                      name: Any,
                      func: Any = None,
-                     **kwargs) -> Union[partial, (inner_args: Tuple[Any, ...], inner_kwargs: dict[str, Any]) ->
+                     **kwargs) -> Union[partial[Any], Callable[[Tuple[Any, ...], dict[str, Any]], Any]]: ...
 
 
 def make_keyword_only(since: Any,
                       name: Any,
                       func: Optional[{__name__, __signature__}] = None) -> Union[
-    partial, (args: Tuple[Any, ...], kwargs: dict[str, Any]) ->
+    partial[Any], Callable[[Tuple[Any, ...], dict[str, Any]], Any]]: ...
 
 
 def deprecate_method_override(method: {__name__, __get__},
@@ -88,4 +91,4 @@ def deprecate_method_override(method: {__name__, __get__},
                               **kwargs) -> Optional[Any]: ...
 
 
-def suppress_matplotlib_deprecation_warning() -> Generator[Any, Any, None]: ...
+def suppress_matplotlib_deprecation_warning() -> Union[Generator[Any, Any, None], Any]: ...

@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Generator
 from typing import Iterable
 from typing import Optional
@@ -32,7 +33,7 @@ class DraggableLegend(DraggableOffsetBox):
     def finalize_offset(self: DraggableLegend) -> None: ...
 
     def _update_loc(self: DraggableLegend,
-                    loc_in_canvas: tuple[Any, Any]) -> None: ...
+                    loc_in_canvas: Union[tuple[Any, Any], Any]) -> None: ...
 
     def _update_bbox_to_anchor(self: DraggableLegend,
                                loc_in_canvas: Any) -> None: ...
@@ -76,7 +77,7 @@ class Legend(Artist):
                  handler_map: Any = None) -> Any: ...
 
     def _set_artist_props(self: Legend,
-                          a: FancyBboxPatch) -> None: ...
+                          a: Union[FancyBboxPatch, Any]) -> None: ...
 
     def _set_loc(self: Legend,
                  loc: Any) -> None: ...
@@ -94,10 +95,10 @@ class Legend(Artist):
              renderer: {open_group, points_to_pixels, get_rasterized, get_agg_filter, figure, close_group}) -> Optional[
         Any]: ...
 
-    def get_default_handler_map(cls: Type[Legend]) -> dict[Type[Union[
-        StemContainer, ErrorbarContainer, Line2D, Patch, StepPatch, LineCollection, RegularPolyCollection, CircleCollection, BarContainer, Tuple]],
-                                                           Union[
-                                                               HandlerStem, HandlerErrorbar, HandlerLine2D, HandlerPatch, HandlerStepPatch, HandlerLineCollection, HandlerRegularPolyCollection, HandlerCircleCollection, HandlerTuple]]: ...
+    def get_default_handler_map(cls: Type[Legend]) -> dict[Union[Type[Union[
+        StemContainer, ErrorbarContainer, Line2D, Patch, StepPatch, LineCollection, RegularPolyCollection, CircleCollection, BarContainer, Tuple]], Any],
+                                                           Union[Union[
+                                                                     HandlerStem, HandlerErrorbar, HandlerLine2D, HandlerPatch, HandlerStepPatch, HandlerLineCollection, HandlerRegularPolyCollection, HandlerCircleCollection, HandlerTuple], Any]]: ...
 
     def set_default_handler_map(cls: Type[Legend],
                                 handler_map: Any) -> None: ...
@@ -105,26 +106,26 @@ class Legend(Artist):
     def update_default_handler_map(cls: Type[Legend],
                                    handler_map: Any) -> None: ...
 
-    def get_legend_handler_map(self: Legend) -> dict[Type[Union[
-        StemContainer, ErrorbarContainer, Line2D, Patch, StepPatch, LineCollection, RegularPolyCollection, CircleCollection, BarContainer, Tuple]],
-                                                     Union[
-                                                         HandlerStem, HandlerErrorbar, HandlerLine2D, HandlerPatch, HandlerStepPatch, HandlerLineCollection, HandlerRegularPolyCollection, HandlerCircleCollection, HandlerTuple]]: ...
+    def get_legend_handler_map(self: Legend) -> dict[Union[Type[Union[
+        StemContainer, ErrorbarContainer, Line2D, Patch, StepPatch, LineCollection, RegularPolyCollection, CircleCollection, BarContainer, Tuple]], Any],
+                                                     Union[Union[
+                                                               HandlerStem, HandlerErrorbar, HandlerLine2D, HandlerPatch, HandlerStepPatch, HandlerLineCollection, HandlerRegularPolyCollection, HandlerCircleCollection, HandlerTuple], Any]]: ...
 
-    def get_legend_handler(legend_handler_map: dict[Type[Union[
-        StemContainer, ErrorbarContainer, Line2D, Patch, StepPatch, LineCollection, RegularPolyCollection, CircleCollection, BarContainer, tuple]],
-                                                    Union[
-                                                        HandlerStem, HandlerErrorbar, HandlerLine2D, HandlerPatch, HandlerStepPatch, HandlerLineCollection, HandlerRegularPolyCollection, HandlerCircleCollection, HandlerTuple]],
-                           orig_handle: Any) -> Union[
-        HandlerStem, HandlerErrorbar, HandlerLine2D, HandlerPatch, HandlerStepPatch, HandlerLineCollection, HandlerRegularPolyCollection, HandlerCircleCollection, HandlerTuple, None]: ...
+    def get_legend_handler(legend_handler_map: Union[dict[Union[Type[Union[
+        StemContainer, ErrorbarContainer, Line2D, Patch, StepPatch, LineCollection, RegularPolyCollection, CircleCollection, BarContainer, tuple]], Any],
+                                                          Union[Union[
+                                                                    HandlerStem, HandlerErrorbar, HandlerLine2D, HandlerPatch, HandlerStepPatch, HandlerLineCollection, HandlerRegularPolyCollection, HandlerCircleCollection, HandlerTuple], Any]], Any],
+                           orig_handle: Any) -> Union[Union[
+                                                          HandlerStem, HandlerErrorbar, HandlerLine2D, HandlerPatch, HandlerStepPatch, HandlerLineCollection, HandlerRegularPolyCollection, HandlerCircleCollection, HandlerTuple, None], Any]: ...
 
     def _init_legend_box(self: Legend,
-                         handles: list,
+                         handles: Union[list[Any], Any],
                          labels: Any,
                          markerfirst: bool = True) -> None: ...
 
     def _auto_legend_data(self: Legend) -> Any: ...
 
-    def get_children(self: Legend) -> list[FancyBboxPatch]: ...
+    def get_children(self: Legend) -> list[Union[FancyBboxPatch, Any]]: ...
 
     def get_frame(self: Legend) -> FancyBboxPatch: ...
 
@@ -151,7 +152,7 @@ class Legend(Artist):
     def set_frame_on(self: Legend,
                      b: bool) -> None: ...
 
-    def get_bbox_to_anchor(self: Legend) -> TransformedBbox: ...
+    def get_bbox_to_anchor(self: Legend) -> Union[TransformedBbox, Any]: ...
 
     def set_bbox_to_anchor(self: Legend,
                            bbox: Any,
@@ -170,7 +171,7 @@ class Legend(Artist):
                             consider: Any = None) -> Tuple[Any, Any]: ...
 
     def contains(self: Legend,
-                 event: {canvas}) -> Tuple[Any, Any]: ...
+                 event: {canvas}) -> Union[Tuple[Any, Any], Any]: ...
 
     def set_draggable(self: Legend,
                       state: bool,
@@ -181,11 +182,12 @@ class Legend(Artist):
 
 
 def _get_legend_handles(axs: {__iter__},
-                        legend_handler_map: dict = None) -> Generator[Any, Any, None]: ...
+                        legend_handler_map: Union[dict[Any, Any], Any] = None) -> Generator[Any, Any, None]: ...
 
 
 def _get_legend_handles_labels(axs: Any,
-                               legend_handler_map: dict = None) -> Tuple[list, list]: ...
+                               legend_handler_map: Union[dict[Any, Any], Any] = None) -> Tuple[
+    list[Any], list[Any]]: ...
 
 
 def _parse_legend_args(*args,

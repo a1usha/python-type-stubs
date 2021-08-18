@@ -1,3 +1,6 @@
+from typing import Any
+
+
 def graphviz_dump_transform(transform: Any,
                             dest: str,
                             *,

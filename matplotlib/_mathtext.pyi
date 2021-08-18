@@ -1,4 +1,5 @@
 from types import SimpleNamespace
+from typing import Any
 from typing import List
 from typing import Optional
 from typing import Tuple
@@ -50,7 +51,7 @@ from pyparsing import Empty
 
 
 def get_unicode_index(symbol: str,
-                      math: bool = True) -> int: ...
+                      math: bool = True) -> Union[int, Any]: ...
 
 
 class Fonts(object):
@@ -62,7 +63,7 @@ class Fonts(object):
     def destroy(self: Fonts) -> Optional[Any]: ...
 
     def get_kern(self: Fonts,
-                 font1: Union[{__eq__}, {__eq__}],
+                 font1: Union[Union[{__eq__}, {__eq__}], Any],
                  fontclass1: Any,
                  sym1: Any,
                  fontsize1: Any,
@@ -111,7 +112,7 @@ class Fonts(object):
                                 fontsize: Any,
                                 dpi: Any) -> Any: ...
 
-    def get_used_characters(self: Fonts) -> dict: ...
+    def get_used_characters(self: Fonts) -> dict[Any, Any]: ...
 
     def get_results(self: Fonts,
                     box: Any) -> Any: ...
@@ -130,34 +131,34 @@ class TruetypeFonts(Fonts):
     def destroy(self: TruetypeFonts) -> Optional[Any]: ...
 
     def _get_font(self: TruetypeFonts,
-                  font: Union[str, int]) -> FT2Font: ...
+                  font: Union[Union[str, int], Any]) -> FT2Font: ...
 
     def _get_offset(self: TruetypeFonts,
                     font: {postscript_name},
                     glyph: Any,
                     fontsize: Any,
-                    dpi: Any) -> float: ...
+                    dpi: Any) -> Union[float, Any]: ...
 
     def _get_info(self: TruetypeFonts,
-                  fontname: {__eq__},
+                  fontname: Union[{__eq__}, Any],
                   font_class: Any,
                   sym: Any,
                   fontsize: Any,
                   dpi: Any,
-                  math: bool = True) -> Optional[SimpleNamespace]: ...
+                  math: bool = True) -> Union[Optional[SimpleNamespace], Any]: ...
 
     def get_xheight(self: TruetypeFonts,
                     fontname: Any,
                     fontsize: {__truediv__},
-                    dpi: {__truediv__}) -> float: ...
+                    dpi: {__truediv__}) -> Union[float, Any]: ...
 
     def get_underline_thickness(self: TruetypeFonts,
                                 font: Any,
                                 fontsize: Any,
-                                dpi: Any) -> float: ...
+                                dpi: Any) -> Union[float, Any]: ...
 
     def get_kern(self: TruetypeFonts,
-                 font1: {__eq__},
+                 font1: Union[{__eq__}, Any],
                  fontclass1: Any,
                  sym1: Any,
                  fontsize1: {__eq__},
@@ -165,7 +166,7 @@ class TruetypeFonts(Fonts):
                  fontclass2: Any,
                  sym2: Any,
                  fontsize2: Any,
-                 dpi: Any) -> float: ...
+                 dpi: Any) -> Union[float, Any]: ...
 
 
 class BakomaFonts(TruetypeFonts):
@@ -176,14 +177,14 @@ class BakomaFonts(TruetypeFonts):
     def _get_glyph(self: BakomaFonts,
                    fontname: Any,
                    font_class: Any,
-                   sym: {__eq__},
+                   sym: Union[{__eq__}, Any],
                    fontsize: Any,
-                   math: bool = True) -> Union[
-        Tuple[Optional[FT2Font], int, None, Any, bool], Tuple[Optional[FT2Font], int, None, Any, bool]]: ...
+                   math: bool = True) -> Union[Union[Tuple[Optional[FT2Font], Union[int, Any], None, Any, Union[
+        bool, Any]], Tuple[Optional[FT2Font], int, None, Any, Union[bool, Any]]], Any]: ...
 
     def get_sized_alternatives_for_symbol(self: BakomaFonts,
                                           fontname: Any,
-                                          sym: Any) -> list[Tuple[str, str]]: ...
+                                          sym: Any) -> Union[list[Tuple[str, str]], Any]: ...
 
 
 class UnicodeFonts(TruetypeFonts):
@@ -192,22 +193,22 @@ class UnicodeFonts(TruetypeFonts):
                  **kwargs) -> None: ...
 
     def _map_virtual_font(self: UnicodeFonts,
-                          fontname: str,
+                          fontname: Union[str, Any],
                           font_class: Any,
-                          uniindex: Any) -> Tuple[str, Any]: ...
+                          uniindex: Any) -> Tuple[Union[str, Any], Any]: ...
 
     def _get_glyph(self: UnicodeFonts,
-                   fontname: str,
+                   fontname: Union[str, Any],
                    font_class: Any,
-                   sym: {__eq__},
+                   sym: Union[{__eq__}, Any],
                    fontsize: Any,
-                   math: bool = True) -> Union[
-        Tuple[Optional[FT2Font], int, None, Any, bool], Tuple[Optional[FT2Font], int, None, Any, bool]]: ...
+                   math: bool = True) -> Union[Union[Tuple[Optional[FT2Font], int, None, Any, Union[bool, Any]], Tuple[
+        Optional[FT2Font], Union[int, Any], None, Any, Union[bool, Any]]], Any]: ...
 
     def get_sized_alternatives_for_symbol(self: UnicodeFonts,
                                           fontname: Any,
-                                          sym: Any) -> Union[
-        list[Tuple[Any, str]], list[Tuple[int, str]], list[Tuple[str, str]], list[Tuple[Any, Any]]]: ...
+                                          sym: Any) -> Union[Union[list[Tuple[Any, Union[str, Any]]], list[
+        Tuple[int, str]], list[Tuple[str, str]], list[Tuple[Any, Any]]], Any]: ...
 
 
 class DejaVuFonts(UnicodeFonts):
@@ -220,8 +221,8 @@ class DejaVuFonts(UnicodeFonts):
                    font_class: Any,
                    sym: {__eq__},
                    fontsize: Any,
-                   math: bool = True) -> Union[
-        Tuple[Optional[FT2Font], int, None, Any, bool], Tuple[Optional[FT2Font], int, None, Any, bool]]: ...
+                   math: bool = True) -> Union[Union[Tuple[Optional[FT2Font], Union[int, Any], None, Any, Union[
+        bool, Any]], Tuple[Optional[FT2Font], int, None, Any, Union[bool, Any]]], Any]: ...
 
 
 class DejaVuSerifFonts(DejaVuFonts):
@@ -238,13 +239,15 @@ class StixFonts(UnicodeFonts):
                  **kwargs) -> None: ...
 
     def _map_virtual_font(self: StixFonts,
-                          fontname: str,
+                          fontname: Union[str, Any],
                           font_class: Any,
-                          uniindex: Any) -> Tuple[Union[str, int, Tuple[int, int, str, int], None], int]: ...
+                          uniindex: Any) -> Tuple[
+        Union[Union[str, int, Tuple[int, int, str, int], None], Any], Union[int, Any]]: ...
 
     def get_sized_alternatives_for_symbol(self: StixFonts,
                                           fontname: Any,
-                                          sym: Any) -> Union[list[Tuple[Any, str]], list[Tuple[int, str]]]: ...
+                                          sym: Any) -> Union[
+        list[Tuple[Any, Union[str, Any]]], list[Tuple[int, str]]]: ...
 
 
 class StixSansFonts(StixFonts):
@@ -257,10 +260,10 @@ class StandardPsFonts(Fonts):
                  mathtext_backend: Any = None) -> None: ...
 
     def _get_font(self: StandardPsFonts,
-                  font: Union[str, {__eq__}]) -> AFM: ...
+                  font: Union[Union[str, {__eq__}], Any]) -> AFM: ...
 
     def _get_info(self: StandardPsFonts,
-                  fontname: {__eq__},
+                  fontname: Union[{__eq__}, Any],
                   font_class: Any,
                   sym: {__len__},
                   fontsize: Any,
@@ -276,17 +279,17 @@ class StandardPsFonts(Fonts):
                  fontclass2: Any,
                  sym2: Any,
                  fontsize2: Any,
-                 dpi: Any) -> float: ...
+                 dpi: Any) -> Union[float, Any]: ...
 
     def get_xheight(self: StandardPsFonts,
                     font: Any,
                     fontsize: Any,
-                    dpi: Any) -> float: ...
+                    dpi: Any) -> Union[float, Any]: ...
 
     def get_underline_thickness(self: StandardPsFonts,
                                 font: Any,
                                 fontsize: Any,
-                                dpi: Any) -> float: ...
+                                dpi: Any) -> Union[float, Any]: ...
 
 
 class FontConstantsBase(object):
@@ -313,8 +316,8 @@ class DejaVuSansFontConstants(FontConstantsBase):
     pass
 
 
-def _get_font_constant_set(state: State) -> Type[
-    Union[STIXSansFontConstants, DejaVuSansFontConstants, DejaVuSerifFontConstants, ComputerModernFontConstants]]: ...
+def _get_font_constant_set(state: Union[State, Any]) -> Union[Type[Union[
+    STIXSansFontConstants, DejaVuSansFontConstants, DejaVuSerifFontConstants, ComputerModernFontConstants]], Any]: ...
 
 
 class Node(object):
@@ -323,7 +326,7 @@ class Node(object):
     def __repr__(self: Node) -> str: ...
 
     def get_kerning(self: Node,
-                    next: Optional[Glue]) -> float: ...
+                    next: Union[Optional[Glue], Any]) -> float: ...
 
     def shrink(self: Node) -> None: ...
 
@@ -336,30 +339,30 @@ class Node(object):
 
 class Box(Node):
     def __init__(self: Box,
-                 width: float,
-                 height: float,
-                 depth: float) -> None: ...
+                 width: Union[float, Any],
+                 height: Union[float, Any],
+                 depth: Union[float, Any]) -> None: ...
 
     def shrink(self: Box) -> None: ...
 
     def grow(self: Box) -> None: ...
 
     def render(self: Box,
-               x1: float,
-               y1: float,
+               x1: Union[float, Any],
+               y1: Union[float, Any],
                x2: Any,
                y2: Any) -> None: ...
 
 
 class Vbox(Box):
     def __init__(self: Vbox,
-                 height: float,
-                 depth: float) -> None: ...
+                 height: Union[float, Any],
+                 depth: Union[float, Any]) -> None: ...
 
 
 class Hbox(Box):
     def __init__(self: Hbox,
-                 width: float) -> None: ...
+                 width: Union[float, Any]) -> None: ...
 
 
 class Char(Node):
@@ -368,17 +371,17 @@ class Char(Node):
                  state: {font_output, font, font_class, fontsize, dpi},
                  math: bool = True) -> None: ...
 
-    def __repr__(self: Char) -> str: ...
+    def __repr__(self: Char) -> Union[str, Any]: ...
 
     def _update_metrics(self: Char) -> None: ...
 
     def is_slanted(self: Char) -> Any: ...
 
     def get_kerning(self: Char,
-                    next: Optional[Glue]) -> float: ...
+                    next: Union[Optional[Glue], Any]) -> Union[float, Any]: ...
 
     def render(self: Char,
-               x: float,
+               x: Union[float, Any],
                y: Any) -> None: ...
 
     def shrink(self: Char) -> None: ...
@@ -394,23 +397,23 @@ class Accent(Char):
     def grow(self: Accent) -> None: ...
 
     def render(self: Accent,
-               x: float,
+               x: Union[float, Any],
                y: {__add__}) -> None: ...
 
 
 class List(Box):
     def __init__(self: List,
-                 elements: Union[list[Glue], list, list[Char]]) -> None: ...
+                 elements: Union[Union[list[Union[Glue, Any]], list[Any], list[Char]], Any]) -> None: ...
 
     def __repr__(self: List) -> str: ...
 
-    def _determine_order(totals: list[float]) -> int: ...
+    def _determine_order(totals: Union[list[float], Any]) -> Union[int, Any]: ...
 
     def _set_glue(self: List,
-                  x: float,
-                  sign: int,
-                  totals: list[float],
-                  error_type: str) -> None: ...
+                  x: Union[float, Any],
+                  sign: Union[int, Any],
+                  totals: Union[list[float], Any],
+                  error_type: Union[str, Any]) -> None: ...
 
     def shrink(self: List) -> None: ...
 
@@ -419,7 +422,7 @@ class List(Box):
 
 class Hlist(List):
     def __init__(self: Hlist,
-                 elements: list[Glue],
+                 elements: Union[list[Union[Glue, Any]], Any],
                  w: float = 0.,
                  m: str = 'additional',
                  do_kern: bool = True) -> None: ...
@@ -433,7 +436,7 @@ class Hlist(List):
 
 class Vlist(List):
     def __init__(self: Vlist,
-                 elements: Union[list[Glue], list, list[Char]],
+                 elements: Union[Union[list[Union[Glue, Any]], list[Any], list[Char]], Any],
                  h: float = 0.,
                  m: str = 'additional') -> None: ...
 
@@ -445,9 +448,9 @@ class Vlist(List):
 
 class Rule(Box):
     def __init__(self: Rule,
-                 width: float,
+                 width: Union[float, Any],
                  height: Any,
-                 depth: float,
+                 depth: Union[float, Any],
                  state: {font_output}) -> None: ...
 
     def render(self: Rule,
@@ -459,7 +462,7 @@ class Rule(Box):
 
 class Hrule(Rule):
     def __init__(self: Hrule,
-                 state: {font_output, font, fontsize, dpi},
+                 state: Union[{font_output, font, fontsize, dpi}, Any],
                  thickness: Optional[{__mul__}] = None) -> None: ...
 
 
@@ -471,7 +474,7 @@ class Vrule(Rule):
 class Glue(Node):
     @_api.delete_parameter("3.3", "copy")
     def __init__(self: Glue,
-                 glue_type: str,
+                 glue_type: Union[str, Any],
                  copy: bool = False) -> Any: ...
 
     def shrink(self: Glue) -> None: ...
@@ -516,19 +519,19 @@ class SsGlue(Glue):
 
 class HCentered(Hlist):
     def __init__(self: HCentered,
-                 elements: list[Glue]) -> None: ...
+                 elements: Union[list[Union[Glue, Any]], Any]) -> None: ...
 
 
 class VCentered(Vlist):
     def __init__(self: VCentered,
-                 elements: Union[list[Glue], list, list[Char]]) -> None: ...
+                 elements: Union[Union[list[Union[Glue, Any]], list[Any], list[Char]], Any]) -> None: ...
 
 
 class Kern(Node):
     def __init__(self: Kern,
                  width: Any) -> None: ...
 
-    def __repr__(self: Kern) -> str: ...
+    def __repr__(self: Kern) -> Union[str, Any]: ...
 
     def shrink(self: Kern) -> None: ...
 
@@ -567,13 +570,13 @@ class Ship(object):
     def clamp(value: {__lt__, __gt__}) -> Union[float, {__lt__, __gt__}]: ...
 
     def hlist_out(self: Ship,
-                  box: Union[{height}, Hlist]) -> None: ...
+                  box: Union[Union[{height}, Hlist], Any]) -> None: ...
 
     def vlist_out(self: Ship,
-                  box: List) -> Any: ...
+                  box: Union[List, Any]) -> Any: ...
 
 
-def Error(msg: str) -> Empty: ...
+def Error(msg: Union[str, Any]) -> Empty: ...
 
 
 class Parser(object):
@@ -612,7 +615,7 @@ class Parser(object):
                  toks: {__getitem__}) -> list[Hlist]: ...
 
     def _make_space(self: Parser,
-                    percentage: Union[float, int]) -> Kern: ...
+                    percentage: Union[Union[float, int], Any]) -> Kern: ...
 
     def space(self: Parser,
               s: Any,
@@ -657,7 +660,7 @@ class Parser(object):
     def start_group(self: Parser,
                     s: Any,
                     loc: Any,
-                    toks: {__len__}) -> list: ...
+                    toks: {__len__}) -> list[Any]: ...
 
     def group(self: Parser,
               s: Any,
@@ -667,21 +670,21 @@ class Parser(object):
     def end_group(self: Parser,
                   s: Any,
                   loc: Any,
-                  toks: Any) -> list: ...
+                  toks: Any) -> list[Any]: ...
 
     def font(self: Parser,
              s: Any,
              loc: Any,
-             toks: Any) -> list: ...
+             toks: Any) -> list[Any]: ...
 
     def is_overunder(self: Parser,
-                     nucleus: Hbox) -> bool: ...
+                     nucleus: Union[Hbox, Any]) -> bool: ...
 
     def is_dropsub(self: Parser,
-                   nucleus: Union[Glue, Kern, Hbox]) -> bool: ...
+                   nucleus: Union[Union[Glue, Kern, Hbox], Any]) -> bool: ...
 
     def is_slanted(self: Parser,
-                   nucleus: Union[Glue, Kern, Hbox]) -> bool: ...
+                   nucleus: Union[Union[Glue, Kern, Hbox], Any]) -> Union[bool, Any]: ...
 
     def is_between_brackets(self: Parser,
                             s: Any,
@@ -690,13 +693,13 @@ class Parser(object):
     def subsuper(self: Parser,
                  s: Any,
                  loc: Any,
-                 toks: {__len__, __getitem__}) -> list[Hlist]: ...
+                 toks: {__len__, __getitem__}) -> Union[list[Hlist], Any]: ...
 
     def _genfrac(self: Parser,
-                 ldelim: str,
-                 rdelim: str,
-                 rule: float,
-                 style: _MathStyle,
+                 ldelim: Union[str, Any],
+                 rdelim: Union[str, Any],
+                 rule: Union[float, Any],
+                 style: Union[_MathStyle, Any],
                  num: {width},
                  den: {width}) -> Union[Hlist, list[Hlist]]: ...
 
@@ -721,7 +724,7 @@ class Parser(object):
               toks: Any) -> Union[Hlist, list[Hlist]]: ...
 
     def _genset(self: Parser,
-                state: State,
+                state: Union[State, Any],
                 annotation: {shrink},
                 body: Any,
                 overunder: {__eq__}) -> Vlist: ...
@@ -747,7 +750,7 @@ class Parser(object):
                  toks: {__len__, __getitem__}) -> Vlist: ...
 
     def _auto_sized_delimiter(self: Parser,
-                              front: str,
+                              front: Union[str, Any],
                               middle: {__len__},
                               back: {__ne__}) -> Hlist: ...
 

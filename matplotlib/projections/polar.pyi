@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import Any
 from typing import Optional
 from typing import OrderedDict
 from typing import Tuple
@@ -135,7 +136,7 @@ class ThetaTick(XTick):
                       **kwargs) -> None: ...
 
     def _update_padding(self: ThetaTick,
-                        pad: Union[float, int],
+                        pad: Union[Union[float, int], Any],
                         angle: Any) -> None: ...
 
     def update_position(self: ThetaTick,
@@ -167,7 +168,7 @@ class RadialLocator(Locator):
                  base: Any,
                  axes: Any = None) -> None: ...
 
-    def __call__(self: RadialLocator) -> list: ...
+    def __call__(self: RadialLocator) -> Union[list[Any], Any]: ...
 
     @_api.deprecated("3.3")
     def pan(self: RadialLocator,
@@ -182,7 +183,7 @@ class RadialLocator(Locator):
 
     def nonsingular(self: RadialLocator,
                     vmin: Any,
-                    vmax: Any) -> Tuple[int, int]: ...
+                    vmax: Any) -> Union[Tuple[int, int], Any]: ...
 
     def view_limits(self: RadialLocator,
                     vmin: Any,
@@ -204,8 +205,8 @@ class RadialTick(YTick):
                  **kwargs) -> None: ...
 
     def _determine_anchor(self: RadialTick,
-                          mode: str,
-                          angle: int,
+                          mode: Union[str, Any],
+                          angle: Union[int, Any],
                           start: Any) -> Tuple[str, str]: ...
 
     def update_position(self: RadialTick,
@@ -233,11 +234,11 @@ class RadialAxis(YAxis):
 
 
 def _is_full_circle_deg(thetamin: Any,
-                        thetamax: {__sub__}) -> bool: ...
+                        thetamax: {__sub__}) -> Union[bool, Any]: ...
 
 
 def _is_full_circle_rad(thetamin: Any,
-                        thetamax: {__sub__}) -> bool: ...
+                        thetamax: {__sub__}) -> Union[bool, Any]: ...
 
 
 class _WedgeBbox(Bbox):
@@ -265,30 +266,32 @@ class PolarAxes(Axes):
     def _set_lim_and_transforms(self: PolarAxes) -> None: ...
 
     def get_xaxis_transform(self: PolarAxes,
-                            which: str = 'grid') -> Union[{input_dims, output_dims}, {output_dims,
-                                                                                      input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
+                            which: str = 'grid') -> Union[Union[{input_dims, output_dims}, {output_dims,
+                                                                                            input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]: ...
 
     def get_xaxis_text1_transform(self: PolarAxes,
-                                  pad: Any) -> Tuple[Union[{input_dims, output_dims}, {output_dims,
-                                                                                       input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]: ...
+                                  pad: Any) -> Tuple[Union[Union[{input_dims, output_dims}, {output_dims,
+                                                                                             input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any], str, str]: ...
 
     def get_xaxis_text2_transform(self: PolarAxes,
-                                  pad: Any) -> Tuple[Union[{input_dims, output_dims}, {output_dims,
-                                                                                       input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]: ...
+                                  pad: Any) -> Tuple[Union[Union[{input_dims, output_dims}, {output_dims,
+                                                                                             input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any], str, str]: ...
 
     def get_yaxis_transform(self: PolarAxes,
-                            which: str = 'grid') -> Union[TransformWrapper, {input_dims, output_dims}, {output_dims,
-                                                                                                        input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
+                            which: str = 'grid') -> Union[Union[
+                                                              TransformWrapper, {input_dims, output_dims}, {output_dims,
+                                                                                                            input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]: ...
 
     def get_yaxis_text1_transform(self: PolarAxes,
-                                  pad: float) -> Union[Tuple[TransformWrapper, str, str], Tuple[Union[{input_dims,
-                                                                                                       output_dims}, {
-                                                                                                          output_dims,
-                                                                                                          input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]]: ...
+                                  pad: Union[float, Any]) -> Union[Tuple[TransformWrapper, str, str], Tuple[Union[{
+                                                                                                                      input_dims,
+                                                                                                                      output_dims}, {
+                                                                                                                      output_dims,
+                                                                                                                      input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]]: ...
 
     def get_yaxis_text2_transform(self: PolarAxes,
-                                  pad: float) -> Tuple[Union[{input_dims, output_dims}, {output_dims,
-                                                                                         input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]: ...
+                                  pad: Union[float, Any]) -> Tuple[Union[{input_dims, output_dims}, {output_dims,
+                                                                                                     input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], str, str]: ...
 
     @_api.delete_parameter("3.3", "args")
     @_api.delete_parameter("3.3", "kwargs")
@@ -313,10 +316,10 @@ class PolarAxes(Axes):
 
     def set_thetalim(self: PolarAxes,
                      *args,
-                     **kwargs) -> Tuple: ...
+                     **kwargs) -> Union[Tuple, Any]: ...
 
     def set_theta_offset(self: PolarAxes,
-                         offset: Union[int, float]) -> None: ...
+                         offset: Union[Union[int, float], Any]) -> None: ...
 
     def get_theta_offset(self: PolarAxes) -> Any: ...
 
@@ -325,7 +328,7 @@ class PolarAxes(Axes):
                                 offset: float = 0.0) -> None: ...
 
     def set_theta_direction(self: PolarAxes,
-                            direction: int) -> None: ...
+                            direction: Union[int, Any]) -> None: ...
 
     def get_theta_direction(self: PolarAxes) -> Any: ...
 
@@ -391,7 +394,7 @@ class PolarAxes(Axes):
                        horizontalalignment: Any = ...,
                        multialignment: Any = ...,
                        fontproperties: Any = ...,
-                       rotation: float = ...,
+                       rotation: Union[float, Any] = ...,
                        linespacing: Any = ...,
                        rotation_mode: Optional[str] = ...,
                        usetex: Any = ...,
@@ -412,7 +415,7 @@ class PolarAxes(Axes):
                    horizontalalignment: Any = ...,
                    multialignment: Any = ...,
                    fontproperties: Any = ...,
-                   rotation: float = ...,
+                   rotation: Union[float, Any] = ...,
                    linespacing: Any = ...,
                    rotation_mode: Optional[str] = ...,
                    usetex: Any = ...,

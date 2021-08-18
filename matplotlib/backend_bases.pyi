@@ -1,6 +1,7 @@
 from enum import Enum
 from enum import IntEnum
 from functools import partial
+from typing import Any
 from typing import Callable
 from typing import Generator
 from typing import Iterable
@@ -51,7 +52,7 @@ def register_backend(format: str,
                      description: str = None) -> None: ...
 
 
-def get_registered_canvas_class(format: str) -> Optional[str]: ...
+def get_registered_canvas_class(format: Union[str, Any]) -> Union[Optional[str], Any]: ...
 
 
 class RendererBase(object):
@@ -65,9 +66,9 @@ class RendererBase(object):
                     s: Any) -> None: ...
 
     def draw_path(self: RendererBase,
-                  gc: Union[GraphicsContextBase, {get_rgb, set_linewidth}],
-                  path: Path,
-                  transform: Affine2D,
+                  gc: Union[Union[GraphicsContextBase, {get_rgb, set_linewidth}], Any],
+                  path: Union[Path, Any],
+                  transform: Union[Affine2D, Any],
                   rgbFace: Any = None) -> Any: ...
 
     def draw_markers(self: RendererBase,
@@ -79,7 +80,7 @@ class RendererBase(object):
                      rgbFace: Any = None) -> None: ...
 
     def draw_path_collection(self: RendererBase,
-                             gc: {get_linewidth},
+                             gc: Union[{get_linewidth}, Any],
                              master_transform: Any,
                              paths: {__len__, __getitem__},
                              all_transforms: {__len__},
@@ -94,16 +95,18 @@ class RendererBase(object):
                              offset_position: {__eq__}) -> None: ...
 
     def draw_quad_mesh(self: RendererBase,
-                       gc: {get_linewidth},
+                       gc: {get_linewidth, _alpha, _forced_alpha, _antialiased, _capstyle, _cliprect, _clippath,
+                            _dashes, _joinstyle, _linestyle, _linewidth, _rgb, _hatch, _hatch_color, _hatch_linewidth,
+                            _url, _gid, _snap, _sketch},
                        master_transform: Any,
                        meshWidth: {__mul__},
                        meshHeight: Any,
                        coordinates: Any,
-                       offsets: Any,
+                       offsets: {__len__},
                        offsetTrans: Any,
-                       facecolors: Any,
+                       facecolors: {__len__},
                        antialiased: Any,
-                       edgecolors: Any) -> None: ...
+                       edgecolors: Optional[{__len__}]) -> None: ...
 
     def draw_gouraud_triangle(self: RendererBase,
                               gc: Any,
@@ -119,10 +122,11 @@ class RendererBase(object):
 
     def _iter_collection_raw_paths(self: RendererBase,
                                    master_transform: Any,
-                                   paths: list[Path],
-                                   all_transforms: {__len__}) -> Generator[Tuple[Path, Union[
-        {input_dims, output_dims}, {output_dims,
-                                    input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]], Any, None]: ...
+                                   paths: Union[list[Path], Any],
+                                   all_transforms: {__len__}) -> Generator[Tuple[Path, Union[Union[{input_dims,
+                                                                                                    output_dims}, {
+                                                                                                       output_dims,
+                                                                                                       input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]], Any, None]: ...
 
     def _iter_collection_uses_per_path(self: RendererBase,
                                        paths: {__len__},
@@ -147,7 +151,7 @@ class RendererBase(object):
                          antialiaseds: {__len__, __getitem__},
                          urls: {__len__},
                          offset_position: {__eq__}) -> Generator[
-        Tuple[int, int, Any, GraphicsContextBase, Optional[Any]], Any, None]: ...
+        Tuple[Union[int, Any], Union[int, Any], Any, GraphicsContextBase, Optional[Any]], Any, None]: ...
 
     def get_image_magnification(self: RendererBase) -> float: ...
 
@@ -184,7 +188,7 @@ class RendererBase(object):
                   mtext: Text = None) -> None: ...
 
     def _get_text_path_transform(self: RendererBase,
-                                 x: float,
+                                 x: Union[float, Any],
                                  y: Any,
                                  s: str,
                                  prop: FontProperties,
@@ -193,7 +197,7 @@ class RendererBase(object):
 
     def _draw_text_as_path(self: RendererBase,
                            gc: {get_rgb, set_linewidth},
-                           x: float,
+                           x: Union[float, Any],
                            y: Any,
                            s: str,
                            prop: FontProperties,
@@ -203,13 +207,14 @@ class RendererBase(object):
     def get_text_width_height_descent(self: RendererBase,
                                       s: Any,
                                       prop: {get_size_in_points},
-                                      ismath: {__eq__}) -> Union[Tuple[Any, Any, Any], Tuple[Any, Any, None]]: ...
+                                      ismath: {__eq__}) -> Union[
+        Union[Tuple[Any, Any, Any], Tuple[Any, Any, None]], Any]: ...
 
     def flipy(self: RendererBase) -> bool: ...
 
     def get_canvas_width_height(self: RendererBase) -> Tuple[int, int]: ...
 
-    def get_texmanager(self: RendererBase) -> TexManager: ...
+    def get_texmanager(self: RendererBase) -> Union[TexManager, Any]: ...
 
     def new_gc(self: RendererBase) -> GraphicsContextBase: ...
 
@@ -225,14 +230,14 @@ class RendererBase(object):
     def stop_filter(self: RendererBase,
                     filter_func: Any) -> None: ...
 
-    def _draw_disabled(self: RendererBase) -> Generator[Any, Any, None]: ...
+    def _draw_disabled(self: RendererBase) -> Union[Generator[Any, Any, None], Any]: ...
 
 
 class GraphicsContextBase(object):
     def __init__(self: GraphicsContextBase) -> None: ...
 
     def copy_properties(self: GraphicsContextBase,
-                        gc: {get_linewidth}) -> None: ...
+                        gc: Union[{get_linewidth}, Any]) -> None: ...
 
     def restore(self: GraphicsContextBase) -> None: ...
 
@@ -289,7 +294,7 @@ class GraphicsContextBase(object):
                       js: Any) -> Optional[Any]: ...
 
     def set_linewidth(self: GraphicsContextBase,
-                      w: Union[float, None, int]) -> None: ...
+                      w: Union[Union[float, None, int], Any]) -> None: ...
 
     def set_url(self: GraphicsContextBase,
                 url: Optional[Any]) -> None: ...
@@ -369,14 +374,14 @@ class TimerBase(object):
 class Event(object):
     def __init__(self: Event,
                  name: Any,
-                 canvas: {get_width_height},
+                 canvas: Union[{get_width_height}, Any],
                  guiEvent: Any = None) -> None: ...
 
 
 class DrawEvent(Event):
     def __init__(self: DrawEvent,
                  name: Any,
-                 canvas: {get_width_height},
+                 canvas: Union[{get_width_height}, Any],
                  renderer: Any) -> None: ...
 
 
@@ -440,31 +445,31 @@ class KeyEvent(LocationEvent):
                  guiEvent: Any = None) -> None: ...
 
 
-def _get_renderer(figure: Union[{draw}, Figure],
-                  print_method: partial = None) -> Any: ...
+def _get_renderer(figure: Union[Union[{draw}, Figure], Any],
+                  print_method: Union[partial[Any], Any] = None) -> Any: ...
 
 
 def _no_output_draw(figure: {draw}) -> None: ...
 
 
-def _is_non_interactive_terminal_ipython(ip: {parent}) -> bool: ...
+def _is_non_interactive_terminal_ipython(ip: {parent}) -> Union[bool, Any]: ...
 
 
 def _check_savefig_extra_args(func: Any = None,
-                              extra_kwargs: tuple = ()) -> Union[
-    partial, (args: Tuple[Any, ...], kwargs: dict[str, Any]) ->
+                              extra_kwargs: Union[tuple, Any] = ()) -> Union[
+    partial[Any], Callable[[Tuple[Any, ...], dict[str, Any]], Any]]: ...
 
 
 class FigureCanvasBase(object):
     @_api.classproperty
-    def supports_blit(cls: FigureCanvasBase) -> bool: ...
+    def supports_blit(cls: FigureCanvasBase) -> Union[bool, Any]: ...
 
     def __init__(self: FigureCanvasBase,
                  figure: Optional[{set_canvas}] = None) -> None: ...
 
     def _fix_ipython_backend2gui(cls: Type[FigureCanvasBase]) -> None: ...
 
-    def _idle_draw_cntx(self: FigureCanvasBase) -> Generator[Any, Any, None]: ...
+    def _idle_draw_cntx(self: FigureCanvasBase) -> Union[Generator[Any, Any, None], Any]: ...
 
     def is_saving(self: FigureCanvasBase) -> bool: ...
 
@@ -549,13 +554,13 @@ class FigureCanvasBase(object):
 
     def get_width_height(self: FigureCanvasBase) -> Tuple[int, int]: ...
 
-    def get_supported_filetypes(cls: Type[FigureCanvasBase]) -> dict[str, str]: ...
+    def get_supported_filetypes(cls: Type[FigureCanvasBase]) -> dict[Union[str, Any], Union[str, Any]]: ...
 
-    def get_supported_filetypes_grouped(cls: Type[FigureCanvasBase]) -> dict: ...
+    def get_supported_filetypes_grouped(cls: Type[FigureCanvasBase]) -> dict[Any, Any]: ...
 
     def _get_output_canvas(self: FigureCanvasBase,
                            backend: Optional[str],
-                           fmt: str) -> FigureCanvasBase: ...
+                           fmt: str) -> Union[FigureCanvasBase, Any]: ...
 
     def print_figure(self: FigureCanvasBase,
                      filename: Any,
@@ -582,10 +587,10 @@ class FigureCanvasBase(object):
     def set_window_title(self: FigureCanvasBase,
                          title: Any) -> Optional[Any]: ...
 
-    def get_default_filename(self: FigureCanvasBase) -> str: ...
+    def get_default_filename(self: FigureCanvasBase) -> Union[str, Any]: ...
 
     def switch_backends(self: FigureCanvasBase,
-                        FigureCanvasClass: str) -> Any: ...
+                        FigureCanvasClass: Union[str, Any]) -> Any: ...
 
     def mpl_connect(self: FigureCanvasBase,
                     s: str,
@@ -648,7 +653,7 @@ class FigureManagerBase(object):
     def get_window_title(self: FigureManagerBase) -> str: ...
 
     def set_window_title(self: FigureManagerBase,
-                         title: str) -> None: ...
+                         title: Union[str, Any]) -> None: ...
 
 
 class _Mode(str, Enum):
@@ -662,10 +667,10 @@ class NavigationToolbar2(object):
                  canvas: {toolbar}) -> None: ...
 
     def set_message(self: NavigationToolbar2,
-                    s: _Mode) -> None: ...
+                    s: Union[_Mode, Any]) -> None: ...
 
     def draw_rubberband(self: NavigationToolbar2,
-                        event: {x, y, key},
+                        event: Union[{x, y, key}, Any],
                         x0: Any,
                         y0: Any,
                         x1: Any,
@@ -686,14 +691,14 @@ class NavigationToolbar2(object):
     def _init_toolbar(self: NavigationToolbar2) -> Any: ...
 
     def _update_cursor(self: NavigationToolbar2,
-                       event: Union[KeyEvent, {inaxes}]) -> None: ...
+                       event: Union[Union[KeyEvent, {inaxes}], Any]) -> None: ...
 
-    def _wait_cursor_for_draw_cm(self: NavigationToolbar2) -> Generator[Any, Any, None]: ...
+    def _wait_cursor_for_draw_cm(self: NavigationToolbar2) -> Union[Generator[Any, Any, None], Any]: ...
 
     def _mouse_event_to_message(event: {inaxes}) -> Any: ...
 
     def mouse_move(self: NavigationToolbar2,
-                   event: Any) -> None: ...
+                   event: {inaxes}) -> None: ...
 
     def _zoom_pan_handler(self: NavigationToolbar2,
                           event: Any) -> None: ...
@@ -746,7 +751,7 @@ class NavigationToolbar2(object):
                     *args) -> Any: ...
 
     def set_cursor(self: NavigationToolbar2,
-                   cursor: Cursors) -> None: ...
+                   cursor: Union[Cursors, Any]) -> None: ...
 
     def update(self: NavigationToolbar2) -> None: ...
 
@@ -766,7 +771,7 @@ class ToolContainerBase(object):
                  position: int = -1) -> None: ...
 
     def _get_image_filename(self: ToolContainerBase,
-                            image: {__add__}) -> Union[None, {__add__}, str]: ...
+                            image: {__add__}) -> Union[Union[None, {__add__}, str], Any]: ...
 
     def trigger_tool(self: ToolContainerBase,
                      name: str) -> None: ...

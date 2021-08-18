@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Tuple
 
 from matplotlib.tri.tritools import TriAnalyzer

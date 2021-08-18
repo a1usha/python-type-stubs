@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Type
 from typing import Union
 
@@ -20,13 +21,13 @@ class AbstractPathEffect(object):
                  offset: int = (0., 0.)) -> None: ...
 
     def _offset_transform(self: AbstractPathEffect,
-                          renderer: Union[
-                              {draw_path}, {new_gc, draw_path}, {new_gc, draw_path}, {new_gc, points_to_pixels,
-                                                                                      draw_path}]) -> Affine2D: ...
+                          renderer: Union[Union[{draw_path}, {new_gc, draw_path}, {new_gc, draw_path}, {new_gc,
+                                                                                                        points_to_pixels,
+                                                                                                        draw_path}], Any]) -> Affine2D: ...
 
     def _update_gc(self: AbstractPathEffect,
                    gc: Any,
-                   new_gc_dict: dict[str, Any]) -> Any: ...
+                   new_gc_dict: Union[dict[str, Any], Any]) -> Any: ...
 
     def draw_path(self: AbstractPathEffect,
                   renderer: {draw_path},
@@ -42,10 +43,10 @@ class PathEffectRenderer(RendererBase):
                  renderer: Any) -> None: ...
 
     def copy_with_path_effect(self: PathEffectRenderer,
-                              path_effects: list) -> PathEffectRenderer: ...
+                              path_effects: Union[list[Any], Any]) -> PathEffectRenderer: ...
 
     def draw_path(self: PathEffectRenderer,
-                  gc: {get_rgb, set_linewidth},
+                  gc: Union[{get_rgb, set_linewidth}, Any],
                   tpath: Any,
                   affine: Any,
                   rgbFace: Any = None) -> None: ...
@@ -84,7 +85,8 @@ class Normal(AbstractPathEffect):
     pass
 
 
-def _subclass_with_normal(effect_class: Type[Union[Stroke, SimplePatchShadow, TickedStroke]]) -> Type[withEffect]: ...
+def _subclass_with_normal(effect_class: Union[Type[Union[Stroke, SimplePatchShadow, TickedStroke]], Any]) -> Type[
+    withEffect]: ...
 
 
 class Stroke(AbstractPathEffect):

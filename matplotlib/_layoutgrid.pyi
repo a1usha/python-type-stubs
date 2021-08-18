@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Union
 
 from matplotlib._layoutgrid import LayoutGrid
@@ -8,7 +9,7 @@ from object import object
 class LayoutGrid(object):
     def __init__(self: LayoutGrid,
                  parent: Any = None,
-                 parent_pos: tuple[int, int] = (0, 0),
+                 parent_pos: Union[tuple[int, int], Any] = (0, 0),
                  parent_inner: bool = False,
                  name: str = '',
                  ncols: int = 1,

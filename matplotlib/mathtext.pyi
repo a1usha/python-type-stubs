@@ -1,6 +1,8 @@
+from typing import Any
 from typing import Optional
 from typing import Tuple
 from typing import Type
+from typing import Union
 from typing import _PDFResult
 from typing import _PSResult
 from typing import _Result
@@ -25,7 +27,7 @@ class MathtextBackend(object):
     def __init__(self: MathtextBackend) -> None: ...
 
     def set_canvas_size(self: MathtextBackend,
-                        w: int,
+                        w: Union[int, Any],
                         h: Any,
                         d: Any) -> None: ...
 
@@ -56,7 +58,7 @@ class MathtextBackendAgg(MathtextBackend):
                      y2: Any) -> None: ...
 
     def set_canvas_size(self: MathtextBackendAgg,
-                        w: int,
+                        w: Union[int, Any],
                         h: Any,
                         d: Any) -> None: ...
 
@@ -181,7 +183,7 @@ class MathtextBackendCairo(MathtextBackend):
 
     def get_results(self: MathtextBackendCairo,
                     box: {height, glue_order, glue_sign, children},
-                    used_characters: Any) -> Tuple[int, int, int, list, list]: ...
+                    used_characters: Any) -> Tuple[int, int, int, list[Any], list[Any]]: ...
 
 
 class MathTextWarning(Warning):
@@ -214,14 +216,14 @@ class MathTextParser(object):
                  output: {lower}) -> None: ...
 
     def parse(self: MathTextParser,
-              s: str,
+              s: Union[str, Any],
               dpi: int = 72,
-              prop: FontProperties = None,
+              prop: Union[FontProperties, Any] = None,
               *,
               _force_standard_ps_fonts: bool = False) -> Any: ...
 
     def _parse_cached(self: MathTextParser,
-                      s: str,
+                      s: Union[str, Any],
                       dpi: Any,
                       prop: Optional[{get_math_fontfamily, get_size_in_points}],
                       force_standard_ps_fonts: Any) -> Any: ...

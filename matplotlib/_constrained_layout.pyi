@@ -1,4 +1,6 @@
+from typing import Any
 from typing import Tuple
+from typing import Union
 
 
 def do_constrained_layout(fig: Any,
@@ -17,7 +19,7 @@ def _get_margin_from_padding(object: {_subplotspec},
                              w_pad: int = 0,
                              h_pad: int = 0,
                              hspace: int = 0,
-                             wspace: int = 0) -> dict[str, Union[int, float]]: ...
+                             wspace: int = 0) -> dict[str, Union[Union[int, float], Any]]: ...
 
 
 def _make_layout_margins(fig: {subfigs, _localaxes},
@@ -39,7 +41,7 @@ def _make_margin_suptitles(fig: {transFigure, transSubfigure, subfigs, _suptitle
 def _match_submerged_margins(fig: {subfigs, get_axes}) -> None: ...
 
 
-def _get_cb_parent_spans(cbax: {_colorbar_info}) -> Tuple[range, range]: ...
+def _get_cb_parent_spans(cbax: Union[{_colorbar_info}, Any]) -> Tuple[range, range]: ...
 
 
 def _get_pos_and_bbox(ax: {figure, get_position, get_tightbbox},
@@ -58,7 +60,7 @@ def _reposition_axes(fig: {transFigure, transSubfigure, subfigs, _localaxes},
 def _reposition_colorbar(cbax: Any,
                          renderer: Any,
                          *,
-                         offset: dict[str, int] = None) -> dict[str, int]: ...
+                         offset: Union[dict[str, int], Any] = None) -> Union[dict[str, int], Any]: ...
 
 
 def _reset_margins(fig: {subfigs, axes, _layoutgrid}) -> None: ...

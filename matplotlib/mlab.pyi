@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Callable
 from typing import Iterable
 from typing import Optional
@@ -28,27 +29,27 @@ def detrend_none(x: Any,
                  axis: int = None) -> Any: ...
 
 
-def detrend_linear(y: Any) -> Optional[ndarray]: ...
+def detrend_linear(y: Any) -> Union[Optional[ndarray], Any]: ...
 
 
 def stride_windows(x: int,
                    n: int,
                    noverlap: int = None,
-                   axis: int = 0) -> Optional[ndarray]: ...
+                   axis: int = 0) -> Union[Optional[ndarray], Any]: ...
 
 
-def _spectral_helper(x: Union[{__len__}, ndarray, Iterable, int, float],
+def _spectral_helper(x: Union[Union[{__len__}, ndarray, Iterable, int, float], Any],
                      y: Optional[Any] = None,
-                     NFFT: int = None,
-                     Fs: int = None,
-                     detrend_func: (x: Any, axis: int),
-                     window: (x: {__len__}),
-                     noverlap: int = None,
-                     pad_to: int = None,
-                     sides: str = None,
-                     scale_by_freq: bool = None,
-                     mode: Union[{__ne__}, str] = None) -> Tuple[
-    Union[ndarray, int, float, complex], Optional[ndarray], None]: ...
+                     NFFT: Union[int, Any] = None,
+                     Fs: Union[int, Any] = None,
+                     detrend_func: Union[Callable[[Any, int], Any], Any] = None,
+                     window: Union[Callable[[{__len__}], Optional[Any]], Any] = None,
+                     noverlap: Union[int, Any] = None,
+                     pad_to: Union[int, Any] = None,
+                     sides: Union[str, Any] = None,
+                     scale_by_freq: Union[bool, Any] = None,
+                     mode: Union[Union[{__ne__}, str], Any] = None) -> Tuple[
+    Union[Union[ndarray, int, float, complex], Any], Optional[ndarray], None]: ...
 
 
 def _single_spectrum_helper(mode: {__ne__},
@@ -57,29 +58,29 @@ def _single_spectrum_helper(mode: {__ne__},
                             window: Any = None,
                             pad_to: Any = None,
                             sides: Any = None) -> Tuple[
-    Union[None, ndarray, int, float, complex], Optional[ndarray]]: ...
+    Union[Union[None, ndarray, int, float, complex], Any], Optional[ndarray]]: ...
 
 
 def psd(x: Any,
-        NFFT: int = None,
-        Fs: int = None,
-        detrend: (x: Any, axis: int),
-        window: (x: {__len__}),
+        NFFT: Union[int, Any] = None,
+        Fs: Union[int, Any] = None,
+        detrend: Union[Callable[[Any, int], Any], Any] = None,
+        window: Union[Callable[[{__len__}], Optional[Any]], Any] = None,
         noverlap: int = None,
         pad_to: Any = None,
-        sides: str = None,
+        sides: Union[str, Any] = None,
         scale_by_freq: Any = None) -> Any: ...
 
 
 def csd(x: Any,
         y: Any,
-        NFFT: int = None,
-        Fs: int = None,
-        detrend: (x: Any, axis: int),
-        window: (x: {__len__}),
+        NFFT: Union[int, Any] = None,
+        Fs: Union[int, Any] = None,
+        detrend: Union[Callable[[Any, int], Any], Any] = None,
+        window: Union[Callable[[{__len__}], Optional[Any]], Any] = None,
         noverlap: int = None,
         pad_to: Any = None,
-        sides: str = None,
+        sides: Union[str, Any] = None,
         scale_by_freq: Any = None) -> Any: ...
 
 
@@ -99,8 +100,8 @@ def cohere(x: {__len__},
            y: Any,
            NFFT: int = 256,
            Fs: int = 2,
-           detrend: (x: Any, axis: int),
-           window: (x: {__len__}),
+           detrend: Callable[[Any, int], Any] = detrend_none,
+           window: Callable[[{__len__}], Optional[Any]] = window_hanning,
            noverlap: int = 0,
            pad_to: Any = None,
            sides: str = 'default',

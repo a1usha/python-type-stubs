@@ -1,4 +1,6 @@
 from functools import partial
+from typing import Any
+from typing import Callable
 from typing import Generator
 from typing import Iterable
 from typing import Optional
@@ -46,8 +48,8 @@ class _TransformedBoundsLocator(object):
                  renderer: Any) -> TransformedBbox: ...
 
 
-def _process_plot_format(fmt: {__ne__, __len__, __getitem__}) -> Union[
-    Tuple[None, None, Union[Iterable, Tuple]], Tuple[str, str, Union[Iterable, Tuple, None]]]: ...
+def _process_plot_format(fmt: {__ne__, __len__, __getitem__}) -> Union[Tuple[None, None, Union[Iterable, Tuple]], Tuple[
+    Union[str, Any], Union[str, Any], Union[Union[Iterable, Tuple, None], Any]]]: ...
 
 
 class _process_plot_var_args(object):
@@ -55,7 +57,7 @@ class _process_plot_var_args(object):
                  axes: Any,
                  command: str = 'plot') -> None: ...
 
-    def __getstate__(self: _process_plot_var_args) -> dict[str, str]: ...
+    def __getstate__(self: _process_plot_var_args) -> dict[str, Union[str, Any]]: ...
 
     def __setstate__(self: _process_plot_var_args,
                      state: {copy}) -> None: ...
@@ -69,21 +71,21 @@ class _process_plot_var_args(object):
                  *args,
                  **kwargs) -> Generator[Any, Any, None]: ...
 
-    def get_next_color(self: _process_plot_var_args) -> str: ...
+    def get_next_color(self: _process_plot_var_args) -> Union[str, Any]: ...
 
     def _getdefaults(self: _process_plot_var_args,
-                     ignore: Union[set, set[str]],
-                     kw: {get}) -> dict: ...
+                     ignore: Union[Union[set[Any], set[Union[str, Any]]], Any],
+                     kw: {get}) -> Union[dict[Any, Any], Any]: ...
 
     def _setdefaults(self: _process_plot_var_args,
-                     defaults: dict,
+                     defaults: Union[dict[Any, Any], Any],
                      kw: {get}) -> None: ...
 
     def _makeline(self: _process_plot_var_args,
                   x: Any,
                   y: Any,
                   kw: Any,
-                  kwargs: Any) -> Tuple[Line2D, dict]: ...
+                  kwargs: Any) -> Tuple[Line2D, dict[Any, Any]]: ...
 
     def _makefill(self: _process_plot_var_args,
                   x: Any,
@@ -135,14 +137,14 @@ class _AxesBase(Artist):
     def viewLim(self: _AxesBase) -> Bbox: ...
 
     def _request_autoscale_view(self: _AxesBase,
-                                tight: Optional[bool] = None,
+                                tight: Union[Optional[bool], Any] = None,
                                 scalex: bool = True,
                                 scaley: bool = True) -> None: ...
 
     def _set_lim_and_transforms(self: _AxesBase) -> None: ...
 
     def get_xaxis_transform(self: _AxesBase,
-                            which: str = 'grid') -> Union[BlendedAffine2D, BlendedGenericTransform]: ...
+                            which: str = 'grid') -> Union[Union[BlendedAffine2D, BlendedGenericTransform], Any]: ...
 
     def get_xaxis_text1_transform(self: _AxesBase,
                                   pad_points: Any) -> Any: ...
@@ -151,7 +153,7 @@ class _AxesBase(Artist):
                                   pad_points: {__truediv__}) -> Any: ...
 
     def get_yaxis_transform(self: _AxesBase,
-                            which: str = 'grid') -> Union[BlendedAffine2D, BlendedGenericTransform]: ...
+                            which: str = 'grid') -> Union[Union[BlendedAffine2D, BlendedGenericTransform], Any]: ...
 
     def get_yaxis_text1_transform(self: _AxesBase,
                                   pad_points: Any) -> Any: ...
@@ -169,7 +171,7 @@ class _AxesBase(Artist):
                      which: str = 'both') -> None: ...
 
     def _set_position(self: _AxesBase,
-                      pos: Optional[{height, width}],
+                      pos: Union[Optional[{height, width}], Any],
                       which: str = 'both') -> None: ...
 
     def reset_position(self: _AxesBase) -> None: ...
@@ -180,14 +182,13 @@ class _AxesBase(Artist):
     def get_axes_locator(self: _AxesBase) -> Any: ...
 
     def _set_artist_props(self: _AxesBase,
-                          a: Union[
-                              Text, {axes, _remove_method, set_clip_path}, {get_label, _remove_method, get_clip_path}, {
-                                  get_label, _remove_method}, {get_clip_path, get_path, get_transform, get_label,
-                                                               _remove_method}, {_remove_method}, {get_clip_path,
-                                                                                                   get_width,
-                                                                                                   get_height, get_path,
-                                                                                                   _remove_method}, {
-                                  set_clip_path, _remove_method}]) -> None: ...
+                          a: Union[Union[Text, {axes, _remove_method, set_clip_path}, {get_label, _remove_method,
+                                                                                       get_clip_path}, {get_label,
+                                                                                                        _remove_method}, {
+                                             get_clip_path, get_path, get_transform, get_label, _remove_method}, {
+                                             _remove_method}, {get_clip_path, get_width, get_height, get_path,
+                                                               _remove_method}, {set_clip_path,
+                                                                                 _remove_method}], Any]) -> None: ...
 
     def _gen_axes_patch(self: _AxesBase) -> Any: ...
 
@@ -296,7 +297,7 @@ class _AxesBase(Artist):
                   txt: {_remove_method}) -> {_remove_method}: ...
 
     def _update_line_limits(self: _AxesBase,
-                            line: {get_clip_path, get_label, _remove_method}) -> None: ...
+                            line: Union[{get_clip_path, get_label, _remove_method}, Any]) -> None: ...
 
     def add_patch(self: _AxesBase,
                   p: {get_clip_path, get_width, get_height, get_path, _remove_method}) -> {get_clip_path, get_width,
@@ -304,7 +305,7 @@ class _AxesBase(Artist):
                                                                                            _remove_method}: ...
 
     def _update_patch_limits(self: _AxesBase,
-                             patch: {get_clip_path, _remove_method}) -> None: ...
+                             patch: Union[{get_clip_path, _remove_method}, Any]) -> None: ...
 
     def add_table(self: _AxesBase,
                   tab: {set_clip_path, _remove_method}) -> {set_clip_path, _remove_method}: ...
@@ -313,8 +314,8 @@ class _AxesBase(Artist):
                       container: {get_label, _remove_method}) -> {get_label, _remove_method}: ...
 
     def _unit_change_handler(self: _AxesBase,
-                             axis_name: str,
-                             event: Any = None) -> partial: ...
+                             axis_name: Union[str, Any],
+                             event: Any = None) -> partial[Any]: ...
 
     def relim(self: _AxesBase,
               visible_only: bool = False) -> None: ...
@@ -390,7 +391,8 @@ class _AxesBase(Artist):
     def _get_axis_map(self: _AxesBase) -> dict[str, Any]: ...
 
     def _update_title_position(self: _AxesBase,
-                               renderer: Optional[{open_group, option_image_nocomposite, close_group}]) -> None: ...
+                               renderer: Union[
+                                   Optional[{open_group, option_image_nocomposite, close_group}], Any]) -> None: ...
 
     @_api.delete_parameter(
         "3.3", "inframe", alternative="Axes.redraw_in_frame()")
@@ -459,7 +461,7 @@ class _AxesBase(Artist):
                    horizontalalignment: Any = ...,
                    multialignment: Any = ...,
                    fontproperties: Any = ...,
-                   rotation: float = ...,
+                   rotation: Union[float, Any] = ...,
                    linespacing: Any = ...,
                    rotation_mode: Optional[str] = ...,
                    usetex: Any = ...,
@@ -478,8 +480,10 @@ class _AxesBase(Artist):
     def get_xlim(self: _AxesBase) -> Tuple[float, float]: ...
 
     def _validate_converted_limits(self: _AxesBase,
-                                   limit: Optional[float],
-                                   convert: Union[(x: Any)) -> Any: ...
+                                   limit: Union[Optional[float], Any],
+                                   convert: Union[Union[
+                                                      Callable[[Any], Any], Callable[[Any], Any], Callable[[Any], Any],
+                                                      Callable[[Any], Any]], Any]) -> Any: ...
 
     def set_xlim(self: _AxesBase,
                  left: Optional[float] = None,
@@ -510,7 +514,7 @@ class _AxesBase(Artist):
                    horizontalalignment: Any = ...,
                    multialignment: Any = ...,
                    fontproperties: Any = ...,
-                   rotation: float = ...,
+                   rotation: Union[float, Any] = ...,
                    linespacing: Any = ...,
                    rotation_mode: Optional[str] = ...,
                    usetex: Any = ...,
@@ -594,15 +598,15 @@ class _AxesBase(Artist):
                  x: float,
                  y: float) -> None: ...
 
-    def get_children(self: _AxesBase) -> list[Text]: ...
+    def get_children(self: _AxesBase) -> list[Union[Text, Any]]: ...
 
     def contains(self: _AxesBase,
-                 mouseevent: MouseEvent) -> Tuple[Any, Any]: ...
+                 mouseevent: MouseEvent) -> Union[Tuple[Any, Any], Any]: ...
 
     def contains_point(self: _AxesBase,
                        point: Any) -> Any: ...
 
-    def get_default_bbox_extra_artists(self: _AxesBase) -> list[Text]: ...
+    def get_default_bbox_extra_artists(self: _AxesBase) -> list[Union[Text, Any]]: ...
 
     def get_tightbbox(self: _AxesBase,
                       renderer: Any,

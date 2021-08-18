@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Optional
 from typing import Tuple
 from typing import Union
@@ -38,7 +39,7 @@ class _ColorbarAutoMinorLocator(AutoMinorLocator):
                  colorbar: Any,
                  n: Any = None) -> None: ...
 
-    def __call__(self: _ColorbarAutoMinorLocator) -> list: ...
+    def __call__(self: _ColorbarAutoMinorLocator) -> Union[list[Any], Any]: ...
 
 
 class _ColorbarLogLocator(LogLocator):
@@ -98,9 +99,10 @@ class ColorbarBase(object):
 
     def _config_axis(self: ColorbarBase) -> None: ...
 
-    def _get_ticker_locator_formatter(self: ColorbarBase) -> Tuple[Union[
-                                                                       SymmetricalLogLocator, _ColorbarLogLocator, FixedLocator, IndexLocator, MaxNLocator, _ColorbarAutoLocator],
-                                                                   Union[LogFormatterSciNotation, ScalarFormatter]]: ...
+    def _get_ticker_locator_formatter(self: ColorbarBase) -> Tuple[Union[Union[
+                                                                             SymmetricalLogLocator, _ColorbarLogLocator, FixedLocator, IndexLocator, MaxNLocator, _ColorbarAutoLocator], Any],
+                                                                   Union[Union[
+                                                                             LogFormatterSciNotation, ScalarFormatter], Any]]: ...
 
     def _use_auto_colorbar_locator(self: ColorbarBase) -> bool: ...
 
@@ -146,18 +148,18 @@ class ColorbarBase(object):
                             mappable: {hatches}) -> None: ...
 
     def add_lines(self: ColorbarBase,
-                  levels: Union[ndarray, int, float],
-                  colors: list[colors.py],
-                  linewidths: Union[float, ndarray, int],
+                  levels: Union[Union[ndarray, int, float], Any],
+                  colors: Union[list[colors.py], Any],
+                  linewidths: Union[Union[float, ndarray, int], Any],
                   erase: bool = True) -> None: ...
 
     def _ticker(self: ColorbarBase,
                 locator: {create_dummy_axis, set_view_interval, set_data_interval},
-                formatter: Union[LogFormatterSciNotation, ScalarFormatter]) -> Tuple[
-        Any, list, Union[str, {replace}]]: ...
+                formatter: Union[Union[LogFormatterSciNotation, ScalarFormatter], Any]) -> Tuple[
+        Any, list[Any], Union[Union[str, {replace}], Any]]: ...
 
     def _process_values(self: ColorbarBase,
-                        b: MaskedConstant = None) -> None: ...
+                        b: Union[MaskedConstant, Any] = None) -> None: ...
 
     def _get_extension_lengths(self: ColorbarBase,
                                frac: Any,
@@ -166,14 +168,14 @@ class ColorbarBase(object):
                                default: float = 0.05) -> ndarray: ...
 
     def _uniform_y(self: ColorbarBase,
-                   N: int) -> Union[ndarray, Tuple[ndarray, Optional[float]]]: ...
+                   N: Union[int, Any]) -> Union[ndarray, Tuple[ndarray, Optional[float]]]: ...
 
-    def _proportional_y(self: ColorbarBase) -> ndarray: ...
+    def _proportional_y(self: ColorbarBase) -> Union[ndarray, Any]: ...
 
     def _mesh(self: ColorbarBase) -> Tuple[Any, Any]: ...
 
     def _locate(self: ColorbarBase,
-                x: Union[ndarray, int, float, None]) -> Any: ...
+                x: Union[Union[ndarray, int, float, None], Any]) -> Any: ...
 
     def set_alpha(self: ColorbarBase,
                   alpha: Any) -> None: ...
@@ -181,7 +183,7 @@ class ColorbarBase(object):
     def remove(self: ColorbarBase) -> None: ...
 
 
-def _add_disjoint_kwargs(d: dict[str, Any],
+def _add_disjoint_kwargs(d: Union[dict[str, Any], Any],
                          **kwargs) -> None: ...
 
 

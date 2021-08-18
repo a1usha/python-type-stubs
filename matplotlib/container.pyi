@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Container
 from typing import Iterable
 from typing import Type
@@ -18,7 +19,7 @@ class Container(tuple):
                 **kwargs) -> _T: ...
 
     def __init__(self: Container,
-                 kl: Union[Iterable, tuple],
+                 kl: Union[Union[Iterable, tuple], Any],
                  label: Any = None) -> None: ...
 
     def remove(self: Container) -> None: ...

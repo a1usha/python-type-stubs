@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Iterable
 from typing import Optional
 from typing import Tuple
@@ -37,10 +38,10 @@ class QuiverKey(Artist):
     def _init(self: QuiverKey) -> None: ...
 
     def _text_x(self: QuiverKey,
-                x: Any) -> float: ...
+                x: Any) -> Union[float, Any]: ...
 
     def _text_y(self: QuiverKey,
-                y: Any) -> float: ...
+                y: Any) -> Union[float, Any]: ...
 
     def draw(self: QuiverKey,
              renderer: {get_rasterized, get_agg_filter, figure}) -> Optional[Any]: ...
@@ -51,7 +52,7 @@ class QuiverKey(Artist):
                    fig: Any) -> None: ...
 
     def contains(self: QuiverKey,
-                 mouseevent: MouseEvent) -> Union[Tuple[Any, Any], Tuple[bool, dict]]: ...
+                 mouseevent: MouseEvent) -> Union[Tuple[Any, Any], Tuple[bool, dict[Any, Any]]]: ...
 
 
 def _parse_args(*args,
@@ -98,22 +99,22 @@ class Quiver(PolyCollection):
                 C: Any = None) -> Any: ...
 
     def _dots_per_unit(self: Quiver,
-                       units: str) -> float: ...
+                       units: Union[str, Any]) -> Union[float, Any]: ...
 
     def _set_transform(self: Quiver) -> Affine2D: ...
 
     def _angles_lengths(self: Quiver,
-                        U: {__add__},
-                        V: ndarray,
+                        U: Union[{__add__}, Any],
+                        V: Union[ndarray, Any],
                         eps: int = 1) -> Tuple[None, float]: ...
 
     def _make_verts(self: Quiver,
-                    U: ndarray,
+                    U: Union[ndarray, Any],
                     V: {__mul__},
-                    angles: str) -> Optional[ndarray]: ...
+                    angles: Union[str, Any]) -> Optional[ndarray]: ...
 
     def _h_arrows(self: Quiver,
-                  length: float) -> Tuple[Any, None]: ...
+                  length: Union[float, Any]) -> Tuple[Any, None]: ...
 
 
 class Barbs(PolyCollection):
@@ -136,7 +137,7 @@ class Barbs(PolyCollection):
                     rounding: bool = True,
                     half: int = 5,
                     full: int = 10,
-                    flag: int = 50) -> Tuple[Any, Any, bool, int]: ...
+                    flag: int = 50) -> Tuple[Any, Any, Union[bool, Any], int]: ...
 
     def _make_barbs(self: Barbs,
                     u: Any,
@@ -149,7 +150,7 @@ class Barbs(PolyCollection):
                     pivot: str,
                     sizes: dict,
                     fill_empty: bool,
-                    flip: Iterable[bool]) -> list[Union[list, ndarray]]: ...
+                    flip: Iterable[bool]) -> list[Union[Union[list[Any], ndarray], Any]]: ...
 
     def set_UVC(self: Barbs,
                 U: Any,

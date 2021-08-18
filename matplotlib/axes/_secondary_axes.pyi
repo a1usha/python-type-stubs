@@ -1,5 +1,7 @@
+from typing import Any
 from typing import Iterable
 from typing import Optional
+from typing import Union
 
 from matplotlib.axes._base import _AxesBase
 from matplotlib.axes._secondary_axes import SecondaryAxis
@@ -25,7 +27,7 @@ class SecondaryAxis(_AxesBase):
     def set_ticks(self: SecondaryAxis,
                   ticks: Iterable,
                   *,
-                  minor: bool = False) -> list: ...
+                  minor: bool = False) -> Union[list[Any], Any]: ...
 
     def set_functions(self: SecondaryAxis,
                       functions: Any) -> Any: ...

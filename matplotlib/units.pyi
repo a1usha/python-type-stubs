@@ -1,4 +1,5 @@
 from decimal import Decimal
+from typing import Any
 from typing import Optional
 from typing import Union
 
@@ -43,7 +44,7 @@ class ConversionInterface(object):
 
 
 class DecimalConverter(ConversionInterface):
-    def convert(value: Decimal,
+    def convert(value: Union[Decimal, Any],
                 unit: Any,
                 axis: Any) -> Union[float, MaskedArray, ndarray]: ...
 

@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Iterator
 from typing import MutableMapping
 from typing import Optional
@@ -14,7 +15,7 @@ from numpy.core._multiarray_umath import ndarray
 from object import object
 
 
-def _gen_cmap_registry() -> dict[str, Union[LinearSegmentedColormap, ListedColormap]]: ...
+def _gen_cmap_registry() -> dict[Union[str, Any], Union[Union[LinearSegmentedColormap, ListedColormap], Any]]: ...
 
 
 class _DeprecatedCmapDictWrapper(MutableMapping):
@@ -49,10 +50,10 @@ def register_cmap(name: Optional[str] = None,
 
 
 def get_cmap(name: Union[Colormap, str, None] = None,
-             lut: Optional[int] = None) -> Union[Colormap, LinearSegmentedColormap, ListedColormap]: ...
+             lut: Optional[int] = None) -> Union[Union[Colormap, LinearSegmentedColormap, ListedColormap], Any]: ...
 
 
-def unregister_cmap(name: str) -> Union[None, LinearSegmentedColormap, ListedColormap]: ...
+def unregister_cmap(name: str) -> Union[Union[None, LinearSegmentedColormap, ListedColormap], Any]: ...
 
 
 class ScalarMappable(object):
@@ -69,7 +70,7 @@ class ScalarMappable(object):
                 x: {ndim},
                 alpha: Any = None,
                 bytes: bool = False,
-                norm: bool = True) -> Union[ndarray, {ndim}, None]: ...
+                norm: bool = True) -> Union[Union[ndarray, {ndim}, None], Any]: ...
 
     def set_array(self: ScalarMappable,
                   A: Optional[ndarray]) -> None: ...
@@ -110,4 +111,4 @@ class ScalarMappable(object):
 
     @_api.deprecated("3.3")
     def check_update(self: ScalarMappable,
-                     checker: Any) -> bool: ...
+                     checker: Any) -> Union[bool, Any]: ...

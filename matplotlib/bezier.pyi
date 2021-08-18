@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Callable
 from typing import Tuple
 from typing import Union
@@ -11,36 +12,37 @@ from object import object
 
 
 def _comb(n: {__sub__, __add__},
-          k: {__gt__}) -> Union[int, ndarray]: ...
+          k: {__gt__}) -> Union[Union[int, ndarray], Any]: ...
 
 
 class NonIntersectingPathException(ValueError):
     pass
 
 
-def get_intersection(cx1: float,
-                     cy1: float,
+def get_intersection(cx1: Union[float, Any],
+                     cy1: Union[float, Any],
                      cos_t1: {__mul__, __neg__},
                      sin_t1: {__mul__},
-                     cx2: float,
-                     cy2: float,
+                     cx2: Union[float, Any],
+                     cy2: Union[float, Any],
                      cos_t2: {__mul__, __neg__},
-                     sin_t2: {__mul__}) -> Tuple[float, float]: ...
+                     sin_t2: {__mul__}) -> Tuple[Union[float, Any], Union[float, Any]]: ...
 
 
-def get_normal_points(cx: float,
-                      cy: float,
+def get_normal_points(cx: Union[float, Any],
+                      cy: Union[float, Any],
                       cos_t: {__neg__},
                       sin_t: {__neg__},
-                      length: float) -> Tuple[float, float, float, float]: ...
+                      length: Union[float, Any]) -> Tuple[
+    Union[float, Any], Union[float, Any], Union[float, Any], Union[float, Any]]: ...
 
 
-def _de_casteljau1(beta: ndarray,
-                   t: float) -> Union[int, float]: ...
+def _de_casteljau1(beta: Union[ndarray, Any],
+                   t: Union[float, Any]) -> Union[Union[int, float], Any]: ...
 
 
-def split_de_casteljau(beta: int,
-                       t: float) -> Tuple[list[None], list[None]]: ...
+def split_de_casteljau(beta: Union[int, Any],
+                       t: Union[float, Any]) -> Tuple[list[None], list[None]]: ...
 
 
 def find_bezier_t_intersecting_with_closedpath(bezier_point_at_t: Callable,
@@ -64,7 +66,7 @@ class BezierSegment(object):
 
     def dimension(self: BezierSegment) -> Any: ...
 
-    def degree(self: BezierSegment) -> int: ...
+    def degree(self: BezierSegment) -> Union[int, Any]: ...
 
     def polynomial_coefficients(self: BezierSegment) -> Any: ...
 
@@ -84,13 +86,13 @@ def split_path_inout(path: {iter_segments, codes},
 
 def inside_circle(cx: Any,
                   cy: Any,
-                  r: {__pow__}) -> (xy: Any) ->
+                  r: {__pow__}) -> Callable[[Any], bool]: ...
 
 
-def get_cos_sin(x0: float,
-                y0: float,
-                x1: float,
-                y1: float) -> Union[Tuple[float, float], Tuple[float, float]]: ...
+def get_cos_sin(x0: Union[float, Any],
+                y0: Union[float, Any],
+                x1: Union[float, Any],
+                y1: Union[float, Any]) -> Union[Tuple[float, float], Tuple[Union[float, Any], Union[float, Any]]]: ...
 
 
 def check_if_parallel(dx1: float,
@@ -101,28 +103,30 @@ def check_if_parallel(dx1: float,
 
 
 def get_parallels(bezier2: {__getitem__},
-                  width: Any) -> Tuple[list[Tuple[float, float]], list[Tuple[float, float]]]: ...
+                  width: Any) -> Tuple[
+    list[Tuple[Union[float, Any], Union[float, Any]]], list[Tuple[Union[float, Any], Union[float, Any]]]]: ...
 
 
-def find_control_points(c1x: float,
-                        c1y: float,
-                        mmx: float,
-                        mmy: float,
-                        c2x: float,
-                        c2y: float) -> list[Tuple[float, float]]: ...
+def find_control_points(c1x: Union[float, Any],
+                        c1y: Union[float, Any],
+                        mmx: Union[float, Any],
+                        mmy: Union[float, Any],
+                        c2x: Union[float, Any],
+                        c2y: Union[float, Any]) -> list[Tuple[Union[float, Any], Union[float, Any]]]: ...
 
 
 def make_wedged_bezier2(bezier2: {__getitem__},
                         width: {__mul__},
                         w1: float = 1.,
                         wm: float = 0.5,
-                        w2: float = 0.) -> Tuple[list[Tuple[float, float]], list[Tuple[float, float]]]: ...
+                        w2: float = 0.) -> Tuple[
+    list[Tuple[Union[float, Any], Union[float, Any]]], list[Tuple[Union[float, Any], Union[float, Any]]]]: ...
 
 
 @_api.deprecated(
     "3.3", alternative="Path.cleaned() and remove the final STOP if needed")
-def make_path_regular(p: {codes}) -> Union[Path, {codes}]: ...
+def make_path_regular(p: {codes}) -> Union[Union[Path, {codes}], Any]: ...
 
 
 @_api.deprecated("3.3", alternative="Path.make_compound_path()")
-def concatenate_paths(paths: Any) -> Path: ...
+def concatenate_paths(paths: Any) -> Union[Path, Any]: ...

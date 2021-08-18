@@ -1,4 +1,7 @@
+from typing import Any
+from typing import Callable
 from typing import Type
+from typing import Union
 
 from matplotlib import _api
 from matplotlib.docstring import Substitution
@@ -19,7 +22,7 @@ class Substitution(object):
 
     @_api.deprecated("3.3", alternative="assign to the params attribute")
     def from_params(cls: Type[Substitution],
-                    params: Any) -> Substitution: ...
+                    params: Any) -> Union[Substitution, Any]: ...
 
 
-def copy(source: Any) -> (target: Any) ->
+def copy(source: Any) -> Callable[[Any], Any]: ...

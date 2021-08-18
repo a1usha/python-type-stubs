@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Any
 
 from matplotlib._enums import CapStyle
 from matplotlib._enums import JoinStyle

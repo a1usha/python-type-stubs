@@ -1,3 +1,6 @@
+from typing import Any
+from typing import Union
+
 from matplotlib.backend_bases import MouseButton
 from matplotlib.blocking_input import BlockingContourLabeler
 from matplotlib.blocking_input import BlockingInput
@@ -9,7 +12,7 @@ from object import object
 class BlockingInput(object):
     def __init__(self: BlockingInput,
                  fig: Any,
-                 eventslist: tuple = ()) -> None: ...
+                 eventslist: Union[tuple, Any] = ()) -> None: ...
 
     def on_event(self: BlockingInput,
                  event: Any) -> None: ...
@@ -26,7 +29,7 @@ class BlockingInput(object):
 
     def __call__(self: BlockingInput,
                  n: int = 1,
-                 timeout: int = 30) -> list: ...
+                 timeout: int = 30) -> list[Any]: ...
 
 
 class BlockingMouseInput(BlockingInput):
@@ -68,7 +71,7 @@ class BlockingMouseInput(BlockingInput):
     def __call__(self: BlockingMouseInput,
                  n: int = 1,
                  timeout: int = 30,
-                 show_clicks: bool = True) -> list: ...
+                 show_clicks: bool = True) -> list[Any]: ...
 
 
 class BlockingContourLabeler(BlockingMouseInput):

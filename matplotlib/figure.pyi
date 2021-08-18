@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Optional
 from typing import Tuple
 from typing import Union
@@ -28,13 +29,13 @@ def _stale_figure_callback(self: {figure},
 class _AxesStack(Stack):
     def __init__(self: _AxesStack) -> None: ...
 
-    def as_list(self: _AxesStack) -> list: ...
+    def as_list(self: _AxesStack) -> list[Any]: ...
 
     def _entry_from_axes(self: _AxesStack,
-                         e: {_shared_y_axes, _shared_x_axes}) -> Optional[Tuple[Any, Any]]: ...
+                         e: Union[{_shared_y_axes, _shared_x_axes}, Any]) -> Optional[Tuple[Any, Any]]: ...
 
     def remove(self: _AxesStack,
-               a: {_shared_y_axes, _shared_x_axes}) -> None: ...
+               a: Union[{_shared_y_axes, _shared_x_axes}, Any]) -> None: ...
 
     def bubble(self: _AxesStack,
                a: Any) -> Any: ...
@@ -58,7 +59,7 @@ class SubplotParams(object):
                  hspace: float = None) -> None: ...
 
     def update(self: SubplotParams,
-               left: float = None,
+               left: Union[float, Any] = None,
                bottom: Any = None,
                right: Any = None,
                top: Any = None,
@@ -70,9 +71,12 @@ class FigureBase(Artist):
     def __init__(self: FigureBase) -> None: ...
 
     def _get_draw_artists(self: FigureBase,
-                          renderer: Union[{open_group, get_rasterized, get_agg_filter, figure, option_image_nocomposite,
-                                           close_group}, {open_group, get_rasterized, get_agg_filter, figure,
-                                                          option_image_nocomposite, close_group}]) -> list: ...
+                          renderer: Union[Union[{open_group, get_rasterized, get_agg_filter, figure,
+                                                 option_image_nocomposite, close_group}, {open_group, get_rasterized,
+                                                                                          get_agg_filter, figure,
+                                                                                          option_image_nocomposite,
+                                                                                          close_group}], Any]) -> list[
+        Any]: ...
 
     def autofmt_xdate(self: FigureBase,
                       bottom: float = 0.2,
@@ -80,7 +84,7 @@ class FigureBase(Artist):
                       ha: str = 'right',
                       which: str = 'major') -> None: ...
 
-    def get_children(self: FigureBase) -> list: ...
+    def get_children(self: FigureBase) -> list[Any]: ...
 
     def contains(self: FigureBase,
                  mouseevent: MouseEvent) -> Any: ...
@@ -91,7 +95,7 @@ class FigureBase(Artist):
 
     def _suplabels(self: FigureBase,
                    t: str,
-                   info: Union[dict[str, Union[str, float, int]], dict[str, Union[str, float]]],
+                   info: Union[Union[dict[str, Union[str, float, int]], dict[str, Union[str, float]]], Any],
                    x: Any = ...,
                    y: Any = ...,
                    text: str = ...,
@@ -100,7 +104,7 @@ class FigureBase(Artist):
                    horizontalalignment: Any = ...,
                    multialignment: Any = ...,
                    fontproperties: Any = ...,
-                   rotation: float = ...,
+                   rotation: Union[float, Any] = ...,
                    linespacing: Any = ...,
                    rotation_mode: Optional[str] = ...,
                    usetex: Any = ...,
@@ -153,8 +157,8 @@ class FigureBase(Artist):
                     **kwargs) -> Any: ...
 
     def _add_axes_internal(self: FigureBase,
-                           ax: SubplotBase,
-                           key: tuple[Any, dict[str, Any]]) -> SubplotBase: ...
+                           ax: Union[SubplotBase, Any],
+                           key: Union[tuple[Any, dict[str, Any]], Any]) -> Union[SubplotBase, Any]: ...
 
     @_api.make_keyword_only("3.3", "sharex")
     def subplots(self: FigureBase,
@@ -184,7 +188,7 @@ class FigureBase(Artist):
              horizontalalignment: Any = ...,
              multialignment: Any = ...,
              fontproperties: Any = ...,
-             rotation: float = ...,
+             rotation: Union[float, Any] = ...,
              linespacing: Any = ...,
              rotation_mode: Optional[str] = ...,
              usetex: Any = ...,
@@ -197,7 +201,7 @@ class FigureBase(Artist):
                  cax: Any = None,
                  ax: Any = None,
                  use_gridspec: bool = True,
-                 **kwargs) -> Colorbar: ...
+                 **kwargs) -> Union[Colorbar, Any]: ...
 
     def subplots_adjust(self: FigureBase,
                         left: Optional[float] = None,
@@ -238,7 +242,7 @@ class FigureBase(Artist):
                    hspace: float = None,
                    width_ratios: Any = None,
                    height_ratios: Any = None,
-                   **kwargs) -> Union[int, float, complex, None, ndarray]: ...
+                   **kwargs) -> Union[Union[int, float, complex, None, ndarray], Any]: ...
 
     def add_subfigure(self: FigureBase,
                       subplotspec: Any,
@@ -250,7 +254,7 @@ class FigureBase(Artist):
                       **kwargs) -> Any: ...
 
     def sca(self: FigureBase,
-            a: SubplotBase) -> SubplotBase: ...
+            a: Union[SubplotBase, Any]) -> Union[SubplotBase, Any]: ...
 
     def gca(self: FigureBase,
             **kwargs) -> Any: ...
@@ -264,13 +268,13 @@ class FigureBase(Artist):
                                          *args,
                                          **kwargs) -> Tuple[Any, dict[str, Any]]: ...
 
-    def get_default_bbox_extra_artists(self: FigureBase) -> list: ...
+    def get_default_bbox_extra_artists(self: FigureBase) -> list[Any]: ...
 
     def get_tightbbox(self: FigureBase,
                       renderer: Any,
                       bbox_extra_artists: Any = None) -> Any: ...
 
-    def _normalize_grid_string(layout: str) -> list[list]: ...
+    def _normalize_grid_string(layout: Union[str, Any]) -> list[list[Any]]: ...
 
     def subplot_mosaic(self: FigureBase,
                        mosaic: Any,
@@ -280,7 +284,7 @@ class FigureBase(Artist):
                        empty_sentinel: Optional[object] = '.') -> dict[Any, Axes]: ...
 
     def _set_artist_props(self: FigureBase,
-                          a: Rectangle) -> None: ...
+                          a: Union[Rectangle, Any]) -> None: ...
 
 
 class SubFigure(FigureBase):
@@ -303,7 +307,7 @@ class SubFigure(FigureBase):
 
     def init_layoutgrid(self: SubFigure) -> None: ...
 
-    def get_axes(self: SubFigure) -> list: ...
+    def get_axes(self: SubFigure) -> list[Any]: ...
 
     def draw(self: SubFigure,
              renderer: {open_group, get_rasterized, get_agg_filter, figure, option_image_nocomposite,
@@ -331,9 +335,9 @@ class Figure(FigureBase):
     def show(self: Figure,
              warn: bool = True) -> Any: ...
 
-    def get_axes(self: Figure) -> list: ...
+    def get_axes(self: Figure) -> list[Any]: ...
 
-    def _get_dpi(self: Figure) -> Optional[float]: ...
+    def _get_dpi(self: Figure) -> Union[Optional[float], Any]: ...
 
     def _set_dpi(self: Figure,
                  dpi: float,
@@ -382,7 +386,7 @@ class Figure(FigureBase):
 
     def get_figheight(self: Figure) -> Any: ...
 
-    def get_dpi(self: Figure) -> Optional[float]: ...
+    def get_dpi(self: Figure) -> Union[Optional[float], Any]: ...
 
     def set_dpi(self: Figure,
                 val: float) -> None: ...
@@ -428,7 +432,7 @@ class Figure(FigureBase):
                show_clicks: bool = True,
                mouse_add: Any = MouseButton.LEFT,
                mouse_pop: Any = MouseButton.RIGHT,
-               mouse_stop: Any = MouseButton.MIDDLE) -> list: ...
+               mouse_stop: Any = MouseButton.MIDDLE) -> list[Any]: ...
 
     def waitforbuttonpress(self: Figure,
                            timeout: int = -1) -> None: ...
@@ -436,8 +440,9 @@ class Figure(FigureBase):
     def init_layoutgrid(self: Figure) -> None: ...
 
     def execute_constrained_layout(self: Figure,
-                                   renderer: {open_group, get_rasterized, get_agg_filter, figure,
-                                              option_image_nocomposite, close_group} = None) -> None: ...
+                                   renderer: Union[
+                                       {open_group, get_rasterized, get_agg_filter, figure, option_image_nocomposite,
+                                        close_group}, Any] = None) -> None: ...
 
     def tight_layout(self: Figure,
                      *,

@@ -1,4 +1,6 @@
+from typing import Any
 from typing import Tuple
+from typing import Union
 
 from matplotlib.contour import ContourSet
 from matplotlib.tri.tricontour import TriContourSet
@@ -14,18 +16,19 @@ class TriContourSet(ContourSet):
                       *args,
                       **kwargs) -> dict[str, Any]: ...
 
-    def _get_allsegs_and_allkinds(self: TriContourSet) -> Tuple[list[Optional[list]], Optional[list[list]]]: ...
+    def _get_allsegs_and_allkinds(self: TriContourSet) -> Tuple[
+        list[Optional[list[Any]]], Optional[list[list[Any]]]]: ...
 
     def _contour_args(self: TriContourSet,
-                      args: tuple[Any, ...],
-                      kwargs: Any) -> Tuple[Triangulation, None]: ...
+                      args: Union[tuple[Any, ...], Any],
+                      kwargs: Any) -> Tuple[Union[Triangulation, Any], None]: ...
 
 
 def tricontour(*args,
                ax: Any,
-               **kwargs) -> TriContourSet: ...
+               **kwargs) -> Union[TriContourSet, Any]: ...
 
 
 def tricontourf(*args,
                 ax: Any,
-                **kwargs) -> TriContourSet: ...
+                **kwargs) -> Union[TriContourSet, Any]: ...

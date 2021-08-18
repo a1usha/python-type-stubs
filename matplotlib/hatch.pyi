@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Optional
 from typing import Union
 
@@ -61,7 +62,7 @@ class SouthEastHatch(HatchPatternBase):
 
 class Shapes(HatchPatternBase):
     def __init__(self: Shapes,
-                 hatch: Union[{count}, {count}, {count}],
+                 hatch: Union[Union[{count}, {count}, {count}], Any],
                  density: Any) -> None: ...
 
     def set_vertices_and_codes(self: Shapes,
@@ -71,31 +72,31 @@ class Shapes(HatchPatternBase):
 
 class Circles(Shapes):
     def __init__(self: Circles,
-                 hatch: {count},
+                 hatch: Union[{count}, Any],
                  density: Any) -> None: ...
 
 
 class SmallCircles(Circles):
     def __init__(self: SmallCircles,
-                 hatch: {count},
+                 hatch: Union[{count}, Any],
                  density: Any) -> None: ...
 
 
 class LargeCircles(Circles):
     def __init__(self: LargeCircles,
-                 hatch: {count},
+                 hatch: Union[{count}, Any],
                  density: Any) -> None: ...
 
 
 class SmallFilledCircles(SmallCircles):
     def __init__(self: SmallFilledCircles,
-                 hatch: {count},
+                 hatch: Union[{count}, Any],
                  density: Any) -> None: ...
 
 
 class Stars(Shapes):
     def __init__(self: Stars,
-                 hatch: Union[{count}, {count}],
+                 hatch: Union[Union[{count}, {count}], Any],
                  density: Any) -> None: ...
 
 

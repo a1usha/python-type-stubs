@@ -1,3 +1,5 @@
+from typing import Any
+from typing import Callable
 from typing import Generator
 from typing import Optional
 from typing import Tuple
@@ -51,16 +53,16 @@ class DomainMap(object):
                   yi: {__mul__}) -> Tuple[int, int]: ...
 
     def mask2grid(self: DomainMap,
-                  xm: int,
-                  ym: {__mul__}) -> Tuple[Union[int, float], float]: ...
+                  xm: Union[int, Any],
+                  ym: {__mul__}) -> Tuple[Union[Union[int, float], Any], Union[float, Any]]: ...
 
     def data2grid(self: DomainMap,
                   xd: Optional[Any],
-                  yd: Optional[Any]) -> Tuple[float, float]: ...
+                  yd: Optional[Any]) -> Tuple[Union[float, Any], Union[float, Any]]: ...
 
     def grid2data(self: DomainMap,
                   xg: {__truediv__},
-                  yg: {__truediv__}) -> Tuple[float, float]: ...
+                  yg: {__truediv__}) -> Tuple[Union[float, Any], Union[float, Any]]: ...
 
     def start_trajectory(self: DomainMap,
                          xg: {__mul__},
@@ -86,7 +88,7 @@ class Grid(object):
 
     def within_grid(self: Grid,
                     xi: Any,
-                    yi: Any) -> bool: ...
+                    yi: Any) -> Union[bool, Any]: ...
 
 
 class StreamMask(object):
@@ -117,32 +119,40 @@ class TerminateTrajectory(Exception):
 
 def get_integrator(u: Optional[Any],
                    v: Optional[Any],
-                   dmap: DomainMap,
-                   minlength: float,
-                   maxlength: float,
-                   integration_direction: str) -> (x0: {__mul__}, y0: Any) ->
+                   dmap: Union[DomainMap, Any],
+                   minlength: Union[float, Any],
+                   maxlength: Union[float, Any],
+                   integration_direction: Union[str, Any]) -> Callable[
+    [{__mul__}, Any], Optional[Tuple[list[Any], list[Any]]]]: ...
 
 
 class OutOfBounds(IndexError):
     pass
 
 
-def _integrate_rk12(x0: {__mul__},
+def _integrate_rk12(x0: Union[{__mul__}, Any],
                     y0: Any,
-                    dmap: DomainMap,
-                    f: Union[(xi: Any, yi: Any),
-                    maxlength: float) -> Tuple[int, list[{__mul__}], list]: ...
+                    dmap: Union[DomainMap, Any],
+                    f: Union[Union[Callable[[Any, Any], tuple[Union[None, int, float], Union[None, int, float]]],
+                                   Callable[[Any, Any], tuple[
+                                       Union[Union[_NotImplementedType, MaskedConstant, int, float], Any], Union[
+                                           Union[_NotImplementedType, MaskedConstant, int, float], Any]]]], Any],
+                    maxlength: Union[float, Any]) -> Tuple[
+    int, Union[list[Union[{__mul__}, Any]], Any], Union[list[Any], Any]]: ...
 
 
-def _euler_step(xf_traj: list[{__mul__}],
-                yf_traj: list,
-                dmap: DomainMap,
-                f: Union[(xi: Any, yi: Any)) -> Tuple[float, list[{__mul__}], list]: ...
+def _euler_step(xf_traj: Union[list[Union[{__mul__}, Any]], Any],
+                yf_traj: Union[list[Any], Any],
+                dmap: Union[DomainMap, Any],
+                f: Union[Union[Callable[[Any, Any], tuple[Union[None, int, float], Union[None, int, float]]], Callable[
+                    [Any, Any], tuple[Union[Union[_NotImplementedType, MaskedConstant, int, float], Any], Union[
+                        Union[_NotImplementedType, MaskedConstant, int, float], Any]]]], Any]) -> Tuple[
+    Union[float, Any], Union[list[Union[{__mul__}, Any]], Any], Union[list[Any], Any]]: ...
 
 
-def interpgrid(a: Union[ndarray, None, MaskedConstant, float],
-               xi: ndarray,
-               yi: ndarray) -> Union[_NotImplementedType, MaskedConstant, int]: ...
+def interpgrid(a: Union[Union[ndarray, None, MaskedConstant, float], Any],
+               xi: Union[ndarray, Any],
+               yi: Union[ndarray, Any]) -> Union[Union[_NotImplementedType, MaskedConstant, int], Any]: ...
 
 
-def _gen_starting_points(shape: tuple) -> Generator[Tuple[int, int], Any, None]: ...
+def _gen_starting_points(shape: Union[tuple, Any]) -> Generator[Tuple[int, int], Any, None]: ...

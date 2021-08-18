@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Callable
 from typing import Iterable
 from typing import Optional
@@ -39,18 +40,19 @@ class HandlerBase(object):
                  update_func: Any = None) -> None: ...
 
     def _update_prop(self: HandlerBase,
-                     legend_handle: Union[Line2D, Rectangle, LineCollection, {set_figure, set_clip_box, set_clip_path}],
-                     orig_handle: {get_fill, get_hatch}) -> None: ...
+                     legend_handle: Union[
+                         Union[Line2D, Rectangle, LineCollection, {set_figure, set_clip_box, set_clip_path}], Any],
+                     orig_handle: Union[{get_fill, get_hatch}, Any]) -> None: ...
 
     def _default_update_prop(self: HandlerBase,
-                             legend_handle: Union[
-                                 Line2D, Rectangle, LineCollection, {set_figure, set_clip_box, set_clip_path}],
+                             legend_handle: Union[Union[Line2D, Rectangle, LineCollection, {set_figure, set_clip_box,
+                                                                                            set_clip_path}], Any],
                              orig_handle: Any) -> None: ...
 
     def update_prop(self: HandlerBase,
-                    legend_handle: Union[Line2D, Rectangle, LineCollection],
-                    orig_handle: {get_fill, get_hatch},
-                    legend: {markerscale}) -> None: ...
+                    legend_handle: Union[Union[Line2D, Rectangle, LineCollection], Any],
+                    orig_handle: Union[{get_fill, get_hatch}, Any],
+                    legend: Union[{markerscale}, Any]) -> None: ...
 
     def adjust_drawing_area(self: HandlerBase,
                             legend: Any,
@@ -59,11 +61,12 @@ class HandlerBase(object):
                             ydescent: Any,
                             width: Any,
                             height: Any,
-                            fontsize: Any) -> Tuple[float, float, float, float]: ...
+                            fontsize: Any) -> Tuple[
+        Union[float, Any], Union[float, Any], Union[float, Any], Union[float, Any]]: ...
 
     def legend_artist(self: HandlerBase,
                       legend: Any,
-                      orig_handle: Artist,
+                      orig_handle: Union[Artist, Any],
                       fontsize: int,
                       handlebox: OffsetBox) -> Any: ...
 
@@ -85,16 +88,16 @@ class HandlerNpoints(HandlerBase):
                  **kwargs) -> None: ...
 
     def get_numpoints(self: HandlerNpoints,
-                      legend: {markerscale}) -> int: ...
+                      legend: Union[{markerscale}, Any]) -> Union[int, Any]: ...
 
     def get_xdata(self: HandlerNpoints,
-                  legend: {markerscale},
+                  legend: Union[{markerscale}, Any],
                   xdescent: Any,
                   ydescent: Any,
                   width: Any,
-                  height: float,
-                  fontsize: Any) -> Tuple[Union[ndarray, Tuple[ndarray, Optional[float]], list], Union[
-        ndarray, Tuple[ndarray, Optional[float]], list[float]]]: ...
+                  height: Union[float, Any],
+                  fontsize: Any) -> Tuple[Union[ndarray, Tuple[ndarray, Optional[float]], list[Any]], Union[
+        ndarray, Tuple[ndarray, Optional[float]], list[Union[float, Any]]]]: ...
 
 
 class HandlerNpointsYoffsets(HandlerNpoints):
@@ -108,8 +111,8 @@ class HandlerNpointsYoffsets(HandlerNpoints):
                   xdescent: Any,
                   ydescent: Any,
                   width: Any,
-                  height: float,
-                  fontsize: Any) -> Optional[float]: ...
+                  height: Union[float, Any],
+                  fontsize: Any) -> Union[Optional[float], Any]: ...
 
 
 class HandlerLine2D(HandlerNpoints):
@@ -141,17 +144,17 @@ class HandlerPatch(HandlerBase):
                       ydescent: Any,
                       width: Any,
                       height: Any,
-                      fontsize: Any) -> Rectangle: ...
+                      fontsize: Any) -> Union[Rectangle, Any]: ...
 
     def create_artists(self: HandlerPatch,
                        legend: Any,
-                       orig_handle: Artist,
-                       xdescent: float,
-                       ydescent: float,
-                       width: float,
-                       height: float,
-                       fontsize: int,
-                       trans: IdentityTransform) -> list[Rectangle]: ...
+                       orig_handle: Union[Artist, Any],
+                       xdescent: Union[float, Any],
+                       ydescent: Union[float, Any],
+                       width: Union[float, Any],
+                       height: Union[float, Any],
+                       fontsize: Union[int, Any],
+                       trans: Union[IdentityTransform, Any]) -> list[Union[Rectangle, Any]]: ...
 
 
 class HandlerStepPatch(HandlerBase):
@@ -178,22 +181,22 @@ class HandlerStepPatch(HandlerBase):
 
     def create_artists(self: HandlerStepPatch,
                        legend: Any,
-                       orig_handle: Artist,
-                       xdescent: float,
-                       ydescent: float,
-                       width: float,
-                       height: float,
-                       fontsize: int,
-                       trans: IdentityTransform) -> list[Union[Rectangle, Line2D]]: ...
+                       orig_handle: {get_fill, get_hatch},
+                       xdescent: Any,
+                       ydescent: Any,
+                       width: Any,
+                       height: Any,
+                       fontsize: Any,
+                       trans: Any) -> list[Union[Rectangle, Line2D]]: ...
 
 
 class HandlerLineCollection(HandlerLine2D):
     def get_numpoints(self: HandlerLineCollection,
-                      legend: {markerscale}) -> int: ...
+                      legend: Union[{markerscale}, Any]) -> Union[int, Any]: ...
 
     def _default_update_prop(self: HandlerLineCollection,
-                             legend_handle: Union[
-                                 Line2D, Rectangle, LineCollection, {set_figure, set_clip_box, set_clip_path}],
+                             legend_handle: Union[Union[Line2D, Rectangle, LineCollection, {set_figure, set_clip_box,
+                                                                                            set_clip_path}], Any],
                              orig_handle: {get_linewidths, _us_linestyles, get_colors}) -> None: ...
 
     def create_artists(self: HandlerLineCollection,
@@ -214,24 +217,25 @@ class HandlerRegularPolyCollection(HandlerNpointsYoffsets):
                  **kwargs) -> None: ...
 
     def get_numpoints(self: HandlerRegularPolyCollection,
-                      legend: {markerscale}) -> int: ...
+                      legend: Union[{markerscale}, Any]) -> Union[int, Any]: ...
 
     def get_sizes(self: HandlerRegularPolyCollection,
                   legend: Any,
-                  orig_handle: Artist,
+                  orig_handle: Union[Artist, Any],
                   xdescent: Any,
                   ydescent: Any,
                   width: Any,
                   height: Any,
-                  fontsize: Any) -> Union[list[float], Tuple[Union[ndarray, float, None], ...], Tuple[Any, ...]]: ...
+                  fontsize: Any) -> Union[
+        Union[list[Union[float, Any]], Tuple[Union[ndarray, float, None], ...], Tuple[Any, ...]], Any]: ...
 
     def update_prop(self: HandlerRegularPolyCollection,
-                    legend_handle: Union[Line2D, Rectangle, LineCollection],
+                    legend_handle: Union[Union[Line2D, Rectangle, LineCollection], Any],
                     orig_handle: Any,
                     legend: {figure}) -> None: ...
 
     def create_collection(self: HandlerRegularPolyCollection,
-                          orig_handle: Artist,
+                          orig_handle: Union[Artist, Any],
                           sizes: Any,
                           offsets: Any,
                           transOffset: Any) -> Any: ...
@@ -244,12 +248,12 @@ class HandlerRegularPolyCollection(HandlerNpointsYoffsets):
                        width: Any,
                        height: Any,
                        fontsize: Any,
-                       trans: Any) -> list: ...
+                       trans: Any) -> list[Any]: ...
 
 
 class HandlerPathCollection(HandlerRegularPolyCollection):
     def create_collection(self: HandlerPathCollection,
-                          orig_handle: Artist,
+                          orig_handle: Union[Artist, Any],
                           sizes: Any,
                           offsets: Any,
                           transOffset: Any) -> Any: ...
@@ -257,7 +261,7 @@ class HandlerPathCollection(HandlerRegularPolyCollection):
 
 class HandlerCircleCollection(HandlerRegularPolyCollection):
     def create_collection(self: HandlerCircleCollection,
-                          orig_handle: Artist,
+                          orig_handle: Union[Artist, Any],
                           sizes: Any,
                           offsets: Any,
                           transOffset: Any) -> Any: ...
@@ -277,7 +281,7 @@ class HandlerErrorbar(HandlerLine2D):
                      ydescent: Any,
                      width: Any,
                      height: Any,
-                     fontsize: int) -> Tuple[float, Union[float, int]]: ...
+                     fontsize: Union[int, Any]) -> Tuple[Union[float, Any], Union[Union[float, int], Any]]: ...
 
     def create_artists(self: HandlerErrorbar,
                        legend: {_set_artist_props, markerscale},
@@ -287,7 +291,7 @@ class HandlerErrorbar(HandlerLine2D):
                        width: Any,
                        height: {__sub__},
                        fontsize: Any,
-                       trans: Any) -> list[Line2D]: ...
+                       trans: Any) -> list[Union[Line2D, Any]]: ...
 
 
 class HandlerStem(HandlerNpointsYoffsets):
@@ -299,12 +303,12 @@ class HandlerStem(HandlerNpointsYoffsets):
                  **kwargs) -> None: ...
 
     def get_ydata(self: HandlerStem,
-                  legend: {_set_artist_props},
+                  legend: Union[{_set_artist_props}, Any],
                   xdescent: Any,
                   ydescent: Any,
                   width: Any,
-                  height: float,
-                  fontsize: Any) -> Optional[float]: ...
+                  height: Union[float, Any],
+                  fontsize: Any) -> Union[Optional[float], Any]: ...
 
     def create_artists(self: HandlerStem,
                        legend: {_set_artist_props},
@@ -314,7 +318,7 @@ class HandlerStem(HandlerNpointsYoffsets):
                        width: Any,
                        height: Any,
                        fontsize: Any,
-                       trans: Any) -> list[Line2D]: ...
+                       trans: Any) -> list[Union[Line2D, Any]]: ...
 
     def _copy_collection_props(self: HandlerStem,
                                legend_handle: {set_color, set_linestyle},
@@ -335,13 +339,14 @@ class HandlerTuple(HandlerBase):
                        width: {__add__},
                        height: Any,
                        fontsize: Any,
-                       trans: Any) -> list: ...
+                       trans: Any) -> list[Any]: ...
 
 
 class HandlerPolyCollection(HandlerBase):
     def _update_prop(self: HandlerPolyCollection,
-                     legend_handle: Union[Line2D, Rectangle, LineCollection, {set_figure, set_clip_box, set_clip_path}],
-                     orig_handle: {get_fill, get_hatch}) -> None: ...
+                     legend_handle: Union[
+                         Union[Line2D, Rectangle, LineCollection, {set_figure, set_clip_box, set_clip_path}], Any],
+                     orig_handle: Union[{get_fill, get_hatch}, Any]) -> None: ...
 
     def create_artists(self: HandlerPolyCollection,
                        legend: Any,

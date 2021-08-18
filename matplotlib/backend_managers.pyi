@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Callable
 from typing import Iterable
 from typing import Optional
@@ -62,13 +63,13 @@ class ToolManager(object):
                       message: Any,
                       sender: Any = None) -> None: ...
 
-    def active_toggle(self: ToolManager) -> dict: ...
+    def active_toggle(self: ToolManager) -> dict[Any, Any]: ...
 
     def get_tool_keymap(self: ToolManager,
-                        name: str) -> list: ...
+                        name: str) -> list[Any]: ...
 
     def _remove_keys(self: ToolManager,
-                     name: str) -> None: ...
+                     name: Union[str, Any]) -> None: ...
 
     @_api.delete_parameter("3.3", "args")
     def update_keymap(self: ToolManager,
@@ -81,12 +82,12 @@ class ToolManager(object):
 
     def add_tool(self: ToolManager,
                  name: str,
-                 tool: type,
+                 tool: Union[type, Any],
                  *args,
-                 **kwargs) -> ToolToggleBase: ...
+                 **kwargs) -> Union[ToolToggleBase, Any]: ...
 
     def _tool_added_event(self: ToolManager,
-                          tool: ToolToggleBase) -> None: ...
+                          tool: Union[ToolToggleBase, Any]) -> None: ...
 
     def _handle_toggle(self: ToolManager,
                        tool: Any,
@@ -95,7 +96,7 @@ class ToolManager(object):
                        data: object) -> None: ...
 
     def _get_cls_to_instantiate(self: ToolManager,
-                                callback_class: type) -> Union[Callable, Callable, Callable, None]: ...
+                                callback_class: Union[type, Any]) -> Union[Callable, Callable, Callable, None]: ...
 
     def trigger_tool(self: ToolManager,
                      name: str,
@@ -104,7 +105,7 @@ class ToolManager(object):
                      data: object = None) -> None: ...
 
     def _trigger_tool(self: ToolManager,
-                      name: str,
+                      name: Union[str, Any],
                       sender: Any = None,
                       canvasevent: Any = None,
                       data: Any = None) -> None: ...
@@ -112,7 +113,7 @@ class ToolManager(object):
     def _key_press(self: ToolManager,
                    event: {key}) -> None: ...
 
-    def tools(self: ToolManager) -> dict: ...
+    def tools(self: ToolManager) -> dict[Any, Any]: ...
 
     def get_tool(self: ToolManager,
                  name: Any,

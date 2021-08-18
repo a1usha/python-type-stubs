@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Iterable
 from typing import Tuple
 from typing import Union
@@ -26,27 +27,30 @@ class Sankey(object):
              quadrant: int = 0,
              cw: bool = True,
              radius: int = 1,
-             center: tuple[int, int] = (0, 0)) -> list[Tuple[uint8, Any]]: ...
+             center: Union[tuple[int, int], Any] = (0, 0)) -> list[Tuple[uint8, Any]]: ...
 
     def _add_input(self: Sankey,
-                   path: Union[list[tuple[uint8, list[float]]], list[
-                       Union[tuple[uint8, list[float]], tuple[uint8, list[float]]]]],
+                   path: Union[Union[list[tuple[uint8, list[Union[float, Any]]]], list[
+                       Union[tuple[uint8, list[Union[float, Any]]], tuple[uint8, list[float]]]]], Any],
                    angle: Any,
                    flow: Any,
                    length: Any) -> Union[Tuple[list[int], list[int]], Tuple[
-        Union[list[float], list[Union[float, int]]], Union[list[float], list[Union[float, int]]]]]: ...
+        Union[list[Union[float, Any]], list[Union[Union[float, int], Any]]], Union[
+            list[Union[float, Any]], list[Union[Union[float, int], Any]]]]]: ...
 
     def _add_output(self: Sankey,
-                    path: Union[list[Union[tuple[uint8, list[float]], tuple[uint8, list[float]]]], list[
-                        tuple[uint8, list[float]]]],
+                    path: Union[Union[
+                                    list[Union[tuple[uint8, list[Union[float, Any]]], tuple[uint8, list[float]]]], list[
+                                        tuple[uint8, list[Union[float, Any]]]]], Any],
                     angle: Any,
                     flow: Any,
                     length: Any) -> Union[Tuple[list[int], list[int]], Tuple[
-        Union[list[float], list[Union[float, int]]], Union[list[float], list[Union[float, int]]]]]: ...
+        Union[list[Union[float, Any]], list[Union[Union[float, int], Any]]], Union[
+            list[Union[float, Any]], list[Union[Union[float, int], Any]]]]]: ...
 
     def _revert(self: Sankey,
-                path: list[tuple[uint8, list[float]]],
-                first_action: uint8 = Path.LINETO) -> list[Tuple[uint8, Any]]: ...
+                path: Union[list[tuple[uint8, list[Union[float, Any]]]], Any],
+                first_action: uint8 = Path.LINETO) -> list[Tuple[Union[uint8, Any], Any]]: ...
 
     def add(self: Sankey,
             patchlabel: str = '',
@@ -61,4 +65,4 @@ class Sankey(object):
             path: Any = ...,
             **kwargs) -> Sankey: ...
 
-    def finish(self: Sankey) -> list: ...
+    def finish(self: Sankey) -> list[Any]: ...

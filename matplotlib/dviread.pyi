@@ -1,5 +1,7 @@
 from os import PathLike
+from typing import Any
 from typing import BinaryIO
+from typing import Callable
 from typing import Generator
 from typing import Optional
 from typing import Page
@@ -46,7 +48,8 @@ def _dispatch(table: Any,
               min: Any,
               max: Any = None,
               state: Any = None,
-              args: tuple[str] = ('raw',)) -> (method: Any) ->
+              args: Union[tuple[str], Any] = ('raw',)) -> Callable[
+    [Any], Callable[[{state, _arg}, {__sub__}], Any]]: ...
 
 
 class Dvi(object):
@@ -73,8 +76,8 @@ class Dvi(object):
     def _read(self: Dvi) -> bool: ...
 
     def _arg(self: Dvi,
-             nbytes: int,
-             signed: bool = False) -> int: ...
+             nbytes: Union[int, Any],
+             signed: bool = False) -> Union[int, Any]: ...
 
     def _set_char_immediate(self: Dvi,
                             char: Any) -> Optional[Any]: ...
@@ -161,7 +164,7 @@ class Dvi(object):
                  l: {__neg__}) -> Optional[Any]: ...
 
     def _fnt_def_real(self: Dvi,
-                      k: int,
+                      k: Union[int, Any],
                       c: {__ne__},
                       s: Any,
                       d: Any,
@@ -193,7 +196,7 @@ class DviFont(object):
                  vf: Vf) -> None: ...
 
     def __eq__(self: DviFont,
-               other: {texname, size}) -> bool: ...
+               other: {texname, size}) -> Union[bool, Any]: ...
 
     def __ne__(self: DviFont,
                other: {texname, size}) -> bool: ...
@@ -201,10 +204,10 @@ class DviFont(object):
     def __repr__(self: DviFont) -> str: ...
 
     def _width_of(self: DviFont,
-                  char: Any) -> int: ...
+                  char: Any) -> Union[int, Any]: ...
 
     def _height_depth_of(self: DviFont,
-                         char: {__eq__}) -> list[int]: ...
+                         char: {__eq__}) -> list[Union[int, Any]]: ...
 
 
 class Vf(Dvi):
@@ -217,24 +220,24 @@ class Vf(Dvi):
     def _read(self: Vf) -> Any: ...
 
     def _init_packet(self: Vf,
-                     pl: int) -> int: ...
+                     pl: Union[int, Any]) -> Union[int, Any]: ...
 
     def _finalize_packet(self: Vf,
-                         packet_char: Optional[int],
+                         packet_char: Union[Optional[int], Any],
                          packet_width: Any) -> None: ...
 
     def _pre(self: Vf,
              i: {__ne__},
-             x: bytes,
+             x: Union[bytes, Any],
              cs: Any,
              ds: Any) -> Any: ...
 
 
-def _fix2comp(num: {__and__}) -> {__and__}: ...
+def _fix2comp(num: {__and__}) -> Union[{__and__}, Any]: ...
 
 
-def _mul2012(num1: {__and__},
-             num2: float) -> int: ...
+def _mul2012(num1: Union[{__and__}, Any],
+             num2: Union[float, Any]) -> Union[int, Any]: ...
 
 
 class Tfm(object):
@@ -250,7 +253,7 @@ class PsfontsMap(object):
                     texname: {decode}) -> Any: ...
 
     def _parse(self: PsfontsMap,
-               file: BinaryIO) -> None: ...
+               file: Union[BinaryIO, Any]) -> None: ...
 
 
 @_api.deprecated("3.3")
@@ -260,7 +263,7 @@ class Encoding(object):
 
     def __iter__(self: Encoding) -> Generator[Any, Any, None]: ...
 
-    def _parse(file: BinaryIO) -> list: ...
+    def _parse(file: Union[BinaryIO, Any]) -> list[Any]: ...
 
 
 def _parse_enc(path: PathLike) -> list: ...
