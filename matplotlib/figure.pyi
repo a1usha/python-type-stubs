@@ -6,6 +6,7 @@ from typing import Union
 from matplotlib import _api
 from matplotlib.artist import Artist
 from matplotlib.axes._subplots import SubplotBase
+from matplotlib.backend_bases import MouseButton
 from matplotlib.backend_bases import MouseEvent
 from matplotlib.cbook import Stack
 from matplotlib.colorbar import Colorbar

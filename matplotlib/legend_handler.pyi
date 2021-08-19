@@ -181,13 +181,13 @@ class HandlerStepPatch(HandlerBase):
 
     def create_artists(self: HandlerStepPatch,
                        legend: Any,
-                       orig_handle: {get_fill, get_hatch},
-                       xdescent: Any,
-                       ydescent: Any,
-                       width: Any,
-                       height: Any,
-                       fontsize: Any,
-                       trans: Any) -> list[Union[Rectangle, Line2D]]: ...
+                       orig_handle: Union[Artist, Any],
+                       xdescent: Union[float, Any],
+                       ydescent: Union[float, Any],
+                       width: Union[float, Any],
+                       height: Union[float, Any],
+                       fontsize: Union[int, Any],
+                       trans: Union[IdentityTransform, Any]) -> list[Union[Rectangle, Line2D]]: ...
 
 
 class HandlerLineCollection(HandlerLine2D):
