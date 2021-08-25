@@ -1,7 +1,17 @@
+from argparse import ArgumentParser as ArgumentParser
+from matplotlib import rcParams as rcParams
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from pathlib import Path as Path
+from functools import wraps as wraps
+from functools import partial as partial
+from functools import lru_cache as lru_cache
+from collections import namedtuple as namedtuple
 from os import PathLike
 from typing import Any
 from typing import BinaryIO
 from typing import Callable
+from typing import ClassVar
 from typing import Generator
 from typing import Optional
 from typing import Page
@@ -16,6 +26,13 @@ from matplotlib.dviread import PsfontsMap
 from matplotlib.dviread import Tfm
 from matplotlib.dviread import Vf
 from object import object
+
+_log: Logger
+_dvistate: Any
+Page: Type[Page]
+Text: Type[Text]
+Box: Type[Box]
+from typing import Any
 
 
 def _arg_raw(dvi: Any,
@@ -40,6 +57,11 @@ def _arg_ulen1(dvi: {_arg},
                delta: {__add__}) -> Any: ...
 
 
+_arg_mapping: dict[Any, Union[
+    Callable[[Any, Any], Any], partial[Any], Callable[[{_arg}, {__eq__}], Optional[Any]], Callable[
+        [{_arg}, {__add__, __eq__}], Any], Callable[[{_arg}, {__add__}], Any], Callable[[{_arg}, {__add__}], Any]]]
+
+
 def _arg_olen1(dvi: {_arg},
                delta: {__add__, __eq__}) -> Any: ...
 
@@ -53,6 +75,25 @@ def _dispatch(table: Any,
 
 
 class Dvi(object):
+    _dtable: ClassVar[list[None]]
+    _dispatch: ClassVar[partial[Callable[[Any], Callable[[{state, _arg}, {__sub__}], Any]]]]
+    boxes: list[Any]
+    stack: list[Any]
+    f: Any
+    h: int
+    baseline: Optional[float]
+    file: BinaryIO
+    fonts: dict[Any, Any]
+    v: int
+    _baseline_v: None
+    w: int
+    x: int
+    y: int
+    z: int
+    state: Any
+    text: list[Any]
+    dpi: Any
+
     def __init__(self: Dvi,
                  filename: Any,
                  dpi: Any) -> None: ...
@@ -189,6 +230,14 @@ class Dvi(object):
 
 
 class DviFont(object):
+    __slots__: ClassVar[tuple[str, str, str, str, str, str]]
+    _tfm: Tfm
+    _scale: float
+    size: Union[float, Any]
+    texname: bytes
+    widths: list[Union[int, Any]]
+    _vf: Vf
+
     def __init__(self: DviFont,
                  scale: float,
                  tfm: Tfm,
@@ -211,6 +260,20 @@ class DviFont(object):
 
 
 class Vf(Dvi):
+    boxes: list[Any]
+    stack: list[Any]
+    f: Any
+    h: int
+    v: int
+    w: int
+    x: int
+    y: int
+    z: int
+    state: Any
+    text: list[Any]
+    _chars: dict[Any, Any]
+    _first_font: None
+
     def __init__(self: Vf,
                  filename: Any) -> None: ...
 
@@ -241,11 +304,27 @@ def _mul2012(num1: Union[{__and__}, Any],
 
 
 class Tfm(object):
+    __slots__: ClassVar[tuple[str, str, str, str, str]]
+    design_size: Any
+    depth: dict[Any, Union[{__and__}, Any]]
+    checksum: Any
+    width: dict[Any, Union[{__and__}, Any]]
+    height: dict[Any, Union[{__and__}, Any]]
+
     def __init__(self: Tfm,
                  filename: Any) -> None: ...
 
 
+PsFont: Type[PsFont]
+
+
 class PsfontsMap(object):
+    __slots__: ClassVar[tuple[str, str]]
+    file: BinaryIO
+    _font: dict[Any, Any]
+    self: PsfontsMap
+    _filename: str
+
     def __new__(cls: Type[PsfontsMap],
                 filename: Any) -> PsfontsMap: ...
 
@@ -258,6 +337,9 @@ class PsfontsMap(object):
 
 @_api.deprecated("3.3")
 class Encoding(object):
+    __slots__: ClassVar[tuple[str]]
+    encoding: list[Any]
+
     def __init__(self: Encoding,
                  filename: Any) -> None: ...
 
@@ -271,6 +353,11 @@ def _parse_enc(path: PathLike) -> list: ...
 
 def find_tex_file(filename: Any,
                   format: Union[str, bytes] = None) -> Union[str, bytes]: ...
+
+
+_tfmfile: partial[Optional[Any]]
+
+_vffile: partial[Optional[Any]]
 
 
 def _fontfile(cls: Any,

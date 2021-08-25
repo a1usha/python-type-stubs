@@ -1,4 +1,17 @@
+from matplotlib.transforms import Transform as Transform
+from matplotlib.transforms import BboxTransformTo as BboxTransformTo
+from matplotlib.transforms import Affine2D as Affine2D
+from matplotlib.ticker import NullFormatter as NullFormatter
+from matplotlib.ticker import FixedLocator as FixedLocator
+from matplotlib.ticker import NullLocator as NullLocator
+from matplotlib.ticker import Formatter as Formatter
+from matplotlib.path import Path as Path
+from matplotlib.patches import Circle as Circle
+from matplotlib.axes import Axes as Axes
+from matplotlib import rcParams as rcParams
+from matplotlib import _api as _api
 from typing import Any
+from typing import ClassVar
 from typing import Optional
 from typing import Tuple
 from typing import Union
@@ -23,6 +36,30 @@ from matplotlib.transforms import Transform
 
 
 class GeoAxes(Axes):
+    RESOLUTION: ClassVar[int]
+    set_xscale: ClassVar[Callable[[GeoAxes, tuple[Any, ...], dict[str, Any]], Any]]
+    set_ylim: ClassVar[Callable[[GeoAxes, tuple[Any, ...], dict[str, Any]], Any]]
+    transAxes: BboxTransformTo
+    _longitude_cap: None
+    _xaxis_text2_transform: Union[Union[{input_dims, output_dims}, {output_dims,
+                                                                    input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]
+    _xaxis_text1_transform: Union[Union[{input_dims, output_dims}, {output_dims,
+                                                                    input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]
+    _yaxis_transform: Union[Union[{input_dims, output_dims}, {output_dims,
+                                                              input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]
+    yaxis: YAxis
+    _yaxis_text2_transform: Union[Union[{input_dims, output_dims}, {output_dims,
+                                                                    input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]
+    transAffine: Affine2D
+    _xaxis_pretransform: Affine2D
+    _xaxis_transform: Union[Union[{input_dims, output_dims}, {output_dims,
+                                                              input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]
+    xaxis: XAxis
+    _yaxis_text1_transform: Union[Union[{input_dims, output_dims}, {output_dims,
+                                                                    input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]
+    transProjection: Any
+    transData: Any
+
     def _init_axis(self: GeoAxes) -> None: ...
 
     def cla(self: GeoAxes) -> None: ...
@@ -101,6 +138,10 @@ class GeoAxes(Axes):
 
 
 class _GeoTransform(Transform):
+    input_dims: ClassVar[int]
+    output_dims: ClassVar[int]
+    _resolution: Any
+
     def __init__(self: _GeoTransform,
                  resolution: Any) -> None: ...
 
@@ -111,6 +152,9 @@ class _GeoTransform(Transform):
 
 
 class AitoffAxes(GeoAxes):
+    name: ClassVar[str]
+    _longitude_cap: float
+
     def __init__(self: AitoffAxes,
                  *args,
                  **kwargs) -> None: ...
@@ -120,6 +164,9 @@ class AitoffAxes(GeoAxes):
 
 
 class HammerAxes(GeoAxes):
+    name: ClassVar[str]
+    _longitude_cap: float
+
     def __init__(self: HammerAxes,
                  *args,
                  **kwargs) -> None: ...
@@ -129,6 +176,9 @@ class HammerAxes(GeoAxes):
 
 
 class MollweideAxes(GeoAxes):
+    name: ClassVar[str]
+    _longitude_cap: float
+
     def __init__(self: MollweideAxes,
                  *args,
                  **kwargs) -> None: ...
@@ -138,6 +188,11 @@ class MollweideAxes(GeoAxes):
 
 
 class LambertAxes(GeoAxes):
+    name: ClassVar[str]
+    _center_latitude: int
+    _longitude_cap: float
+    _center_longitude: int
+
     def __init__(self: LambertAxes,
                  center_longitude: int = 0,
                  center_latitude: int = 0,

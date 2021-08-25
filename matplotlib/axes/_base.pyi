@@ -1,6 +1,18 @@
+from matplotlib.rcsetup import validate_axisbelow as validate_axisbelow
+from matplotlib.rcsetup import cycler as cycler
+from matplotlib import docstring as docstring
+from matplotlib.cbook import index_of as index_of
+from matplotlib.cbook import _check_1d as _check_1d
+from matplotlib.cbook import _OrderedSet as _OrderedSet
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from operator import attrgetter as attrgetter
+from numbers import Real as Real
+from contextlib import ExitStack as ExitStack
+from collections import OrderedDict as OrderedDict
 from functools import partial
-from typing import Any
 from typing import Callable
+from typing import ClassVar
 from typing import Generator
 from typing import Iterable
 from typing import Optional
@@ -25,8 +37,16 @@ from matplotlib.transforms import BlendedGenericTransform
 from matplotlib.transforms import TransformedBbox
 from object import object
 
+_log: Logger
+from typing import Any
+
 
 class _axis_method_wrapper(object):
+    _missing_subs: list[str]
+    method_name: Any
+    attr_name: Any
+    __doc__: Optional[str]
+
     def __init__(self: _axis_method_wrapper,
                  attr_name: Any,
                  method_name: Any,
@@ -39,6 +59,9 @@ class _axis_method_wrapper(object):
 
 
 class _TransformedBoundsLocator(object):
+    _transform: Any
+    _bounds: Any
+
     def __init__(self: _TransformedBoundsLocator,
                  bounds: Any,
                  transform: Any) -> None: ...
@@ -53,6 +76,12 @@ def _process_plot_format(fmt: {__ne__, __len__, __getitem__}) -> Union[Tuple[Non
 
 
 class _process_plot_var_args(object):
+    prop_cycler: cycle[Any]
+    _prop_keys: set[Any]
+    axes: Any
+    __dict__: dict[str, Any]
+    command: str
+
     def __init__(self: _process_plot_var_args,
                  axes: Any,
                  command: str = 'plot') -> None: ...
@@ -100,6 +129,101 @@ class _process_plot_var_args(object):
 
 
 class _AxesBase(Artist):
+    name: ClassVar[str]
+    _shared_x_axes: ClassVar[Grouper]
+    _shared_y_axes: ClassVar[Grouper]
+    _twinned_axes: ClassVar[Grouper]
+    get_xgridlines: ClassVar[_axis_method_wrapper]
+    get_xticklines: ClassVar[_axis_method_wrapper]
+    get_ygridlines: ClassVar[_axis_method_wrapper]
+    get_yticklines: ClassVar[_axis_method_wrapper]
+    xaxis_inverted: ClassVar[_axis_method_wrapper]
+    get_xscale: ClassVar[_axis_method_wrapper]
+    get_xticks: ClassVar[_axis_method_wrapper]
+    set_xticks: ClassVar[_axis_method_wrapper]
+    get_xmajorticklabels: ClassVar[_axis_method_wrapper]
+    get_xminorticklabels: ClassVar[_axis_method_wrapper]
+    get_xticklabels: ClassVar[_axis_method_wrapper]
+    set_xticklabels: ClassVar[_axis_method_wrapper]
+    yaxis_inverted: ClassVar[_axis_method_wrapper]
+    get_yscale: ClassVar[_axis_method_wrapper]
+    get_yticks: ClassVar[_axis_method_wrapper]
+    set_yticks: ClassVar[_axis_method_wrapper]
+    get_ymajorticklabels: ClassVar[_axis_method_wrapper]
+    get_yminorticklabels: ClassVar[_axis_method_wrapper]
+    get_yticklabels: ClassVar[_axis_method_wrapper]
+    set_yticklabels: ClassVar[_axis_method_wrapper]
+    xaxis_date: ClassVar[_axis_method_wrapper]
+    yaxis_date: ClassVar[_axis_method_wrapper]
+    dataLim: Bbox
+    _autoscaleXon: bool
+    bbox: TransformedBbox
+    axes: _AxesBase
+    _aspect: str
+    callbacks: CallbackRegistry
+    _sharex: Any
+    titleOffsetTrans: ScaledTranslation
+    _sharey: Any
+    _xaxis_transform: Union[BlendedAffine2D, BlendedGenericTransform]
+    _frameon: bool
+    patch: Any
+    tables: list[Any]
+    axison: bool
+    stale: bool
+    _stale_viewlim_y: bool
+    collections: list[Any]
+    _rasterization_zorder: None
+    _originalPosition: Bbox
+    fmt_ydata: None
+    images: list[Any]
+    _use_sticky_edges: bool
+    patches: list[Any]
+    legend_: None
+    _get_patches_for_fill: _process_plot_var_args
+    _left_title: Text
+    _stale_viewlim_x: bool
+    _yaxis_transform: Union[BlendedAffine2D, BlendedGenericTransform]
+    fmt_xdata: None
+    _mouseover_set: _OrderedSet
+    _tight: bool
+    ignore_existing_data_limits: bool
+    _adjustable: str
+    containers: list[Any]
+    _stale: bool
+    transAxes: BboxTransformTo
+    _autoscaleYon: bool
+    _ymargin: Optional[Any]
+    _facecolor: Optional[Any]
+    title: Text
+    yaxis: YAxis
+    _axisbelow: Union[bool, str]
+    _axes_locator: None
+    _viewLim: Bbox
+    _gridOn: Optional[Any]
+    xaxis: XAxis
+    artists: list[Any]
+    child_axes: list[Any]
+    _pan_start: SimpleNamespace
+    _navigate_mode: Optional[Any]
+    transData: Union[{input_dims, output_dims}, {output_dims,
+                                                 input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]
+    lines: list[Any]
+    _right_title: Text
+    _xmargin: Optional[Any]
+    _get_lines: _process_plot_var_args
+    _anchor: str
+    _navigate: bool
+    spines: Spines
+    __dict__: dict[str, Any]
+    texts: list[Any]
+    _projection_init: None
+    _current_image: None
+    _autotitlepos: bool
+    transLimits: BboxTransformFrom
+    _colorbars: list[Any]
+    _position: Bbox
+    transScale: TransformWrapper
+
     def __str__(self: _AxesBase) -> str: ...
 
     @_api.make_keyword_only("3.4", "facecolor")

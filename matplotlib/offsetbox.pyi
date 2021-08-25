@@ -1,4 +1,15 @@
-from typing import Any
+from matplotlib.transforms import TransformedBbox as TransformedBbox
+from matplotlib.transforms import BboxBase as BboxBase
+from matplotlib.transforms import Bbox as Bbox
+from matplotlib.patches import bbox_artist as mbbox_artist
+from matplotlib.patches import FancyArrowPatch as FancyArrowPatch
+from matplotlib.patches import FancyBboxPatch as FancyBboxPatch
+from matplotlib.image import BboxImage as BboxImage
+from matplotlib.font_manager import FontProperties as FontProperties
+from matplotlib import rcParams as rcParams
+from matplotlib import docstring as docstring
+from matplotlib import _api as _api
+from typing import ClassVar
 from typing import Optional
 from typing import Tuple
 from typing import Union
@@ -31,6 +42,9 @@ from matplotlib.transforms import TransformedBbox
 from numpy.core._multiarray_umath import ndarray
 from object import object
 
+DEBUG: bool
+from typing import Any
+
 
 def bbox_artist(*args,
                 **kwargs) -> None: ...
@@ -48,6 +62,12 @@ def _get_aligned_offsets(hd_list: Union[list[tuple[Any, Any]], Any],
 
 
 class OffsetBox(Artist):
+    _children: list[Any]
+    stale: bool
+    _offset: tuple[int, int]
+    width: float
+    height: float
+
     def __init__(self: OffsetBox,
                  *args,
                  **kwargs) -> None: ...
@@ -95,6 +115,14 @@ class OffsetBox(Artist):
 
 
 class PackerBase(OffsetBox):
+    mode: str
+    _children: Any
+    pad: Optional[float]
+    width: Optional[float]
+    align: str
+    height: Optional[float]
+    sep: Optional[float]
+
     def __init__(self: PackerBase,
                  pad: Optional[float] = None,
                  sep: Optional[float] = None,
@@ -122,6 +150,11 @@ class HPacker(PackerBase):
 
 
 class PaddedBox(OffsetBox):
+    patch: FancyBboxPatch
+    _children: list[Any]
+    pad: float
+    stale: bool
+
     def __init__(self: PaddedBox,
                  child: Any,
                  pad: float = None,
@@ -145,6 +178,16 @@ class PaddedBox(OffsetBox):
 
 
 class DrawingArea(OffsetBox):
+    stale: bool
+    _offset: tuple[float, float]
+    _clip_children: bool
+    width: float
+    ydescent: float
+    dpi_transform: Affine2D
+    xdescent: float
+    offset_transform: Affine2D
+    height: float
+
     def __init__(self: DrawingArea,
                  width: float,
                  height: float,
@@ -183,6 +226,15 @@ class DrawingArea(OffsetBox):
 
 
 class TextArea(OffsetBox):
+    _children: list[Text]
+    stale: bool
+    _baseline_transform: Affine2D
+    _offset: tuple[float, float]
+    _multilinebaseline: bool
+    _minimumdescent: bool
+    _text: Text
+    offset_transform: Affine2D
+
     @_api.delete_parameter("3.4", "minimumdescent")
     def __init__(self: TextArea,
                  s: str,
@@ -227,6 +279,12 @@ class TextArea(OffsetBox):
 
 
 class AuxTransformBox(OffsetBox):
+    ref_offset_transform: Affine2D
+    stale: bool
+    _offset: tuple[float, float]
+    aux_transform: Any
+    offset_transform: Affine2D
+
     def __init__(self: AuxTransformBox,
                  aux_transform: Any) -> None: ...
 
@@ -254,6 +312,18 @@ class AuxTransformBox(OffsetBox):
 
 
 class AnchoredOffsetbox(OffsetBox):
+    zorder: ClassVar[int]
+    codes: ClassVar[dict[str, int]]
+    patch: FancyBboxPatch
+    loc: Union[str, Any]
+    pad: float
+    borderpad: float
+    stale: bool
+    prop: FontProperties
+    _bbox_to_anchor_transform: Union[Optional[Transform], Any]
+    _child: Any
+    _bbox_to_anchor: BboxBase
+
     def __init__(self: AnchoredOffsetbox,
                  loc: str,
                  pad: float = 0.4,
@@ -304,6 +374,8 @@ class AnchoredOffsetbox(OffsetBox):
 
 
 class AnchoredText(AnchoredOffsetbox):
+    txt: TextArea
+
     def __init__(self: AnchoredText,
                  s: str,
                  loc: str,
@@ -314,6 +386,13 @@ class AnchoredText(AnchoredOffsetbox):
 
 
 class OffsetImage(OffsetBox):
+    _data: ndarray
+    image: BboxImage
+    _children: list[BboxImage]
+    _zoom: Union[int, Any]
+    stale: bool
+    _dpi_cor: bool
+
     def __init__(self: OffsetImage,
                  arr: Any,
                  zoom: int = 1,
@@ -353,6 +432,19 @@ class OffsetImage(OffsetBox):
 
 
 class AnnotationBbox(Artist, _AnnotationBase):
+    zorder: ClassVar[int]
+    arrowprops: Any
+    arrow_patch: None
+    patch: FancyBboxPatch
+    _box_alignment: Union[tuple[float, float], Any]
+    stale: bool
+    _renderer: Optional[{points_to_pixels, get_rasterized, get_agg_filter, figure}]
+    prop: FontProperties
+    xybox: Any
+    boxcoords: Any
+    offsetbox: OffsetBox
+    _arrow_relpos: None
+
     def __str__(self: AnnotationBbox) -> str: ...
 
     def __init__(self: AnnotationBbox,
@@ -413,6 +505,16 @@ class AnnotationBbox(Artist, _AnnotationBase):
 
 
 class DraggableBase(object):
+    _use_blit: Union[bool, Any]
+    canvas: Any
+    background: Any
+    mouse_y: Any
+    got_artist: bool
+    mouse_x: Any
+    cids: list[Any]
+    _c1: Any
+    ref_artist: {pickable}
+
     def __init__(self: DraggableBase,
                  ref_artist: {pickable},
                  use_blit: bool = False) -> None: ...
@@ -449,6 +551,10 @@ class DraggableBase(object):
 
 
 class DraggableOffsetBox(DraggableBase):
+    offsetbox_x: Any
+    offsetbox: Any
+    offsetbox_y: Any
+
     def __init__(self: DraggableOffsetBox,
                  ref_artist: {pickable},
                  offsetbox: Any,
@@ -464,6 +570,10 @@ class DraggableOffsetBox(DraggableBase):
 
 
 class DraggableAnnotation(DraggableBase):
+    annotation: {pickable}
+    ox: Any
+    oy: Any
+
     def __init__(self: DraggableAnnotation,
                  annotation: {pickable},
                  use_blit: bool = False) -> None: ...

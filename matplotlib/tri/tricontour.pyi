@@ -1,3 +1,6 @@
+from matplotlib.tri.triangulation import Triangulation as Triangulation
+from matplotlib.contour import ContourSet as ContourSet
+from matplotlib import docstring as docstring
 from typing import Any
 from typing import Tuple
 from typing import Union
@@ -7,6 +10,13 @@ from matplotlib.tri.tricontour import TriContourSet
 
 
 class TriContourSet(ContourSet):
+    zmin: float
+    _maxs: list[None]
+    zmax: float
+    _mins: list[None]
+    cppContourGenerator: Union[TriContourGenerator, Any]
+    levels: Any
+
     def __init__(self: TriContourSet,
                  ax: Any,
                  *args,

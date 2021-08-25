@@ -1,3 +1,7 @@
+from matplotlib.patches import Rectangle as Rectangle
+from matplotlib.lines import Line2D as Line2D
+from matplotlib import cbook as cbook
+from itertools import cycle as cycle
 from typing import Any
 from typing import Callable
 from typing import Iterable
@@ -34,6 +38,10 @@ def update_from_first_child(tgt: Any,
 
 
 class HandlerBase(object):
+    _update_prop_func: Any
+    _xpad: float
+    _ypad: float
+
     def __init__(self: HandlerBase,
                  xpad: float = 0.,
                  ypad: float = 0.,
@@ -82,6 +90,9 @@ class HandlerBase(object):
 
 
 class HandlerNpoints(HandlerBase):
+    _marker_pad: float
+    _numpoints: int
+
     def __init__(self: HandlerNpoints,
                  marker_pad: float = 0.3,
                  numpoints: int = None,
@@ -101,6 +112,8 @@ class HandlerNpoints(HandlerBase):
 
 
 class HandlerNpointsYoffsets(HandlerNpoints):
+    _yoffsets: Union[ndarray, Iterable, int, float]
+
     def __init__(self: HandlerNpointsYoffsets,
                  numpoints: int = None,
                  yoffsets: Union[ndarray, Iterable, int, float] = None,
@@ -133,6 +146,8 @@ class HandlerLine2D(HandlerNpoints):
 
 
 class HandlerPatch(HandlerBase):
+    _patch_func: Optional[Callable]
+
     def __init__(self: HandlerPatch,
                  patch_func: Optional[Callable] = None,
                  **kwargs) -> None: ...
@@ -211,6 +226,8 @@ class HandlerLineCollection(HandlerLine2D):
 
 
 class HandlerRegularPolyCollection(HandlerNpointsYoffsets):
+    _sizes: Any
+
     def __init__(self: HandlerRegularPolyCollection,
                  yoffsets: Union[ndarray, Iterable, int, float] = None,
                  sizes: Any = None,
@@ -268,6 +285,9 @@ class HandlerCircleCollection(HandlerRegularPolyCollection):
 
 
 class HandlerErrorbar(HandlerLine2D):
+    _yerr_size: Any
+    _xerr_size: float
+
     def __init__(self: HandlerErrorbar,
                  xerr_size: float = 0.5,
                  yerr_size: Any = None,
@@ -295,6 +315,8 @@ class HandlerErrorbar(HandlerLine2D):
 
 
 class HandlerStem(HandlerNpointsYoffsets):
+    _bottom: Optional[float]
+
     def __init__(self: HandlerStem,
                  marker_pad: float = 0.3,
                  numpoints: Optional[int] = None,
@@ -326,6 +348,9 @@ class HandlerStem(HandlerNpointsYoffsets):
 
 
 class HandlerTuple(HandlerBase):
+    _ndivide: int
+    _pad: float
+
     def __init__(self: HandlerTuple,
                  ndivide: int = 1,
                  pad: float = None,

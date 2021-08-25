@@ -1,4 +1,6 @@
+from collections import OrderedDict as OrderedDict
 from typing import Any
+from typing import ClassVar
 from typing import Optional
 from typing import Type
 from typing import Union
@@ -8,6 +10,8 @@ from object import object
 
 
 class Gcf(object):
+    figs: ClassVar[OrderedDict[Any, Any]]
+
     def get_fig_manager(cls: Type[Gcf],
                         num: Any) -> Optional[Any]: ...
 

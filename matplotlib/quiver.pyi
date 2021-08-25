@@ -1,4 +1,10 @@
-from typing import Any
+from matplotlib.patches import CirclePolygon as CirclePolygon
+from matplotlib import font_manager as font_manager
+from matplotlib import docstring as docstring
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from numpy import ma as ma
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Tuple
@@ -15,8 +21,36 @@ from matplotlib.transforms import Affine2D
 from matplotlib.transforms import Bbox
 from numpy.core._multiarray_umath import ndarray
 
+_quiver_doc: str
+from typing import Any
+
 
 class QuiverKey(Artist):
+    halign: ClassVar[dict[str, str]]
+    valign: ClassVar[dict[str, str]]
+    pivot: ClassVar[dict[str, str]]
+    color: Any
+    label: str
+    labelcolor: Any
+    kw: dict[str, Any]
+    verts: Optional[ndarray]
+    _initialized: bool
+    Q: Quiver
+    coord: str
+    labelsep: Union[float, Any]
+    _cid: Any
+    fontproperties: Union[dict, None, dict[Any, Any]]
+    stale: bool
+    zorder: float
+    U: float
+    X: float
+    labelpos: str
+    Y: float
+    angle: float
+    vector: PolyCollection
+    text: Text
+    _labelsep_inches: float
+
     def __init__(self: QuiverKey,
                  Q: Quiver,
                  X: float,
@@ -63,6 +97,36 @@ def _check_consistent_shapes(*args) -> Any: ...
 
 
 class Quiver(PolyCollection):
+    _PIVOT_VALS: ClassVar[tuple[str, str, str]]
+    quiver_doc: ClassVar[str]
+    XY: Any
+    minlength: int
+    angles: str
+    headaxislength: float
+    scale: Any
+    _trans_scale: Union[float, Any]
+    units: str
+    N: int
+    transform: Any
+    _cid: Any
+    stale: bool
+    _new_UV: bool
+    polykw: dict[str, Any]
+    U: Any
+    V: Any
+    X: Any
+    Y: Any
+    pivot: str
+    scale_units: Any
+    minshaft: int
+    Umask: Any
+    headlength: float
+    headwidth: int
+    _axes: {transData, figure}
+    _initialized: bool
+    width: Any
+    span: Any
+
     def __init__(self: Quiver,
                  ax: {transData, figure},
                  scale: Any = None,
@@ -117,7 +181,25 @@ class Quiver(PolyCollection):
                   length: Union[float, Any]) -> Tuple[Any, None]: ...
 
 
+_barbs_doc: str
+
+
 class Barbs(PolyCollection):
+    barbs_doc: ClassVar[str]
+    fill_empty: bool
+    _offsets: Any
+    rounding: bool
+    stale: bool
+    sizes: Union[ndarray, Iterable, int, float, dict[Any, Any]]
+    u: Any
+    v: Any
+    x: Any
+    y: Any
+    _pivot: str
+    _length: int
+    flip: ndarray
+    barb_increments: Union[dict[Any, Any], Any]
+
     def __init__(self: Barbs,
                  ax: {transData},
                  pivot: str = 'tip',

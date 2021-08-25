@@ -1,3 +1,5 @@
+from matplotlib.tri.triangulation import Triangulation as Triangulation
+from matplotlib import _api as _api
 from typing import Any
 from typing import Tuple
 from typing import Union
@@ -9,6 +11,8 @@ from object import object
 
 
 class TriRefiner(object):
+    _triangulation: Any
+
     def __init__(self: TriRefiner,
                  triangulation: Any) -> None: ...
 

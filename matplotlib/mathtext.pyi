@@ -1,4 +1,23 @@
+from matplotlib._mathtext_data import tex2uni as tex2uni
+from matplotlib._mathtext_data import stix_virtual_fonts as stix_virtual_fonts
+from matplotlib._mathtext_data import latex_to_standard as latex_to_standard
+from matplotlib._mathtext_data import latex_to_cmex as latex_to_cmex
+from matplotlib._mathtext_data import latex_to_bakoma as latex_to_bakoma
+from matplotlib._mathtext import NUM_SIZE_LEVELS as NUM_SIZE_LEVELS
+from matplotlib._mathtext import GROW_FACTOR as GROW_FACTOR
+from matplotlib._mathtext import SHRINK_FACTOR as SHRINK_FACTOR
+from matplotlib.font_manager import FontProperties as FontProperties
+from matplotlib.ft2font import LOAD_NO_HINTING as LOAD_NO_HINTING
+from matplotlib.ft2font import FT2Image as FT2Image
+from matplotlib import _mathtext as _mathtext
+from matplotlib import rcParams as rcParams
+from matplotlib import colors as mcolors
+from matplotlib import _api as _api
+from PIL import Image as Image
+from io import StringIO as StringIO
+from collections import namedtuple as namedtuple
 from typing import Any
+from typing import ClassVar
 from typing import Optional
 from typing import Tuple
 from typing import Type
@@ -22,8 +41,17 @@ from matplotlib.mathtext import MathtextBackendPs
 from matplotlib.mathtext import MathtextBackendSvg
 from object import object
 
+_log: Logger
+get_unicode_index: Callable[[str, bool], Union[int, Any]]
+__module__: Any
+from typing import Any
+
 
 class MathtextBackend(object):
+    depth: int
+    width: int
+    height: int
+
     def __init__(self: MathtextBackend) -> None: ...
 
     def set_canvas_size(self: MathtextBackend,
@@ -49,6 +77,12 @@ class MathtextBackend(object):
 
 
 class MathtextBackendAgg(MathtextBackend):
+    mode: str
+    image: None
+    bbox: list[int]
+    ox: int
+    oy: int
+
     def __init__(self: MathtextBackendAgg) -> None: ...
 
     def _update_bbox(self: MathtextBackendAgg,
@@ -89,6 +123,10 @@ class MathtextBackendBitmap(MathtextBackendAgg):
 
 @_api.deprecated("3.4", alternative="MathtextBackendPath")
 class MathtextBackendPs(MathtextBackend):
+    _PSResult: ClassVar[Type[_PSResult]]
+    pswriter: StringIO
+    lastfont: None
+
     def __init__(self: MathtextBackendPs) -> None: ...
 
     def render_glyph(self: MathtextBackendPs,
@@ -109,6 +147,10 @@ class MathtextBackendPs(MathtextBackend):
 
 @_api.deprecated("3.4", alternative="MathtextBackendPath")
 class MathtextBackendPdf(MathtextBackend):
+    _PDFResult: ClassVar[Type[_PDFResult]]
+    glyphs: list[Any]
+    rects: list[Any]
+
     def __init__(self: MathtextBackendPdf) -> None: ...
 
     def render_glyph(self: MathtextBackendPdf,
@@ -129,6 +171,9 @@ class MathtextBackendPdf(MathtextBackend):
 
 @_api.deprecated("3.4", alternative="MathtextBackendPath")
 class MathtextBackendSvg(MathtextBackend):
+    svg_rects: list[Any]
+    svg_glyphs: list[Any]
+
     def __init__(self: MathtextBackendSvg) -> None: ...
 
     def render_glyph(self: MathtextBackendSvg,
@@ -148,6 +193,10 @@ class MathtextBackendSvg(MathtextBackend):
 
 
 class MathtextBackendPath(MathtextBackend):
+    _Result: ClassVar[Type[_Result]]
+    glyphs: list[Any]
+    rects: list[Any]
+
     def __init__(self: MathtextBackendPath) -> None: ...
 
     def render_glyph(self: MathtextBackendPath,
@@ -168,6 +217,9 @@ class MathtextBackendPath(MathtextBackend):
 
 @_api.deprecated("3.4", alternative="MathtextBackendPath")
 class MathtextBackendCairo(MathtextBackend):
+    glyphs: list[Any]
+    rects: list[Any]
+
     def __init__(self: MathtextBackendCairo) -> None: ...
 
     def render_glyph(self: MathtextBackendCairo,
@@ -192,6 +244,12 @@ class MathTextWarning(Warning):
 
 @_api.deprecated("3.3")
 class GlueSpec(object):
+    stretch: float
+    shrink: float
+    width: float
+    stretch_order: int
+    shrink_order: int
+
     def __init__(self: GlueSpec,
                  width: float = 0.,
                  stretch: float = 0.,
@@ -212,6 +270,13 @@ def ship(ox: Any,
 
 
 class MathTextParser(object):
+    _parser: ClassVar[None]
+    _backend_mapping: ClassVar[
+        dict[str, Union[Union[_deprecated_property, Type[MathtextBackendAgg], Type[MathtextBackendPath]], Any]]]
+    _font_type_mapping: ClassVar[
+        dict[str, Type[Union[BakomaFonts, DejaVuSerifFonts, DejaVuSansFonts, StixFonts, StixSansFonts, UnicodeFonts]]]]
+    _output: Any
+
     def __init__(self: MathTextParser,
                  output: {lower}) -> None: ...
 

@@ -6,9 +6,12 @@ from typing import Optional
 from typing import Union
 
 from UserWarning import UserWarning
+from matplotlib._api.deprecation import MatplotlibDeprecationWarning
 from matplotlib._api.deprecation import _deprecated_parameter_class
 from matplotlib._api.deprecation import deprecate_privatize_attribute
 from object import object
+
+mplDeprecation: Type[MatplotlibDeprecationWarning]
 
 
 class MatplotlibDeprecationWarning(UserWarning):
@@ -52,6 +55,10 @@ def deprecated(since: str,
 
 
 class deprecate_privatize_attribute(object):
+    deprecator: Callable[
+        [Any, Optional[str], Optional[str], Optional[str], Optional[bool], Optional[str], Optional[str]], Union[
+            Union[_deprecated_property, Callable[[tuple[Any, ...], dict[str, Any]], type]], Any]]
+
     def __init__(self: deprecate_privatize_attribute,
                  *args,
                  **kwargs) -> None: ...
@@ -70,6 +77,9 @@ def rename_parameter(since: Any,
 
 class _deprecated_parameter_class(object):
     def __repr__(self: _deprecated_parameter_class) -> str: ...
+
+
+_deprecated_parameter: _deprecated_parameter_class
 
 
 def delete_parameter(since: Any,

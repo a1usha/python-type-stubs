@@ -1,5 +1,18 @@
-from typing import Any
+from matplotlib.container import StemContainer as StemContainer
+from matplotlib.container import ErrorbarContainer as ErrorbarContainer
+from matplotlib.container import BarContainer as BarContainer
+from matplotlib.axes._secondary_axes import SecondaryAxis as SecondaryAxis
+from matplotlib.axes._base import _process_plot_format as _process_plot_format
+from matplotlib.axes._base import _TransformedBoundsLocator as _TransformedBoundsLocator
+from matplotlib.axes._base import _AxesBase as _AxesBase
+from matplotlib import rcParams as rcParams
+from matplotlib import _preprocess_data as _preprocess_data
+from matplotlib import _api as _api
+from numpy import ma as ma
+from numbers import Number as Number
+from numbers import Integral as Integral
 from typing import Callable
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Sized
@@ -18,8 +31,29 @@ from matplotlib.quiver import QuiverKey
 from matplotlib.text import Annotation
 from numpy.core._multiarray_umath import ndarray
 
+_log: Logger
+from typing import Any
+
 
 class Axes(_AxesBase):
+    __doc__: ClassVar[str]
+    __doc__: ClassVar[str]
+    fill_between: ClassVar[Union[partial[Any], Callable[[Any, tuple[Any, ...], Any, dict[str, Any]], Any]]]
+    fill_betweenx: ClassVar[Union[partial[Any], Callable[[Any, tuple[Any, ...], Any, dict[str, Any]], Any]]]
+    __doc__: ClassVar[Union[str, Any]]
+    __doc__: ClassVar[Union[str, Any]]
+    table: ClassVar[{__doc__}]
+    stackplot: ClassVar[Any]
+    streamplot: ClassVar[Any]
+    tricontour: ClassVar[{__doc__}]
+    tricontourf: ClassVar[{__doc__}]
+    tripcolor: ClassVar[Callable[
+        [{grid, update_datalim, autoscale_view, add_collection}, tuple[Any, ...], float, Any, Any, Any, Any, str, Any,
+         dict[str, Any]], Union[TriMesh, PolyCollection]]]
+    triplot: ClassVar[Callable[[Any, tuple[Any, ...], dict[str, Any]], Any]]
+    legend_: Legend
+    _autotitlepos: bool
+
     def get_title(self: Axes,
                   loc: str = "center") -> str: ...
 

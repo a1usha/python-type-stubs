@@ -1,4 +1,26 @@
-from typing import Any
+from matplotlib.transforms import TransformedBbox as TransformedBbox
+from matplotlib.transforms import BboxTransformTo as BboxTransformTo
+from matplotlib.transforms import Bbox as Bbox
+from matplotlib.transforms import Affine2D as Affine2D
+from matplotlib.text import Text as Text
+from matplotlib.patches import Rectangle as Rectangle
+from matplotlib.gridspec import GridSpec as GridSpec
+from matplotlib.blocking_input import BlockingKeyMouseInput as BlockingKeyMouseInput
+from matplotlib.blocking_input import BlockingMouseInput as BlockingMouseInput
+from matplotlib.axes import subplot_class_factory as subplot_class_factory
+from matplotlib.axes import SubplotBase as SubplotBase
+from matplotlib.axes import Axes as Axes
+from matplotlib.backend_bases import MouseButton as MouseButton
+from matplotlib.backend_bases import NonGuiException as NonGuiException
+from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase
+from matplotlib.artist import _finalize_rasterization as _finalize_rasterization
+from matplotlib.artist import allow_rasterization as allow_rasterization
+from matplotlib.artist import Artist as Artist
+from matplotlib import __version__ as _mpl_version
+from matplotlib import projections as projections
+from matplotlib import docstring as docstring
+from numbers import Integral as Integral
+from typing import ClassVar
 from typing import Optional
 from typing import Tuple
 from typing import Union
@@ -22,12 +44,17 @@ from matplotlib.patches import Rectangle
 from numpy.core._multiarray_umath import ndarray
 from object import object
 
+_log: Logger
+from typing import Any
+
 
 def _stale_figure_callback(self: {figure},
                            val: Any) -> None: ...
 
 
 class _AxesStack(Stack):
+    _ind: int
+
     def __init__(self: _AxesStack) -> None: ...
 
     def as_list(self: _AxesStack) -> list[Any]: ...
@@ -51,6 +78,14 @@ class _AxesStack(Stack):
 
 
 class SubplotParams(object):
+    top: float
+    left: Any
+    bottom: Any
+    wspace: Any
+    right: Any
+    hspace: Any
+    validate: bool
+
     def __init__(self: SubplotParams,
                  left: float = None,
                  bottom: float = None,
@@ -69,6 +104,25 @@ class SubplotParams(object):
 
 
 class FigureBase(Artist):
+    frameon: ClassVar[property]
+    _localaxes: _AxesStack
+    figure: FigureBase
+    images: list[Any]
+    patches: list[Any]
+    subfigs: list[Any]
+    _layoutgrid: None
+    _supxlabel: None
+    _align_label_groups: dict[str, Grouper]
+    _suptitle: None
+    legends: list[Any]
+    stale: bool
+    texts: list[Any]
+    artists: list[Any]
+    _supylabel: None
+    _gridspecs: list[Any]
+    lines: list[Any]
+    suppressComposite: None
+
     def __init__(self: FigureBase) -> None: ...
 
     def _get_draw_artists(self: FigureBase,
@@ -289,6 +343,26 @@ class FigureBase(Artist):
 
 
 class SubFigure(FigureBase):
+    axes: ClassVar[property]
+    figure: Any
+    canvas: Any
+    _axobservers: Any
+    bbox: TransformedBbox
+    _cachedRenderer: {open_group, get_rasterized, get_agg_filter, figure, option_image_nocomposite, close_group}
+    _layoutgrid: LayoutGrid
+    figbbox: Any
+    _subplotspec: Any
+    _axstack: Any
+    dpi_scale_trans: Any
+    transFigure: Any
+    patch: Rectangle
+    transSubfigure: BboxTransformTo
+    _parent: Any
+    stale: bool
+    subplotpars: Any
+    bbox_relative: None
+    dpi: Any
+
     def __init__(self: SubFigure,
                  parent: Any,
                  subplotspec: Any,
@@ -316,6 +390,45 @@ class SubFigure(FigureBase):
 
 
 class Figure(FigureBase):
+    axes: ClassVar[property]
+    dpi: ClassVar[property]
+    _constrained_layout_pads: dict[str, None]
+    _tight_parameters: Union[dict, dict[Any, Any]]
+    bbox: TransformedBbox
+    callbacks: CallbackRegistry
+    _layoutgrid: None
+    _supxlabel: None
+    dpi_scale_trans: Affine2D
+    patch: Rectangle
+    _suptitle: None
+    _scroll_pick_id: Union[int, Any]
+    stale: bool
+    legends: list[Any]
+    artists: list[Any]
+    _supylabel: None
+    dpi: float
+    lines: list[Any]
+    _canvas_callbacks: CallbackRegistry
+    canvas: Any
+    images: list[Any]
+    _axobservers: CallbackRegistry
+    _cachedRenderer: None
+    patches: list[Any]
+    figbbox: TransformedBbox
+    __dict__: dict[str, Any]
+    _axstack: _AxesStack
+    _tight: bool
+    transFigure: BboxTransformTo
+    transSubfigure: BboxTransformTo
+    bbox_inches: Bbox
+    _dpi: Union[Optional[float], Any]
+    texts: list[Any]
+    subplotpars: SubplotParams
+    _gridspecs: list[Any]
+    _button_pick_id: Union[int, Any]
+    suppressComposite: None
+    _constrained: bool
+
     def __str__(self: Figure) -> str: ...
 
     def __repr__(self: Figure) -> str: ...

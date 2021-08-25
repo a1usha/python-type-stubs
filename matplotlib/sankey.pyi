@@ -1,4 +1,8 @@
-from typing import Any
+from matplotlib import docstring as docstring
+from matplotlib.transforms import Affine2D as Affine2D
+from matplotlib.patches import PathPatch as PathPatch
+from matplotlib.path import Path as Path
+from types import SimpleNamespace as SimpleNamespace
 from typing import Iterable
 from typing import Tuple
 from typing import Union
@@ -7,8 +11,32 @@ from matplotlib.sankey import Sankey
 from numpy.core import uint8
 from object import object
 
+_log: Logger
+__author__: str
+__credits__: list[str]
+__license__: str
+__version__: str
+RIGHT: int
+UP: int
+DOWN: int
+from typing import Any
+
 
 class Sankey(object):
+    extent: ndarray
+    margin: float
+    offset: float
+    format: str
+    scale: float
+    diagrams: list[Any]
+    unit: str
+    ax: Any
+    gap: float
+    pitch: None
+    radius: float
+    shoulder: float
+    tolerance: float
+
     def __init__(self: Sankey,
                  ax: Any = None,
                  scale: float = 1.0,

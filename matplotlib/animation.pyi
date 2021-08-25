@@ -1,7 +1,18 @@
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from matplotlib._animation_data import STYLE_INCLUDE as STYLE_INCLUDE
+from matplotlib._animation_data import JS_INCLUDE as JS_INCLUDE
+from matplotlib._animation_data import INCLUDED_FRAMES as INCLUDED_FRAMES
+from matplotlib._animation_data import DISPLAY_TEMPLATE as DISPLAY_TEMPLATE
+from PIL import Image as Image
+from tempfile import TemporaryDirectory as TemporaryDirectory
+from pathlib import Path as Path
+from io import TextIOWrapper as TextIOWrapper
+from io import BytesIO as BytesIO
 from abc import ABC
 from itertools import islice
-from typing import Any
 from typing import Callable
+from typing import ClassVar
 from typing import Generator
 from typing import Iterable
 from typing import Iterator
@@ -29,6 +40,9 @@ from matplotlib.animation import PillowWriter
 from matplotlib.animation import TimedAnimation
 from object import object
 
+_log: Logger
+from typing import Any
+
 
 def adjusted_figsize(w: float,
                      h: float,
@@ -37,6 +51,8 @@ def adjusted_figsize(w: float,
 
 
 class MovieWriterRegistry(object):
+    _registered: dict[Any, Any]
+
     def __init__(self: MovieWriterRegistry) -> None: ...
 
     def register(self: MovieWriterRegistry,
@@ -53,7 +69,18 @@ class MovieWriterRegistry(object):
                     name: Any) -> Any: ...
 
 
+writers: MovieWriterRegistry
+
+
 class AbstractMovieWriter(ABC):
+    codec: Union[Optional[str], Any]
+    metadata: Union[dict[Any, Any], Any]
+    fig: Any
+    outfile: str
+    fps: int
+    bitrate: Optional[Any]
+    dpi: Union[float, Any]
+
     def __init__(self: AbstractMovieWriter,
                  fps: int = 5,
                  metadata: Any = None,
@@ -81,6 +108,15 @@ class AbstractMovieWriter(ABC):
 
 
 class MovieWriter(AbstractMovieWriter):
+    exec_key: ClassVar[deprecate_privatize_attribute]
+    args_key: ClassVar[deprecate_privatize_attribute]
+    supported_formats: ClassVar[list[str]]
+    frame_format: str
+    extra_args: Optional[Iterable[str]]
+    _w: Any
+    _h: Any
+    _proc: Union[Popen[str], Popen[bytes], Popen[Any]]
+
     def __init__(self: MovieWriter,
                  fps: int = 5,
                  codec: Optional[str] = None,
@@ -115,6 +151,18 @@ class MovieWriter(AbstractMovieWriter):
 
 
 class FileMovieWriter(MovieWriter):
+    _temp_paths: list[Any]
+    _tmpdir: Union[TemporaryDirectory[AnyStr], TemporaryDirectory[Union[Union[str, bytes], Any]]]
+    frame_format: Optional[Any]
+    _frame_format: Any
+    fig: Any
+    _clear_temp: Optional[bool]
+    outfile: str
+    fname_format_str: str
+    _frame_counter: int
+    temp_prefix: str
+    dpi: Union[float, Any]
+
     def __init__(self: FileMovieWriter,
                  *args,
                  **kwargs) -> None: ...
@@ -151,6 +199,8 @@ class FileMovieWriter(MovieWriter):
 
 
 class PillowWriter(AbstractMovieWriter):
+    _frames: list[Any]
+
     def isAvailable(cls: Type[PillowWriter]) -> bool: ...
 
     def setup(self: PillowWriter,
@@ -165,6 +215,10 @@ class PillowWriter(AbstractMovieWriter):
 
 
 class FFMpegBase(object):
+    _exec_key: ClassVar[str]
+    _args_key: ClassVar[str]
+    codec: str
+
     def output_args(self: FFMpegBase) -> list[Union[str, Any]]: ...
 
     def isAvailable(cls: Type[FFMpegBase]) -> Any: ...
@@ -175,11 +229,16 @@ class FFMpegWriter(FFMpegBase, MovieWriter):
 
 
 class FFMpegFileWriter(FFMpegBase, FileMovieWriter):
+    supported_formats: ClassVar[list[str]]
+
     def _args(self: FFMpegFileWriter) -> list[Union[str, Any]]: ...
 
 
 @_api.deprecated('3.3')
 class AVConvBase(FFMpegBase):
+    _exec_key: ClassVar[str]
+    _args_key: ClassVar[str]
+    isAvailable: ClassVar[classmethod]
     pass
 
 
@@ -192,6 +251,9 @@ class AVConvFileWriter(AVConvBase, FFMpegFileWriter):
 
 
 class ImageMagickBase(object):
+    _exec_key: ClassVar[str]
+    _args_key: ClassVar[str]
+
     def delay(self: ImageMagickBase) -> Union[float, Any]: ...
 
     def output_args(self: ImageMagickBase) -> list[Any]: ...
@@ -206,6 +268,8 @@ class ImageMagickWriter(ImageMagickBase, MovieWriter):
 
 
 class ImageMagickFileWriter(ImageMagickBase, FileMovieWriter):
+    supported_formats: ClassVar[list[str]]
+
     def _args(self: ImageMagickFileWriter) -> list[Union[str, Any]]: ...
 
 
@@ -218,6 +282,16 @@ def _embedded_frames(frame_list: Union[list[Any], Any],
 
 
 class HTMLWriter(FileMovieWriter):
+    supported_formats: ClassVar[list[str]]
+    args_key: ClassVar[Union[_deprecated_property, Any]]
+    _total_bytes: int
+    _clear_temp: bool
+    embed_frames: bool
+    default_mode: str
+    _saved_frames: list[Any]
+    _bytes_limit: Any
+    _hit_limit: bool
+
     def isAvailable(cls: Type[HTMLWriter]) -> bool: ...
 
     def __init__(self: HTMLWriter,
@@ -243,6 +317,20 @@ class HTMLWriter(FileMovieWriter):
 
 
 class Animation(object):
+    _first_draw_id: Any
+    _html_representation: str
+    _fig: Any
+    _close_id: Any
+    event_source: Optional[object]
+    _drawn_artists: list[Any]
+    _video_size: str
+    frame_seq: Iterator[Any]
+    _blit_cache: dict[Any, Any]
+    _resize_id: Any
+    _blit: Union[bool, Any]
+    _base64_video: str
+    _draw_was_started: bool
+
     def __init__(self: Animation,
                  fig: Any,
                  event_source: Optional[object] = None,
@@ -324,6 +412,11 @@ class Animation(object):
 
 
 class TimedAnimation(Animation):
+    _interval: int
+    _repeat_delay: int
+    repeat: bool
+    frame_seq: Iterator[Any]
+
     def __init__(self: TimedAnimation,
                  fig: Any,
                  interval: int = 200,
@@ -338,6 +431,9 @@ class TimedAnimation(Animation):
 
 
 class ArtistAnimation(TimedAnimation):
+    _drawn_artists: list[Any]
+    _framedata: Iterable
+
     def __init__(self: ArtistAnimation,
                  fig: Any,
                  artists: Iterable,
@@ -355,6 +451,17 @@ class ArtistAnimation(TimedAnimation):
 
 
 class FuncAnimation(TimedAnimation):
+    save_count: int
+    _tee_from: Optional[int]
+    _args: tuple
+    _iter_gen: Callable[[], Iterator[Any]]
+    _func: Callable
+    _cache_frame_data: bool
+    _init_func: Optional[Callable]
+    _drawn_artists: Any
+    _save_seq: list[Any]
+    _old_saved_seq: list[Any]
+
     def __init__(self: FuncAnimation,
                  fig: Any,
                  func: Callable,

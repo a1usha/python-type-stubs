@@ -1,8 +1,23 @@
+from _version import get_versions as get_versions
+from matplotlib.rcsetup import cycler as cycler
+from matplotlib.rcsetup import validate_backend as validate_backend
+from matplotlib.cbook import mplDeprecation as mplDeprecation
+from matplotlib.cbook import sanitize_sequence as sanitize_sequence
+from matplotlib.cbook import MatplotlibDeprecationWarning as MatplotlibDeprecationWarning
+from matplotlib import rcsetup as rcsetup
+from matplotlib import docstring as docstring
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from pathlib import Path as Path
+from inspect import Parameter as Parameter
+from distutils.version import LooseVersion as LooseVersion
+from collections.abc import MutableMapping as MutableMapping
+from collections import namedtuple as namedtuple
 from functools import partial
 from logging import StreamHandler
 from ssl import SSLContext
-from typing import Any
 from typing import Callable
+from typing import ClassVar
 from typing import Generator
 from typing import MutableMapping
 from typing import Optional
@@ -14,6 +29,11 @@ from dict import dict
 from matplotlib import RcParams
 from matplotlib import _api
 
+__version__: str
+_log: Logger
+__bibtex__: str
+from typing import Any
+
 
 def _check_versions() -> Any: ...
 
@@ -22,6 +42,9 @@ def _ensure_handler() -> StreamHandler: ...
 
 
 def set_loglevel(level: Any) -> None: ...
+
+
+_ExecInfo: Type[_ExecInfo]
 
 
 def _logged_cached(fmt: Union[str, Any],
@@ -57,10 +80,23 @@ def get_cachedir() -> Union[str, Any]: ...
 def get_data_path() -> Union[str, Any]: ...
 
 
+_deprecated_map: dict[Any, Any]
+
+_deprecated_ignore_map: dict[str, tuple[str, None]]
+
+_deprecated_remain_as_none: dict[str, tuple[str]]
+
+_all_deprecated: set[Any]
+
+
 def matplotlib_fname() -> str: ...
 
 
 class RcParams(MutableMapping, dict):
+    validate: ClassVar[Union[dict, dict[Union[str, Any], Union[Union[Callable[[{startswith, endswith}], Union[
+        {startswith, endswith}, Any]], Callable[[Any], bool], Callable[[Any], Any], Callable[
+                                                                         [Optional[{lower}]], Optional[Any]]], Any]]]]
+
     def __init__(self: RcParams,
                  *args,
                  **kwargs) -> None: ...
@@ -86,6 +122,9 @@ class RcParams(MutableMapping, dict):
     def copy(self: RcParams) -> dict: ...
 
 
+URL_REGEX: Pattern[str]
+
+
 def rc_params(fail_on_error: bool = False) -> RcParams: ...
 
 
@@ -101,6 +140,11 @@ def _open_file_or_url(fname: Any) -> Union[Generator[Union[Generator[Any, Any, N
 def _rc_params_in_file(fname: Any,
                        transform: Any = lambda x: x,
                        fail_on_error: Any = False) -> RcParams: ...
+
+
+rcParamsDefault: RcParams
+
+rcParams: RcParams
 
 
 def rc_params_from_file(fname: Any,
@@ -138,7 +182,13 @@ def get_backend() -> Optional[Any]: ...
 def interactive(b: Any) -> None: ...
 
 
+default_test_modules: list[str]
+
+
 def is_interactive() -> Optional[Any]: ...
+
+
+__test__: bool
 
 
 @_api.delete_parameter("3.3", "recursionlimit")
@@ -151,6 +201,11 @@ def test(verbosity: Any = None,
 
 def _replacer(data: Any,
               value: Any) -> Union[Union[list[Any], list], Any]: ...
+
+
+_DATA_DOC_TITLE: str
+
+_DATA_DOC_APPENDIX: str
 
 
 def _label_from_arg(y: Optional[Any],

@@ -1,3 +1,5 @@
+from matplotlib import _api as _api
+from functools import lru_cache as lru_cache
 from typing import Any
 from typing import Callable
 from typing import Tuple
@@ -53,6 +55,12 @@ def find_bezier_t_intersecting_with_closedpath(bezier_point_at_t: Callable,
 
 
 class BezierSegment(object):
+    _cpoints: ndarray
+    _d: Any
+    _px: Any
+    _orders: ndarray
+    _N: Any
+
     def __init__(self: BezierSegment,
                  control_points: Any) -> None: ...
 

@@ -1,4 +1,20 @@
-from typing import Any
+from transforms import Transform as Transform
+from transforms import IdentityTransform as IdentityTransform
+from transforms import BboxTransformTo as BboxTransformTo
+from transforms import BboxBase as BboxBase
+from transforms import Bbox as Bbox
+from transforms import Affine2D as Affine2D
+from textpath import TextPath as TextPath
+from patches import Rectangle as Rectangle
+from patches import FancyBboxPatch as FancyBboxPatch
+from patches import FancyArrowPatch as FancyArrowPatch
+from font_manager import FontProperties as FontProperties
+from artist import Artist as Artist
+from matplotlib import docstring as docstring
+from matplotlib import cbook as cbook
+from matplotlib import artist as artist
+from matplotlib import _api as _api
+from typing import ClassVar
 from typing import Generator
 from typing import Iterable
 from typing import Optional
@@ -21,6 +37,9 @@ from matplotlib.transforms import Transform
 from numpy.core._multiarray_umath import ndarray
 from object import object
 
+_log: Logger
+from typing import Any
+
 
 def _wrap_text(textobj: Union[Text, Any]) -> Union[Generator[Union[Text, Any], Any, None], Any]: ...
 
@@ -33,6 +52,27 @@ def _get_textbox(text: Union[Text, Any],
 
 
 class Text(Artist):
+    zorder: ClassVar[int]
+    _cached: ClassVar[maxdict]
+    _transform_rotates_text: bool
+    _bbox_patch: None
+    _rotation: Any
+    _renderer: None
+    _usetex: Any
+    _multialignment: Any
+    _linespacing: Union[float, Any]
+    _color: Any
+    _picker: Any
+    _verticalalignment: Any
+    _horizontalalignment: Any
+    _rotation_mode: Optional[str]
+    stale: bool
+    _x: int
+    _y: int
+    _wrap: bool
+    _text: str
+    _fontproperties: Any
+
     def __repr__(self: Text) -> str: ...
 
     def __init__(self: Text,
@@ -236,6 +276,10 @@ class Text(Artist):
 
 
 class OffsetFrom(object):
+    _unit: str
+    _artist: Any
+    _ref_coord: tuple[float, float]
+
     def __init__(self: OffsetFrom,
                  artist: Any,
                  ref_coord: tuple[float, float],
@@ -254,6 +298,11 @@ class OffsetFrom(object):
 
 
 class _AnnotationBase(object):
+    xycoords: str
+    xy: Union[tuple[float, float], Any]
+    _draggable: None
+    _annotation_clip: Optional[bool]
+
     def __init__(self: _AnnotationBase,
                  xy: Union[tuple[float, float], Any],
                  xycoords: str = 'data',
@@ -290,6 +339,14 @@ class _AnnotationBase(object):
 
 
 class Annotation(Text, _AnnotationBase):
+    anncoords: ClassVar[property]
+    arrowprops: Any
+    arrow_patch: None
+    _renderer: Optional[{open_group, get_canvas_width_height, new_gc, flipy, close_group}]
+    _xycoords: Any
+    _arrow_relpos: Any
+    _textcoords: Union[Optional[{__ne__}], Any]
+
     def __str__(self: Annotation) -> str: ...
 
     def __init__(self: Annotation,

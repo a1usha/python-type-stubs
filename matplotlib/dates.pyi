@@ -1,8 +1,29 @@
+from matplotlib import units as units
+from matplotlib import ticker as ticker
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from dateutil.relativedelta import relativedelta as relativedelta
+from dateutil.rrule import SECONDLY as SECONDLY
+from dateutil.rrule import MINUTELY as MINUTELY
+from dateutil.rrule import HOURLY as HOURLY
+from dateutil.rrule import DAILY as DAILY
+from dateutil.rrule import WEEKLY as WEEKLY
+from dateutil.rrule import MONTHLY as MONTHLY
+from dateutil.rrule import YEARLY as YEARLY
+from dateutil.rrule import SU as SU
+from dateutil.rrule import SA as SA
+from dateutil.rrule import FR as FR
+from dateutil.rrule import TH as TH
+from dateutil.rrule import WE as WE
+from dateutil.rrule import TU as TU
+from dateutil.rrule import MO as MO
+from dateutil.rrule import rrule as rrule
 from datetime import datetime
 from datetime import timedelta
 from datetime import tzinfo
 from typing import Any
 from typing import Callable
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Pattern
@@ -38,6 +59,45 @@ from numpy.core import datetime64
 from numpy.core._multiarray_umath import ndarray
 from object import object
 
+__all__: Any
+_log: Logger
+UTC: Any
+from typing import Any
+
+EPOCH_OFFSET: float
+
+JULIAN_OFFSET: float
+
+MICROSECONDLY: int
+
+HOURS_PER_DAY: float
+
+MIN_PER_HOUR: float
+
+SEC_PER_MIN: float
+
+MONTHS_PER_YEAR: float
+
+DAYS_PER_WEEK: float
+
+DAYS_PER_MONTH: float
+
+DAYS_PER_YEAR: float
+
+MINUTES_PER_DAY: float
+
+SEC_PER_HOUR: float
+
+SEC_PER_DAY: float
+
+SEC_PER_WEEK: float
+
+MUSECONDS_PER_DAY: float
+
+WEEKDAYS: tuple[weekday, weekday, weekday, weekday, weekday, weekday, weekday]
+
+_epoch: None
+
 
 def _get_rc_timezone() -> Union[Optional[tzinfo], Any]: ...
 
@@ -52,6 +112,11 @@ def get_epoch() -> str: ...
 
 
 def _dt64_to_ordinalf(d: Union[ndarray, Any]) -> Union[float, Any]: ...
+
+
+_from_ordinalf_np_vectorized: Callable
+
+_dateutil_parser_parse_np_vectorized: Callable
 
 
 def _from_ordinalf(x: {__mul__},
@@ -71,6 +136,9 @@ def julian2num(j: Union[float, Iterable]) -> None: ...
 def num2julian(n: Union[float, Iterable]) -> None: ...
 
 
+_ordinalf_to_timedelta_np_vectorized: Callable
+
+
 def num2date(x: Union[float, Iterable],
              tz: str = None) -> Any: ...
 
@@ -87,6 +155,10 @@ def _wrap_in_tex(text: Union[str, Any]) -> str: ...
 
 
 class DateFormatter(Formatter):
+    _usetex: Union[Optional[bool], Any]
+    tz: Union[Optional[tzinfo], Any]
+    fmt: str
+
     @_api.deprecated("3.3")
     def illegal_s(self: DateFormatter) -> Pattern[str]: ...
 
@@ -106,6 +178,10 @@ class DateFormatter(Formatter):
 
 @_api.deprecated("3.3")
 class IndexDateFormatter(Formatter):
+    t: Iterable[float]
+    tz: Union[Optional[tzinfo], Any]
+    fmt: str
+
     def __init__(self: IndexDateFormatter,
                  t: Iterable[float],
                  fmt: str,
@@ -117,6 +193,16 @@ class IndexDateFormatter(Formatter):
 
 
 class ConciseDateFormatter(Formatter):
+    formats: list[str]
+    _tz: Any
+    show_offset: bool
+    _usetex: Optional[Any]
+    zero_formats: Union[list[str], Any]
+    _locator: Any
+    offset_formats: list[str]
+    defaultfmt: str
+    offset_string: str
+
     def __init__(self: ConciseDateFormatter,
                  locator: Any,
                  tz: Any = None,
@@ -141,6 +227,13 @@ class ConciseDateFormatter(Formatter):
 
 
 class AutoDateFormatter(Formatter):
+    _formatter: DateFormatter
+    _tz: Optional[str]
+    _usetex: Union[Optional[bool], Any]
+    scaled: dict[Union[float, int], Optional[Any]]
+    _locator: Any
+    defaultfmt: str
+
     def __init__(self: AutoDateFormatter,
                  locator: Any,
                  tz: Optional[str] = None,
@@ -157,6 +250,11 @@ class AutoDateFormatter(Formatter):
 
 
 class rrulewrapper(object):
+    _construct: dict[str, Any]
+    _rrule: rrule
+    _base_tzinfo: Any
+    _tzinfo: Any
+
     def __init__(self: rrulewrapper,
                  freq: Any,
                  tzinfo: Any = None,
@@ -188,6 +286,9 @@ class rrulewrapper(object):
 
 
 class DateLocator(Locator):
+    hms0d: ClassVar[dict[str, int]]
+    tz: Union[Optional[tzinfo], Any]
+
     def __init__(self: DateLocator,
                  tz: tzinfo = None) -> None: ...
 
@@ -210,6 +311,8 @@ class DateLocator(Locator):
 
 
 class RRuleLocator(DateLocator):
+    rule: Union[rrulewrapper, Any]
+
     def __init__(self: RRuleLocator,
                  o: Union[rrulewrapper, Any],
                  tz: tzinfo = None) -> None: ...
@@ -228,6 +331,14 @@ class RRuleLocator(DateLocator):
 
 
 class AutoDateLocator(DateLocator):
+    _byranges: list[Optional[range]]
+    _freqs: list[int]
+    minticks: int
+    intervald: dict[int, Union[list[Union[int, Any]], list[int]]]
+    interval_multiples: bool
+    maxticks: dict[int, int]
+    _freq: int
+
     def __init__(self: AutoDateLocator,
                  tz: tzinfo = None,
                  minticks: int = 5,
@@ -254,6 +365,9 @@ class AutoDateLocator(DateLocator):
 
 
 class YearLocator(DateLocator):
+    replaced: dict[str, Union[int, tzinfo]]
+    base: _Edge_integer
+
     def __init__(self: YearLocator,
                  base: int = 1,
                  month: int = 1,
@@ -311,6 +425,10 @@ class SecondLocator(RRuleLocator):
 
 
 class MicrosecondLocator(DateLocator):
+    _interval: int
+    tz: tzinfo
+    _wrapped_locator: MultipleLocator
+
     def __init__(self: MicrosecondLocator,
                  interval: int = 1,
                  tz: tzinfo = None) -> None: ...
@@ -350,6 +468,8 @@ def date_ticker_factory(span: {__eq__, __mul__, __truediv__},
 
 
 class DateConverter(ConversionInterface):
+    _interval_multiples: bool
+
     def __init__(self: DateConverter,
                  *,
                  interval_multiples: bool = True) -> None: ...
@@ -367,6 +487,12 @@ class DateConverter(ConversionInterface):
 
 
 class ConciseDateConverter(DateConverter):
+    _formats: Any
+    _zero_formats: Any
+    _offset_formats: Any
+    _show_offset: bool
+    _interval_multiples: bool
+
     def __init__(self: ConciseDateConverter,
                  formats: Any = None,
                  zero_formats: Any = None,
@@ -381,6 +507,11 @@ class ConciseDateConverter(DateConverter):
 
 
 class _rcParam_helper(object):
+    conv_st: ClassVar[str]
+    int_mult: ClassVar[bool]
+    conv_st: Any
+    int_mult: Any
+
     def set_converter(cls: Type[_rcParam_helper],
                       s: Any) -> Any: ...
 

@@ -1,4 +1,16 @@
-from typing import Any
+from matplotlib.transforms import Affine2D as Affine2D
+from matplotlib.path import Path as Path
+from matplotlib.mathtext import MathTextParser as MathTextParser
+from matplotlib.ft2font import LOAD_TARGET_LIGHT as LOAD_TARGET_LIGHT
+from matplotlib.ft2font import LOAD_NO_HINTING as LOAD_NO_HINTING
+from matplotlib.font_manager import get_font as get_font
+from matplotlib.font_manager import FontProperties as FontProperties
+from matplotlib import rcParams as rcParams
+from matplotlib import font_manager as font_manager
+from matplotlib import dviread as dviread
+from matplotlib import _text_layout as _text_layout
+from collections import OrderedDict as OrderedDict
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Tuple
@@ -12,8 +24,16 @@ from matplotlib.textpath import TextPath
 from matplotlib.textpath import TextToPath
 from object import object
 
+_log: Logger
+from typing import Any
+
 
 class TextToPath(object):
+    FONT_SCALE: ClassVar[float]
+    DPI: ClassVar[int]
+    mathtext_parser: MathTextParser
+    _texmanager: None
+
     def __init__(self: TextToPath) -> None: ...
 
     def _get_font(self: TextToPath,
@@ -65,7 +85,20 @@ class TextToPath(object):
     def _get_ps_font_and_encoding(texname: Any) -> Tuple[FT2Font, Optional[Iterable]]: ...
 
 
+text_to_path: TextToPath
+
+
 class TextPath(Path):
+    _cached_vertices: None
+    _size: Union[Union[None, float, int], Any]
+    _xy: Any
+    _codes: Iterable
+    _interpolation_steps: Optional[int]
+    _invalid: bool
+    _vertices: Iterable
+    _should_simplify: bool
+    _simplify_threshold: Optional[Any]
+
     def __init__(self: TextPath,
                  xy: Any,
                  s: str,

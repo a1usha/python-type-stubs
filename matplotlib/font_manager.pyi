@@ -1,6 +1,20 @@
+from matplotlib.rcsetup import _validators as _validators
+from matplotlib.fontconfig_pattern import generate_fontconfig_pattern as generate_fontconfig_pattern
+from matplotlib.fontconfig_pattern import parse_fontconfig_pattern as parse_fontconfig_pattern
+from matplotlib import rcParams as rcParams
+from matplotlib import ft2font as ft2font
+from matplotlib import cbook as cbook
+from matplotlib import afm as afm
+from matplotlib import _api as _api
+from dummy_threading import Timer as Timer
+from threading import Timer as Timer
+from pathlib import Path as Path
+from numbers import Number as Number
+from functools import lru_cache as lru_cache
 from json.encoder import JSONEncoder
 from pathlib import Path
 from typing import Any
+from typing import ClassVar
 from typing import Optional
 from typing import Type
 from typing import Union
@@ -11,6 +25,19 @@ from matplotlib.font_manager import FontProperties
 from matplotlib.font_manager import _JSONEncoder
 from matplotlib.ft2font import FT2Font
 from object import object
+
+_log: Logger
+font_scalings: dict[Optional[str], float]
+stretch_dict: dict[Union[str, Any], Union[int, Any]]
+weight_dict: dict[Union[str, Any], Union[int, Any]]
+_weight_regexes: list[Union[tuple[str, int], Any]]
+font_family_aliases: set[str]
+MSFolders: str
+MSFontDirectories: list[str]
+MSUserFontDirectories: list[str]
+X11FontDirectories: list[str]
+OSXFontDirectories: list[str]
+from typing import Any
 
 
 def _cached_realpath(path: Union[str, Any]) -> Union[str, Any]: ...
@@ -45,6 +72,14 @@ def findSystemFonts(fontpaths: Union[list[Path], Any] = None,
 
 
 class FontEntry(object):
+    fname: str
+    stretch: str
+    size: str
+    name: str
+    variant: str
+    weight: str
+    style: str
+
     def __init__(self: FontEntry,
                  fname: str = '',
                  name: str = '',
@@ -65,6 +100,18 @@ def afmFontProperty(fontpath: Any,
 
 
 class FontProperties(object):
+    get_slant: ClassVar[Callable[[FontProperties], Optional[Any]]]
+    set_name: ClassVar[Callable[[FontProperties, Union[str, Any]], None]]
+    set_slant: ClassVar[Callable[[FontProperties, Any], None]]
+    _size: Optional[Any]
+    _math_fontfamily: None
+    _file: None
+    _stretch: Optional[Any]
+    _weight: Optional[Any]
+    _variant: Optional[Any]
+    _family: Optional[list[str]]
+    _slant: Optional[Any]
+
     def __init__(self: FontProperties,
                  family: Any = None,
                  style: Any = None,
@@ -156,6 +203,14 @@ def _normalize_font_family(family: Union[Optional[str], Any]) -> Optional[list[s
 
 
 class FontManager(object):
+    __version__: ClassVar[int]
+    ttflist: list[Any]
+    default_size: Any
+    defaultFamily: dict[str, str]
+    afmlist: list[Any]
+    __default_weight: str
+    _version: int
+
     def __init__(self: FontManager,
                  size: Any = None,
                  weight: str = 'normal') -> None: ...
@@ -226,6 +281,11 @@ def _get_font(filename: Union[str, Any],
 
 def get_font(filename: Union[str, Any],
              hinting_factor: Any = None) -> FT2Font: ...
+
+
+fontManager: Union[FontManager, Any]
+
+findfont: Callable[[Any, str, Optional[str], bool, bool], str]
 
 
 def _load_fontmanager(*,

@@ -1,4 +1,15 @@
+from matplotlib.transforms import TransformedBbox as TransformedBbox
+from matplotlib.transforms import IdentityTransform as IdentityTransform
+from matplotlib.transforms import BboxTransformTo as BboxTransformTo
+from matplotlib.transforms import BboxTransform as BboxTransform
+from matplotlib.transforms import Bbox as Bbox
+from matplotlib.transforms import BboxBase as BboxBase
+from matplotlib.transforms import Affine2D as Affine2D
+from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase
+from matplotlib import _api as _api
+from pathlib import Path as Path
 from typing import Any
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Tuple
@@ -19,6 +30,11 @@ from matplotlib.transforms import BboxBase
 from matplotlib.transforms import CompositeAffine2D
 from matplotlib.transforms import CompositeGenericTransform
 from numpy.core._multiarray_umath import ndarray
+
+_log: Logger
+_interpd_: dict[Union[str, Any], Union[int, Any]]
+interpolations_names: set[Union[str, Any]]
+from typing import Any
 
 
 def composite_images(images: Iterable,
@@ -46,6 +62,18 @@ def _rgb_to_rgba(A: Union[Union[ndarray, Iterable, int, float, None], Any]) -> n
 
 
 class _ImageBase(Artist, ScalarMappable):
+    zorder: ClassVar[int]
+    _imcache: None
+    _interpolation: str
+    _A: Union[ndarray, Iterable, int, float, None]
+    _rgbacache: None
+    stale: bool
+    _resample: Union[Optional[bool], Any]
+    _filterrad: float
+    origin: Union[Optional[str], Any]
+    axes: Optional[Any]
+    _filternorm: bool
+
     def __init__(self: _ImageBase,
                  ax: Optional[Any],
                  cmap: Any = None,
@@ -125,6 +153,9 @@ class _ImageBase(Artist, ScalarMappable):
 
 
 class AxesImage(_ImageBase):
+    _extent: Union[Iterable, tuple, None]
+    stale: bool
+
     def __str__(self: AxesImage) -> str: ...
 
     def __init__(self: AxesImage,
@@ -164,6 +195,15 @@ class AxesImage(_ImageBase):
 
 
 class NonUniformImage(AxesImage):
+    mouseover: ClassVar[bool]
+    is_grayscale: ClassVar[deprecate_privatize_attribute]
+    _imcache: None
+    _A: Union[None, ndarray, Iterable, int, float]
+    _is_grayscale: Any
+    stale: bool
+    _Ay: ndarray
+    _Ax: ndarray
+
     def __init__(self: NonUniformImage,
                  ax: Any,
                  *,
@@ -204,6 +244,14 @@ class NonUniformImage(AxesImage):
 
 
 class PcolorImage(AxesImage):
+    is_grayscale: ClassVar[deprecate_privatize_attribute]
+    _A: Union[Union[None, ndarray, Iterable, int, float], Any]
+    _rgbacache: Union[Union[ndarray, {ndim}, None], Any]
+    _is_grayscale: Any
+    stale: bool
+    _Ay: Union[Optional[ndarray], Any]
+    _Ax: Union[Optional[ndarray], Any]
+
     def __init__(self: PcolorImage,
                  ax: Any,
                  x: Optional[int] = None,
@@ -233,6 +281,14 @@ class PcolorImage(AxesImage):
 
 
 class FigureImage(_ImageBase):
+    zorder: ClassVar[int]
+    _interpolation: ClassVar[str]
+    figure: Any
+    magnification: float
+    stale: bool
+    ox: int
+    oy: int
+
     def __init__(self: FigureImage,
                  fig: Any,
                  cmap: Any = None,
@@ -255,6 +311,9 @@ class FigureImage(_ImageBase):
 
 
 class BboxImage(_ImageBase):
+    _transform: BboxTransformTo
+    bbox: Any
+
     def __init__(self: BboxImage,
                  bbox: Any,
                  cmap: Any = None,

@@ -1,3 +1,7 @@
+from matplotlib import cbook as cbook
+from numpy import ma as ma
+from numbers import Number as Number
+from decimal import Decimal as Decimal
 from decimal import Decimal
 from typing import Any
 from typing import Optional
@@ -20,6 +24,13 @@ def _is_natively_supported(x: Any) -> bool: ...
 
 
 class AxisInfo(object):
+    minfmt: Any
+    majloc: Any
+    minloc: Any
+    default_limits: Any
+    label: Optional[str]
+    majfmt: Any
+
     def __init__(self: AxisInfo,
                  majloc: Any = None,
                  minloc: Any = None,
@@ -58,3 +69,6 @@ class DecimalConverter(ConversionInterface):
 class Registry(dict):
     def get_converter(self: Registry,
                       x: Any) -> Optional[Any]: ...
+
+
+registry: Registry[Type[Decimal], DecimalConverter]

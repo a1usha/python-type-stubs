@@ -11,6 +11,16 @@ from object import object
 
 
 class Triangulation(object):
+    triangles: ndarray
+    _trifinder: None
+    x: ndarray
+    is_delaunay: bool
+    y: ndarray
+    _neighbors: Any
+    _cpp_triangulation: None
+    _edges: None
+    mask: ndarray
+
     def __init__(self: Triangulation,
                  x: Any,
                  y: Any,

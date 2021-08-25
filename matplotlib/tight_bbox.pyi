@@ -1,3 +1,6 @@
+from matplotlib.transforms import Affine2D as Affine2D
+from matplotlib.transforms import TransformedBbox as TransformedBbox
+from matplotlib.transforms import Bbox as Bbox
 from typing import Any
 from typing import Callable
 from typing import Optional

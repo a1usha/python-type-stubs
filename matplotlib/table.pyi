@@ -1,4 +1,14 @@
+from path import Path as Path
+from transforms import Bbox as Bbox
+from text import Text as Text
+from patches import Rectangle as Rectangle
+from artist import allow_rasterization as allow_rasterization
+from artist import Artist as Artist
+from matplotlib import docstring as docstring
+from matplotlib import artist as artist
+from matplotlib import _api as _api
 from typing import Any
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Tuple
@@ -16,6 +26,15 @@ from matplotlib.transforms import Bbox
 
 
 class Cell(Rectangle):
+    PAD: ClassVar[float]
+    _edges: ClassVar[str]
+    _edge_aliases: ClassVar[dict[str, str]]
+    stale: bool
+    visible_edges: str
+    _visible_edges: str
+    _text: Text
+    _loc: str
+
     def __init__(self: Cell,
                  xy: Any,
                  width: float,
@@ -68,7 +87,22 @@ class Cell(Rectangle):
     def get_path(self: Cell) -> Path: ...
 
 
+CustomCell: Type[Cell]
+
+
 class Table(Artist):
+    codes: ClassVar[dict[Union[str, Any], Union[int, Any]]]
+    FONTSIZE: ClassVar[int]
+    AXESPAD: ClassVar[float]
+    _bbox: Any
+    _autoColumns: list[Any]
+    stale: bool
+    _autoFontsize: bool
+    _axes: Axes
+    _loc: Union[int, Any]
+    _cells: dict[Any, Any]
+    _edges: None
+
     def __init__(self: Table,
                  ax: Axes,
                  loc: str = None,

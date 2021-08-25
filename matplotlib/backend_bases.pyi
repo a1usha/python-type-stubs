@@ -1,8 +1,34 @@
+from matplotlib._enums import CapStyle as CapStyle
+from matplotlib._enums import JoinStyle as JoinStyle
+from matplotlib.transforms import Affine2D as Affine2D
+from matplotlib.path import Path as Path
+from matplotlib.cbook import _setattr_cm as _setattr_cm
+from matplotlib.backend_managers import ToolManager as ToolManager
+from matplotlib._pylab_helpers import Gcf as Gcf
+from matplotlib import rcParams as rcParams
+from matplotlib import is_interactive as is_interactive
+from matplotlib import get_backend as get_backend
+from matplotlib import widgets as widgets
+from matplotlib import transforms as transforms
+from matplotlib import tight_bbox as tight_bbox
+from matplotlib import textpath as textpath
+from matplotlib import docstring as docstring
+from matplotlib import colors as colors
+from matplotlib import cbook as cbook
+from matplotlib import backend_tools as tools
+from matplotlib import _api as _api
+from weakref import WeakKeyDictionary as WeakKeyDictionary
+from enum import IntEnum as IntEnum
+from enum import Enum as Enum
+from contextlib import suppress as suppress
+from contextlib import contextmanager as contextmanager
+from collections import namedtuple as namedtuple
 from enum import Enum
 from enum import IntEnum
 from functools import partial
 from typing import Any
 from typing import Callable
+from typing import ClassVar
 from typing import Generator
 from typing import Iterable
 from typing import Optional
@@ -43,6 +69,11 @@ from numpy.core._multiarray_umath import ndarray
 from object import object
 from str import str
 
+_log: Logger
+_default_filetypes: dict[Union[str, Any], Union[str, Any]]
+_default_backends: dict[Union[str, Any], Union[str, Any]]
+from typing import Any
+
 
 def _safe_pyplot_import() -> pyplot.py: ...
 
@@ -56,6 +87,11 @@ def get_registered_canvas_class(format: Union[str, Any]) -> Union[Optional[str],
 
 
 class RendererBase(object):
+    _text2path: TextToPath
+    _rasterizing: bool
+    _raster_depth: int
+    _texmanager: None
+
     def __init__(self: RendererBase) -> None: ...
 
     def open_group(self: RendererBase,
@@ -234,6 +270,25 @@ class RendererBase(object):
 
 
 class GraphicsContextBase(object):
+    _capstyle: Any
+    _rgb: tuple[float, float, float, float]
+    _hatch: None
+    _sketch: None
+    _hatch_color: Union[Iterable, tuple]
+    _joinstyle: Any
+    _gid: None
+    _clippath: None
+    _antialiased: int
+    _linestyle: str
+    _linewidth: int
+    _cliprect: None
+    _alpha: float
+    _snap: None
+    _hatch_linewidth: Optional[Any]
+    _url: None
+    _dashes: tuple[int, None]
+    _forced_alpha: bool
+
     def __init__(self: GraphicsContextBase) -> None: ...
 
     def copy_properties(self: GraphicsContextBase,
@@ -329,6 +384,12 @@ class GraphicsContextBase(object):
 
 
 class TimerBase(object):
+    _interval: int
+    single_shot: bool
+    callbacks: Union[list[Any], Any]
+    interval: int
+    _single: Any
+
     def __init__(self: TimerBase,
                  interval: int = None,
                  callbacks: Union[Iterable, tuple] = None) -> None: ...
@@ -372,6 +433,10 @@ class TimerBase(object):
 
 
 class Event(object):
+    canvas: Union[{get_width_height}, Any]
+    name: Any
+    guiEvent: Any
+
     def __init__(self: Event,
                  name: Any,
                  canvas: Union[{get_width_height}, Any],
@@ -379,6 +444,8 @@ class Event(object):
 
 
 class DrawEvent(Event):
+    renderer: Any
+
     def __init__(self: DrawEvent,
                  name: Any,
                  canvas: Union[{get_width_height}, Any],
@@ -386,6 +453,9 @@ class DrawEvent(Event):
 
 
 class ResizeEvent(Event):
+    width: Any
+    height: Any
+
     def __init__(self: ResizeEvent,
                  name: Any,
                  canvas: {get_width_height}) -> None: ...
@@ -396,6 +466,13 @@ class CloseEvent(Event):
 
 
 class LocationEvent(Event):
+    lastevent: ClassVar[None]
+    inaxes: Any
+    x: Union[int, Any]
+    y: Union[int, Any]
+    xdata: Any
+    ydata: Any
+
     def __init__(self: LocationEvent,
                  name: Any,
                  canvas: Any,
@@ -407,10 +484,20 @@ class LocationEvent(Event):
 
 
 class MouseButton(IntEnum):
+    LEFT: ClassVar[MouseButton]
+    MIDDLE: ClassVar[MouseButton]
+    RIGHT: ClassVar[MouseButton]
+    BACK: ClassVar[MouseButton]
+    FORWARD: ClassVar[MouseButton]
     pass
 
 
 class MouseEvent(LocationEvent):
+    button: Any
+    dblclick: bool
+    step: int
+    key: Any
+
     def __init__(self: MouseEvent,
                  name: Any,
                  canvas: Any,
@@ -426,6 +513,9 @@ class MouseEvent(LocationEvent):
 
 
 class PickEvent(Event):
+    mouseevent: Any
+    artist: Any
+
     def __init__(self: PickEvent,
                  name: Any,
                  canvas: Any,
@@ -436,6 +526,8 @@ class PickEvent(Event):
 
 
 class KeyEvent(LocationEvent):
+    key: Any
+
     def __init__(self: KeyEvent,
                  name: Any,
                  canvas: Any,
@@ -461,6 +553,27 @@ def _check_savefig_extra_args(func: Any = None,
 
 
 class FigureCanvasBase(object):
+    required_interactive_framework: ClassVar[None]
+    events: ClassVar[list[Union[str, Any]]]
+    fixed_dpi: ClassVar[None]
+    filetypes: ClassVar[dict[Union[str, Any], Union[str, Any]]]
+    callbacks: ClassVar[property]
+    button_pick_id: ClassVar[property]
+    scroll_pick_id: ClassVar[property]
+    _timer_cls: ClassVar[Type[TimerBase]]
+    toolbar: None
+    figure: Union[Figure, Any]
+    _button: None
+    manager: None
+    widgetlock: LockDraw
+    _looping: bool
+    _is_saving: bool
+    _lasty: None
+    mouse_grabber: None
+    _key: None
+    _is_idle_drawing: bool
+    _lastx: None
+
     @_api.classproperty
     def supports_blit(cls: FigureCanvasBase) -> Union[bool, Any]: ...
 
@@ -626,6 +739,14 @@ class NonGuiException(Exception):
 
 
 class FigureManagerBase(object):
+    statusbar: ClassVar[Union[_deprecated_property, Any]]
+    toolbar: None
+    key_press_handler_id: Any
+    canvas: {manager, figure}
+    button_press_handler_id: Any
+    num: Any
+    toolmanager: Optional[ToolManager]
+
     def __init__(self: FigureManagerBase,
                  canvas: {manager, figure},
                  num: Any) -> None: ...
@@ -656,13 +777,38 @@ class FigureManagerBase(object):
                          title: Union[str, Any]) -> None: ...
 
 
+cursors: Type[Cursors]
+
+
 class _Mode(str, Enum):
+    NONE: ClassVar[_Mode]
+    PAN: ClassVar[_Mode]
+    ZOOM: ClassVar[_Mode]
+
     def __str__(self: _Mode) -> str: ...
 
     def _navigate_mode(self: _Mode) -> Optional[Any]: ...
 
 
 class NavigationToolbar2(object):
+    toolitems: ClassVar[tuple[
+        tuple[str, str, str, str], tuple[str, str, str, str], tuple[str, str, str, str], tuple[None, None, None, None],
+        tuple[str, str, str, str], tuple[str, str, str, str], tuple[str, str, str, str], tuple[None, None, None, None],
+        tuple[str, str, str, str]]]
+    _PanInfo: ClassVar[Type[_PanInfo]]
+    _ZoomInfo: ClassVar[Type[_ZoomInfo]]
+    mode: _Mode
+    subplot_tool: SubplotTool
+    canvas: {toolbar}
+    _id_press: Any
+    _id_drag: Any
+    _lastCursor: Cursors
+    _pan_info: None
+    _draw_time: float
+    _id_release: Any
+    _zoom_info: None
+    _nav_stack: Stack
+
     def __init__(self: NavigationToolbar2,
                  canvas: {toolbar}) -> None: ...
 
@@ -759,6 +905,9 @@ class NavigationToolbar2(object):
 
 
 class ToolContainerBase(object):
+    _icon_extension: ClassVar[str]
+    toolmanager: {toolmanager_connect}
+
     def __init__(self: ToolContainerBase,
                  toolmanager: {toolmanager_connect}) -> None: ...
 
@@ -797,6 +946,8 @@ class ToolContainerBase(object):
 
 @_api.deprecated("3.3")
 class StatusbarBase(object):
+    toolmanager: Any
+
     def __init__(self: StatusbarBase,
                  toolmanager: Any) -> None: ...
 
@@ -808,6 +959,11 @@ class StatusbarBase(object):
 
 
 class _Backend(object):
+    backend_version: ClassVar[str]
+    FigureCanvas: ClassVar[None]
+    FigureManager: ClassVar[Type[FigureManagerBase]]
+    mainloop: ClassVar[None]
+
     def new_figure_manager(cls: Type[_Backend],
                            num: Any,
                            *args,

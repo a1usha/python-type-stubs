@@ -1,6 +1,11 @@
+from matplotlib import transforms as mtransforms
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from numbers import Integral as Integral
 from builtins import str
 from numbers import Integral
 from typing import Any
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Tuple
@@ -42,8 +47,17 @@ from matplotlib.ticker import _Edge_integer
 from numpy.core._multiarray_umath import ndarray
 from object import object
 
+_log: Logger
+__all__: Any
+from typing import Any
+
 
 class _DummyAxis(object):
+    __name__: ClassVar[str]
+    dataLim: Bbox
+    viewLim: Bbox
+    _minpos: int
+
     def __init__(self: _DummyAxis,
                  minpos: int = 0) -> None: ...
 
@@ -65,6 +79,9 @@ class _DummyAxis(object):
 
 
 class TickHelper(object):
+    axis: ClassVar[None]
+    axis: Any
+
     def set_axis(self: TickHelper,
                  axis: Any) -> None: ...
 
@@ -85,6 +102,9 @@ class TickHelper(object):
 
 
 class Formatter(TickHelper):
+    locs: ClassVar[list[Any]]
+    locs: Any
+
     def __call__(self: Formatter,
                  x: Any,
                  pos: Any = None) -> Any: ...
@@ -111,6 +131,9 @@ class Formatter(TickHelper):
 
 @_api.deprecated("3.3")
 class IndexFormatter(Formatter):
+    n: int
+    labels: list
+
     def __init__(self: IndexFormatter,
                  labels: Iterable) -> None: ...
 
@@ -126,6 +149,9 @@ class NullFormatter(Formatter):
 
 
 class FixedFormatter(Formatter):
+    seq: Any
+    offset_string: str
+
     def __init__(self: FixedFormatter,
                  seq: Any) -> None: ...
 
@@ -140,6 +166,9 @@ class FixedFormatter(Formatter):
 
 
 class FuncFormatter(Formatter):
+    func: Any
+    offset_string: str
+
     def __init__(self: FuncFormatter,
                  func: Any) -> None: ...
 
@@ -154,6 +183,8 @@ class FuncFormatter(Formatter):
 
 
 class FormatStrFormatter(Formatter):
+    fmt: Any
+
     def __init__(self: FormatStrFormatter,
                  fmt: Any) -> None: ...
 
@@ -163,6 +194,8 @@ class FormatStrFormatter(Formatter):
 
 
 class StrMethodFormatter(Formatter):
+    fmt: Any
+
     def __init__(self: StrMethodFormatter,
                  fmt: Any) -> None: ...
 
@@ -179,6 +212,21 @@ class OldScalarFormatter(Formatter):
 
 
 class ScalarFormatter(Formatter):
+    useOffset: ClassVar[property]
+    useLocale: ClassVar[property]
+    useMathText: ClassVar[property]
+    locs: Any
+    _usetex: Optional[Any]
+    _scientific: bool
+    offset: int
+    _offset_threshold: Optional[Any]
+    _useMathText: Optional[Any]
+    format: str
+    _powerlimits: Optional[Any]
+    _useOffset: Union[bool, float]
+    orderOfMagnitude: int
+    _useLocale: Union[Optional[bool], Any]
+
     def __init__(self: ScalarFormatter,
                  useOffset: Union[bool, float] = None,
                  useMathText: bool = None,
@@ -232,6 +280,12 @@ class ScalarFormatter(Formatter):
 
 
 class LogFormatter(Formatter):
+    _linthresh: Optional[float]
+    _base: float
+    labelOnlyBase: bool
+    minor_thresholds: Union[tuple[int, int], tuple[int, float], int]
+    _sublabels: None
+
     def __init__(self: LogFormatter,
                  base: float = 10.0,
                  labelOnlyBase: bool = False,
@@ -295,6 +349,14 @@ class LogFormatterSciNotation(LogFormatterMathtext):
 
 
 class LogitFormatter(Formatter):
+    _use_overline: bool
+    _one_half: str
+    _minor_threshold: int
+    locs: ndarray
+    _minor: bool
+    _labelled: set[Any]
+    _minor_number: int
+
     def __init__(self: LogitFormatter,
                  *,
                  use_overline: bool = False,
@@ -335,6 +397,15 @@ class LogitFormatter(Formatter):
 
 
 class EngFormatter(Formatter):
+    ENG_PREFIXES: ClassVar[dict[Union[int, Any], Union[str, Any]]]
+    usetex: ClassVar[property]
+    useMathText: ClassVar[property]
+    unit: str
+    places: int
+    _usetex: Optional[Any]
+    _useMathText: Optional[Any]
+    sep: str
+
     def __init__(self: EngFormatter,
                  unit: str = "",
                  places: int = None,
@@ -362,6 +433,11 @@ class EngFormatter(Formatter):
 
 
 class PercentFormatter(Formatter):
+    xmax: float
+    _is_latex: bool
+    decimals: Optional[int]
+    _symbol: Optional[str]
+
     def __init__(self: PercentFormatter,
                  xmax: float = 100,
                  decimals: Optional[int] = None,
@@ -389,6 +465,8 @@ def _if_refresh_overridden_call_and_emit_deprec(locator: {refresh}) -> None: ...
 
 
 class Locator(TickHelper):
+    MAXTICKS: ClassVar[int]
+
     def tick_values(self: Locator,
                     vmin: Any,
                     vmax: Any) -> Any: ...
@@ -424,6 +502,9 @@ class Locator(TickHelper):
 
 
 class IndexLocator(Locator):
+    offset: Any
+    _base: Any
+
     def __init__(self: IndexLocator,
                  base: Any,
                  offset: Any) -> None: ...
@@ -440,6 +521,9 @@ class IndexLocator(Locator):
 
 
 class FixedLocator(Locator):
+    locs: ndarray
+    nbins: Union[Optional[SupportsLessThan], Any]
+
     def __init__(self: FixedLocator,
                  locs: Any,
                  nbins: Any = None) -> None: ...
@@ -463,6 +547,10 @@ class NullLocator(Locator):
 
 
 class LinearLocator(Locator):
+    presets: Any
+    _numticks: Any
+    numticks: Any
+
     def __init__(self: LinearLocator,
                  numticks: Any = None,
                  presets: Any = None) -> None: ...
@@ -488,6 +576,8 @@ class LinearLocator(Locator):
 
 
 class MultipleLocator(Locator):
+    _edge: _Edge_integer
+
     def __init__(self: MultipleLocator,
                  base: float = 1.0) -> None: ...
 
@@ -512,6 +602,9 @@ def scale_range(vmin: Union[{__sub__}, Any],
 
 
 class _Edge_integer(object):
+    _offset: Any
+    step: {__le__}
+
     def __init__(self: _Edge_integer,
                  step: {__le__},
                  offset: Any) -> Any: ...
@@ -528,6 +621,15 @@ class _Edge_integer(object):
 
 
 class MaxNLocator(Locator):
+    default_params: ClassVar[dict[Any, Union[int, None, bool]]]
+    _symmetric: Any
+    _nbins: Any
+    _prune: Any
+    _extended_steps: ndarray
+    _min_n_ticks: int
+    _integer: Any
+    _steps: ndarray
+
     def __init__(self: MaxNLocator,
                  *args,
                  **kwargs) -> Any: ...
@@ -582,6 +684,11 @@ def is_close_to_int(x: Union[Union[float, int], Any],
 
 
 class LogLocator(Locator):
+    _subs: str
+    numdecs: int
+    _base: float
+    numticks: Union[int, str]
+
     def __init__(self: LogLocator,
                  base: float = 10.0,
                  subs: Union[None, str, Iterable[float]] = (1.0,),
@@ -618,6 +725,11 @@ class LogLocator(Locator):
 
 
 class SymmetricalLogLocator(Locator):
+    _subs: Iterable[float]
+    _linthresh: float
+    _base: float
+    numticks: int
+
     def __init__(self: SymmetricalLogLocator,
                  transform: Any = None,
                  subs: Iterable[float] = None,
@@ -640,6 +752,8 @@ class SymmetricalLogLocator(Locator):
 
 
 class LogitLocator(MaxNLocator):
+    _minor: bool
+
     def __init__(self: LogitLocator,
                  minor: bool = False,
                  *,
@@ -670,6 +784,8 @@ class AutoLocator(MaxNLocator):
 
 
 class AutoMinorLocator(Locator):
+    ndivs: Any
+
     def __init__(self: AutoMinorLocator,
                  n: Any = None) -> None: ...
 

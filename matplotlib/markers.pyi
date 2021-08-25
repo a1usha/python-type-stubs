@@ -1,4 +1,13 @@
-from typing import Any
+from _enums import CapStyle as CapStyle
+from _enums import JoinStyle as JoinStyle
+from transforms import Affine2D as Affine2D
+from transforms import IdentityTransform as IdentityTransform
+from path import Path as Path
+from matplotlib import rcParams as rcParams
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from collections.abc import Sized as Sized
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Sized
@@ -13,8 +22,46 @@ from matplotlib.transforms import IdentityTransform
 from numpy.core._multiarray_umath import ndarray
 from object import object
 
+_empty_path: Path
+from typing import Any
+
 
 class MarkerStyle(object):
+    markers: ClassVar[dict[Union[str, Any], Union[str, Any]]]
+    filled_markers: ClassVar[tuple[str, str, str, str, str, str, str, str, str, str, str, str, str, str, str]]
+    fillstyles: ClassVar[tuple[str, str, str, str, str, str]]
+    _half_fillstyles: ClassVar[tuple[str, str, str, str]]
+    _point_size_reduction: ClassVar[float]
+    _triangle_path: ClassVar[Path]
+    _triangle_path_u: ClassVar[Path]
+    _triangle_path_d: ClassVar[Path]
+    _triangle_path_l: ClassVar[Path]
+    _triangle_path_r: ClassVar[Path]
+    _line_marker_path: ClassVar[Path]
+    _tickhoriz_path: ClassVar[Path]
+    _tickvert_path: ClassVar[Path]
+    _tri_path: ClassVar[Path]
+    _caret_path: ClassVar[Path]
+    _caret_path_base: ClassVar[Path]
+    _plus_path: ClassVar[Path]
+    _x_path: ClassVar[Path]
+    _plus_filled_path: ClassVar[Path]
+    _plus_filled_path_t: ClassVar[Path]
+    _x_filled_path: ClassVar[Path]
+    _x_filled_path_t: ClassVar[Path]
+    _capstyle: CapStyle
+    _transform: IdentityTransform
+    _alt_transform: None
+    _alt_path: None
+    _marker: Union[ndarray, str, Path, Sized, Iterable, int, float]
+    _fillstyle: Union[Optional[str], Any]
+    _filled: Union[bool, Any]
+    _snap: bool
+    _path: Path
+    _marker_function: None
+    _snap_threshold: None
+    _joinstyle: JoinStyle
+
     def __init__(self: MarkerStyle,
                  marker: Union[str, ndarray, Iterable, int, float, Path, MarkerStyle] = None,
                  fillstyle: str = None) -> None: ...

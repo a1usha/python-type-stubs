@@ -1,6 +1,19 @@
+from _color_data import XKCD_COLORS as XKCD_COLORS
+from _color_data import CSS4_COLORS as CSS4_COLORS
+from _color_data import TABLEAU_COLORS as TABLEAU_COLORS
+from _color_data import BASE_COLORS as BASE_COLORS
+from matplotlib import scale as scale
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from PIL.PngImagePlugin import PngInfo as PngInfo
+from PIL import Image as Image
+from numbers import Number as Number
+from collections.abc import Sequence as Sequence
+from collections.abc import Sized as Sized
 from functools import partial
 from typing import Any
 from typing import Callable
+from typing import ClassVar
 from typing import Iterable
 from typing import Match
 from typing import Optional
@@ -31,6 +44,8 @@ from object import object
 
 
 class _ColorMapping(dict):
+    cache: dict[Any, Any]
+
     def __init__(self: _ColorMapping,
                  mapping: Any) -> None: ...
 
@@ -40,6 +55,13 @@ class _ColorMapping(dict):
 
     def __delitem__(self: _ColorMapping,
                     key: Any) -> None: ...
+
+
+_colors_full_map: dict[Any, Any]
+_colors_full_map: _ColorMapping
+_colors_full_map: dict[Any, Any]
+_colors_full_map: _ColorMapping
+_REPR_PNG_SIZE: tuple[int, int]
 
 
 def get_named_colors_mapping() -> Union[dict[Any, Any], _ColorMapping]: ...
@@ -77,11 +99,28 @@ def to_rgba_array(c: Any,
 def to_rgb(c: Any) -> Union[Union[_T_co, Tuple[_T_co, ...]], Any]: ...
 
 
+cnames: dict[Union[str, Any], Union[str, Any]]
+
+hexColorPattern: Pattern[str]
+
+rgb2hex: Callable[[Union[ndarray, Any], bool], str]
+
+hex2color: Callable[[Any], Union[Union[_T_co, tuple[_T_co, ...]], Any]]
+
+
 def to_hex(c: Union[ndarray, Any],
            keep_alpha: bool = False) -> str: ...
 
 
+colorConverter: ColorConverter
+
+
 class ColorConverter(object):
+    colors: ClassVar[_ColorMapping]
+    cache: ClassVar[dict[Any, Any]]
+    to_rgb: ClassVar[staticmethod]
+    to_rgba: ClassVar[staticmethod]
+    to_rgba_array: ClassVar[staticmethod]
     pass
 
 
@@ -94,6 +133,17 @@ def _warn_if_global_cmap_modified(cmap: Union[Colormap, Any]) -> None: ...
 
 
 class Colormap(object):
+    _i_bad: int
+    _rgba_bad: tuple[float, float, float, float]
+    _i_over: int
+    _rgba_under: None
+    name: str
+    _rgba_over: None
+    _isinit: bool
+    colorbar_extend: bool
+    _i_under: int
+    N: int
+
     def __init__(self: Colormap,
                  name: str,
                  N: int = 256) -> None: ...
@@ -155,6 +205,12 @@ class Colormap(object):
 
 
 class LinearSegmentedColormap(Colormap):
+    _lut: ndarray
+    monochrome: bool
+    _segmentdata: Any
+    _isinit: bool
+    _gamma: float
+
     def __init__(self: LinearSegmentedColormap,
                  name: str,
                  segmentdata: Any,
@@ -182,6 +238,11 @@ class LinearSegmentedColormap(Colormap):
 
 
 class ListedColormap(Colormap):
+    _lut: ndarray
+    monochrome: bool
+    _isinit: bool
+    colors: list[float]
+
     def __init__(self: ListedColormap,
                  colors: Union[Iterable, ndarray, int, float],
                  name: Optional[str] = 'from_list',
@@ -197,6 +258,11 @@ class ListedColormap(Colormap):
 
 
 class Normalize(object):
+    _scale: LinearScale
+    vmax: Union[Optional[float], Any]
+    vmin: Union[Optional[float], Any]
+    clip: bool
+
     def __init__(self: Normalize,
                  vmin: Optional[float] = None,
                  vmax: Optional[float] = None,
@@ -221,6 +287,10 @@ class Normalize(object):
 
 
 class TwoSlopeNorm(Normalize):
+    vcenter: float
+    vmax: Optional[float]
+    vmin: Optional[float]
+
     def __init__(self: TwoSlopeNorm,
                  vcenter: float,
                  vmin: Optional[float] = None,
@@ -235,6 +305,13 @@ class TwoSlopeNorm(Normalize):
 
 
 class CenteredNorm(Normalize):
+    halfrange: Optional[float]
+    _halfrange: Union[float, Any]
+    vmax: None
+    vmin: None
+    _vcenter: float
+    clip: bool
+
     def __init__(self: CenteredNorm,
                  vcenter: float = 0,
                  halfrange: Optional[float] = None,
@@ -291,6 +368,8 @@ class SymLogNorm(Normalize):
 
 
 class PowerNorm(Normalize):
+    gamma: Any
+
     def __init__(self: PowerNorm,
                  gamma: Any,
                  vmin: Optional[float] = None,
@@ -306,6 +385,17 @@ class PowerNorm(Normalize):
 
 
 class BoundaryNorm(Normalize):
+    extend: str
+    _scale: None
+    _offset: int
+    vmax: None
+    boundaries: ndarray
+    _n_regions: int
+    vmin: None
+    clip: Optional[bool]
+    N: int
+    Ncmap: int
+
     def __init__(self: BoundaryNorm,
                  boundaries: Union[ndarray, Iterable, int, float],
                  ncolors: int,
@@ -340,6 +430,13 @@ def _vector_magnitude(arr: Optional[Any]) -> None: ...
 
 
 class LightSource(object):
+    hsv_min_val: int
+    hsv_max_sat: int
+    azdeg: float
+    altdeg: float
+    hsv_max_val: int
+    hsv_min_sat: int
+
     def __init__(self: LightSource,
                  azdeg: float = 315,
                  altdeg: float = 45,

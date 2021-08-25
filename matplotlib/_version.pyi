@@ -1,3 +1,4 @@
+version_json: str
 from typing import Any
 
 

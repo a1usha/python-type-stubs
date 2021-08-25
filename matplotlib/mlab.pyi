@@ -1,5 +1,9 @@
+from matplotlib import docstring as docstring
+from matplotlib import _api as _api
+from numbers import Number as Number
 from typing import Any
 from typing import Callable
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Tuple
@@ -72,6 +76,37 @@ def psd(x: Any,
         scale_by_freq: Any = None) -> Any: ...
 
 
+_single_spectrum_docs: str
+
+complex_spectrum: partial[tuple[Union[Union[None, ndarray, int, float, complex], Any], Optional[ndarray]]]
+
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+
+magnitude_spectrum: partial[tuple[Union[Union[None, ndarray, int, float, complex], Any], Optional[ndarray]]]
+
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+
+angle_spectrum: partial[tuple[Union[Union[None, ndarray, int, float, complex], Any], Optional[ndarray]]]
+
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+
+phase_spectrum: partial[tuple[Union[Union[None, ndarray, int, float, complex], Any], Optional[ndarray]]]
+
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+
+
 def csd(x: Any,
         y: Any,
         NFFT: Union[int, Any] = None,
@@ -109,6 +144,20 @@ def cohere(x: {__len__},
 
 
 class GaussianKDE(object):
+    covariance_factor: ClassVar[Callable[[GaussianKDE], None]]
+    __call__: ClassVar[Callable[[GaussianKDE, Any], Any]]
+    data_covariance: Union[list[Any], Any]
+    inv_cov: Union[Union[None, float, complex], Any]
+    data_inv_cov: Union[ndarray, Any]
+    norm_factor: Any
+    dim: Any
+    _bw_method: Callable
+    covariance: Union[Union[list[Any], float, complex], Any]
+    covariance_factor: Callable[[], Any]
+    factor: Union[Union[None, str, int, float, complex, Callable], Any]
+    dataset: Union[list[Any], Any]
+    num_dp: Any
+
     def __init__(self: GaussianKDE,
                  dataset: Union[ndarray, Iterable, int, float],
                  bw_method: Union[str, int, float, complex, Callable, None] = None) -> Any: ...

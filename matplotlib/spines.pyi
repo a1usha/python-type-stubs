@@ -1,3 +1,8 @@
+from matplotlib.artist import allow_rasterization as allow_rasterization
+from matplotlib import rcParams as rcParams
+from matplotlib import docstring as docstring
+from matplotlib import _api as _api
+from collections.abc import MutableMapping as MutableMapping
 from functools import partial
 from typing import Any
 from typing import Iterator
@@ -21,6 +26,21 @@ from object import object
 
 
 class Spine(Patch):
+    axes: Any
+    _bounds: None
+    _path: Any
+    axis: None
+    _height: Union[int, Any]
+    stale: bool
+    _patch_transform: IdentityTransform
+    _center: Any
+    spine_type: str
+    _patch_type: str
+    _theta2: {__sub__, __ne__}
+    _theta1: Any
+    _width: Union[int, Any]
+    _position: None
+
     def __str__(self: Spine) -> str: ...
 
     def __init__(self: Spine,
@@ -104,6 +124,8 @@ class Spine(Patch):
 
 
 class SpinesProxy(object):
+    _spine_dict: Any
+
     def __init__(self: SpinesProxy,
                  spine_dict: Any) -> None: ...
 
@@ -114,6 +136,8 @@ class SpinesProxy(object):
 
 
 class Spines(MutableMapping):
+    _dict: dict[str, Any]
+
     def __init__(self: Spines,
                  **kwargs) -> None: ...
 

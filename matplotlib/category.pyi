@@ -1,4 +1,7 @@
-from typing import Any
+from matplotlib import units as units
+from matplotlib import ticker as ticker
+from matplotlib import _api as _api
+from collections import OrderedDict as OrderedDict
 from typing import Union
 
 from matplotlib.category import StrCategoryFormatter
@@ -9,6 +12,9 @@ from matplotlib.ticker import Locator
 from matplotlib.units import ConversionInterface
 from numpy.core._multiarray_umath import ndarray
 from object import object
+
+_log: Logger
+from typing import Any
 
 
 class StrCategoryConverter(ConversionInterface):
@@ -26,6 +32,8 @@ class StrCategoryConverter(ConversionInterface):
 
 
 class StrCategoryLocator(Locator):
+    _units: dict
+
     def __init__(self: StrCategoryLocator,
                  units_mapping: dict) -> None: ...
 
@@ -37,6 +45,8 @@ class StrCategoryLocator(Locator):
 
 
 class StrCategoryFormatter(Formatter):
+    _units: dict
+
     def __init__(self: StrCategoryFormatter,
                  units_mapping: dict) -> None: ...
 
@@ -51,6 +61,9 @@ class StrCategoryFormatter(Formatter):
 
 
 class UnitData(object):
+    _mapping: OrderedDict[Any, Any]
+    _counter: count[int]
+
     def __init__(self: UnitData,
                  data: Any = None) -> None: ...
 

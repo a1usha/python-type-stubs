@@ -1,5 +1,36 @@
+from ft2font import KERNING_DEFAULT as KERNING_DEFAULT
+from font_manager import get_font as get_font
+from font_manager import findfont as findfont
+from font_manager import FontProperties as FontProperties
+from afm import AFM as AFM
+from _mathtext_data import tex2uni as tex2uni
+from _mathtext_data import stix_virtual_fonts as stix_virtual_fonts
+from _mathtext_data import latex_to_standard as latex_to_standard
+from _mathtext_data import latex_to_bakoma as latex_to_bakoma
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from pyparsing import ZeroOrMore as ZeroOrMore
+from pyparsing import Suppress as Suppress
+from pyparsing import StringEnd as StringEnd
+from pyparsing import Regex as Regex
+from pyparsing import QuotedString as QuotedString
+from pyparsing import ParseResults as ParseResults
+from pyparsing import ParserElement as ParserElement
+from pyparsing import ParseFatalException as ParseFatalException
+from pyparsing import ParseBaseException as ParseBaseException
+from pyparsing import Optional as Optional
+from pyparsing import OneOrMore as OneOrMore
+from pyparsing import oneOf as oneOf
+from pyparsing import Literal as Literal
+from pyparsing import Group as Group
+from pyparsing import Forward as Forward
+from pyparsing import FollowedBy as FollowedBy
+from pyparsing import Empty as Empty
+from pyparsing import Combine as Combine
+from io import StringIO as StringIO
+from collections import namedtuple as namedtuple
 from types import SimpleNamespace
-from typing import Any
+from typing import ClassVar
 from typing import List
 from typing import Optional
 from typing import Tuple
@@ -14,6 +45,7 @@ from matplotlib._mathtext import BakomaFonts
 from matplotlib._mathtext import Box
 from matplotlib._mathtext import Char
 from matplotlib._mathtext import DejaVuFonts
+from matplotlib._mathtext import DejaVuSansFontConstants
 from matplotlib._mathtext import Fil
 from matplotlib._mathtext import Fill
 from matplotlib._mathtext import Filll
@@ -49,12 +81,22 @@ from matplotlib.ft2font import FT2Font
 from object import object
 from pyparsing import Empty
 
+_log: Logger
+from typing import Any
+
 
 def get_unicode_index(symbol: str,
                       math: bool = True) -> Union[int, Any]: ...
 
 
 class Fonts(object):
+    depth: Any
+    mathtext_backend: Any
+    used_characters: dict[Any, Any]
+    width: Any
+    default_font_prop: Any
+    height: Any
+
     def __init__(self: Fonts,
                  default_font_prop: Any,
                  mathtext_backend: Any) -> None: ...
@@ -123,6 +165,9 @@ class Fonts(object):
 
 
 class TruetypeFonts(Fonts):
+    glyphd: dict[Any, Any]
+    _fonts: dict[str, FT2Font]
+
     def __init__(self: TruetypeFonts,
                  default_font_prop: Any,
                  mathtext_backend: Any) -> None: ...
@@ -170,6 +215,12 @@ class TruetypeFonts(Fonts):
 
 
 class BakomaFonts(TruetypeFonts):
+    _fontmap: ClassVar[dict[str, str]]
+    _slanted_symbols: ClassVar[set[str]]
+    _size_alternatives: ClassVar[dict[Union[str, Any], Union[list[tuple[str, str]], Any]]]
+    _stix_fallback: StixFonts
+    fontmap: dict[str, str]
+
     def __init__(self: BakomaFonts,
                  *args,
                  **kwargs) -> None: ...
@@ -188,6 +239,11 @@ class BakomaFonts(TruetypeFonts):
 
 
 class UnicodeFonts(TruetypeFonts):
+    use_cmex: ClassVar[bool]
+    _slanted_symbols: ClassVar[set[str]]
+    fontmap: dict[Union[str, int], str]
+    cm_fallback: Union[StixFonts, StixSansFonts, BakomaFonts, None]
+
     def __init__(self: UnicodeFonts,
                  *args,
                  **kwargs) -> None: ...
@@ -212,6 +268,11 @@ class UnicodeFonts(TruetypeFonts):
 
 
 class DejaVuFonts(UnicodeFonts):
+    use_cmex: ClassVar[bool]
+    bakoma: BakomaFonts
+    fontmap: dict[Union[str, int], str]
+    cm_fallback: StixSansFonts
+
     def __init__(self: DejaVuFonts,
                  *args,
                  **kwargs) -> None: ...
@@ -226,14 +287,22 @@ class DejaVuFonts(UnicodeFonts):
 
 
 class DejaVuSerifFonts(DejaVuFonts):
+    _fontmap: ClassVar[dict[Union[str, int], str]]
     pass
 
 
 class DejaVuSansFonts(DejaVuFonts):
+    _fontmap: ClassVar[dict[Union[str, int], str]]
     pass
 
 
 class StixFonts(UnicodeFonts):
+    _fontmap: ClassVar[dict[Union[Union[str, int], Any], Union[str, Any]]]
+    use_cmex: ClassVar[bool]
+    cm_fallback: ClassVar[bool]
+    _sans: ClassVar[bool]
+    fontmap: dict[Union[Union[str, int], Any], str]
+
     def __init__(self: StixFonts,
                  *args,
                  **kwargs) -> None: ...
@@ -251,10 +320,17 @@ class StixFonts(UnicodeFonts):
 
 
 class StixSansFonts(StixFonts):
+    _sans: ClassVar[bool]
     pass
 
 
 class StandardPsFonts(Fonts):
+    basepath: ClassVar[str]
+    fontmap: ClassVar[dict[Optional[str], str]]
+    pswriter: ClassVar[Union[_deprecated_property, Any]]
+    glyphd: dict[Any, Any]
+    fonts: dict[str, AFM]
+
     def __init__(self: StandardPsFonts,
                  default_font_prop: Any,
                  mathtext_backend: Any = None) -> None: ...
@@ -292,24 +368,59 @@ class StandardPsFonts(Fonts):
                                 dpi: Any) -> Union[float, Any]: ...
 
 
+SHRINK_FACTOR: float
+GROW_FACTOR: float
+NUM_SIZE_LEVELS: int
+
+
 class FontConstantsBase(object):
+    script_space: ClassVar[float]
+    subdrop: ClassVar[float]
+    sup1: ClassVar[float]
+    sub1: ClassVar[float]
+    sub2: ClassVar[float]
+    delta: ClassVar[float]
+    delta_slanted: ClassVar[float]
+    delta_integral: ClassVar[float]
     pass
 
 
 class ComputerModernFontConstants(FontConstantsBase):
+    script_space: ClassVar[float]
+    subdrop: ClassVar[float]
+    sup1: ClassVar[float]
+    sub1: ClassVar[float]
+    sub2: ClassVar[float]
+    delta: ClassVar[float]
+    delta_slanted: ClassVar[float]
+    delta_integral: ClassVar[float]
     pass
 
 
 class STIXFontConstants(FontConstantsBase):
+    script_space: ClassVar[float]
+    sup1: ClassVar[float]
+    sub2: ClassVar[float]
+    delta: ClassVar[float]
+    delta_slanted: ClassVar[float]
+    delta_integral: ClassVar[float]
     pass
 
 
 class STIXSansFontConstants(FontConstantsBase):
+    script_space: ClassVar[float]
+    sup1: ClassVar[float]
+    delta_slanted: ClassVar[float]
+    delta_integral: ClassVar[float]
     pass
 
 
 class DejaVuSerifFontConstants(FontConstantsBase):
     pass
+
+
+_font_constant_mapping: dict[Union[str, Any], Union[
+    Type[Union[DejaVuSansFontConstants, DejaVuSerifFontConstants, ComputerModernFontConstants]], Any]]
 
 
 class DejaVuSansFontConstants(FontConstantsBase):
@@ -321,6 +432,8 @@ def _get_font_constant_set(state: Union[State, Any]) -> Union[Type[Union[
 
 
 class Node(object):
+    size: int
+
     def __init__(self: Node) -> None: ...
 
     def __repr__(self: Node) -> str: ...
@@ -338,6 +451,10 @@ class Node(object):
 
 
 class Box(Node):
+    depth: Union[float, Any]
+    width: Union[float, Any]
+    height: Union[float, Any]
+
     def __init__(self: Box,
                  width: Union[float, Any],
                  height: Union[float, Any],
@@ -366,6 +483,18 @@ class Hbox(Box):
 
 
 class Char(Node):
+    c: Any
+    depth: Any
+    width: Any
+    font_output: Any
+    fontsize: Any
+    math: bool
+    dpi: Any
+    _metrics: Any
+    font_class: Any
+    font: Any
+    height: Any
+
     def __init__(self: Char,
                  c: Any,
                  state: {font_output, font, font_class, fontsize, dpi},
@@ -390,6 +519,11 @@ class Char(Node):
 
 
 class Accent(Char):
+    depth: int
+    width: Any
+    _metrics: Any
+    height: Any
+
     def _update_metrics(self: Accent) -> None: ...
 
     def shrink(self: Accent) -> None: ...
@@ -402,6 +536,13 @@ class Accent(Char):
 
 
 class List(Box):
+    children: Union[Union[list[Union[Glue, Any]], list[Any], list[Char]], Any]
+    glue_set: float
+    shift_amount: float
+    glue_ratio: float
+    glue_order: int
+    glue_sign: int
+
     def __init__(self: List,
                  elements: Union[Union[list[Union[Glue, Any]], list[Any], list[Char]], Any]) -> None: ...
 
@@ -421,6 +562,14 @@ class List(Box):
 
 
 class Hlist(List):
+    depth: Union[float, Any]
+    children: list[Union[Union[Glue, Kern], Any]]
+    width: float
+    glue_ratio: float
+    glue_order: int
+    glue_sign: int
+    height: Union[float, Any]
+
     def __init__(self: Hlist,
                  elements: Union[list[Union[Glue, Any]], Any],
                  w: float = 0.,
@@ -435,6 +584,13 @@ class Hlist(List):
 
 
 class Vlist(List):
+    depth: float
+    width: Union[float, Any]
+    glue_ratio: float
+    glue_order: int
+    glue_sign: int
+    height: float
+
     def __init__(self: Vlist,
                  elements: Union[Union[list[Union[Glue, Any]], list[Any], list[Char]], Any],
                  h: float = 0.,
@@ -447,6 +603,8 @@ class Vlist(List):
 
 
 class Rule(Box):
+    font_output: Any
+
     def __init__(self: Rule,
                  width: Union[float, Any],
                  height: Any,
@@ -471,7 +629,14 @@ class Vrule(Rule):
                  state: {font_output}) -> None: ...
 
 
+_GlueSpec: Type[_GlueSpec]
+_named: dict[str, _GlueSpec]
+
+
 class Glue(Node):
+    glue_subtype: ClassVar[Union[_deprecated_property, Any]]
+    glue_spec: Union[Union[_GlueSpec, str], Any]
+
     @_api.delete_parameter("3.3", "copy")
     def __init__(self: Glue,
                  glue_type: Union[str, Any],
@@ -528,6 +693,10 @@ class VCentered(Vlist):
 
 
 class Kern(Node):
+    height: ClassVar[int]
+    depth: ClassVar[int]
+    width: Any
+
     def __init__(self: Kern,
                  width: Any) -> None: ...
 
@@ -539,10 +708,16 @@ class Kern(Node):
 
 
 class SubSuperCluster(Hlist):
+    super: None
+    sub: None
+    nucleus: None
+
     def __init__(self: SubSuperCluster) -> None: ...
 
 
 class AutoHeightChar(Hlist):
+    shift_amount: Union[int, Any]
+
     def __init__(self: AutoHeightChar,
                  c: Any,
                  height: {__add__},
@@ -553,6 +728,8 @@ class AutoHeightChar(Hlist):
 
 
 class AutoWidthChar(Hlist):
+    width: Any
+
     def __init__(self: AutoWidthChar,
                  c: Any,
                  width: {__truediv__},
@@ -562,6 +739,13 @@ class AutoWidthChar(Hlist):
 
 
 class Ship(object):
+    cur_h: float
+    max_push: int
+    off_h: Any
+    off_v: Any
+    cur_s: int
+    cur_v: float
+
     def __call__(self: Ship,
                  ox: Any,
                  oy: {__add__},
@@ -576,10 +760,39 @@ class Ship(object):
                   box: Union[List, Any]) -> Any: ...
 
 
+ship: Ship
+
+
 def Error(msg: Union[str, Any]) -> Empty: ...
 
 
 class Parser(object):
+    _binary_operators: ClassVar[set[str]]
+    _relation_symbols: ClassVar[set[str]]
+    _arrow_symbols: ClassVar[set[str]]
+    _spaced_symbols: ClassVar[set[str]]
+    _punctuation_symbols: ClassVar[set[str]]
+    _overunder_symbols: ClassVar[set[str]]
+    _overunder_functions: ClassVar[set[str]]
+    _dropsub_symbols: ClassVar[set[str]]
+    _fontnames: ClassVar[set[str]]
+    _function_names: ClassVar[set[str]]
+    _ambi_delim: ClassVar[set[str]]
+    _left_delim: ClassVar[set[str]]
+    _right_delim: ClassVar[set[str]]
+    _space_widths: ClassVar[dict[Union[str, Any], Union[Union[float, int], Any]]]
+    accentprefixed: ClassVar[Callable[[Parser, Any, Any, Any], Union[list[Char], list[Hlist]]]]
+    _char_over_chars: ClassVar[dict[str, tuple[tuple[str, str, float], tuple[None, str, float], float]]]
+    _accent_map: ClassVar[dict[Union[str, Any], Union[str, Any]]]
+    _wide_accents: ClassVar[set[str]]
+    _accentprefixed: ClassVar[list[Union[str, Any]]]
+    required_group: ClassVar[Callable[[Parser, Any, Any, {__getitem__}], list[Hlist]]]
+    simple_group: ClassVar[Callable[[Parser, Any, Any, {__getitem__}], list[Hlist]]]
+    _state_stack: list[State]
+    _math_expression: Forward
+    _em_width_cache: dict[Any, Any]
+    _expression: Forward
+
     def __init__(self: Parser) -> None: ...
 
     def parse(self: Parser,

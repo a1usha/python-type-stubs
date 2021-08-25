@@ -1,4 +1,12 @@
+from matplotlib._cm_listed import cmaps as cmaps_listed
+from matplotlib._cm import datad as datad
+from matplotlib import cbook as cbook
+from matplotlib import colors as colors
+from matplotlib import _api as _api
+from numpy import ma as ma
+from collections.abc import MutableMapping as MutableMapping
 from typing import Any
+from typing import ClassVar
 from typing import Iterator
 from typing import MutableMapping
 from typing import Optional
@@ -14,11 +22,16 @@ from matplotlib.colors import ListedColormap
 from numpy.core._multiarray_umath import ndarray
 from object import object
 
+LUTSIZE: Optional[Any]
+from typing import Any
+
 
 def _gen_cmap_registry() -> dict[Union[str, Any], Union[Union[LinearSegmentedColormap, ListedColormap], Any]]: ...
 
 
 class _DeprecatedCmapDictWrapper(MutableMapping):
+    _cmap_registry: Any
+
     def __init__(self: _DeprecatedCmapDictWrapper,
                  cmap_registry: Any) -> None: ...
 
@@ -43,6 +56,11 @@ class _DeprecatedCmapDictWrapper(MutableMapping):
     def _warn_deprecated(self: _DeprecatedCmapDictWrapper) -> None: ...
 
 
+_cmap_registry: dict[Union[str, Any], Union[Union[LinearSegmentedColormap, ListedColormap], Any]]
+cmap_d: _DeprecatedCmapDictWrapper
+__builtin_cmaps: tuple[Union[str, Any], ...]
+
+
 def register_cmap(name: Optional[str] = None,
                   cmap: Colormap = None,
                   *,
@@ -57,6 +75,15 @@ def unregister_cmap(name: str) -> Union[Union[None, LinearSegmentedColormap, Lis
 
 
 class ScalarMappable(object):
+    update_dict: ClassVar[deprecate_privatize_attribute]
+    _A: None
+    stale: bool
+    colorbar: None
+    cmap: None
+    callbacksSM: CallbackRegistry
+    _update_dict: dict[str, bool]
+    norm: None
+
     def __init__(self: ScalarMappable,
                  norm: Any = None,
                  cmap: Any = None) -> None: ...

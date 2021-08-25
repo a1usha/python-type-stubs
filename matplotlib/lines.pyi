@@ -1,4 +1,39 @@
-from typing import Any
+from markers import TICKDOWN as TICKDOWN
+from markers import TICKUP as TICKUP
+from markers import TICKRIGHT as TICKRIGHT
+from markers import TICKLEFT as TICKLEFT
+from markers import CARETDOWNBASE as CARETDOWNBASE
+from markers import CARETUPBASE as CARETUPBASE
+from markers import CARETRIGHTBASE as CARETRIGHTBASE
+from markers import CARETLEFTBASE as CARETLEFTBASE
+from markers import CARETDOWN as CARETDOWN
+from markers import CARETUP as CARETUP
+from markers import CARETRIGHT as CARETRIGHT
+from markers import CARETLEFT as CARETLEFT
+from matplotlib import _path as _path
+from _enums import CapStyle as CapStyle
+from _enums import JoinStyle as JoinStyle
+from transforms import TransformedPath as TransformedPath
+from transforms import BboxTransformTo as BboxTransformTo
+from transforms import Bbox as Bbox
+from path import Path as Path
+from markers import MarkerStyle as MarkerStyle
+from cbook import STEP_LOOKUP_MAP as STEP_LOOKUP_MAP
+from cbook import ls_mapper_r as ls_mapper_r
+from cbook import ls_mapper as ls_mapper
+from cbook import _to_unmasked_float_array as _to_unmasked_float_array
+from artist import allow_rasterization as allow_rasterization
+from artist import Artist as Artist
+from matplotlib import rcParams as rcParams
+from matplotlib import docstring as docstring
+from matplotlib import colors as mcolors
+from matplotlib import cbook as cbook
+from matplotlib import artist as artist
+from matplotlib import _api as _api
+from numbers import Real as Real
+from numbers import Number as Number
+from numbers import Integral as Integral
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Sized
@@ -18,6 +53,9 @@ from matplotlib.transforms import CompositeGenericTransform
 from matplotlib.transforms import Transform
 from numpy.core._multiarray_umath import ndarray
 from object import object
+
+_log: Logger
+from typing import Any
 
 
 def _get_dash_pattern(style: Union[str, Any]) -> Tuple[Union[int, Any], Optional[Tuple]]: ...
@@ -43,6 +81,56 @@ def _mark_every_path(markevery: Any,
 
 
 class Line2D(Artist):
+    lineStyles: ClassVar[dict[str, str]]
+    _lineStyles: ClassVar[dict[str, str]]
+    _drawStyles_l: ClassVar[dict[str, str]]
+    _drawStyles_s: ClassVar[dict[str, str]]
+    drawStyles: ClassVar[dict[Any, Any]]
+    drawStyleKeys: ClassVar[list[Any]]
+    markers: ClassVar[dict[Union[str, Any], Union[str, Any]]]
+    filled_markers: ClassVar[tuple[str, str, str, str, str, str, str, str, str, str, str, str, str, str, str]]
+    fillStyles: ClassVar[tuple[str, str, str, str, str, str]]
+    zorder: ClassVar[int]
+    pickradius: ClassVar[property]
+    _us_dashOffset: int
+    _yorig: ndarray
+    _x_filled: None
+    _solidcapstyle: None
+    _transformed_path: None
+    _markerfacecoloralt: None
+    _xorig: ndarray
+    _invalidy: bool
+    _linewidth: Optional[Any]
+    _markerfacecolor: None
+    _invalidx: bool
+    stale: bool
+    ind_offset: int
+    _us_dashSeq: None
+    _dashcapstyle: None
+    _xy: None
+    pickradius: Number
+    _marker: MarkerStyle
+    _dashSeq: None
+    _color: None
+    _picker: Union[Callable, Any]
+    _path: None
+    _dashOffset: int
+    _contains: Callable
+    _solidjoinstyle: None
+    _linestyles: None
+    _markersize: None
+    _dashjoinstyle: None
+    _antialiased: None
+    _linestyle: Union[str, Any]
+    _drawstyle: None
+    _markevery: None
+    _subslice: bool
+    _x: None
+    _y: None
+    _markeredgecolor: None
+    _pickradius: float
+    _markeredgewidth: None
+
     @_api.deprecated("3.4")
     @_api.classproperty
     def validCap(cls: Line2D) -> Union[Tuple[Any, ...], Any]: ...
@@ -233,6 +321,11 @@ class Line2D(Artist):
 
 
 class _AxLine(Line2D):
+    _xy1: Any
+    _transformed_path: None
+    _slope: None
+    _xy2: None
+
     def __init__(self: _AxLine,
                  xy1: Any,
                  xy2: Any,
@@ -247,6 +340,12 @@ class _AxLine(Line2D):
 
 
 class VertexSelector(object):
+    canvas: Any
+    line: {axes, get_picker}
+    axes: Any
+    ind: set[Any]
+    cid: Any
+
     def __init__(self: VertexSelector,
                  line: {axes, get_picker}) -> Any: ...
 
@@ -257,3 +356,9 @@ class VertexSelector(object):
 
     def onpick(self: VertexSelector,
                event: {artist, ind}) -> None: ...
+
+
+lineStyles: dict[str, str]
+lineMarkers: dict[Union[str, Any], Union[str, Any]]
+drawStyles: dict[Any, Any]
+fillStyles: tuple[str, str, str, str, str, str]

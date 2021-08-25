@@ -1,3 +1,5 @@
+from matplotlib import cm as cm
+from matplotlib import _api as _api
 from typing import Any
 from typing import Callable
 from typing import Generator
@@ -14,6 +16,9 @@ from matplotlib.streamplot import StreamplotSet
 from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedConstant
 from object import object
+
+__all__: Any
+from typing import Any
 
 
 def streamplot(axes: {add_patch, add_collection, autoscale_view},
@@ -37,6 +42,9 @@ def streamplot(axes: {add_patch, add_collection, autoscale_view},
 
 
 class StreamplotSet(object):
+    arrows: Any
+    lines: Any
+
     def __init__(self: StreamplotSet,
                  lines: Any,
                  arrows: Any,
@@ -44,6 +52,15 @@ class StreamplotSet(object):
 
 
 class DomainMap(object):
+    y_mask2grid: Union[float, Any]
+    grid: {nx, ny, dx, dy}
+    x_grid2mask: Union[float, Any]
+    y_data2grid: Union[float, Any]
+    x_mask2grid: Union[float, Any]
+    x_data2grid: Union[float, Any]
+    y_grid2mask: Union[float, Any]
+    mask: {nx, ny}
+
     def __init__(self: DomainMap,
                  grid: {nx, ny, dx, dy},
                  mask: {nx, ny}) -> None: ...
@@ -80,6 +97,15 @@ class DomainMap(object):
 
 
 class Grid(object):
+    x_origin: Any
+    y_origin: Any
+    dx: Any
+    dy: Any
+    width: Any
+    nx: int
+    ny: int
+    height: Any
+
     def __init__(self: Grid,
                  x: {ndim, __len__, __getitem__},
                  y: {ndim, __len__, __getitem__}) -> Any: ...
@@ -92,6 +118,13 @@ class Grid(object):
 
 
 class StreamMask(object):
+    _current_xy: None
+    shape: tuple
+    _mask: ndarray
+    _traj: list[Any]
+    nx: Any
+    ny: Any
+
     def __init__(self: StreamMask,
                  density: Any) -> Any: ...
 

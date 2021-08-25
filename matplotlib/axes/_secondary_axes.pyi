@@ -1,3 +1,6 @@
+from matplotlib.axes._base import _TransformedBoundsLocator as _TransformedBoundsLocator
+from matplotlib.axes._base import _AxesBase as _AxesBase
+from matplotlib import _api as _api
 from typing import Any
 from typing import Iterable
 from typing import Optional
@@ -8,6 +11,18 @@ from matplotlib.axes._secondary_axes import SecondaryAxis
 
 
 class SecondaryAxis(_AxesBase):
+    _locstrings: list[str]
+    _parentscale: None
+    _parent: Any
+    stale: bool
+    _ticks_set: bool
+    _axis: YAxis
+    _otherstrings: list[str]
+    _pos: float
+    _functions: Any
+    _loc: str
+    _orientation: Any
+
     def __init__(self: SecondaryAxis,
                  parent: Any,
                  orientation: Any,
@@ -46,3 +61,6 @@ class SecondaryAxis(_AxesBase):
 
     def set_color(self: SecondaryAxis,
                   color: Any) -> None: ...
+
+
+_secax_docstring: str

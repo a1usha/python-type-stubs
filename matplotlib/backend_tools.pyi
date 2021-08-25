@@ -1,6 +1,13 @@
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from matplotlib._pylab_helpers import Gcf as Gcf
+from weakref import WeakKeyDictionary as WeakKeyDictionary
+from types import SimpleNamespace as SimpleNamespace
+from enum import IntEnum as IntEnum
 from enum import IntEnum
 from types import SimpleNamespace
 from typing import Any
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Union
@@ -32,12 +39,28 @@ from matplotlib.backend_tools import _ToolEnableAllNavigation
 from matplotlib.backend_tools import _ToolEnableNavigation
 from object import object
 
+cursors: Type[Cursors]
+
+_views_positions: str
+
 
 class Cursors(IntEnum):
+    HAND: ClassVar[Cursors]
+    POINTER: ClassVar[Cursors]
+    SELECT_REGION: ClassVar[Cursors]
+    MOVE: ClassVar[Cursors]
+    WAIT: ClassVar[Cursors]
     pass
 
 
 class ToolBase(object):
+    default_keymap: ClassVar[None]
+    description: ClassVar[None]
+    image: ClassVar[None]
+    _name: Any
+    _figure: None
+    _toolmanager: Any
+
     def __init__(self: ToolBase,
                  toolmanager: Any,
                  name: Any) -> None: ...
@@ -67,6 +90,11 @@ class ToolBase(object):
 
 
 class ToolToggleBase(ToolBase):
+    radio_group: ClassVar[None]
+    cursor: ClassVar[None]
+    default_toggled: ClassVar[bool]
+    _toggled: Union[bool, Any]
+
     def __init__(self: ToolToggleBase,
                  *args,
                  **kwargs) -> None: ...
@@ -89,6 +117,11 @@ class ToolToggleBase(ToolBase):
 
 
 class SetCursorBase(ToolBase):
+    _cursor: None
+    _id_drag: None
+    _last_cursor: Cursors
+    _default_cursor: Cursors
+
     def __init__(self: SetCursorBase,
                  *args,
                  **kwargs) -> None: ...
@@ -113,6 +146,8 @@ class SetCursorBase(ToolBase):
 
 
 class ToolCursorPosition(ToolBase):
+    _id_drag: None
+
     def __init__(self: ToolCursorPosition,
                  *args,
                  **kwargs) -> None: ...
@@ -137,6 +172,9 @@ class RubberbandBase(ToolBase):
 
 
 class ToolQuit(ToolBase):
+    description: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
+
     def trigger(self: ToolQuit,
                 sender: object,
                 event: Any,
@@ -144,6 +182,9 @@ class ToolQuit(ToolBase):
 
 
 class ToolQuitAll(ToolBase):
+    description: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
+
     def trigger(self: ToolQuitAll,
                 sender: object,
                 event: Any,
@@ -151,6 +192,9 @@ class ToolQuitAll(ToolBase):
 
 
 class _ToolEnableAllNavigation(ToolBase):
+    description: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
+
     def trigger(self: _ToolEnableAllNavigation,
                 sender: object,
                 event: Any,
@@ -163,6 +207,9 @@ class ToolEnableAllNavigation(_ToolEnableAllNavigation):
 
 
 class _ToolEnableNavigation(ToolBase):
+    description: ClassVar[str]
+    default_keymap: ClassVar[tuple[str, str, str, str, str, str, str, str, str]]
+
     def trigger(self: _ToolEnableNavigation,
                 sender: object,
                 event: Any,
@@ -175,6 +222,9 @@ class ToolEnableNavigation(_ToolEnableNavigation):
 
 
 class ToolGrid(ToolBase):
+    description: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
+
     def trigger(self: ToolGrid,
                 sender: object,
                 event: {__dict__},
@@ -182,6 +232,9 @@ class ToolGrid(ToolBase):
 
 
 class ToolMinorGrid(ToolBase):
+    description: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
+
     def trigger(self: ToolMinorGrid,
                 sender: object,
                 event: {__dict__},
@@ -189,6 +242,9 @@ class ToolMinorGrid(ToolBase):
 
 
 class ToolFullScreen(ToolToggleBase):
+    description: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
+
     def enable(self: ToolFullScreen,
                event: Union[Optional[{inaxes}], Any]) -> None: ...
 
@@ -210,18 +266,28 @@ class AxisScaleBase(ToolToggleBase):
 
 
 class ToolYScale(AxisScaleBase):
+    description: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
+
     def set_scale(self: ToolYScale,
                   ax: {set_yscale},
                   scale: Any) -> None: ...
 
 
 class ToolXScale(AxisScaleBase):
+    description: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
+
     def set_scale(self: ToolXScale,
                   ax: {set_xscale},
                   scale: Any) -> None: ...
 
 
 class ToolViewsPositions(ToolBase):
+    positions: WeakKeyDictionary
+    home_views: WeakKeyDictionary
+    views: WeakKeyDictionary
+
     def __init__(self: ToolViewsPositions,
                  *args,
                  **kwargs) -> None: ...
@@ -256,6 +322,8 @@ class ToolViewsPositions(ToolBase):
 
 
 class ViewsPositionsBase(ToolBase):
+    _on_trigger: ClassVar[None]
+
     def trigger(self: ViewsPositionsBase,
                 sender: object,
                 event: Any,
@@ -263,26 +331,52 @@ class ViewsPositionsBase(ToolBase):
 
 
 class ToolHome(ViewsPositionsBase):
+    description: ClassVar[str]
+    image: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
+    _on_trigger: ClassVar[str]
     pass
 
 
 class ToolBack(ViewsPositionsBase):
+    description: ClassVar[str]
+    image: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
+    _on_trigger: ClassVar[str]
     pass
 
 
 class ToolForward(ViewsPositionsBase):
+    description: ClassVar[str]
+    image: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
+    _on_trigger: ClassVar[str]
     pass
 
 
 class ConfigureSubplotsBase(ToolBase):
+    description: ClassVar[str]
+    image: ClassVar[str]
     pass
 
 
 class SaveFigureBase(ToolBase):
+    description: ClassVar[str]
+    image: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
     pass
 
 
 class ZoomPanBase(ToolToggleBase):
+    _xypress: None
+    _idPress: None
+    scrollthresh: float
+    _button_pressed: None
+    lastscroll: float
+    base_scale: float
+    _idRelease: None
+    _idScroll: None
+
     def __init__(self: ZoomPanBase,
                  *args) -> None: ...
 
@@ -302,6 +396,16 @@ class ZoomPanBase(ToolToggleBase):
 
 
 class ToolZoom(ZoomPanBase):
+    description: ClassVar[str]
+    image: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
+    cursor: ClassVar[Cursors]
+    radio_group: ClassVar[str]
+    _zoom_mode: Any
+    _xypress: None
+    _button_pressed: None
+    _ids_zoom: list[Any]
+
     def __init__(self: ToolZoom,
                  *args) -> None: ...
 
@@ -324,6 +428,15 @@ class ToolZoom(ZoomPanBase):
 
 
 class ToolPan(ZoomPanBase):
+    default_keymap: ClassVar[Optional[Any]]
+    description: ClassVar[str]
+    image: ClassVar[str]
+    cursor: ClassVar[Cursors]
+    radio_group: ClassVar[str]
+    _id_drag: None
+    _xypress: list[Any]
+    _button_pressed: None
+
     def __init__(self: ToolPan,
                  *args) -> None: ...
 
@@ -340,6 +453,10 @@ class ToolPan(ZoomPanBase):
 
 
 class ToolHelpBase(ToolBase):
+    description: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
+    image: ClassVar[str]
+
     def format_shortcut(key_sequence: {__len__}) -> Union[{__len__}, str]: ...
 
     def _format_tool_keymap(self: ToolHelpBase,
@@ -353,9 +470,19 @@ class ToolHelpBase(ToolBase):
 
 
 class ToolCopyToClipboardBase(ToolBase):
+    description: ClassVar[str]
+    default_keymap: ClassVar[Optional[Any]]
+
     def trigger(self: ToolCopyToClipboardBase,
                 *args,
                 **kwargs) -> None: ...
+
+
+default_tools: dict[Union[str, Any], Union[Union[
+                                               Type[ToolHome], Type[ToolBack], Type[ToolForward], Type[ToolZoom], Type[
+                                                   ToolPan], str, Type[ToolGrid], Type[ToolMinorGrid], Type[
+                                                   ToolFullScreen]], Any]]
+default_toolbar_tools: list[list[Union[str, list[str]]]]
 
 
 def add_tools_to_manager(toolmanager: Any,

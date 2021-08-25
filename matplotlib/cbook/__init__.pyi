@@ -1,3 +1,8 @@
+from matplotlib._api.deprecation import mplDeprecation as mplDeprecation
+from matplotlib._api.deprecation import MatplotlibDeprecationWarning as MatplotlibDeprecationWarning
+from matplotlib import _c_internal_utils as _c_internal_utils
+from matplotlib import _api as _api
+from pathlib import Path as Path
 from _weakref import ReferenceType
 from functools import partial
 from gzip import GzipFile
@@ -51,6 +56,8 @@ def _exception_printer(exc: Any) -> Any: ...
 
 
 class _StrongRef(object):
+    _obj: Any
+
     def __init__(self: _StrongRef,
                  obj: Any) -> None: ...
 
@@ -69,6 +76,12 @@ def _weak_or_strong_ref(func: {__self__, __func__},
 
 
 class CallbackRegistry(object):
+    _pickled_cids: set[Any]
+    exception_handler: Optional[Callable]
+    _cid_gen: count[int]
+    callbacks: dict[Any, Any]
+    _func_cid_map: dict[Any, Any]
+
     def __init__(self: CallbackRegistry,
                  exception_handler: Optional[Callable] = _exception_printer) -> None: ...
 
@@ -97,6 +110,8 @@ class CallbackRegistry(object):
 
 
 class silent_list(list):
+    type: Any
+
     def __init__(self: silent_list,
                  type: Any,
                  seq: Any = None) -> None: ...
@@ -159,11 +174,19 @@ def flatten(seq: {__iter__},
             scalarp: Callable[[Any], bool] = is_scalar_or_string) -> Generator[Optional[Any], Any, None]: ...
 
 
+_find_dedent_regex: Pattern[str]
+
+_dedent_regex: dict[Any, Any]
+
+
 @_api.deprecated("3.3", alternative="os.path.realpath and os.stat")
 def get_realpath_and_stat(path: Any) -> Union[Tuple[Union[Union[str, bytes], Any], Tuple[int, int]], Any]: ...
 
 
 class maxdict(dict):
+    _killkeys: list[Any]
+    maxsize: Any
+
     def __init__(self: maxdict,
                  maxsize: Any) -> None: ...
 
@@ -173,6 +196,10 @@ class maxdict(dict):
 
 
 class Stack(object):
+    _default: Any
+    _elements: list[Any]
+    _pos: int
+
     def __init__(self: Stack,
                  default: Any = None) -> None: ...
 
@@ -216,6 +243,8 @@ def print_cycles(objects: {__iter__},
 
 
 class Grouper(object):
+    _mapping: dict
+
     def __init__(self: Grouper,
                  init: Union[tuple, Any] = ()) -> None: ...
 
@@ -249,6 +278,11 @@ def delete_masked_points(*args) -> Union[Tuple, list[Union[Union[MaskedArray, nd
 
 
 def _combine_masks(*args) -> Union[Tuple, list[Union[Union[ndarray, Iterable, int, float, None], Any]]]: ...
+
+
+ls_mapper: dict[str, str]
+
+ls_mapper_r: dict
 
 
 def boxplot_stats(X: Union[ndarray, Iterable, int, float],
@@ -288,6 +322,12 @@ def pts_to_prestep(*args,
 
 def pts_to_poststep(*args,
                     x: Union[ndarray, Iterable, int, float]) -> array.pyi: ...
+
+
+STEP_LOOKUP_MAP: dict[str, Union[
+    Callable[[Any, Any], tuple[Any, Any]], Callable[[Union[ndarray, Iterable, int, float], tuple[Any, ...]], array.pyi],
+    Callable[[Union[ndarray, Iterable, int, float], tuple[Any, ...]], array.pyi], Callable[
+        [Union[ndarray, Iterable, int, float], tuple[Any, ...]], array.pyi]]]
 
 
 def pts_to_midstep(*args,
@@ -353,6 +393,8 @@ def _setattr_cm(obj: {__dict__},
 
 
 class _OrderedSet(MutableSet):
+    _od: OrderedDict[Any, Any]
+
     def __init__(self: _OrderedSet) -> None: ...
 
     def __contains__(self: _OrderedSet,

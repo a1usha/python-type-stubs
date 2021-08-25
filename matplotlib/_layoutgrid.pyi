@@ -1,12 +1,39 @@
-from typing import Any
+from matplotlib.transforms import Bbox as Bbox
 from typing import Union
 
 from matplotlib._layoutgrid import LayoutGrid
 from matplotlib.transforms import Bbox
 from object import object
 
+_log: Logger
+from typing import Any
+
 
 class LayoutGrid(object):
+    parent: Any
+    parent_inner: bool
+    margins: dict[str, Union[list[Variable], ndarray]]
+    nrows: int
+    height_ratios: ndarray
+    tops: list[Variable]
+    widths: list[Variable]
+    lefts: list[Variable]
+    bottoms: list[Variable]
+    parent_pos: Union[tuple[int, int], Any]
+    inner_heights: list[Variable]
+    width_ratios: ndarray
+    w_pad: Any
+    artists: ndarray
+    children: ndarray
+    heights: list[Variable]
+    rights: list[Variable]
+    name: str
+    margin_vals: dict[str, ndarray]
+    h_pad: Any
+    inner_widths: list[Variable]
+    ncols: int
+    solver: Any
+
     def __init__(self: LayoutGrid,
                  parent: Any = None,
                  parent_pos: Union[tuple[int, int], Any] = (0, 0),
@@ -91,6 +118,9 @@ class LayoutGrid(object):
                             cols: int = 0) -> Bbox: ...
 
     def update_variables(self: LayoutGrid) -> None: ...
+
+
+_layoutboxobjnum: count[int]
 
 
 def seq_id() -> str: ...

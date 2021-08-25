@@ -1,3 +1,8 @@
+from matplotlib.path import Path as Path
+from matplotlib import transforms as mtransforms
+from matplotlib import patches as mpatches
+from matplotlib import colors as mcolors
+from matplotlib.backend_bases import RendererBase as RendererBase
 from typing import Any
 from typing import Type
 from typing import Union
@@ -17,6 +22,8 @@ from object import object
 
 
 class AbstractPathEffect(object):
+    _offset: int
+
     def __init__(self: AbstractPathEffect,
                  offset: int = (0., 0.)) -> None: ...
 
@@ -38,6 +45,9 @@ class AbstractPathEffect(object):
 
 
 class PathEffectRenderer(RendererBase):
+    _path_effects: Any
+    _renderer: Any
+
     def __init__(self: PathEffectRenderer,
                  path_effects: Any,
                  renderer: Any) -> None: ...
@@ -90,6 +100,8 @@ def _subclass_with_normal(effect_class: Union[Type[Union[Stroke, SimplePatchShad
 
 
 class Stroke(AbstractPathEffect):
+    _gc: dict[str, Any]
+
     def __init__(self: Stroke,
                  offset: int = (0, 0),
                  **kwargs) -> None: ...
@@ -102,7 +114,15 @@ class Stroke(AbstractPathEffect):
                   rgbFace: Any) -> None: ...
 
 
+withStroke: Type[withEffect]
+
+
 class SimplePatchShadow(AbstractPathEffect):
+    _rho: float
+    _alpha: float
+    _gc: dict[str, Any]
+    _shadow_rgbFace: Union[Iterable, tuple]
+
     def __init__(self: SimplePatchShadow,
                  offset: Any = (2, -2),
                  shadow_rgbFace: Any = None,
@@ -118,7 +138,15 @@ class SimplePatchShadow(AbstractPathEffect):
                   rgbFace: Any) -> None: ...
 
 
+withSimplePatchShadow: Type[withEffect]
+
+
 class SimpleLineShadow(AbstractPathEffect):
+    _shadow_color: Union[Iterable, tuple]
+    _rho: float
+    _alpha: float
+    _gc: dict[str, Any]
+
     def __init__(self: SimpleLineShadow,
                  offset: Any = (2, -2),
                  shadow_color: Any = 'k',
@@ -135,6 +163,8 @@ class SimpleLineShadow(AbstractPathEffect):
 
 
 class PathPatchEffect(AbstractPathEffect):
+    patch: PathPatch
+
     def __init__(self: PathPatchEffect,
                  offset: int = (0, 0),
                  **kwargs) -> None: ...
@@ -148,6 +178,11 @@ class PathPatchEffect(AbstractPathEffect):
 
 
 class TickedStroke(AbstractPathEffect):
+    _angle: float
+    _spacing: float
+    _gc: dict[str, Any]
+    _length: float
+
     def __init__(self: TickedStroke,
                  offset: int = (0, 0),
                  spacing: float = 10.0,
@@ -161,3 +196,6 @@ class TickedStroke(AbstractPathEffect):
                   tpath: Any,
                   affine: {__add__, transform_path, inverted},
                   rgbFace: Any) -> None: ...
+
+
+withTickedStroke: Type[withEffect]

@@ -1,3 +1,5 @@
+from matplotlib.tri import Triangulation as Triangulation
+from matplotlib import _api as _api
 from typing import Any
 from typing import Union
 
@@ -7,11 +9,15 @@ from object import object
 
 
 class TriFinder(object):
+    _triangulation: Union[{get_cpp_triangulation}, Any]
+
     def __init__(self: TriFinder,
                  triangulation: Union[{get_cpp_triangulation}, Any]) -> None: ...
 
 
 class TrapezoidMapTriFinder(TriFinder):
+    _cpp_trifinder: TrapezoidMapTriFinder
+
     def __init__(self: TrapezoidMapTriFinder,
                  triangulation: {get_cpp_triangulation}) -> None: ...
 

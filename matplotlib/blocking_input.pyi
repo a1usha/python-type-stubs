@@ -1,4 +1,7 @@
-from typing import Any
+from matplotlib.backend_bases import MouseButton as MouseButton
+from matplotlib import _api as _api
+from numbers import Integral as Integral
+from typing import ClassVar
 from typing import Union
 
 from matplotlib.backend_bases import MouseButton
@@ -8,8 +11,18 @@ from matplotlib.blocking_input import BlockingKeyMouseInput
 from matplotlib.blocking_input import BlockingMouseInput
 from object import object
 
+_log: Logger
+from typing import Any
+
 
 class BlockingInput(object):
+    pop: ClassVar[Callable[[BlockingInput, int], None]]
+    fig: Any
+    eventslist: Union[tuple, Any]
+    callbacks: list[Any]
+    n: int
+    events: list[Any]
+
     def __init__(self: BlockingInput,
                  fig: Any,
                  eventslist: Union[tuple, Any] = ()) -> None: ...
@@ -33,6 +46,16 @@ class BlockingInput(object):
 
 
 class BlockingMouseInput(BlockingInput):
+    button_add: ClassVar[MouseButton]
+    button_pop: ClassVar[MouseButton]
+    button_stop: ClassVar[MouseButton]
+    button_pop: MouseButton
+    show_clicks: bool
+    button_add: MouseButton
+    clicks: list[Any]
+    marks: list[Any]
+    button_stop: MouseButton
+
     def __init__(self: BlockingMouseInput,
                  fig: Any,
                  mouse_add: MouseButton = MouseButton.LEFT,
@@ -75,6 +98,10 @@ class BlockingMouseInput(BlockingInput):
 
 
 class BlockingContourLabeler(BlockingMouseInput):
+    cs: {axes}
+    inline: Any
+    inline_spacing: int
+
     def __init__(self: BlockingContourLabeler,
                  cs: {axes}) -> None: ...
 
@@ -99,6 +126,8 @@ class BlockingContourLabeler(BlockingMouseInput):
 
 
 class BlockingKeyMouseInput(BlockingInput):
+    keyormouse: Union[bool, Any]
+
     def __init__(self: BlockingKeyMouseInput,
                  fig: Any) -> None: ...
 

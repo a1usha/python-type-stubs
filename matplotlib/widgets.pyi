@@ -1,5 +1,17 @@
+from patches import Ellipse as Ellipse
+from patches import Rectangle as Rectangle
+from patches import Circle as Circle
+from lines import Line2D as Line2D
+from matplotlib import ticker as ticker
+from matplotlib import colors as colors
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from numbers import Number as Number
+from numbers import Integral as Integral
+from contextlib import ExitStack as ExitStack
 from typing import Any
 from typing import Callable
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Tuple
@@ -33,6 +45,8 @@ from object import object
 
 
 class LockDraw(object):
+    _owner: None
+
     def __init__(self: LockDraw) -> None: ...
 
     def __call__(self: LockDraw,
@@ -51,6 +65,12 @@ class LockDraw(object):
 
 
 class Widget(object):
+    drawon: ClassVar[bool]
+    eventson: ClassVar[bool]
+    _active: ClassVar[bool]
+    active: ClassVar[property]
+    _active: Any
+
     def set_active(self: Widget,
                    active: Any) -> None: ...
 
@@ -67,6 +87,11 @@ class Widget(object):
 
 
 class AxesWidget(Widget):
+    cids: ClassVar[Union[_deprecated_property, Any]]
+    canvas: Any
+    ax: Union[Union[{name, set_xticks, set_yticks, set_navigate}, Axes], Any]
+    _cids: list[Any]
+
     def __init__(self: AxesWidget,
                  ax: Union[Union[{name, set_xticks, set_yticks, set_navigate}, Axes], Any]) -> None: ...
 
@@ -86,6 +111,13 @@ class AxesWidget(Widget):
 
 
 class Button(AxesWidget):
+    cnt: ClassVar[Union[_deprecated_property, Any]]
+    observers: ClassVar[Union[_deprecated_property, Any]]
+    color: Any
+    hovercolor: Any
+    _observers: CallbackRegistry
+    label: Any
+
     def __init__(self: Button,
                  ax: Any,
                  label: str,
@@ -110,6 +142,17 @@ class Button(AxesWidget):
 
 
 class SliderBase(AxesWidget):
+    valstep: Union[Union[float, ndarray, Iterable, int], Any]
+    drag_active: bool
+    orientation: Union[str, Any]
+    _fmt: ScalarFormatter
+    closedmin: Any
+    valmin: Any
+    valmax: Any
+    valfmt: Any
+    _observers: CallbackRegistry
+    closedmax: Any
+
     def __init__(self: SliderBase,
                  ax: Union[Axes, Any],
                  orientation: Union[str, Any],
@@ -131,6 +174,19 @@ class SliderBase(AxesWidget):
 
 
 class Slider(SliderBase):
+    cnt: ClassVar[Union[_deprecated_property, Any]]
+    observers: ClassVar[Union[_deprecated_property, Any]]
+    val: Union[float, int]
+    hline: Any
+    drag_active: bool
+    valtext: Any
+    slidermin: None
+    slidermax: None
+    poly: Any
+    valinit: Union[float, int]
+    vline: Any
+    label: Any
+
     def __init__(self: Slider,
                  ax: Any,
                  label: str,
@@ -166,6 +222,13 @@ class Slider(SliderBase):
 
 
 class RangeSlider(SliderBase):
+    val: Union[ndarray, tuple[Union[Union[float, int], Any], Union[Union[float, int], Any]]]
+    drag_active: bool
+    valtext: Any
+    poly: Any
+    valinit: Union[ndarray, tuple[Union[Union[float, int], Any], Union[Union[float, int], Any]]]
+    label: Any
+
     def __init__(self: RangeSlider,
                  ax: Any,
                  label: str,
@@ -214,6 +277,13 @@ class RangeSlider(SliderBase):
 
 
 class CheckButtons(AxesWidget):
+    cnt: ClassVar[Union[_deprecated_property, Any]]
+    observers: ClassVar[Union[_deprecated_property, Any]]
+    rectangles: list[Rectangle]
+    _observers: CallbackRegistry
+    lines: list[tuple[Line2D, Line2D]]
+    labels: list[Any]
+
     def __init__(self: CheckButtons,
                  ax: Any,
                  labels: Iterable[str],
@@ -235,6 +305,21 @@ class CheckButtons(AxesWidget):
 
 
 class TextBox(AxesWidget):
+    params_to_disable: ClassVar[Union[_deprecated_property, Any]]
+    cnt: ClassVar[Union[_deprecated_property, Any]]
+    change_observers: ClassVar[Union[_deprecated_property, Any]]
+    submit_observers: ClassVar[Union[_deprecated_property, Any]]
+    cursor: Any
+    _on_stop_typing: Callable[[], None]
+    DIST_FROM_LEFT: float
+    cursor_index: int
+    text_disp: Any
+    color: Any
+    hovercolor: Any
+    capturekeystrokes: bool
+    _observers: CallbackRegistry
+    label: Any
+
     def __init__(self: TextBox,
                  ax: Any,
                  label: str,
@@ -284,6 +369,14 @@ class TextBox(AxesWidget):
 
 
 class RadioButtons(AxesWidget):
+    cnt: ClassVar[Union[_deprecated_property, Any]]
+    observers: ClassVar[Union[_deprecated_property, Any]]
+    activecolor: Any
+    value_selected: str
+    circles: list[Circle]
+    _observers: CallbackRegistry
+    labels: list[Any]
+
     def __init__(self: RadioButtons,
                  ax: Any,
                  labels: Iterable[str],
@@ -304,6 +397,23 @@ class RadioButtons(AxesWidget):
 
 
 class SubplotTool(Widget):
+    axleft: ClassVar[Union[_deprecated_property, Any]]
+    axright: ClassVar[Union[_deprecated_property, Any]]
+    axbottom: ClassVar[Union[_deprecated_property, Any]]
+    axtop: ClassVar[Union[_deprecated_property, Any]]
+    axwspace: ClassVar[Union[_deprecated_property, Any]]
+    axhspace: ClassVar[Union[_deprecated_property, Any]]
+    targetfig: Any
+    slidertop: Any
+    sliderleft: Any
+    figure: Any
+    sliderbottom: Any
+    sliderwspace: Any
+    buttonreset: Button
+    _sliders: list[Slider]
+    sliderhspace: Any
+    sliderright: Any
+
     def __init__(self: SubplotTool,
                  targetfig: Any,
                  toolfig: Any) -> None: ...
@@ -340,6 +450,15 @@ class SubplotTool(Widget):
 
 
 class Cursor(AxesWidget):
+    vertOn: bool
+    horizOn: bool
+    linev: Any
+    visible: bool
+    background: None
+    lineh: Any
+    needclear: bool
+    useblit: Union[bool, Any]
+
     def __init__(self: Cursor,
                  ax: Axes,
                  horizOn: bool = True,
@@ -357,6 +476,19 @@ class Cursor(AxesWidget):
 
 
 class MultiCursor(Widget):
+    vertOn: bool
+    _cidmotion: Any
+    horizOn: bool
+    canvas: Any
+    visible: bool
+    background: None
+    vlines: list[Any]
+    _ciddraw: Any
+    axes: {__getitem__}
+    needclear: bool
+    hlines: list[Any]
+    useblit: Union[bool, Any]
+
     def __init__(self: MultiCursor,
                  canvas: Any,
                  axes: {__getitem__},
@@ -379,6 +511,18 @@ class MultiCursor(Widget):
 
 
 class _SelectorWidget(AxesWidget):
+    visible: bool
+    eventpress: None
+    onselect: Union[function, Any]
+    artists: list[Any]
+    state_modifier_keys: dict[Any, Any]
+    background: None
+    eventrelease: None
+    state: set[Any]
+    validButtons: Any
+    useblit: Union[bool, Any]
+    _prev_event: None
+
     def __init__(self: _SelectorWidget,
                  ax: Union[Union[{name, set_xticks, set_yticks, set_navigate}, Axes], Any],
                  onselect: Union[function, Any],
@@ -452,6 +596,19 @@ class _SelectorWidget(AxesWidget):
 
 
 class SpanSelector(_SelectorWidget):
+    span_stays: bool
+    rect: None
+    onmove_callback: Any
+    canvas: None
+    minspan: float
+    artists: list[Rectangle]
+    rectprops: Union[dict[str, Union[bool, Any]], dict]
+    pressv: None
+    prev: tuple[int, int]
+    ax: Axes
+    stay_rect: Rectangle
+    direction: str
+
     def __init__(self: SpanSelector,
                  ax: Axes,
                  onselect: Any,
@@ -489,6 +646,10 @@ class SpanSelector(_SelectorWidget):
 
 
 class ToolHandles(object):
+    artist: Line2D
+    ax: Axes
+    _markers: Line2D
+
     def __init__(self: ToolHandles,
                  ax: Axes,
                  x: int,
@@ -517,6 +678,27 @@ class ToolHandles(object):
 
 
 class RectangleSelector(_SelectorWidget):
+    _shape_klass: ClassVar[Type[Rectangle]]
+    _center_handle: ToolHandles
+    _corner_order: list[str]
+    visible: bool
+    _edge_order: list[str]
+    extents: tuple[Any, Any, Any, Any]
+    spancoords: str
+    rectprops: Union[dict[str, Union[bool, Any]], dict]
+    interactive: bool
+    active_handle: None
+    to_draw: Line2D
+    _corner_handles: ToolHandles
+    minspanx: float
+    minspany: float
+    artists: list[Union[Line2D, Rectangle, None]]
+    _edge_handles: ToolHandles
+    drawtype: str
+    lineprops: Union[dict[str, Union[bool, Any]], dict]
+    maxdist: float
+    _extents_on_press: None
+
     def __init__(self: RectangleSelector,
                  ax: Any,
                  onselect: function,
@@ -566,6 +748,8 @@ class RectangleSelector(_SelectorWidget):
 
 
 class EllipseSelector(RectangleSelector):
+    _shape_klass: ClassVar[Type[Ellipse]]
+
     def draw_shape(self: EllipseSelector,
                    extents: Any) -> None: ...
 
@@ -574,6 +758,10 @@ class EllipseSelector(RectangleSelector):
 
 
 class LassoSelector(_SelectorWidget):
+    artists: list[Line2D]
+    line: Line2D
+    verts: None
+
     def __init__(self: LassoSelector,
                  ax: Any,
                  onselect: function = None,
@@ -598,6 +786,17 @@ class LassoSelector(_SelectorWidget):
 
 
 class PolygonSelector(_SelectorWidget):
+    _polygon_handles: ToolHandles
+    _active_handle_idx: int
+    vertex_select_radius: int
+    artists: list[Line2D]
+    _ys_at_press: list[int]
+    line: Line2D
+    _ys: list[int]
+    _xs_at_press: list[int]
+    _polygon_completed: bool
+    _xs: list[int]
+
     def __init__(self: PolygonSelector,
                  ax: Any,
                  onselect: function,
@@ -630,6 +829,12 @@ class PolygonSelector(_SelectorWidget):
 
 
 class Lasso(AxesWidget):
+    background: Any
+    line: Line2D
+    callback: Callable
+    verts: list[tuple[float, float]]
+    useblit: Union[bool, Any]
+
     def __init__(self: Lasso,
                  ax: Any,
                  xy: tuple[float, float],

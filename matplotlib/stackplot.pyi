@@ -1,6 +1,9 @@
-from typing import Any
+from matplotlib import _api as _api
 from typing import Iterable
 from typing import Optional
+
+__all__: Any
+from typing import Any
 
 
 def stackplot(*args,

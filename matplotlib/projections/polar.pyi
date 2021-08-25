@@ -1,5 +1,12 @@
+from matplotlib.path import Path as Path
+from matplotlib.axes import Axes as Axes
+from matplotlib import rcParams as rcParams
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from collections import OrderedDict as OrderedDict
 from collections import OrderedDict
 from typing import Any
+from typing import ClassVar
 from typing import Optional
 from typing import OrderedDict
 from typing import Tuple
@@ -41,6 +48,13 @@ from object import object
 
 
 class PolarTransform(Transform):
+    input_dims: ClassVar[int]
+    output_dims: ClassVar[int]
+    __str__: ClassVar[Callable[[Any], Any]]
+    _use_rmin: bool
+    _axis: Any
+    _apply_theta_transforms: bool
+
     def __init__(self: PolarTransform,
                  axis: Any = None,
                  use_rmin: bool = True,
@@ -56,6 +70,13 @@ class PolarTransform(Transform):
 
 
 class PolarAffine(Affine2DBase):
+    __str__: ClassVar[Callable[[Any], Any]]
+    _scale_transform: Any
+    _limits: Any
+    _invalid: int
+    _inverted: None
+    _mtx: None
+
     def __init__(self: PolarAffine,
                  scale_transform: Any,
                  limits: Any) -> None: ...
@@ -64,6 +85,13 @@ class PolarAffine(Affine2DBase):
 
 
 class InvertedPolarTransform(Transform):
+    input_dims: ClassVar[int]
+    output_dims: ClassVar[int]
+    __str__: ClassVar[Callable[[Any], Any]]
+    _use_rmin: bool
+    _axis: Any
+    _apply_theta_transforms: bool
+
     def __init__(self: InvertedPolarTransform,
                  axis: Any = None,
                  use_rmin: bool = True,
@@ -82,6 +110,8 @@ class ThetaFormatter(Formatter):
 
 
 class _AxisWrapper(object):
+    _axis: Any
+
     def __init__(self: _AxisWrapper,
                  axis: Any) -> None: ...
 
@@ -103,6 +133,9 @@ class _AxisWrapper(object):
 
 
 class ThetaLocator(Locator):
+    axis: _AxisWrapper
+    base: Any
+
     def __init__(self: ThetaLocator,
                  base: Any) -> None: ...
 
@@ -127,6 +160,9 @@ class ThetaLocator(Locator):
 
 
 class ThetaTick(XTick):
+    _text2_translate: ScaledTranslation
+    _text1_translate: ScaledTranslation
+
     def __init__(self: ThetaTick,
                  axes: {figure},
                  *args,
@@ -144,6 +180,11 @@ class ThetaTick(XTick):
 
 
 class ThetaAxis(XAxis):
+    __name__: ClassVar[str]
+    axis_name: ClassVar[str]
+    isDefault_majloc: bool
+    isDefault_majfmt: bool
+
     def _get_tick(self: ThetaAxis,
                   major: Any) -> ThetaTick: ...
 
@@ -164,6 +205,9 @@ class ThetaAxis(XAxis):
 
 
 class RadialLocator(Locator):
+    _axes: Any
+    base: Any
+
     def __init__(self: RadialLocator,
                  base: Any,
                  axes: Any = None) -> None: ...
@@ -191,6 +235,12 @@ class RadialLocator(Locator):
 
 
 class _ThetaShift(ScaledTranslation):
+    __str__: ClassVar[Callable[[Any], Any]]
+    mode: str
+    pad: float
+    _t: tuple[float, float]
+    axes: Any
+
     def __init__(self: _ThetaShift,
                  axes: Any,
                  pad: float,
@@ -214,6 +264,10 @@ class RadialTick(YTick):
 
 
 class RadialAxis(YAxis):
+    __name__: ClassVar[str]
+    axis_name: ClassVar[str]
+    isDefault_majloc: bool
+
     def __init__(self: RadialAxis,
                  *args,
                  **kwargs) -> None: ...
@@ -242,6 +296,12 @@ def _is_full_circle_rad(thetamin: Any,
 
 
 class _WedgeBbox(Bbox):
+    __str__: ClassVar[Callable[[Any], Any]]
+    _originLim: Any
+    _center: tuple[float, float]
+    _invalid: int
+    _viewLim: Any
+
     def __init__(self: _WedgeBbox,
                  center: tuple[float, float],
                  viewLim: Any,
@@ -252,6 +312,37 @@ class _WedgeBbox(Bbox):
 
 
 class PolarAxes(Axes):
+    name: ClassVar[str]
+    transAxes: BboxTransformTo
+    _direction: Affine2D
+    transShift: Union[{input_dims, output_dims}, {output_dims,
+                                                  input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]
+    _yaxis_transform: Union[Union[{input_dims, output_dims}, {output_dims,
+                                                              input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]
+    yaxis: RadialAxis
+    axesLim: _WedgeBbox
+    _theta_offset: Affine2D
+    _xaxis_transform: Union[Union[{input_dims, output_dims}, {output_dims,
+                                                              input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]
+    _default_rlabel_position: None
+    _r_label_position: Affine2D
+    xaxis: ThetaAxis
+    use_sticky_edges: bool
+    _default_theta_offset: int
+    _yaxis_text_transform: TransformWrapper
+    _originViewLim: LockableBbox
+    _xaxis_text_transform: Union[Union[{input_dims, output_dims}, {output_dims,
+                                                                   input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]
+    _pan_start: SimpleNamespace
+    transWedge: BboxTransformFrom
+    transProjection: Any
+    _realViewLim: TransformedBbox
+    _default_theta_direction: int
+    transData: Union[Union[{input_dims, output_dims}, {output_dims,
+                                                       input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]
+    transProjectionAffine: Any
+    transScale: TransformWrapper
+
     def __init__(self: PolarAxes,
                  theta_offset: int = 0,
                  theta_direction: int = 1,
@@ -450,3 +541,11 @@ class PolarAxes(Axes):
                  key: Optional[str],
                  x: float,
                  y: float) -> None: ...
+
+
+PolarTransform: Type[PolarTransform]
+PolarAffine: Type[PolarAffine]
+InvertedPolarTransform: Type[InvertedPolarTransform]
+ThetaFormatter: Type[ThetaFormatter]
+RadialLocator: Type[RadialLocator]
+ThetaLocator: Type[ThetaLocator]

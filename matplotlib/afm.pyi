@@ -1,9 +1,13 @@
-from typing import Any
+from _mathtext_data import uni2type1 as uni2type1
+from collections import namedtuple as namedtuple
 from typing import Tuple
 from typing import Union
 
 from matplotlib.afm import AFM
 from object import object
+
+_log: Logger
+from typing import Any
 
 
 def _to_int(x: Any) -> int: ...
@@ -24,10 +28,88 @@ def _to_list_of_floats(s: {split}) -> list[float]: ...
 def _to_bool(s: {lower}) -> bool: ...
 
 
+CharMetrics: Type[CharMetrics]
+
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+
+
 def _parse_header(fh: Union[{__iter__}, Any]) -> dict[Any, Union[Union[float, bool, list[int]], Any]]: ...
 
 
 def _parse_char_metrics(fh: Union[{__iter__}, Any]) -> dict: ...
+
+
+CompositePart: Type[CompositePart]
+
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
+__doc__: str
 
 
 def _parse_kern_pairs(fh: {__iter__}) -> dict[Tuple[Any, Any], float]: ...
@@ -40,6 +122,12 @@ def _parse_optional(fh: Union[{__iter__}, Any]) -> dict: ...
 
 
 class AFM(object):
+    _header: dict[Any, Union[Union[float, bool, list[int]], Any]]
+    _kern: dict
+    _composite: dict
+    _metrics: dict
+    _metrics_by_name: dict
+
     def __init__(self: AFM,
                  fh: {__iter__}) -> None: ...
 

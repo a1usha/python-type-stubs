@@ -1,4 +1,10 @@
-from typing import Any
+from matplotlib.transforms import Bbox as Bbox
+from matplotlib import rcParams as rcParams
+from matplotlib import tight_layout as tight_layout
+from matplotlib import _pylab_helpers as _pylab_helpers
+from matplotlib import _api as _api
+from numbers import Integral as Integral
+from typing import ClassVar
 from typing import Optional
 from typing import Tuple
 from typing import Union
@@ -12,8 +18,18 @@ from matplotlib.transforms import Bbox
 from numpy.core._multiarray_umath import ndarray
 from object import object
 
+_log: Logger
+from typing import Any
+
 
 class GridSpecBase(object):
+    nrows: ClassVar[property]
+    ncols: ClassVar[property]
+    _row_height_ratios: Union[list[int], Any]
+    _col_width_ratios: Union[list[int], Any]
+    _nrows: int
+    _ncols: int
+
     def __init__(self: GridSpecBase,
                  nrows: int,
                  ncols: int,
@@ -62,6 +78,17 @@ class GridSpecBase(object):
 
 
 class GridSpec(GridSpecBase):
+    _AllowedKeys: ClassVar[list[str]]
+    figure: Any
+    top: Optional[float]
+    left: Optional[float]
+    bottom: Optional[float]
+    wspace: Optional[float]
+    _toplayoutbox: Any
+    right: Optional[float]
+    _layoutgrid: LayoutGrid
+    hspace: Optional[float]
+
     def __init__(self: GridSpec,
                  nrows: int,
                  ncols: int,
@@ -95,6 +122,13 @@ class GridSpec(GridSpecBase):
 
 
 class GridSpecFromSubplotSpec(GridSpecBase):
+    _toplayoutgrid: LayoutGrid
+    figure: Any
+    _wspace: Any
+    _layoutgrid: LayoutGrid
+    _hspace: Any
+    _subplot_spec: {get_gridspec}
+
     def __init__(self: GridSpecFromSubplotSpec,
                  nrows: int,
                  ncols: int,
@@ -111,6 +145,11 @@ class GridSpecFromSubplotSpec(GridSpecBase):
 
 
 class SubplotSpec(object):
+    _num2: Any
+    _gridspec: Any
+    num1: int
+    num2: int
+
     def __init__(self: SubplotSpec,
                  gridspec: Any,
                  num1: int,

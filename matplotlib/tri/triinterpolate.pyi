@@ -1,4 +1,9 @@
+from matplotlib.tri.tritools import TriAnalyzer as TriAnalyzer
+from matplotlib.tri.trifinder import TriFinder as TriFinder
+from matplotlib.tri import Triangulation as Triangulation
+from matplotlib import _api as _api
 from typing import Any
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Tuple
@@ -16,8 +21,20 @@ from matplotlib.tri.triinterpolate import _Sparse_Matrix_coo
 from numpy.core._multiarray_umath import ndarray
 from object import object
 
+__all__: Any
+from typing import Any
+
 
 class TriInterpolator(object):
+    _docstring__call__: ClassVar[str]
+    _docstringgradient: ClassVar[str]
+    _trifinder: Any
+    _tri_renum: None
+    _unit_x: float
+    _z: ndarray
+    _unit_y: float
+    _triangulation: Any
+
     def __init__(self: TriInterpolator,
                  triangulation: Any,
                  z: Any,
@@ -37,6 +54,10 @@ class TriInterpolator(object):
 
 
 class LinearTriInterpolator(TriInterpolator):
+    __doc__: ClassVar[str]
+    __doc__: ClassVar[str]
+    _plane_coefficients: Any
+
     def __init__(self: LinearTriInterpolator,
                  triangulation: Any,
                  z: Any,
@@ -58,6 +79,18 @@ class LinearTriInterpolator(TriInterpolator):
 
 
 class CubicTriInterpolator(TriInterpolator):
+    __doc__: ClassVar[str]
+    __doc__: ClassVar[str]
+    _triangles: Union[ndarray, Iterable, int, float]
+    _dof: Union[ndarray, Iterable, int, float]
+    _ReferenceElement: _ReducedHCT_Element
+    _tris_pts: Any
+    _eccs: Any
+    _tri_renum: Any
+    _unit_x: ndarray
+    _unit_y: ndarray
+    _pts: Any
+
     def __init__(self: CubicTriInterpolator,
                  triangulation: Any,
                  z: Any,
@@ -93,6 +126,19 @@ class CubicTriInterpolator(TriInterpolator):
 
 
 class _ReducedHCT_Element(object):
+    M: ClassVar[ndarray]
+    M0: ClassVar[ndarray]
+    M1: ClassVar[ndarray]
+    M2: ClassVar[ndarray]
+    rotate_dV: ClassVar[ndarray]
+    rotate_d2V: ClassVar[ndarray]
+    n_gauss: ClassVar[int]
+    gauss_pts: ClassVar[ndarray]
+    gauss_w: ClassVar[None]
+    E: ClassVar[ndarray]
+    J0_to_J1: ClassVar[ndarray]
+    J0_to_J2: ClassVar[ndarray]
+
     def get_function_values(self: _ReducedHCT_Element,
                             alpha: Any,
                             ecc: Any,
@@ -130,6 +176,14 @@ class _ReducedHCT_Element(object):
 
 
 class _DOF_estimator(object):
+    _triangles: Any
+    _tris_pts: Any
+    dz: Any
+    z: Any
+    _unit_x: Any
+    _unit_y: Any
+    _pts: Any
+
     def __init__(self: _DOF_estimator,
                  interpolator: Union[{_eccs}, Any],
                  **kwargs) -> None: ...
@@ -158,6 +212,8 @@ class _DOF_estimator_geom(_DOF_estimator):
 
 
 class _DOF_estimator_min_E(_DOF_estimator_geom):
+    _eccs: Any
+
     def __init__(self: _DOF_estimator_min_E,
                  Interpolator: {_eccs, _pts, _tris_pts, _z, _triangles, _unit_x, _unit_y}) -> None: ...
 
@@ -165,6 +221,12 @@ class _DOF_estimator_min_E(_DOF_estimator_geom):
 
 
 class _Sparse_Matrix_coo(object):
+    vals: ndarray
+    rows: ndarray
+    m: Any
+    cols: ndarray
+    n: Any
+
     def __init__(self: _Sparse_Matrix_coo,
                  vals: Any,
                  rows: Any,

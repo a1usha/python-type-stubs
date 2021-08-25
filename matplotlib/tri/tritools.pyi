@@ -1,3 +1,5 @@
+from matplotlib.tri import Triangulation as Triangulation
+from matplotlib import _api as _api
 from typing import Any
 from typing import Tuple
 
@@ -6,6 +8,8 @@ from object import object
 
 
 class TriAnalyzer(object):
+    _triangulation: Any
+
     def __init__(self: TriAnalyzer,
                  triangulation: Any) -> None: ...
 

@@ -1,5 +1,21 @@
+from matplotlib.transforms import IdentityTransform as IdentityTransform
+from matplotlib.transforms import Transform as Transform
+from matplotlib.ticker import LogitLocator as LogitLocator
+from matplotlib.ticker import SymmetricalLogLocator as SymmetricalLogLocator
+from matplotlib.ticker import AutoMinorLocator as AutoMinorLocator
+from matplotlib.ticker import AutoLocator as AutoLocator
+from matplotlib.ticker import LogLocator as LogLocator
+from matplotlib.ticker import NullLocator as NullLocator
+from matplotlib.ticker import LogitFormatter as LogitFormatter
+from matplotlib.ticker import LogFormatterSciNotation as LogFormatterSciNotation
+from matplotlib.ticker import ScalarFormatter as ScalarFormatter
+from matplotlib.ticker import NullFormatter as NullFormatter
+from matplotlib import docstring as docstring
+from matplotlib import _api as _api
+from numpy import ma as ma
 from typing import Any
 from typing import Callable
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Tuple
@@ -46,6 +62,8 @@ class ScaleBase(object):
 
 
 class LinearScale(ScaleBase):
+    name: ClassVar[str]
+
     def __init__(self: LinearScale,
                  axis: Any) -> None: ...
 
@@ -57,6 +75,11 @@ class LinearScale(ScaleBase):
 
 
 class FuncTransform(Transform):
+    input_dims: ClassVar[int]
+    output_dims: ClassVar[int]
+    _inverse: Callable
+    _forward: Callable
+
     def __init__(self: FuncTransform,
                  forward: Callable,
                  inverse: Callable) -> Any: ...
@@ -68,6 +91,9 @@ class FuncTransform(Transform):
 
 
 class FuncScale(ScaleBase):
+    name: ClassVar[str]
+    _transform: FuncTransform
+
     def __init__(self: FuncScale,
                  axis: Any,
                  functions: tuple[Any, Any]) -> None: ...
@@ -80,6 +106,11 @@ class FuncScale(ScaleBase):
 
 
 class LogTransform(Transform):
+    input_dims: ClassVar[int]
+    output_dims: ClassVar[int]
+    _clip: Any
+    base: {__le__, __eq__}
+
     @_api.rename_parameter("3.3", "nonpos", "nonpositive")
     def __init__(self: LogTransform,
                  base: {__le__, __eq__},
@@ -94,6 +125,10 @@ class LogTransform(Transform):
 
 
 class InvertedLogTransform(Transform):
+    input_dims: ClassVar[int]
+    output_dims: ClassVar[int]
+    base: Any
+
     def __init__(self: InvertedLogTransform,
                  base: Any) -> None: ...
 
@@ -106,6 +141,11 @@ class InvertedLogTransform(Transform):
 
 
 class LogScale(ScaleBase):
+    name: ClassVar[str]
+    base: ClassVar[property]
+    _transform: LogTransform
+    subs: Any
+
     @_api.deprecated("3.3", alternative="scale.LogTransform")
     def LogTransform(self: LogScale) -> Type[LogTransform]: ...
 
@@ -130,6 +170,11 @@ class LogScale(ScaleBase):
 
 
 class FuncScaleLog(LogScale):
+    name: ClassVar[str]
+    _transform: Union[{input_dims, output_dims}, {output_dims,
+                                                  input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]
+    subs: None
+
     def __init__(self: FuncScaleLog,
                  axis: Axis,
                  functions: tuple[Any, Any],
@@ -142,6 +187,14 @@ class FuncScaleLog(LogScale):
 
 
 class SymmetricalLogTransform(Transform):
+    input_dims: ClassVar[int]
+    output_dims: ClassVar[int]
+    _linscale_adj: Union[float, Any]
+    linthresh: {__le__}
+    _log_base: None
+    linscale: {__le__, __truediv__}
+    base: {__le__}
+
     def __init__(self: SymmetricalLogTransform,
                  base: {__le__},
                  linthresh: {__le__},
@@ -154,6 +207,14 @@ class SymmetricalLogTransform(Transform):
 
 
 class InvertedSymmetricalLogTransform(Transform):
+    input_dims: ClassVar[int]
+    output_dims: ClassVar[int]
+    _linscale_adj: Union[float, Any]
+    linthresh: {__le__}
+    invlinthresh: Union[ndarray, Iterable, int, float]
+    linscale: {__le__, __truediv__}
+    base: {__le__}
+
     def __init__(self: InvertedSymmetricalLogTransform,
                  base: {__le__},
                  linthresh: {__le__},
@@ -166,6 +227,13 @@ class InvertedSymmetricalLogTransform(Transform):
 
 
 class SymmetricalLogScale(ScaleBase):
+    name: ClassVar[str]
+    base: ClassVar[property]
+    linthresh: ClassVar[property]
+    linscale: ClassVar[property]
+    _transform: SymmetricalLogTransform
+    subs: Any
+
     @_api.deprecated("3.3", alternative="scale.SymmetricalLogTransform")
     def SymmetricalLogTransform(self: SymmetricalLogScale) -> Type[SymmetricalLogTransform]: ...
 
@@ -185,6 +253,11 @@ class SymmetricalLogScale(ScaleBase):
 
 
 class LogitTransform(Transform):
+    input_dims: ClassVar[int]
+    output_dims: ClassVar[int]
+    _nonpositive: str
+    _clip: bool
+
     @_api.rename_parameter("3.3", "nonpos", "nonpositive")
     def __init__(self: LogitTransform,
                  nonpositive: str = 'mask') -> Optional[Any]: ...
@@ -198,6 +271,10 @@ class LogitTransform(Transform):
 
 
 class LogisticTransform(Transform):
+    input_dims: ClassVar[int]
+    output_dims: ClassVar[int]
+    _nonpositive: str
+
     @_api.rename_parameter("3.3", "nonpos", "nonpositive")
     def __init__(self: LogisticTransform,
                  nonpositive: str = 'mask') -> Optional[Any]: ...
@@ -211,6 +288,11 @@ class LogisticTransform(Transform):
 
 
 class LogitScale(ScaleBase):
+    name: ClassVar[str]
+    _use_overline: bool
+    _one_half: str
+    _transform: LogitTransform
+
     @_api.rename_parameter("3.3", "nonpos", "nonpositive")
     def __init__(self: LogitScale,
                  axis: Axis,
@@ -230,6 +312,9 @@ class LogitScale(ScaleBase):
                               vmax: {__ge__},
                               minpos: Any) -> Tuple[
         Union[Union[float, {__le__}], Any], Union[Union[int, float, {__ge__}], Any]]: ...
+
+
+_scale_mapping: dict[str, Type[Union[LinearScale, LogScale, SymmetricalLogScale, LogitScale, FuncScale, FuncScaleLog]]]
 
 
 def get_scale_names() -> list[str]: ...

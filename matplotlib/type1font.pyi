@@ -1,5 +1,7 @@
+from matplotlib.cbook import _format_approx as _format_approx
 from typing import Any
 from typing import BinaryIO
+from typing import ClassVar
 from typing import Generator
 from typing import Tuple
 from typing import Type
@@ -8,8 +10,19 @@ from typing import Union
 from matplotlib.type1font import Type1Font
 from object import object
 
+_TokenType: Any
+from typing import Any
+
 
 class Type1Font(object):
+    __slots__: ClassVar[tuple[str, str]]
+    _whitespace_re: ClassVar[Pattern[bytes]]
+    _token_re: ClassVar[Pattern[bytes]]
+    _comment_re: ClassVar[Pattern[bytes]]
+    _instring_re: ClassVar[Pattern[bytes]]
+    prop: dict[Union[str, Any], Union[Union[str, float, bool, int], Any]]
+    parts: tuple[Any, bytes, Any]
+
     def __init__(self: Type1Font,
                  input: Any) -> None: ...
 

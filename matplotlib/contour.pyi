@@ -1,5 +1,11 @@
+from matplotlib import docstring as docstring
+from matplotlib.blocking_input import BlockingContourLabeler as BlockingContourLabeler
+from matplotlib import _api as _api
+from numpy import ma as ma
+from numbers import Integral as Integral
 from numbers import Integral
 from typing import Any
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Tuple
@@ -23,6 +29,20 @@ class ClabelText(Text):
 
 
 class ContourLabeler(object):
+    _use_clabeltext: bool
+    labelXYs: list[Any]
+    labelLevelList: Union[list[Any], Any]
+    labelIndiceList: Union[list[Union[range, int]], list[int]]
+    labelMappable: ContourLabeler
+    labelFmt: Union[ScalarFormatter, Any]
+    labelFontProps: FontProperties
+    labelManual: Union[bool, Any]
+    rightside_up: bool
+    labelFontSizeList: list[Optional[Any]]
+    labelCValueList: Any
+    _clabel_zorder: Union[int, Any]
+    labelTextsList: silent_list
+
     def clabel(self: ContourLabeler,
                levels: Union[ndarray, Iterable, int, float, None] = None,
                *,
@@ -132,6 +152,40 @@ def _find_closest_point_on_path(xys: int,
 
 
 class ContourSet(ScalarMappable, ContourLabeler):
+    ax: ClassVar[Union[_deprecated_property, Any]]
+    extent: Any
+    _maxs: None
+    origin: Optional[Any]
+    axes: Any
+    linewidths: Any
+    allkinds: list[None]
+    colors: Any
+    _levels: list[Union[float, Any]]
+    labelCValues: list[Any]
+    _transform: Any
+    zmax: Union[ndarray, int, float, complex]
+    collections: silent_list
+    alpha: Any
+    layers: Any
+    tlinewidths: Union[list[tuple[Optional[Any]]], list[tuple[Any]]]
+    antialiased: bool
+    logscale: bool
+    labelTexts: list[Any]
+    zmin: Union[ndarray, int, float, complex]
+    nchunk: int
+    filled: bool
+    linestyles: Any
+    cvalues: list[Any]
+    _mins: None
+    extend: str
+    allsegs: Any
+    hatches: Union[tuple[None], Any]
+    _contour_zorder: Union[int, Any]
+    tcolors: list[tuple[tuple]]
+    monochrome: Any
+    locator: Any
+    levels: Any
+
     def __init__(self: ContourSet,
                  ax: Any,
                  levels: Any = None,
@@ -204,6 +258,15 @@ class ContourSet(ScalarMappable, ContourLabeler):
 
 
 class QuadContourSet(ContourSet):
+    _contour_doc: ClassVar[str]
+    zmin: Any
+    _contour_generator: Union[QuadContourGenerator, Any]
+    zmax: Any
+    _maxs: Any
+    _corner_mask: Any
+    _mins: Any
+    levels: Any
+
     def _process_args(self: QuadContourSet,
                       corner_mask: Any = None,
                       *args,

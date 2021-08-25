@@ -1,3 +1,8 @@
+from matplotlib.gridspec import SubplotSpec as SubplotSpec
+from matplotlib.gridspec import GridSpec as GridSpec
+from matplotlib.axes._axes import Axes as Axes
+from matplotlib import docstring as docstring
+from matplotlib import _api as _api
 from typing import Any
 from typing import Optional
 from typing import Tuple
@@ -14,6 +19,8 @@ from object import object
 
 
 class SubplotBase(object):
+    _subplotspec: SubplotSpec
+
     def __init__(self: SubplotBase,
                  fig: Figure,
                  *args,
@@ -70,6 +77,11 @@ class SubplotBase(object):
     def _make_twin_axes(self: SubplotBase,
                         *args,
                         **kwargs) -> Any: ...
+
+
+_subplot_classes: dict[Any, Any]
+
+Subplot: Union[Type[SubplotBase], type]
 
 
 def subplot_class_factory(axes_class: Union[Type[Axes], Any] = None) -> Union[Type[SubplotBase], type]: ...

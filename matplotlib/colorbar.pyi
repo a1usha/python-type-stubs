@@ -1,4 +1,12 @@
+from matplotlib import docstring as docstring
+from matplotlib import ticker as ticker
+from matplotlib import contour as contour
+from matplotlib import colors as colors
+from matplotlib import cm as cm
+from matplotlib import collections as collections
+from matplotlib import _api as _api
 from typing import Any
+from typing import ClassVar
 from typing import Optional
 from typing import Tuple
 from typing import Union
@@ -20,12 +28,23 @@ from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedConstant
 from object import object
 
+_log: Logger
+_make_axes_param_doc: str
+_make_axes_other_param_doc: str
+_colormap_kw_doc: str
+colorbar_doc: Any
+colormap_kw_doc: str
+make_axes_kw_doc: str
+from typing import Any
+
 
 def _set_ticks_on_axis_warn(*args,
                             **kwargs) -> None: ...
 
 
 class _ColorbarAutoLocator(MaxNLocator):
+    _colorbar: Any
+
     def __init__(self: _ColorbarAutoLocator,
                  colorbar: Any) -> None: ...
 
@@ -35,6 +54,9 @@ class _ColorbarAutoLocator(MaxNLocator):
 
 
 class _ColorbarAutoMinorLocator(AutoMinorLocator):
+    _colorbar: Any
+    ndivs: Any
+
     def __init__(self: _ColorbarAutoMinorLocator,
                  colorbar: Any,
                  n: Any = None) -> None: ...
@@ -43,6 +65,8 @@ class _ColorbarAutoMinorLocator(AutoMinorLocator):
 
 
 class _ColorbarLogLocator(LogLocator):
+    _colorbar: Any
+
     def __init__(self: _ColorbarLogLocator,
                  colorbar: Any,
                  *args,
@@ -54,6 +78,9 @@ class _ColorbarLogLocator(LogLocator):
 
 
 class _ColorbarSpine(Spine):
+    stale: bool
+    _path: Path
+
     def __init__(self: _ColorbarSpine,
                  axes: Any) -> None: ...
 
@@ -68,6 +95,39 @@ class _ColorbarSpine(Spine):
 
 
 class ColorbarBase(object):
+    n_rasterize: ClassVar[int]
+    values: Any
+    _boundaries: ndarray
+    dividers: LineCollection
+    norm: Union[Normalize, Any]
+    ticklocation: str
+    patch: Polygon
+    outline: _ColorbarSpine
+    spacing: str
+    stale: bool
+    _values: Union[float, Any]
+    alpha: float
+    boundaries: Any
+    extendfrac: Any
+    vmax: Any
+    lines: list[Any]
+    _manual_tick_data_values: None
+    drawedges: bool
+    solids_patches: list[Any]
+    orientation: str
+    solids: None
+    __scale: None
+    extendrect: bool
+    filled: bool
+    vmin: Any
+    extend: Union[str, Any]
+    formatter: Any
+    ax: Any
+    cmap: Union[Union[Colormap, LinearSegmentedColormap, ListedColormap], Any]
+    _y: Union[Union[MaskedConstant, tuple[Union[ndarray, float, None], ...], tuple[Any, ...]], Any]
+    _inside: Any
+    locator: Any
+
     @_api.make_keyword_only("3.3", "cmap")
     def __init__(self: ColorbarBase,
                  ax: Any,
@@ -188,6 +248,17 @@ def _add_disjoint_kwargs(d: Union[dict[str, Any], Any],
 
 
 class Colorbar(ColorbarBase):
+    formatter: None
+    patch: Polygon
+    outline: _ColorbarSpine
+    stale: bool
+    solids: None
+    cmap: Any
+    lines: list[Any]
+    mappable: {get_array, cmap, norm, colorbar, colorbar_cid, callbacksSM}
+    locator: None
+    norm: Any
+
     def __init__(self: Colorbar,
                  ax: Any,
                  mappable: {get_array, cmap, norm, colorbar, colorbar_cid, callbacksSM},

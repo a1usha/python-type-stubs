@@ -1,5 +1,19 @@
-from typing import Any
+from transforms import TransformedPath as TransformedPath
+from transforms import TransformedPatchPath as TransformedPatchPath
+from transforms import TransformedBbox as TransformedBbox
+from transforms import Transform as Transform
+from transforms import IdentityTransform as IdentityTransform
+from transforms import Bbox as Bbox
+from path import Path as Path
+from matplotlib import docstring as docstring
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from numbers import Number as Number
+from functools import wraps as wraps
+from collections import namedtuple as namedtuple
+from collections import OrderedDict as OrderedDict
 from typing import Callable
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Tuple
@@ -15,6 +29,9 @@ from matplotlib.transforms import IdentityTransform
 from numpy.core._multiarray_umath import ndarray
 from object import object
 
+_log: Logger
+from typing import Any
+
 
 def allow_rasterization(draw: Any) -> Callable[
     [{get_rasterized, get_agg_filter, figure}, {_rasterizing}, Tuple[Any, ...], dict[str, Any]], Any]: ...
@@ -23,11 +40,46 @@ def allow_rasterization(draw: Any) -> Callable[
 def _finalize_rasterization(draw: Any) -> Callable[[Any, {_rasterizing}, Tuple[Any, ...], dict[str, Any]], Any]: ...
 
 
+_XYPair: Type[_XYPair]
+
+
 def _stale_axes_callback(self: {axes},
                          val: Any) -> None: ...
 
 
 class Artist(object):
+    zorder: ClassVar[int]
+    _transformSet: bool
+    _callbacks: CallbackRegistry
+    axes: None
+    _sketch: Optional[Any]
+    stale_callback: None
+    _clipon: bool
+    _label: str
+    _transform: None
+    _visible: bool
+    stale: bool
+    _path_effects: Optional[Any]
+    zorder: Union[int, float]
+    _agg_filter: None
+    _snap: None
+    _in_layout: bool
+    _url: None
+    _rasterized: bool
+    figure: None
+    _picker: None
+    clipbox: None
+    _axes: None
+    _contains: None
+    _gid: None
+    _remove_method: None
+    _sticky_edges: _XYPair
+    _clippath: None
+    _alpha: None
+    _mouseover: bool
+    _stale: bool
+    _animated: bool
+
     def __init__(self: Artist) -> None: ...
 
     def __getstate__(self: Artist) -> dict[str, Any]: ...
@@ -236,6 +288,11 @@ class Artist(object):
 
 
 class ArtistInspector(object):
+    _get_valid_values_regex: ClassVar[Pattern[str]]
+    oorig: Union[Union[list[Any], Artist], Any]
+    aliasd: dict[Any, Any]
+    o: Union[type, Any]
+
     def __init__(self: ArtistInspector,
                  o: Any) -> None: ...
 
@@ -270,6 +327,9 @@ class ArtistInspector(object):
     def properties(self: ArtistInspector) -> dict[str, Any]: ...
 
     def pprint_getters(self: ArtistInspector) -> list[str]: ...
+
+
+get: Callable[[Any, Optional[str]], Optional[Any]]
 
 
 def getp(obj: Any,

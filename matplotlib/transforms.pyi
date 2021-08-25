@@ -1,6 +1,12 @@
+from path import Path as Path
+from matplotlib._path import update_path_extents as update_path_extents
+from matplotlib._path import count_bboxes_overlapping_bbox as count_bboxes_overlapping_bbox
+from matplotlib._path import affine_transform as affine_transform
+from matplotlib import _api as _api
+from numpy.linalg import inv as inv
 from _typeshed import SupportsLessThan
-from typing import Any
 from typing import Callable
+from typing import ClassVar
 from typing import Generator
 from typing import Iterable
 from typing import Optional
@@ -38,12 +44,26 @@ from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedArray
 from object import object
 
+DEBUG: bool
+from typing import Any
+
 
 def _make_str_method(*args,
                      **kwargs) -> Callable[[Any], Any]: ...
 
 
 class TransformNode(object):
+    INVALID_NON_AFFINE: ClassVar[int]
+    INVALID_AFFINE: ClassVar[int]
+    INVALID: ClassVar[int]
+    is_affine: ClassVar[bool]
+    is_bbox: ClassVar[bool]
+    pass_through: ClassVar[bool]
+    _shorthand_name: str
+    _invalid: int
+    __dict__: dict[str, Any]
+    _parents: dict[Any, Any]
+
     def __init__(self: TransformNode,
                  shorthand_name: str = None) -> None: ...
 
@@ -72,6 +92,11 @@ class TransformNode(object):
 
 
 class BboxBase(TransformNode):
+    is_bbox: ClassVar[bool]
+    is_affine: ClassVar[bool]
+    __doc__: ClassVar[str]
+    coefs: ClassVar[dict[str, Union[tuple[float, float], tuple[int, int], tuple[float, int], tuple[int, float]]]]
+
     def _check(points: Union[ndarray, Any]) -> None: ...
 
     def frozen(self: BboxBase) -> Bbox: ...
@@ -201,6 +226,12 @@ class BboxBase(TransformNode):
 
 
 class Bbox(BboxBase):
+    _invalid: int
+    _minpos: ndarray
+    _ignore: bool
+    _points_orig: None
+    _points: ndarray
+
     def __init__(self: Bbox,
                  points: ndarray,
                  **kwargs) -> Any: ...
@@ -294,6 +325,12 @@ class Bbox(BboxBase):
 
 
 class TransformedBbox(BboxBase):
+    __str__: ClassVar[Callable[[Any], Any]]
+    _bbox: Bbox
+    _transform: Transform
+    _invalid: int
+    _points: None
+
     def __init__(self: TransformedBbox,
                  bbox: Bbox,
                  transform: Transform,
@@ -305,6 +342,12 @@ class TransformedBbox(BboxBase):
 
 
 class LockableBbox(BboxBase):
+    __str__: ClassVar[Callable[[Any], Any]]
+    _bbox: Bbox
+    _invalid: int
+    _locked_points: Any
+    _points: None
+
     def __init__(self: LockableBbox,
                  bbox: Bbox,
                  x0: Optional[float] = None,
@@ -339,6 +382,13 @@ class LockableBbox(BboxBase):
 
 
 class Transform(TransformNode):
+    input_dims: ClassVar[None]
+    output_dims: ClassVar[None]
+    is_separable: ClassVar[bool]
+    has_inverse: ClassVar[bool]
+    has_inverse: bool
+    is_separable: bool
+
     def __init_subclass__(cls: Type[Transform]) -> None: ...
 
     def __add__(self: Transform,
@@ -402,6 +452,25 @@ class Transform(TransformNode):
 
 
 class TransformWrapper(Transform):
+    pass_through: ClassVar[bool]
+    __str__: ClassVar[Callable[[Any], Any]]
+    is_affine: ClassVar[property]
+    is_separable: ClassVar[property]
+    has_inverse: ClassVar[property]
+    _invalid: int
+    transform_path_affine: Any
+    get_affine: Any
+    transform: Any
+    transform_non_affine: Any
+    transform_affine: Any
+    get_matrix: Any
+    transform_path_non_affine: Any
+    output_dims: Any
+    inverted: Any
+    _child: Union[Union[{input_dims, output_dims}, {input_dims, output_dims}], Any]
+    transform_path: Any
+    input_dims: Any
+
     def __init__(self: TransformWrapper,
                  child: {input_dims, output_dims}) -> None: ...
 
@@ -421,6 +490,9 @@ class TransformWrapper(Transform):
 
 
 class AffineBase(Transform):
+    is_affine: ClassVar[bool]
+    _inverted: None
+
     def __init__(self: AffineBase,
                  *args,
                  **kwargs) -> None: ...
@@ -454,6 +526,11 @@ class AffineBase(Transform):
 
 
 class Affine2DBase(AffineBase):
+    input_dims: ClassVar[int]
+    output_dims: ClassVar[int]
+    _invalid: int
+    _inverted: Affine2D
+
     def frozen(self: Affine2DBase) -> Affine2D: ...
 
     def is_separable(self: Affine2DBase) -> bool: ...
@@ -470,6 +547,11 @@ class Affine2DBase(AffineBase):
 
 
 class Affine2D(Affine2DBase):
+    __str__: ClassVar[Callable[[Any], Any]]
+    _invalid: int
+    _inverted: None
+    _mtx: Any
+
     def __init__(self: Affine2D,
                  matrix: Optional[{copy}] = None,
                  **kwargs) -> None: ...
@@ -527,6 +609,9 @@ class Affine2D(Affine2DBase):
 
 
 class IdentityTransform(Affine2DBase):
+    _mtx: ClassVar[ndarray]
+    __str__: ClassVar[Callable[[Any], Any]]
+
     def frozen(self: IdentityTransform) -> IdentityTransform: ...
 
     def get_matrix(self: IdentityTransform) -> ndarray: ...
@@ -555,6 +640,8 @@ class IdentityTransform(Affine2DBase):
 
 
 class _BlendedMixin(object):
+    __str__: ClassVar[Callable[[Any], Any]]
+
     def __eq__(self: _BlendedMixin,
                other: Any) -> Union[bool, _NotImplementedType]: ...
 
@@ -563,6 +650,17 @@ class _BlendedMixin(object):
 
 
 class BlendedGenericTransform(_BlendedMixin, Transform):
+    input_dims: ClassVar[int]
+    output_dims: ClassVar[int]
+    is_separable: ClassVar[bool]
+    pass_through: ClassVar[bool]
+    is_affine: ClassVar[property]
+    has_inverse: ClassVar[property]
+    _invalid: int
+    _x: Any
+    _y: Any
+    _affine: None
+
     def __init__(self: BlendedGenericTransform,
                  x_transform: Any,
                  y_transform: Any,
@@ -584,6 +682,13 @@ class BlendedGenericTransform(_BlendedMixin, Transform):
 
 
 class BlendedAffine2D(_BlendedMixin, Affine2DBase):
+    is_separable: ClassVar[bool]
+    _invalid: int
+    _x: {is_affine, is_separable}
+    _y: {is_affine, is_separable}
+    _inverted: None
+    _mtx: None
+
     def __init__(self: BlendedAffine2D,
                  x_transform: {is_affine, is_separable},
                  y_transform: {is_affine, is_separable},
@@ -597,6 +702,18 @@ def blended_transform_factory(x_transform: Any,
 
 
 class CompositeGenericTransform(Transform):
+    pass_through: ClassVar[bool]
+    depth: ClassVar[property]
+    is_affine: ClassVar[property]
+    is_separable: ClassVar[property]
+    has_inverse: ClassVar[property]
+    __str__: ClassVar[Callable[[Any], Any]]
+    _a: {output_dims, input_dims}
+    _b: {input_dims, output_dims}
+    _invalid: int
+    output_dims: Any
+    input_dims: Any
+
     def __init__(self: CompositeGenericTransform,
                  a: {output_dims, input_dims},
                  b: {input_dims, output_dims},
@@ -628,6 +745,15 @@ class CompositeGenericTransform(Transform):
 
 
 class CompositeAffine2D(Affine2DBase):
+    __str__: ClassVar[Callable[[Any], Any]]
+    _a: {is_affine, output_dims, input_dims}
+    _b: {is_affine, input_dims, output_dims}
+    _invalid: int
+    _inverted: None
+    output_dims: Any
+    _mtx: None
+    input_dims: Any
+
     def __init__(self: CompositeAffine2D,
                  a: {is_affine, output_dims, input_dims},
                  b: {is_affine, input_dims, output_dims},
@@ -646,6 +772,14 @@ def composite_transform_factory(a: Union[Transform, Any],
 
 
 class BboxTransform(Affine2DBase):
+    is_separable: ClassVar[bool]
+    __str__: ClassVar[Callable[[Any], Any]]
+    _boxin: {is_bbox}
+    _invalid: int
+    _inverted: None
+    _boxout: {is_bbox}
+    _mtx: None
+
     def __init__(self: BboxTransform,
                  boxin: {is_bbox},
                  boxout: {is_bbox},
@@ -655,6 +789,13 @@ class BboxTransform(Affine2DBase):
 
 
 class BboxTransformTo(Affine2DBase):
+    is_separable: ClassVar[bool]
+    __str__: ClassVar[Callable[[Any], Any]]
+    _invalid: int
+    _inverted: None
+    _boxout: {is_bbox}
+    _mtx: None
+
     def __init__(self: BboxTransformTo,
                  boxout: {is_bbox},
                  **kwargs) -> Any: ...
@@ -663,10 +804,21 @@ class BboxTransformTo(Affine2DBase):
 
 
 class BboxTransformToMaxOnly(BboxTransformTo):
+    _invalid: int
+    _inverted: None
+    _mtx: ndarray
+
     def get_matrix(self: BboxTransformToMaxOnly) -> ndarray: ...
 
 
 class BboxTransformFrom(Affine2DBase):
+    is_separable: ClassVar[bool]
+    __str__: ClassVar[Callable[[Any], Any]]
+    _boxin: {is_bbox}
+    _invalid: int
+    _inverted: None
+    _mtx: None
+
     def __init__(self: BboxTransformFrom,
                  boxin: {is_bbox},
                  **kwargs) -> Any: ...
@@ -675,6 +827,13 @@ class BboxTransformFrom(Affine2DBase):
 
 
 class ScaledTranslation(Affine2DBase):
+    __str__: ClassVar[Callable[[Any], Any]]
+    _scale_trans: Any
+    _t: tuple[Any, Any]
+    _invalid: int
+    _inverted: None
+    _mtx: None
+
     def __init__(self: ScaledTranslation,
                  xt: Any,
                  yt: Any,
@@ -685,6 +844,10 @@ class ScaledTranslation(Affine2DBase):
 
 
 class AffineDeltaTransform(Affine2DBase):
+    __str__: ClassVar[Callable[[Any], Any]]
+    _base_transform: Any
+    _mtx: Any
+
     def __init__(self: AffineDeltaTransform,
                  transform: Any,
                  **kwargs) -> None: ...
@@ -693,6 +856,12 @@ class AffineDeltaTransform(Affine2DBase):
 
 
 class TransformedPath(TransformNode):
+    _transform: Transform
+    _transformed_points: None
+    _invalid: int
+    _path: Any
+    _transformed_path: None
+
     def __init__(self: TransformedPath,
                  path: Any,
                  transform: Transform) -> None: ...
@@ -709,6 +878,13 @@ class TransformedPath(TransformNode):
 
 
 class TransformedPatchPath(TransformedPath):
+    _transform: Any
+    _transformed_points: None
+    _invalid: int
+    _path: Any
+    _transformed_path: None
+    _patch: Any
+
     def __init__(self: TransformedPatchPath,
                  patch: Any) -> None: ...
 

@@ -1,4 +1,7 @@
+from matplotlib.path import Path as Path
+from matplotlib import _api as _api
 from typing import Any
+from typing import ClassVar
 from typing import Optional
 from typing import Union
 
@@ -21,6 +24,9 @@ class HatchPatternBase(object):
 
 
 class HorizontalHatch(HatchPatternBase):
+    num_vertices: int
+    num_lines: int
+
     def __init__(self: HorizontalHatch,
                  hatch: {count},
                  density: Any) -> None: ...
@@ -31,6 +37,9 @@ class HorizontalHatch(HatchPatternBase):
 
 
 class VerticalHatch(HatchPatternBase):
+    num_vertices: int
+    num_lines: int
+
     def __init__(self: VerticalHatch,
                  hatch: {count},
                  density: Any) -> None: ...
@@ -41,6 +50,9 @@ class VerticalHatch(HatchPatternBase):
 
 
 class NorthEastHatch(HatchPatternBase):
+    num_vertices: int
+    num_lines: int
+
     def __init__(self: NorthEastHatch,
                  hatch: {count},
                  density: Any) -> None: ...
@@ -51,6 +63,9 @@ class NorthEastHatch(HatchPatternBase):
 
 
 class SouthEastHatch(HatchPatternBase):
+    num_vertices: int
+    num_lines: int
+
     def __init__(self: SouthEastHatch,
                  hatch: {count},
                  density: Any) -> None: ...
@@ -61,6 +76,10 @@ class SouthEastHatch(HatchPatternBase):
 
 
 class Shapes(HatchPatternBase):
+    filled: ClassVar[bool]
+    num_shapes: Union[int, Any]
+    num_vertices: Union[int, Any]
+
     def __init__(self: Shapes,
                  hatch: Union[Union[{count}, {count}, {count}], Any],
                  density: Any) -> None: ...
@@ -71,33 +90,56 @@ class Shapes(HatchPatternBase):
 
 
 class Circles(Shapes):
+    shape_vertices: ndarray
+    shape_codes: Optional[ndarray]
+
     def __init__(self: Circles,
                  hatch: Union[{count}, Any],
                  density: Any) -> None: ...
 
 
 class SmallCircles(Circles):
+    size: ClassVar[float]
+    num_rows: Any
+
     def __init__(self: SmallCircles,
                  hatch: Union[{count}, Any],
                  density: Any) -> None: ...
 
 
 class LargeCircles(Circles):
+    size: ClassVar[float]
+    num_rows: Any
+
     def __init__(self: LargeCircles,
                  hatch: Union[{count}, Any],
                  density: Any) -> None: ...
 
 
 class SmallFilledCircles(SmallCircles):
+    size: ClassVar[float]
+    filled: ClassVar[bool]
+    num_rows: Any
+
     def __init__(self: SmallFilledCircles,
                  hatch: Union[{count}, Any],
                  density: Any) -> None: ...
 
 
 class Stars(Shapes):
+    size: ClassVar[float]
+    filled: ClassVar[bool]
+    shape_vertices: ndarray
+    shape_codes: ndarray
+    num_rows: Any
+
     def __init__(self: Stars,
                  hatch: Union[Union[{count}, {count}], Any],
                  density: Any) -> None: ...
+
+
+_hatch_types: list[Type[Union[
+    HorizontalHatch, VerticalHatch, NorthEastHatch, SouthEastHatch, SmallCircles, LargeCircles, SmallFilledCircles, Stars]]]
 
 
 def _validate_hatch_pattern(hatch: Any) -> None: ...

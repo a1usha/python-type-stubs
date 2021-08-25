@@ -1,7 +1,9 @@
+from matplotlib import _api as _api
 from _typeshed import SupportsLessThan
 from datetime import datetime
 from datetime import tzinfo
 from typing import Any
+from typing import ClassVar
 from typing import Iterable
 from typing import Optional
 from typing import Tuple
@@ -33,8 +35,34 @@ from matplotlib.transforms import IdentityTransform
 from numpy.core._multiarray_umath import ndarray
 from object import object
 
+_log: Logger
+GRIDLINE_INTERPOLATION_STEPS: int
+_line_inspector: ArtistInspector
+_line_param_names: list[str]
+_line_param_aliases: list[Any]
+_gridline_param_names: list[str]
+from typing import Any
+
 
 class Tick(Artist):
+    set_label: ClassVar[Callable[[Tick, str], None]]
+    _zorder: Union[Union[float, int], Any]
+    _tickdir: Optional[Any]
+    axes: {figure}
+    _base_pad: Optional[Any]
+    tick1line: Line2D
+    _loc: Any
+    label1: Text
+    label2: Text
+    _major: bool
+    _size: Optional[Any]
+    _labelrotation: tuple[Union[str, Any], Union[int, Any]]
+    stale: bool
+    _pad: Union[float, Any]
+    tick2line: Line2D
+    gridline: Line2D
+    _width: Optional[Any]
+
     @_api.delete_parameter("3.3", "label")
     def __init__(self: Tick,
                  axes: {figure},
@@ -131,6 +159,11 @@ class Tick(Artist):
 
 
 class XTick(Tick):
+    __name__: ClassVar[str]
+    stale: bool
+    _tickmarkers: Union[tuple[Any, Any], tuple[str, str]]
+    _loc: Any
+
     def __init__(self: XTick,
                  *args,
                  **kwargs) -> None: ...
@@ -149,6 +182,11 @@ class XTick(Tick):
 
 
 class YTick(Tick):
+    __name__: ClassVar[str]
+    stale: bool
+    _tickmarkers: Union[tuple[Any, Any], tuple[str, str]]
+    _loc: Any
+
     def __init__(self: YTick,
                  *args,
                  **kwargs) -> None: ...
@@ -167,6 +205,9 @@ class YTick(Tick):
 
 
 class Ticker(object):
+    _formatter: None
+    _locator: None
+
     def __init__(self: Ticker) -> None: ...
 
     def locator(self: Ticker) -> Any: ...
@@ -181,6 +222,8 @@ class Ticker(object):
 
 
 class _LazyTickList(object):
+    _major: Any
+
     def __init__(self: _LazyTickList,
                  major: Any) -> None: ...
 
@@ -190,6 +233,32 @@ class _LazyTickList(object):
 
 
 class Axis(Artist):
+    OFFSETTEXTPAD: ClassVar[int]
+    majorTicks: ClassVar[_LazyTickList]
+    minorTicks: ClassVar[_LazyTickList]
+    remove_overlapping_locs: ClassVar[property]
+    pickradius: float
+    minor: Ticker
+    offsetText: Text
+    isDefault_minloc: bool
+    isDefault_label: bool
+    labelpad: Optional[Any]
+    converter: None
+    axes: Axes
+    callbacks: CallbackRegistry
+    label: Text
+    units: None
+    _autolabelpos: bool
+    _remove_overlapping_locs: bool
+    isDefault_minfmt: bool
+    isDefault_majloc: bool
+    stale: bool
+    major: Ticker
+    _scale: Union[LinearScale, LogScale, SymmetricalLogScale, LogitScale, FuncScale, FuncScaleLog]
+    _major_tick_kw: dict[Any, Any]
+    _minor_tick_kw: dict[Any, Any]
+    isDefault_majfmt: bool
+
     def __str__(self: Axis) -> str: ...
 
     def __init__(self: Axis,
@@ -476,6 +545,19 @@ def _make_getset_interval(method_name: Union[str, Any],
 
 
 class XAxis(Axis):
+    __name__: ClassVar[str]
+    axis_name: ClassVar[str]
+    get_view_interval: ClassVar[Callable[[Union[{stale}, Any]], Any]]
+    set_view_interval: ClassVar[
+        Callable[[{stale}, Union[SupportsLessThan, Any], Union[SupportsLessThan, Any], bool], None]]
+    get_data_interval: ClassVar[Callable[[Union[{stale}, Any]], Any]]
+    set_data_interval: ClassVar[
+        Callable[[{stale}, Union[SupportsLessThan, Any], Union[SupportsLessThan, Any], bool], None]]
+    label_position: str
+    offset_text_position: str
+    stale: bool
+    _tick_position: str
+
     def __init__(self: XAxis,
                  *args,
                  **kwargs) -> None: ...
@@ -521,6 +603,18 @@ class XAxis(Axis):
 
 
 class YAxis(Axis):
+    __name__: ClassVar[str]
+    axis_name: ClassVar[str]
+    get_view_interval: ClassVar[Callable[[Union[{stale}, Any]], Any]]
+    set_view_interval: ClassVar[
+        Callable[[{stale}, Union[SupportsLessThan, Any], Union[SupportsLessThan, Any], bool], None]]
+    get_data_interval: ClassVar[Callable[[Union[{stale}, Any]], Any]]
+    set_data_interval: ClassVar[
+        Callable[[{stale}, Union[SupportsLessThan, Any], Union[SupportsLessThan, Any], bool], None]]
+    label_position: str
+    offset_text_position: str
+    stale: bool
+
     def __init__(self: YAxis,
                  *args,
                  **kwargs) -> None: ...

@@ -1,4 +1,20 @@
+from _enums import CapStyle as CapStyle
+from _enums import JoinStyle as JoinStyle
+from matplotlib import transforms as transforms
+from matplotlib import path as mpath
+from matplotlib import lines as mlines
+from matplotlib import hatch as mhatch
+from matplotlib import docstring as docstring
+from matplotlib import colors as mcolors
+from matplotlib import cm as cm
+from matplotlib import cbook as cbook
+from matplotlib import artist as artist
+from matplotlib import _path as _path
+from matplotlib import _api as _api
+from numbers import Number as Number
 from typing import Any
+from typing import Callable
+from typing import ClassVar
 from typing import Collection
 from typing import Iterable
 from typing import Optional
@@ -30,6 +46,43 @@ from numpy.core._multiarray_umath import ndarray
 
 
 class Collection(Artist, ScalarMappable):
+    _offsets: ClassVar[ndarray]
+    _transOffset: ClassVar[IdentityTransform]
+    _transforms: ClassVar[ndarray]
+    _edge_default: ClassVar[bool]
+    __doc__: ClassVar[str]
+    _edge_is_mapped: None
+    _hatch: str
+    _A: Any
+    _offsets: Any
+    _mapped_colors: None
+    _offset_position: str
+    _linewidths: list[int]
+    _edgecolors: str
+    _us_linestyles: list[tuple[int, None]]
+    _us_lw: list[int]
+    norm: Any
+    stale: bool
+    _original_edgecolor: Union[str, Any]
+    _path_effects: None
+    _paths: None
+    _facecolors: Union[ndarray, Iterable, int, float]
+    _update_dict: Any
+    _offsetsNone: Any
+    _antialiaseds: ndarray
+    _capstyle: None
+    _transOffset: Any
+    _hatch_color: Union[Iterable, tuple]
+    _linestyles: list[tuple[int, None]]
+    _joinstyle: None
+    _urls: Union[Iterable[str], list[None]]
+    _face_is_mapped: None
+    _uniform_offsets: Any
+    cmap: Any
+    _alpha: Any
+    _original_facecolor: Union[str, Iterable]
+    _pickradius: float
+
     @_api.delete_parameter("3.3", "offset_position")
     def __init__(self: Collection,
                  edgecolors: Union[Iterable, Any] = None,
@@ -170,6 +223,11 @@ class Collection(Artist, ScalarMappable):
 
 
 class _CollectionWithSizes(Collection):
+    _factor: ClassVar[float]
+    _sizes: ndarray
+    stale: bool
+    _transforms: ndarray
+
     def get_sizes(self: _CollectionWithSizes) -> array.pyi: ...
 
     def set_sizes(self: _CollectionWithSizes,
@@ -181,6 +239,9 @@ class _CollectionWithSizes(Collection):
 
 
 class PathCollection(_CollectionWithSizes):
+    stale: bool
+    _paths: Any
+
     def __init__(self: PathCollection,
                  paths: Any,
                  sizes: Union[ndarray, Iterable, int, float] = None,
@@ -200,6 +261,10 @@ class PathCollection(_CollectionWithSizes):
 
 
 class PolyCollection(_CollectionWithSizes):
+    set_paths: ClassVar[Callable[[PolyCollection, Union[Iterable[ndarray], Iterable, int, float], bool], None]]
+    stale: bool
+    _paths: list[Path]
+
     def __init__(self: PolyCollection,
                  verts: Union[Iterable[ndarray], Iterable, int, float],
                  sizes: Union[ndarray, Iterable, int, float] = None,
@@ -230,6 +295,13 @@ class BrokenBarHCollection(PolyCollection):
 
 
 class RegularPolyCollection(_CollectionWithSizes):
+    _path_generator: ClassVar[Callable[[{__le__}], Union[Path, Any]]]
+    _factor: ClassVar[float]
+    _numsides: int
+    _rotation: float
+    _paths: list[Union[Path, Any]]
+    _transforms: list[Any]
+
     def __init__(self: RegularPolyCollection,
                  numsides: int,
                  rotation: float = 0,
@@ -245,14 +317,26 @@ class RegularPolyCollection(_CollectionWithSizes):
 
 
 class StarPolygonCollection(RegularPolyCollection):
+    _path_generator: ClassVar[Callable[[{__le__}, float], Union[Path, Any]]]
     pass
 
 
 class AsteriskPolygonCollection(RegularPolyCollection):
+    _path_generator: ClassVar[Callable[[{__le__}], Union[Path, Any]]]
     pass
 
 
 class LineCollection(Collection):
+    _edge_default: ClassVar[bool]
+    set_verts: ClassVar[
+        Callable[[LineCollection, Union[Union[Iterable[ndarray], Iterable, int, float, ndarray], Any]], None]]
+    set_paths: ClassVar[
+        Callable[[LineCollection, Union[Union[Iterable[ndarray], Iterable, int, float, ndarray], Any]], None]]
+    set_colors: ClassVar[Callable[[LineCollection, Union[Iterable, Any]], None]]
+    get_colors: ClassVar[Callable[[LineCollection], str]]
+    stale: bool
+    _paths: list[Path]
+
     def __init__(self: LineCollection,
                  segments: Union[Iterable[ndarray], Iterable, int, float],
                  zorder: int = 2,
@@ -283,6 +367,14 @@ class LineCollection(Collection):
 
 
 class EventCollection(LineCollection):
+    _edge_default: ClassVar[bool]
+    extend_positions: ClassVar[Callable[[EventCollection, Optional[{__len__}]], None]]
+    append_positions: ClassVar[Callable[[EventCollection, Optional[{__len__}]], None]]
+    stale: bool
+    _is_horizontal: bool
+    _linelength: float
+    _lineoffset: float
+
     def __init__(self: EventCollection,
                  positions: int,
                  orientation: str = 'horizontal',
@@ -329,12 +421,22 @@ class EventCollection(LineCollection):
 
 
 class CircleCollection(_CollectionWithSizes):
+    _factor: ClassVar[float]
+    _paths: list[Union[Path, Any]]
+
     def __init__(self: CircleCollection,
                  sizes: Union[float, ndarray, Iterable, int],
                  **kwargs) -> None: ...
 
 
 class EllipseCollection(Collection):
+    _units: str
+    _heights: float
+    _widths: float
+    _angles: Any
+    _transforms: ndarray
+    _paths: list[Union[Path, Any]]
+
     def __init__(self: EllipseCollection,
                  widths: Union[ndarray, Iterable, int, float],
                  heights: Union[ndarray, Iterable, int, float],
@@ -349,6 +451,8 @@ class EllipseCollection(Collection):
 
 
 class PatchCollection(Collection):
+    _paths: list[Any]
+
     def __init__(self: PatchCollection,
                  patches: Any,
                  match_original: bool = False,
@@ -359,6 +463,11 @@ class PatchCollection(Collection):
 
 
 class TriMesh(Collection):
+    _bbox: Bbox
+    _shading: str
+    _paths: list[Path]
+    _triangulation: {x, y}
+
     def __init__(self: TriMesh,
                  triangulation: {x, y},
                  **kwargs) -> None: ...
@@ -374,6 +483,15 @@ class TriMesh(Collection):
 
 
 class QuadMesh(Collection):
+    _meshWidth: {__add__}
+    _bbox: Bbox
+    _shading: str
+    _meshHeight: {__add__}
+    _coordinates: None
+    _antialiased: bool
+    stale: bool
+    _paths: list[Path]
+
     def __init__(self: QuadMesh,
                  meshWidth: {__add__},
                  meshHeight: {__add__},
@@ -400,3 +518,6 @@ class QuadMesh(Collection):
 
     def draw(self: QuadMesh,
              renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
+
+
+_artist_kwdoc: str

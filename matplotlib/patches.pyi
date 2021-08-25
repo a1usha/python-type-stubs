@@ -1,7 +1,29 @@
+from _enums import CapStyle as CapStyle
+from _enums import JoinStyle as JoinStyle
+from path import Path as Path
+from bezier import split_path_inout as split_path_inout
+from bezier import split_bezier_intersecting_with_closedpath as split_bezier_intersecting_with_closedpath
+from bezier import make_wedged_bezier2 as make_wedged_bezier2
+from bezier import inside_circle as inside_circle
+from bezier import get_parallels as get_parallels
+from bezier import get_intersection as get_intersection
+from bezier import get_cos_sin as get_cos_sin
+from bezier import NonIntersectingPathException as NonIntersectingPathException
+from matplotlib import transforms as transforms
+from matplotlib import lines as mlines
+from matplotlib import hatch as mhatch
+from matplotlib import docstring as docstring
+from matplotlib import colors as colors
+from matplotlib import cbook as cbook
+from matplotlib import artist as artist
+from matplotlib import _api as _api
+from collections import namedtuple as namedtuple
+from numbers import Number as Number
 from functools import partial
 from numbers import Number
 from typing import Any
 from typing import Callable
+from typing import ClassVar
 from typing import Generator
 from typing import Iterable
 from typing import Optional
@@ -45,6 +67,27 @@ from object import object
 
 
 class Patch(Artist):
+    zorder: ClassVar[int]
+    _edge_default: ClassVar[bool]
+    fill: ClassVar[property]
+    _capstyle: Any
+    _hatch: Any
+    _transformSet: Any
+    _facecolor: Any
+    _dashoffset: Any
+    _fill: bool
+    _hatch_color: Union[Iterable, tuple]
+    _joinstyle: Any
+    _us_dashes: None
+    _linewidth: int
+    _original_edgecolor: Any
+    _antialiased: Optional[Any]
+    stale: bool
+    _linestyle: str
+    _original_facecolor: Any
+    _dashes: Any
+    _edgecolor: Any
+
     @_api.deprecated("3.4")
     @_api.classproperty
     def validCap(cls: Patch) -> Union[_deprecated_property, Any]: ...
@@ -168,7 +211,17 @@ class Patch(Artist):
                           xy: {__getitem__}) -> Tuple[Any, Any]: ...
 
 
+_patch_kwdoc: str
+
+
 class Shadow(Patch):
+    props: ClassVar[deprecate_privatize_attribute]
+    patch: Any
+    _oy: float
+    _ox: float
+    _shadow_transform: Affine2D
+    _props: dict[Any, Any]
+
     def __str__(self: Shadow) -> str: ...
 
     @_api.delete_parameter("3.3", "props")
@@ -193,6 +246,14 @@ class Shadow(Patch):
 
 
 class Rectangle(Patch):
+    xy: ClassVar[property]
+    stale: bool
+    _x0: float
+    _y0: float
+    angle: float
+    _width: float
+    _height: float
+
     def __str__(self: Rectangle) -> str: ...
 
     def __init__(self: Rectangle,
@@ -251,6 +312,13 @@ class Rectangle(Patch):
 
 
 class RegularPolygon(Patch):
+    xy: tuple[float, float]
+    orientation: float
+    _patch_transform: Affine2D
+    numvertices: int
+    _path: Union[Path, Any]
+    radius: float
+
     def __str__(self: RegularPolygon) -> str: ...
 
     def __init__(self: RegularPolygon,
@@ -266,6 +334,9 @@ class RegularPolygon(Patch):
 
 
 class PathPatch(Patch):
+    _edge_default: ClassVar[bool]
+    _path: Union[Path, Any]
+
     def __str__(self: PathPatch) -> str: ...
 
     def __init__(self: PathPatch,
@@ -279,6 +350,14 @@ class PathPatch(Patch):
 
 
 class StepPatch(PathPatch):
+    _edge_default: ClassVar[bool]
+    _baseline: Optional[ndarray]
+    orientation: str
+    stale: bool
+    _values: ndarray
+    _path: Path
+    _edges: ndarray
+
     def __init__(self: StepPatch,
                  values: Union[ndarray, Iterable, int, float],
                  edges: Union[ndarray, Iterable, int, float],
@@ -298,6 +377,11 @@ class StepPatch(PathPatch):
 
 
 class Polygon(Patch):
+    xy: ClassVar[property]
+    stale: bool
+    _path: Path
+    _closed: bool
+
     def __str__(self: Polygon) -> str: ...
 
     def __init__(self: Polygon,
@@ -319,6 +403,15 @@ class Polygon(Patch):
 
 
 class Wedge(Patch):
+    r: Any
+    stale: bool
+    _patch_transform: IdentityTransform
+    center: Any
+    width: Any
+    theta1: Any
+    _path: Path
+    theta2: Any
+
     def __str__(self: Wedge) -> str: ...
 
     def __init__(self: Wedge,
@@ -350,6 +443,9 @@ class Wedge(Patch):
 
 
 class Arrow(Patch):
+    _path: ClassVar[Path]
+    _patch_transform: Affine2D
+
     def __str__(self: Arrow) -> str: ...
 
     def __init__(self: Arrow,
@@ -366,6 +462,8 @@ class Arrow(Patch):
 
 
 class FancyArrow(Polygon):
+    _edge_default: ClassVar[bool]
+
     def __str__(self: FancyArrow) -> str: ...
 
     def __init__(self: FancyArrow,
@@ -394,6 +492,18 @@ class CirclePolygon(RegularPolygon):
 
 
 class Ellipse(Patch):
+    center: ClassVar[property]
+    width: ClassVar[property]
+    height: ClassVar[property]
+    angle: ClassVar[property]
+    _angle: float
+    stale: bool
+    _patch_transform: IdentityTransform
+    _center: tuple[float, float]
+    _path: Union[Path, Any]
+    _width: float
+    _height: float
+
     def __str__(self: Ellipse) -> str: ...
 
     def __init__(self: Ellipse,
@@ -431,6 +541,12 @@ class Ellipse(Patch):
 
 
 class Circle(Ellipse):
+    radius: ClassVar[property]
+    stale: bool
+    width: float
+    radius: int
+    height: float
+
     def __str__(self: Circle) -> str: ...
 
     def __init__(self: Circle,
@@ -445,6 +561,10 @@ class Circle(Ellipse):
 
 
 class Arc(Ellipse):
+    theta1: Union[float, int]
+    _path: Path
+    theta2: Union[float, int]
+
     def __str__(self: Arc) -> str: ...
 
     def __init__(self: Arc,
@@ -486,6 +606,12 @@ def _simpleprint_styles(_styles: Union[dict[Any, Any], Any]) -> str: ...
 
 
 class _Style(object):
+    _list: Any
+    _name: Any
+    _args: dict
+    _cls: Any
+    _args_pair: list[Any]
+
     def __new__(cls: Type[_Style],
                 stylename: {replace},
                 **kwargs) -> Any: ...
@@ -506,10 +632,12 @@ def _register_style(style_list: Union[dict[Any, Any], Any],
 
 
 class BoxStyle(_Style):
+    _style_list: ClassVar[dict[Any, Any]]
     pass
 
 
 class ConnectionStyle(_Style):
+    _style_list: ClassVar[dict[Any, Any]]
     pass
 
 
@@ -521,10 +649,21 @@ def _point_along_a_line(x0: {__sub__},
 
 
 class ArrowStyle(_Style):
+    _style_list: ClassVar[dict[Any, Any]]
     pass
 
 
 class FancyBboxPatch(Patch):
+    _edge_default: ClassVar[bool]
+    stale: bool
+    _bbox_transmuter: Any
+    _x: Any
+    _mutation_aspect: float
+    _y: Any
+    _width: float
+    _height: float
+    _mutation_scale: float
+
     def __str__(self: FancyBboxPatch) -> str: ...
 
     @_api.delete_parameter("3.4", "bbox_transmuter", alternative="boxstyle")
@@ -593,6 +732,20 @@ class FancyBboxPatch(Patch):
 
 
 class FancyArrowPatch(Patch):
+    _edge_default: ClassVar[bool]
+    patchB: Any
+    patchA: Any
+    _path_original: Optional[Any]
+    stale: bool
+    shrinkA: int
+    _dpi_cor: int
+    _connector: Callable
+    shrinkB: int
+    _mutation_aspect: int
+    _posA_posB: None
+    _arrow_transmuter: _Base
+    _mutation_scale: int
+
     def __str__(self: FancyArrowPatch) -> str: ...
 
     @_api.delete_parameter("3.4", "dpi_cor")
@@ -669,6 +822,17 @@ class FancyArrowPatch(Patch):
 
 
 class ConnectionPatch(FancyArrowPatch):
+    xy2: Any
+    coords2: Any
+    xy1: Any
+    axesA: Any
+    axesB: Any
+    stale: bool
+    _dpi_cor: int
+    _renderer: {open_group, new_gc, draw_path, close_group}
+    coords1: Any
+    _annotation_clip: None
+
     def __str__(self: ConnectionPatch) -> str: ...
 
     @_api.delete_parameter("3.4", "dpi_cor")

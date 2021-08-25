@@ -1,4 +1,12 @@
+from bezier import BezierSegment as BezierSegment
+from cbook import simple_linear_interpolation as simple_linear_interpolation
+from cbook import _to_unmasked_float_array as _to_unmasked_float_array
+from matplotlib import _path as _path
+from matplotlib import _api as _api
+from weakref import WeakValueDictionary as WeakValueDictionary
+from functools import lru_cache as lru_cache
 from typing import Any
+from typing import ClassVar
 from typing import Generator
 from typing import Iterable
 from typing import Optional
@@ -15,6 +23,31 @@ from object import object
 
 
 class Path(object):
+    code_type: ClassVar[Type[uint8]]
+    STOP: ClassVar[uint8]
+    MOVETO: ClassVar[uint8]
+    LINETO: ClassVar[uint8]
+    CURVE3: ClassVar[uint8]
+    CURVE4: ClassVar[uint8]
+    CLOSEPOLY: ClassVar[uint8]
+    NUM_VERTICES_FOR_CODE: ClassVar[dict[uint8, int]]
+    copy: ClassVar[Callable[[Path], Path]]
+    deepcopy: ClassVar[Callable[[Path, Any], Path]]
+    _unit_rectangle: ClassVar[None]
+    _unit_regular_polygons: ClassVar[WeakValueDictionary]
+    _unit_regular_stars: ClassVar[WeakValueDictionary]
+    _unit_circle: ClassVar[None]
+    _unit_circle_righthalf: ClassVar[None]
+    _unit_circle_righthalf: Path
+    _codes: Optional[ndarray]
+    _interpolation_steps: Optional[int]
+    _vertices: ndarray
+    _should_simplify: Union[Union[bool, None, ndarray], Any]
+    _unit_rectangle: Path
+    _readonly: bool
+    _unit_circle: Path
+    _simplify_threshold: Optional[Any]
+
     def __init__(self: Path,
                  vertices: int,
                  codes: Union[ndarray, Iterable, int, float, None] = None,

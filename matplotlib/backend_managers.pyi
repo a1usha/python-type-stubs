@@ -1,3 +1,7 @@
+from matplotlib.rcsetup import validate_stringlist as validate_stringlist
+from matplotlib import widgets as widgets
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
 from typing import Any
 from typing import Callable
 from typing import Iterable
@@ -14,6 +18,11 @@ from object import object
 
 
 class ToolEvent(object):
+    data: Any
+    sender: Any
+    name: Any
+    tool: Any
+
     def __init__(self: ToolEvent,
                  name: Any,
                  sender: Any,
@@ -22,6 +31,8 @@ class ToolEvent(object):
 
 
 class ToolTriggerEvent(ToolEvent):
+    canvasevent: Any
+
     def __init__(self: ToolTriggerEvent,
                  name: Any,
                  sender: Any,
@@ -31,6 +42,10 @@ class ToolTriggerEvent(ToolEvent):
 
 
 class ToolManagerMessageEvent(object):
+    sender: Any
+    name: Any
+    message: Any
+
     def __init__(self: ToolManagerMessageEvent,
                  name: Any,
                  sender: Any,
@@ -38,6 +53,15 @@ class ToolManagerMessageEvent(object):
 
 
 class ToolManager(object):
+    messagelock: LockDraw
+    _figure: None
+    _callbacks: CallbackRegistry
+    _toggled: dict[Any, Any]
+    _key_press_handler_id: None
+    keypresslock: LockDraw
+    _tools: dict[Any, Any]
+    _keys: dict[Any, Any]
+
     def __init__(self: ToolManager,
                  figure: Any = None) -> None: ...
 

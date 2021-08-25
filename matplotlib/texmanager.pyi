@@ -1,4 +1,10 @@
-from typing import Any
+from matplotlib import rcParams as rcParams
+from matplotlib import dviread as dviread
+from matplotlib import cbook as cbook
+from matplotlib import _api as _api
+from tempfile import TemporaryDirectory as TemporaryDirectory
+from pathlib import Path as Path
+from typing import ClassVar
 from typing import Optional
 from typing import Tuple
 from typing import Type
@@ -9,8 +15,27 @@ from matplotlib.texmanager import TexManager
 from numpy.core._multiarray_umath import ndarray
 from object import object
 
+_log: Logger
+from typing import Any
+
 
 class TexManager(object):
+    texcache: ClassVar[str]
+    grey_arrayd: ClassVar[dict[Any, Any]]
+    font_family: ClassVar[str]
+    font_families: ClassVar[tuple[str, str, str, str]]
+    font_info: ClassVar[dict[Union[str, Any], Union[tuple[str, str], Any]]]
+    cachedir: ClassVar[Union[_deprecated_property, Any]]
+    rgba_arrayd: ClassVar[Union[_deprecated_property, Any]]
+    _fonts: ClassVar[dict[Any, Any]]
+    serif: ClassVar[Union[_deprecated_property, Any]]
+    sans_serif: ClassVar[Union[_deprecated_property, Any]]
+    cursive: ClassVar[Union[_deprecated_property, Any]]
+    monospace: ClassVar[Union[_deprecated_property, Any]]
+    _re_vbox: ClassVar[Pattern[str]]
+    _font_preamble: str
+    font_family: Any
+
     def __new__(cls: Type[TexManager]) -> TexManager: ...
 
     def get_font_config(self: TexManager) -> str: ...

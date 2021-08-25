@@ -1,3 +1,8 @@
+from matplotlib.transforms import Bbox as Bbox
+from matplotlib.transforms import TransformedBbox as TransformedBbox
+from matplotlib.font_manager import FontProperties as FontProperties
+from matplotlib import rcParams as rcParams
+from matplotlib import _api as _api
 from typing import Any
 from typing import Iterable
 from typing import Optional

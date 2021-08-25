@@ -1,4 +1,37 @@
+from matplotlib import legend_handler as legend_handler
+from matplotlib.container import StemContainer as StemContainer
+from matplotlib.container import BarContainer as BarContainer
+from matplotlib.container import ErrorbarContainer as ErrorbarContainer
+from matplotlib.offsetbox import DraggableOffsetBox as DraggableOffsetBox
+from matplotlib.offsetbox import DrawingArea as DrawingArea
+from matplotlib.offsetbox import TextArea as TextArea
+from matplotlib.offsetbox import VPacker as VPacker
+from matplotlib.offsetbox import HPacker as HPacker
+from matplotlib.transforms import BboxTransformFrom as BboxTransformFrom
+from matplotlib.transforms import BboxTransformTo as BboxTransformTo
+from matplotlib.transforms import TransformedBbox as TransformedBbox
+from matplotlib.transforms import BboxBase as BboxBase
+from matplotlib.transforms import Bbox as Bbox
+from matplotlib.collections import PolyCollection as PolyCollection
+from matplotlib.collections import PathCollection as PathCollection
+from matplotlib.collections import CircleCollection as CircleCollection
+from matplotlib.collections import RegularPolyCollection as RegularPolyCollection
+from matplotlib.collections import LineCollection as LineCollection
+from matplotlib.patches import StepPatch as StepPatch
+from matplotlib.patches import FancyBboxPatch as FancyBboxPatch
+from matplotlib.patches import Shadow as Shadow
+from matplotlib.patches import Rectangle as Rectangle
+from matplotlib.patches import Patch as Patch
+from matplotlib.lines import Line2D as Line2D
+from matplotlib.font_manager import FontProperties as FontProperties
+from matplotlib.cbook import silent_list as silent_list
+from matplotlib.artist import allow_rasterization as allow_rasterization
+from matplotlib.artist import Artist as Artist
+from matplotlib import colors as colors
+from matplotlib import docstring as docstring
+from matplotlib import _api as _api
 from typing import Any
+from typing import ClassVar
 from typing import Generator
 from typing import Iterable
 from typing import Optional
@@ -25,6 +58,9 @@ from matplotlib.transforms import TransformedBbox
 
 
 class DraggableLegend(DraggableOffsetBox):
+    legend: Any
+    _update: Optional[str]
+
     def __init__(self: DraggableLegend,
                  legend: Any,
                  use_blit: Optional[bool] = False,
@@ -40,6 +76,36 @@ class DraggableLegend(DraggableOffsetBox):
 
 
 class Legend(Artist):
+    codes: ClassVar[dict[Union[str, Any], Union[int, Any]]]
+    zorder: ClassVar[int]
+    _loc: ClassVar[property]
+    _default_handler_map: ClassVar[dict[Union[Type[Union[
+        StemContainer, ErrorbarContainer, Line2D, Patch, StepPatch, LineCollection, RegularPolyCollection, CircleCollection, BarContainer, tuple]], Any],
+                                        Union[Union[
+                                                  HandlerStem, HandlerErrorbar, HandlerLine2D, HandlerPatch, HandlerStepPatch, HandlerLineCollection, HandlerRegularPolyCollection, HandlerCircleCollection, HandlerTuple], Any]]]
+    draw_frame: ClassVar[Callable[[Legend, bool], None]]
+    isaxes: bool
+    legendPatch: FancyBboxPatch
+    parent: Union[Axes, Figure]
+    _loc_used_default: Any
+    _default_handler_map: Any
+    _legend_title_box: None
+    legendHandles: list[Any]
+    axes: Axes
+    _loc_real: Any
+    _legend_handle_box: HPacker
+    _bbox_to_anchor: None
+    _mode: Any
+    _fontsize: Optional[Any]
+    _legend_box: None
+    stale: bool
+    texts: list[Any]
+    _scatteryoffsets: None
+    _draggable: None
+    prop: FontProperties
+    _custom_handler_map: Any
+    _ncol: int
+
     def __str__(self: Legend) -> str: ...
 
     def __init__(self: Legend,

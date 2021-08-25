@@ -1,3 +1,64 @@
+from ticker import MaxNLocator as MaxNLocator
+from ticker import MultipleLocator as MultipleLocator
+from ticker import AutoLocator as AutoLocator
+from ticker import LogLocator as LogLocator
+from ticker import LinearLocator as LinearLocator
+from ticker import NullLocator as NullLocator
+from ticker import FixedLocator as FixedLocator
+from ticker import IndexLocator as IndexLocator
+from ticker import Locator as Locator
+from ticker import LogFormatterMathtext as LogFormatterMathtext
+from ticker import LogFormatterExponent as LogFormatterExponent
+from ticker import LogFormatter as LogFormatter
+from ticker import ScalarFormatter as ScalarFormatter
+from ticker import FormatStrFormatter as FormatStrFormatter
+from ticker import FuncFormatter as FuncFormatter
+from ticker import NullFormatter as NullFormatter
+from ticker import FixedFormatter as FixedFormatter
+from ticker import Formatter as Formatter
+from ticker import TickHelper as TickHelper
+from matplotlib.widgets import Widget as Widget
+from matplotlib.widgets import Slider as Slider
+from matplotlib.widgets import Button as Button
+from matplotlib.widgets import SubplotTool as SubplotTool
+from matplotlib.patches import Arrow as Arrow
+from matplotlib.patches import Circle as Circle
+from matplotlib.patches import Rectangle as Rectangle
+from matplotlib.patches import Polygon as Polygon
+from matplotlib.text import Annotation as Annotation
+from matplotlib.text import Text as Text
+from matplotlib.lines import Line2D as Line2D
+from matplotlib.colors import Normalize as Normalize
+from matplotlib.cm import register_cmap as register_cmap
+from matplotlib.cm import get_cmap as get_cmap
+from matplotlib import cm as cm
+from matplotlib.scale import get_scale_names as get_scale_names
+from matplotlib import mlab as mlab
+from matplotlib.projections import PolarAxes as PolarAxes
+from matplotlib.axes import Subplot as Subplot
+from matplotlib.axes import Axes as Axes
+from matplotlib.artist import Artist as Artist
+from matplotlib.rcsetup import interactive_bk as _interactive_bk
+from matplotlib import rcParamsOrig as rcParamsOrig
+from matplotlib import get_backend as get_backend
+from matplotlib import rcParamsDefault as rcParamsDefault
+from matplotlib import rcParams as rcParams
+from matplotlib.gridspec import SubplotSpec as SubplotSpec
+from matplotlib.gridspec import GridSpec as GridSpec
+from matplotlib.figure import figaspect as figaspect
+from matplotlib.figure import Figure as Figure
+from matplotlib.backend_bases import MouseButton as MouseButton
+from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase
+from matplotlib import docstring as docstring
+from matplotlib import cbook as cbook
+from matplotlib import interactive as interactive
+from matplotlib import _pylab_helpers as _pylab_helpers
+from matplotlib import style as style
+from matplotlib import rcsetup as rcsetup
+from matplotlib import _api as _api
+from cycler import cycler as cycler
+from numbers import Number as Number
+from functools import partial
 from typing import Any
 from typing import Callable
 from typing import Generator
@@ -21,8 +82,28 @@ from matplotlib.widgets import SubplotTool
 from numpy.core._multiarray_umath import ndarray
 from object import object
 
+_log: Logger
+_code_objs: dict[Union[Callable[[Any, Any, Any, Optional[{__name__}]], Union[
+    partial[Any], Callable[[tuple[Any, ...], dict[str, Any]], Any]]], Callable[
+                           [Any, Any, Optional[{__name__, __signature__}]], Union[
+                               partial[Any], Callable[[tuple[Any, ...], dict[str, Any]], Any]]]], CodeType]
+from typing import Any
+
+_IP_REGISTERED: None
+
+_INSTALL_FIG_OBSERVER: bool
+
+
+def _copy_docstring_and_deprecators(method: Union[Union[
+                                                      function | function | function | function | function | function | function | function | function | {
+                                                          __doc__} | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | partial | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function | function, Any], Any],
+                                    func: Any = None) -> Union[partial[Any], Any]: ...
+
 
 def install_repl_displayhook() -> None: ...
+
+
+draw_all: Callable[[bool], None]
 
 
 def uninstall_repl_displayhook() -> Any: ...
@@ -62,6 +143,8 @@ def isinteractive() -> Optional[Any]: ...
 
 
 class _IoffContext(object):
+    wasinteractive: Optional[Any]
+
     def __init__(self: _IoffContext) -> None: ...
 
     def __enter__(self: _IoffContext) -> None: ...
@@ -73,6 +156,8 @@ class _IoffContext(object):
 
 
 class _IonContext(object):
+    wasinteractive: Optional[Any]
+
     def __init__(self: _IonContext) -> None: ...
 
     def __enter__(self: _IonContext) -> None: ...
@@ -124,6 +209,8 @@ def xkcd(scale: Optional[float] = 1,
 
 
 class _xkcd(object):
+    _orig: dict
+
     def __init__(self: _xkcd,
                  scale: Any,
                  length: Any,
