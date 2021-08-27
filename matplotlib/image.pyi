@@ -360,6 +360,9 @@ def pil_to_array(pilImage: Union[Union[ndarray, Iterable, int, float, PngImageFi
 def _pil_png_to_float_array(pil_png: Union[PngImageFile, Any]) -> Optional[ndarray]: ...
 
 
+from matplotlib._image import *
+
+
 def thumbnail(infile: Any,
               thumbfile: Any,
               scale: float = 0.1,

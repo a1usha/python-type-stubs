@@ -44,3 +44,8 @@ from matplotlib.cbook import silent_list as silent_list
 from matplotlib.cbook import flatten as flatten
 
 bytes: Any
+from matplotlib.pyplot import *
+from numpy import *
+from numpy.fft import *
+from numpy.random import *
+from numpy.linalg import *
