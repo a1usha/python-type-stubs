@@ -1,3 +1,3 @@
 # Matplotlib Type Stubs
 
-Stubs for matplotlib 3.4.2
+Stubs for matplotlib 3.4.3
