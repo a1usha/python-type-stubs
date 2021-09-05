@@ -4,6 +4,7 @@ from matplotlib import cbook as cbook
 from matplotlib import _api as _api
 from tempfile import TemporaryDirectory as TemporaryDirectory
 from pathlib import Path as Path
+from typing import Any
 from typing import ClassVar
 from typing import Optional
 from typing import Tuple
@@ -12,11 +13,7 @@ from typing import Union
 
 from matplotlib import _api
 from matplotlib.texmanager import TexManager
-from numpy.core._multiarray_umath import ndarray
 from object import object
-
-_log: Logger
-from typing import Any
 
 
 class TexManager(object):
@@ -68,7 +65,7 @@ class TexManager(object):
 
     def make_dvi(self: TexManager,
                  tex: Union[{strip}, Any],
-                 fontsize: Any) -> Union[str, Any]: ...
+                 fontsize: Optional[Any]) -> Union[str, Any]: ...
 
     @_api.deprecated("3.3")
     def make_dvi_preview(self: TexManager,
@@ -89,7 +86,7 @@ class TexManager(object):
                  tex: Any,
                  fontsize: Any = None,
                  dpi: Any = None,
-                 rgb: Union[tuple[int, int, int], Any] = (0, 0, 0)) -> ndarray: ...
+                 rgb: Union[tuple[int, int, int], Any] = (0, 0, 0)) -> Any: ...
 
     def get_text_width_height_descent(self: TexManager,
                                       tex: {strip},

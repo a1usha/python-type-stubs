@@ -3,6 +3,7 @@ from matplotlib.transforms import Affine2D as Affine2D
 from matplotlib.patches import PathPatch as PathPatch
 from matplotlib.path import Path as Path
 from types import SimpleNamespace as SimpleNamespace
+from typing import Any
 from typing import Iterable
 from typing import Tuple
 from typing import Union
@@ -11,19 +12,14 @@ from matplotlib.sankey import Sankey
 from numpy.core import uint8
 from object import object
 
-_log: Logger
-__author__: str
-__credits__: list[str]
-__license__: str
-__version__: str
 RIGHT: int
 UP: int
 DOWN: int
-from typing import Any
+__version__: str
 
 
 class Sankey(object):
-    extent: ndarray
+    extent: Any
     margin: float
     offset: float
     format: str
@@ -32,7 +28,7 @@ class Sankey(object):
     unit: str
     ax: Any
     gap: float
-    pitch: None
+    pitch: Any
     radius: float
     shoulder: float
     tolerance: float

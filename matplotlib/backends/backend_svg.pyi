@@ -24,6 +24,7 @@ from io import BytesIO as BytesIO
 from collections import OrderedDict as OrderedDict
 from collections import OrderedDict
 from io import TextIOWrapper
+from typing import Any
 from typing import ClassVar
 from typing import Optional
 from typing import OrderedDict
@@ -39,7 +40,6 @@ from matplotlib.backends.backend_svg import FigureCanvasSVG
 from matplotlib.backends.backend_svg import RendererSVG
 from matplotlib.backends.backend_svg import XMLWriter
 from matplotlib.font_manager import FontProperties
-from matplotlib.ft2font import FT2Font
 from matplotlib.mathtext import MathTextParser
 from matplotlib.path import Path
 from matplotlib.text import Text
@@ -50,9 +50,7 @@ from matplotlib.transforms import CompositeGenericTransform
 from matplotlib.transforms import Transform
 from object import object
 
-_log: Logger
 backend_version: str
-from typing import Any
 
 _escape_xml_comment: Pattern[str]
 
@@ -166,7 +164,7 @@ class RendererSVG(RendererBase):
                                                                                                           input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]: ...
 
     def _get_font(self: RendererSVG,
-                  prop: Union[FontProperties, Any]) -> FT2Font: ...
+                  prop: Union[FontProperties, Any]) -> Any: ...
 
     def _get_hatch(self: RendererSVG,
                    gc: {get_hatch_color, get_hatch},

@@ -6,6 +6,7 @@ from pyparsing import Optional as Optional
 from pyparsing import ZeroOrMore as ZeroOrMore
 from pyparsing import Literal as Literal
 from functools import lru_cache as lru_cache
+from typing import Any
 from typing import Callable
 from typing import ClassVar
 from typing import Union
@@ -13,13 +14,12 @@ from typing import Union
 from matplotlib.fontconfig_pattern import FontconfigPatternParser
 from object import object
 
-family_punc: str
 family_unescape: Union[Callable[[str, str, int], str], Callable[[Callable[[Match[str]], str], str, int], str]]
 family_escape: Union[Callable[[str, str, int], str], Callable[[Callable[[Match[str]], str], str, int], str]]
 value_punc: str
 value_unescape: Union[Callable[[str, str, int], str], Callable[[Callable[[Match[str]], str], str, int], str]]
 value_escape: Union[Callable[[str, str, int], str], Callable[[Callable[[Match[str]], str], str, int], str]]
-from typing import Any
+family_punc: str
 
 
 class FontconfigPatternParser(object):

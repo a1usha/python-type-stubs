@@ -22,7 +22,6 @@ from matplotlib.backends.backend_template import RendererTemplate
 from matplotlib.figure import Figure
 from matplotlib.font_manager import FontProperties
 from matplotlib.text import Text
-from numpy.core._multiarray_umath import ndarray
 
 
 class RendererTemplate(RendererBase):
@@ -65,7 +64,8 @@ class RendererTemplate(RendererBase):
     def new_gc(self: RendererTemplate) -> GraphicsContextTemplate: ...
 
     def points_to_pixels(self: RendererTemplate,
-                         points: Union[float, ndarray, Iterable, int]) -> Union[float, ndarray, Iterable, int]: ...
+                         points: Union[Union[float, Iterable, int], Any]) -> Union[
+        Union[float, Iterable, int], Any]: ...
 
 
 class GraphicsContextTemplate(GraphicsContextBase):

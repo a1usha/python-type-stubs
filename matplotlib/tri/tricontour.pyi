@@ -11,10 +11,10 @@ from matplotlib.tri.tricontour import TriContourSet
 
 class TriContourSet(ContourSet):
     zmin: float
-    _maxs: list[None]
+    _maxs: list[Any]
     zmax: float
-    _mins: list[None]
-    cppContourGenerator: Union[TriContourGenerator, Any]
+    _mins: list[Any]
+    cppContourGenerator: Any
     levels: Any
 
     def __init__(self: TriContourSet,
@@ -27,11 +27,11 @@ class TriContourSet(ContourSet):
                       **kwargs) -> dict[str, Any]: ...
 
     def _get_allsegs_and_allkinds(self: TriContourSet) -> Tuple[
-        list[Optional[list[Any]]], Optional[list[list[Any]]]]: ...
+        list[Union[list[Any], Any]], Optional[list[list[Any]]]]: ...
 
     def _contour_args(self: TriContourSet,
                       args: Union[tuple[Any, ...], Any],
-                      kwargs: Any) -> Tuple[Union[Triangulation, Any], None]: ...
+                      kwargs: Any) -> Tuple[Union[Triangulation, Any], Any]: ...
 
 
 def tricontour(*args,

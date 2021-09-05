@@ -58,7 +58,6 @@ from matplotlib.backends.backend_qt5 import ToolCopyToClipboardQT
 from matplotlib.backends.backend_qt5 import ToolbarQt
 from matplotlib.backends.qt_editor._formsubplottool import UiSubplotTool
 
-backend_version: Any
 SPECIAL_KEYS: dict[Any, Union[str, Any]]
 _MODIFIER_KEYS: list[tuple[Any, Any]]
 cursord: dict[Cursors, Any]
@@ -68,7 +67,7 @@ CTRL: int
 SHIFT: int
 MODIFIER_KEYS: list[tuple[Union[str, Any], Any, Any]]
 qApp: None
-from typing import Any
+backend_version: Any
 
 
 def _create_qApp() -> Any: ...

@@ -1,9 +1,7 @@
 from functools import partial as partial
+from typing import Any
 from typing import Union
 
-from numpy.core._multiarray_umath import ndarray
-
-_binary_data: dict[str, tuple[tuple[float, float, float], tuple[float, float, float]]]
 _autumn_data: dict[str, tuple[tuple[float, float, float], tuple[float, float, float]]]
 _bone_data: dict[str, Union[
     tuple[tuple[float, float, float], tuple[float, float, float], tuple[float, float, float]], tuple[
@@ -13,31 +11,34 @@ _cool_data: dict[str, tuple[tuple[float, float, float], tuple[float, float, floa
 _copper_data: dict[str, Union[
     tuple[tuple[float, float, float], tuple[float, float, float], tuple[float, float, float]], tuple[
         tuple[float, float, float], tuple[float, float, float]]]]
-from typing import Any
+_binary_data: dict[str, tuple[tuple[float, float, float], tuple[float, float, float]]]
 
 
-def _flag_red(x: {__mul__}) -> float: ...
+def _flag_red(x: {__mul__}) -> Union[float, Any]: ...
 
 
-def _flag_green(x: {__mul__}) -> None: ...
+def _flag_green(x: {__mul__}) -> Any: ...
 
 
-_flag_data: dict[str, Union[Callable[[{__mul__}], float], Callable[[{__mul__}], None], Callable[[{__mul__}], float]]]
+_flag_data: dict[str, Union[
+    Callable[[{__mul__}], Union[float, Any]], Callable[[{__mul__}], Union[float, Any]], Callable[[{__mul__}], Any]]]
 
 
-def _flag_blue(x: {__mul__}) -> float: ...
+def _flag_blue(x: {__mul__}) -> Union[float, Any]: ...
 
 
-def _prism_red(x: {__mul__}) -> float: ...
+def _prism_red(x: {__mul__}) -> Union[float, Any]: ...
 
 
-def _prism_green(x: {__mul__}) -> float: ...
+def _prism_green(x: {__mul__}) -> Union[float, Any]: ...
 
 
-_prism_data: dict[str, Union[Callable[[{__mul__}], float], Callable[[{__mul__}], float], Callable[[{__mul__}], float]]]
+_prism_data: dict[str, Union[
+    Callable[[{__mul__}], Union[float, Any]], Callable[[{__mul__}], Union[float, Any]], Callable[
+        [{__mul__}], Union[float, Any]]]]
 
 
-def _prism_blue(x: {__mul__}) -> float: ...
+def _prism_blue(x: {__mul__}) -> Union[float, Any]: ...
 
 
 def _ch_helper(gamma: Any,
@@ -83,46 +84,46 @@ def _g5(x: {__pow__}) -> Any: ...
 def _g6(x: {__pow__}) -> Any: ...
 
 
-def _g7(x: Any) -> None: ...
+def _g7(x: Any) -> Any: ...
 
 
-def _g8(x: Any) -> None: ...
+def _g8(x: Any) -> Any: ...
 
 
-def _g9(x: {__mul__}) -> None: ...
+def _g9(x: {__mul__}) -> Any: ...
 
 
-def _g10(x: {__mul__}) -> None: ...
+def _g10(x: {__mul__}) -> Any: ...
 
 
-def _g11(x: {__sub__}) -> None: ...
+def _g11(x: {__sub__}) -> Any: ...
 
 
 def _g12(x: Any) -> Any: ...
 
 
-def _g13(x: {__mul__}) -> None: ...
+def _g13(x: {__mul__}) -> Any: ...
 
 
-def _g14(x: {__mul__}) -> None: ...
+def _g14(x: {__mul__}) -> Any: ...
 
 
-def _g15(x: {__mul__}) -> None: ...
+def _g15(x: {__mul__}) -> Any: ...
 
 
-def _g16(x: {__mul__}) -> None: ...
+def _g16(x: {__mul__}) -> Any: ...
 
 
-def _g17(x: {__mul__}) -> None: ...
+def _g17(x: {__mul__}) -> Any: ...
 
 
-def _g18(x: {__mul__}) -> None: ...
+def _g18(x: {__mul__}) -> Any: ...
 
 
-def _g19(x: {__mul__}) -> None: ...
+def _g19(x: {__mul__}) -> Any: ...
 
 
-def _g20(x: {__mul__}) -> None: ...
+def _g20(x: {__mul__}) -> Any: ...
 
 
 def _g21(x: Any) -> Union[int, Any]: ...
@@ -134,10 +135,10 @@ def _g22(x: Any) -> Union[int, Any]: ...
 def _g23(x: Any) -> Union[int, Any]: ...
 
 
-def _g24(x: Any) -> None: ...
+def _g24(x: Any) -> Any: ...
 
 
-def _g25(x: Any) -> None: ...
+def _g25(x: Any) -> Any: ...
 
 
 def _g26(x: Any) -> Union[float, Any]: ...
@@ -146,10 +147,10 @@ def _g26(x: Any) -> Union[float, Any]: ...
 def _g27(x: Any) -> Union[float, Any]: ...
 
 
-def _g28(x: Any) -> None: ...
+def _g28(x: Any) -> Any: ...
 
 
-def _g29(x: Any) -> None: ...
+def _g29(x: Any) -> Any: ...
 
 
 def _g30(x: {__truediv__}) -> Union[float, Any]: ...
@@ -158,10 +159,10 @@ def _g30(x: {__truediv__}) -> Union[float, Any]: ...
 def _g31(x: Any) -> Union[float, Any]: ...
 
 
-def _g32(x: {__len__, __lt__, __getitem__, __ge__}) -> ndarray: ...
+def _g32(x: {__len__, __lt__, __getitem__, __ge__}) -> Any: ...
 
 
-def _g33(x: Any) -> None: ...
+def _g33(x: Any) -> Any: ...
 
 
 def _g34(x: Any) -> Union[int, Any]: ...
@@ -207,10 +208,10 @@ _hsv_data: dict[str, Union[tuple[tuple[float, float, float], tuple[float, float,
 
 _jet_data: dict[str, Union[tuple[tuple[float, int, int], tuple[float, int, int], tuple[float, int, int], tuple[
     float, int, int], tuple[float, float, float]], tuple[
-                               tuple[float, int, int], tuple[float, int, int], tuple[float, int, int], tuple[
-                                   float, int, int], tuple[float, int, int], tuple[float, int, int]], tuple[
                                tuple[float, float, float], tuple[float, int, int], tuple[float, int, int], tuple[
-                                   float, int, int], tuple[float, int, int]]]]
+                                   float, int, int], tuple[float, int, int]], tuple[
+                               tuple[float, int, int], tuple[float, int, int], tuple[float, int, int], tuple[
+                                   float, int, int], tuple[float, int, int], tuple[float, int, int]]]]
 
 _pink_data: dict[str, tuple[
     tuple[float, float, float], tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
@@ -416,17 +417,17 @@ _gist_earth_data: dict[str, Union[tuple[tuple[float, float, float], tuple[float,
                                           float, float, float], tuple[float, float, float], tuple[float, float, float],
                                       tuple[float, float, float], tuple[float, float, float], tuple[
                                           float, float, float], tuple[float, float, float], tuple[float, float, float],
+                                      tuple[float, float, float]], tuple[
                                       tuple[float, float, float], tuple[float, float, float], tuple[
                                           float, float, float], tuple[float, float, float], tuple[float, float, float],
                                       tuple[float, float, float], tuple[float, float, float], tuple[
                                           float, float, float], tuple[float, float, float], tuple[float, float, float],
                                       tuple[float, float, float], tuple[float, float, float], tuple[
-                                          float, float, float]], tuple[
-                                      tuple[float, float, float], tuple[float, float, float], tuple[
                                           float, float, float], tuple[float, float, float], tuple[float, float, float],
                                       tuple[float, float, float], tuple[float, float, float], tuple[
                                           float, float, float], tuple[float, float, float], tuple[float, float, float],
-                                      tuple[float, float, float]]]]
+                                      tuple[float, float, float], tuple[float, float, float], tuple[
+                                          float, float, float]]]]
 
 _gist_gray_data: dict[str, Any]
 
@@ -453,15 +454,15 @@ _gist_ncar_data: dict[str, Union[tuple[
                                      tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
                                      tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
                                      tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
-                                     tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
-                                     tuple[float, float, float], tuple[float, float, float]], tuple[
-                                     tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
-                                     tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
-                                     tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
-                                     tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
-                                     tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
                                      tuple[float, float, float], tuple[float, float, float], tuple[
-                                         float, float, float]]]]
+                                         float, float, float]], tuple[
+                                     tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
+                                     tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
+                                     tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
+                                     tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
+                                     tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
+                                     tuple[float, float, float], tuple[float, float, float], tuple[float, float, float],
+                                     tuple[float, float, float], tuple[float, float, float]]]]
 
 _gist_rainbow_data: tuple[tuple[float, tuple[float, float, float]], tuple[float, tuple[float, float, float]], tuple[
     float, tuple[float, float, float]], tuple[float, tuple[float, float, float]], tuple[

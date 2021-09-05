@@ -30,6 +30,7 @@ from pyparsing import Combine as Combine
 from io import StringIO as StringIO
 from collections import namedtuple as namedtuple
 from types import SimpleNamespace
+from typing import Any
 from typing import ClassVar
 from typing import List
 from typing import Optional
@@ -77,12 +78,8 @@ from matplotlib._mathtext import Vrule
 from matplotlib._mathtext.Parser import State
 from matplotlib._mathtext.Parser import _MathStyle
 from matplotlib.afm import AFM
-from matplotlib.ft2font import FT2Font
 from object import object
 from pyparsing import Empty
-
-_log: Logger
-from typing import Any
 
 
 def get_unicode_index(symbol: str,
@@ -165,8 +162,8 @@ class Fonts(object):
 
 
 class TruetypeFonts(Fonts):
-    glyphd: dict[Any, Any]
-    _fonts: dict[str, FT2Font]
+    glyphd: dict[str, Any]
+    _fonts: dict[str, Any]
 
     def __init__(self: TruetypeFonts,
                  default_font_prop: Any,
@@ -176,7 +173,7 @@ class TruetypeFonts(Fonts):
     def destroy(self: TruetypeFonts) -> Optional[Any]: ...
 
     def _get_font(self: TruetypeFonts,
-                  font: Union[Union[str, int], Any]) -> FT2Font: ...
+                  font: Union[Union[str, int], Any]) -> Optional[Any]: ...
 
     def _get_offset(self: TruetypeFonts,
                     font: {postscript_name},
@@ -190,7 +187,7 @@ class TruetypeFonts(Fonts):
                   sym: Any,
                   fontsize: Any,
                   dpi: Any,
-                  math: bool = True) -> Union[Optional[SimpleNamespace], Any]: ...
+                  math: bool = True) -> Union[SimpleNamespace, Any]: ...
 
     def get_xheight(self: TruetypeFonts,
                     fontname: Any,
@@ -230,8 +227,9 @@ class BakomaFonts(TruetypeFonts):
                    font_class: Any,
                    sym: Union[{__eq__}, Any],
                    fontsize: Any,
-                   math: bool = True) -> Union[Union[Tuple[Optional[FT2Font], Union[int, Any], None, Any, Union[
-        bool, Any]], Tuple[Optional[FT2Font], int, None, Any, Union[bool, Any]]], Any]: ...
+                   math: bool = True) -> Union[Union[Tuple[Optional[Any], Union[int, Any], Any, Any, Union[bool, Any]],
+                                                     Tuple[Optional[Any], int, Optional[Any], Any, Union[
+                                                         bool, Any]]], Any]: ...
 
     def get_sized_alternatives_for_symbol(self: BakomaFonts,
                                           fontname: Any,
@@ -242,7 +240,7 @@ class UnicodeFonts(TruetypeFonts):
     use_cmex: ClassVar[bool]
     _slanted_symbols: ClassVar[set[str]]
     fontmap: dict[Union[str, int], str]
-    cm_fallback: Union[StixFonts, StixSansFonts, BakomaFonts, None]
+    cm_fallback: Union[StixSansFonts, StixFonts, BakomaFonts, None]
 
     def __init__(self: UnicodeFonts,
                  *args,
@@ -258,8 +256,9 @@ class UnicodeFonts(TruetypeFonts):
                    font_class: Any,
                    sym: Union[{__eq__}, Any],
                    fontsize: Any,
-                   math: bool = True) -> Union[Union[Tuple[Optional[FT2Font], int, None, Any, Union[bool, Any]], Tuple[
-        Optional[FT2Font], Union[int, Any], None, Any, Union[bool, Any]]], Any]: ...
+                   math: bool = True) -> Union[Union[Tuple[Optional[Any], int, Optional[Any], Any, Union[bool, Any]],
+                                                     Tuple[Optional[Any], Union[int, Any], Any, Any, Union[
+                                                         bool, Any]]], Any]: ...
 
     def get_sized_alternatives_for_symbol(self: UnicodeFonts,
                                           fontname: Any,
@@ -282,8 +281,9 @@ class DejaVuFonts(UnicodeFonts):
                    font_class: Any,
                    sym: {__eq__},
                    fontsize: Any,
-                   math: bool = True) -> Union[Union[Tuple[Optional[FT2Font], Union[int, Any], None, Any, Union[
-        bool, Any]], Tuple[Optional[FT2Font], int, None, Any, Union[bool, Any]]], Any]: ...
+                   math: bool = True) -> Union[Union[Tuple[Optional[Any], Union[int, Any], Any, Any, Union[bool, Any]],
+                                                     Tuple[Optional[Any], int, Optional[Any], Any, Union[
+                                                         bool, Any]]], Any]: ...
 
 
 class DejaVuSerifFonts(DejaVuFonts):
@@ -328,7 +328,7 @@ class StandardPsFonts(Fonts):
     basepath: ClassVar[str]
     fontmap: ClassVar[dict[Optional[str], str]]
     pswriter: ClassVar[Union[_deprecated_property, Any]]
-    glyphd: dict[Any, Any]
+    glyphd: dict[str, AFM]
     fonts: dict[str, AFM]
 
     def __init__(self: StandardPsFonts,
@@ -344,7 +344,7 @@ class StandardPsFonts(Fonts):
                   sym: {__len__},
                   fontsize: Any,
                   dpi: Any,
-                  math: bool = True) -> Optional[Any]: ...
+                  math: bool = True) -> Any: ...
 
     def get_kern(self: StandardPsFonts,
                  font1: {__eq__},
@@ -635,7 +635,7 @@ _named: dict[str, _GlueSpec]
 
 class Glue(Node):
     glue_subtype: ClassVar[Union[_deprecated_property, Any]]
-    glue_spec: Union[Union[_GlueSpec, str], Any]
+    glue_spec: Union[str, Any]
 
     @_api.delete_parameter("3.3", "copy")
     def __init__(self: Glue,

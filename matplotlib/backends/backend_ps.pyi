@@ -28,6 +28,7 @@ from io import TextIOWrapper as TextIOWrapper
 from io import StringIO as StringIO
 from enum import Enum as Enum
 from enum import Enum
+from typing import Any
 from typing import Callable
 from typing import ClassVar
 from typing import Iterable
@@ -54,10 +55,8 @@ from matplotlib.transforms import CompositeGenericTransform
 from matplotlib.transforms import Transform
 from object import object
 
-_log: Logger
-backend_version: str
 debugPS: int
-from typing import Any
+backend_version: str
 
 
 class PsBackendHelper(object):
@@ -80,7 +79,7 @@ def _num_to_str(val: {__eq__}) -> str: ...
 def _nums_to_str(*args) -> str: ...
 
 
-def quote_ps_string(s: Union[bytes, Any]) -> str: ...
+def quote_ps_string(s: Any) -> str: ...
 
 
 def _move_path_to_path_or_stream(src: Union[str, Any],
@@ -271,9 +270,9 @@ def _is_transparent(rgb_or_rgba: Union[Union[{__getitem__}, tuple[float, float, 
 
 @_api.deprecated("3.4", alternative="GraphicsContextBase")
 class GraphicsContextPS(GraphicsContextBase):
-    def get_capstyle(self: GraphicsContextPS) -> int: ...
+    def get_capstyle(self: GraphicsContextPS) -> Any: ...
 
-    def get_joinstyle(self: GraphicsContextPS) -> int: ...
+    def get_joinstyle(self: GraphicsContextPS) -> Any: ...
 
 
 class _Orientation(Enum):

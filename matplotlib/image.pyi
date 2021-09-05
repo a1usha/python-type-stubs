@@ -29,12 +29,9 @@ from matplotlib.transforms import Bbox
 from matplotlib.transforms import BboxBase
 from matplotlib.transforms import CompositeAffine2D
 from matplotlib.transforms import CompositeGenericTransform
-from numpy.core._multiarray_umath import ndarray
 
-_log: Logger
-_interpd_: dict[Union[str, Any], Union[int, Any]]
 interpolations_names: set[Union[str, Any]]
-from typing import Any
+_interpd_: dict[Union[str, Any], Any]
 
 
 def composite_images(images: Iterable,
@@ -49,23 +46,23 @@ def _draw_list_compositing_images(renderer: {option_image_nocomposite},
 
 
 def _resample(image_obj: Union[_ImageBase, Any],
-              data: Union[Union[ndarray, T, None], Any],
+              data: Optional[Any],
               out_shape: Union[tuple[int, int], Any],
               transform: Union[Union[{input_dims, output_dims}, {output_dims,
                                                                  input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any],
               *,
               resample: Union[bool, Any] = None,
-              alpha: int = 1) -> ndarray: ...
+              alpha: int = 1) -> Any: ...
 
 
-def _rgb_to_rgba(A: Union[Union[ndarray, Iterable, int, float, None], Any]) -> ndarray: ...
+def _rgb_to_rgba(A: Union[Optional[{size, shape}], Any]) -> Any: ...
 
 
 class _ImageBase(Artist, ScalarMappable):
     zorder: ClassVar[int]
     _imcache: None
     _interpolation: str
-    _A: Union[ndarray, Iterable, int, float, None]
+    _A: Any
     _rgbacache: None
     stale: bool
     _resample: Union[Optional[bool], Any]
@@ -87,7 +84,7 @@ class _ImageBase(Artist, ScalarMappable):
 
     def __getstate__(self: _ImageBase) -> dict[str, Any]: ...
 
-    def get_size(self: _ImageBase) -> Union[_T_co, Tuple[_T_co, ...]]: ...
+    def get_size(self: _ImageBase) -> Any: ...
 
     def set_alpha(self: _ImageBase,
                   alpha: Any) -> Any: ...
@@ -97,7 +94,7 @@ class _ImageBase(Artist, ScalarMappable):
     def changed(self: _ImageBase) -> None: ...
 
     def _make_image(self: _ImageBase,
-                    A: Union[Union[ndarray, Iterable, int, float, None], Any],
+                    A: Optional[{size, shape}],
                     in_bbox: Union[Bbox, Any],
                     out_bbox: Union[BboxBase, Any],
                     clip_bbox: {xmin, xmax, ymin, ymax},
@@ -124,10 +121,10 @@ class _ImageBase(Artist, ScalarMappable):
                   fname: Any) -> None: ...
 
     def set_data(self: _ImageBase,
-                 A: Union[Union[ndarray, Iterable, int, float], Any]) -> Any: ...
+                 A: Union[Union[Iterable, int, float], Any]) -> Any: ...
 
     def set_array(self: _ImageBase,
-                  A: Union[ndarray, Iterable, int, float]) -> None: ...
+                  A: Union[Union[Iterable, int, float], Any]) -> None: ...
 
     def get_interpolation(self: _ImageBase) -> str: ...
 
@@ -198,11 +195,11 @@ class NonUniformImage(AxesImage):
     mouseover: ClassVar[bool]
     is_grayscale: ClassVar[deprecate_privatize_attribute]
     _imcache: None
-    _A: Union[None, ndarray, Iterable, int, float]
+    _A: Any
     _is_grayscale: Any
     stale: bool
-    _Ay: ndarray
-    _Ax: ndarray
+    _Ay: Any
+    _Ax: Any
 
     def __init__(self: NonUniformImage,
                  ax: Any,
@@ -215,12 +212,12 @@ class NonUniformImage(AxesImage):
     def make_image(self: NonUniformImage,
                    renderer: Union[{new_gc, option_scale_image}, Any],
                    magnification: float = 1.0,
-                   unsampled: bool = False) -> Tuple[None, Any, Any, IdentityTransform]: ...
+                   unsampled: bool = False) -> Tuple[Any, Any, Any, IdentityTransform]: ...
 
     def set_data(self: NonUniformImage,
                  x: int,
                  y: int,
-                 A: Union[ndarray, Iterable, int, float]) -> Any: ...
+                 A: Union[Union[Iterable, int, float], Any]) -> Any: ...
 
     def set_array(self: NonUniformImage,
                   *args) -> Any: ...
@@ -228,7 +225,7 @@ class NonUniformImage(AxesImage):
     def set_interpolation(self: NonUniformImage,
                           s: str) -> Any: ...
 
-    def get_extent(self: NonUniformImage) -> Tuple[None, None, None, None]: ...
+    def get_extent(self: NonUniformImage) -> Tuple[Any, Any, Any, Any]: ...
 
     def set_filternorm(self: NonUniformImage,
                        s: Any) -> None: ...
@@ -245,18 +242,18 @@ class NonUniformImage(AxesImage):
 
 class PcolorImage(AxesImage):
     is_grayscale: ClassVar[deprecate_privatize_attribute]
-    _A: Union[Union[None, ndarray, Iterable, int, float], Any]
-    _rgbacache: Union[Union[ndarray, {ndim}, None], Any]
+    _A: Any
+    _rgbacache: Union[Union[{ndim}, float], Any]
     _is_grayscale: Any
     stale: bool
-    _Ay: Union[Optional[ndarray], Any]
-    _Ax: Union[Optional[ndarray], Any]
+    _Ay: Any
+    _Ax: Any
 
     def __init__(self: PcolorImage,
                  ax: Any,
                  x: Optional[int] = None,
                  y: Optional[int] = None,
-                 A: Union[ndarray, Iterable, int, float] = None,
+                 A: Union[Union[Iterable, int, float], Any] = None,
                  cmap: Any = None,
                  norm: Any = None,
                  **kwargs) -> None: ...
@@ -264,20 +261,20 @@ class PcolorImage(AxesImage):
     def make_image(self: PcolorImage,
                    renderer: Union[{new_gc, option_scale_image}, Any],
                    magnification: float = 1.0,
-                   unsampled: bool = False) -> Tuple[None, Any, Any, IdentityTransform]: ...
+                   unsampled: bool = False) -> Tuple[Any, Any, Any, IdentityTransform]: ...
 
     def _check_unsampled_image(self: PcolorImage) -> bool: ...
 
     def set_data(self: PcolorImage,
                  x: Optional[int],
                  y: Optional[int],
-                 A: Union[ndarray, Iterable, int, float]) -> Any: ...
+                 A: Union[Union[Iterable, int, float], Any]) -> Any: ...
 
     def set_array(self: PcolorImage,
                   *args) -> Any: ...
 
     def get_cursor_data(self: PcolorImage,
-                        event: MouseEvent) -> None: ...
+                        event: MouseEvent) -> Optional[Any]: ...
 
 
 class FigureImage(_ImageBase):
@@ -307,7 +304,7 @@ class FigureImage(_ImageBase):
                    unsampled: bool = False) -> Tuple[int, float, Affine2D]: ...
 
     def set_data(self: FigureImage,
-                 A: Union[Union[ndarray, Iterable, int, float], Any]) -> None: ...
+                 A: Union[Union[Iterable, int, float], Any]) -> None: ...
 
 
 class BboxImage(_ImageBase):
@@ -342,7 +339,7 @@ def imread(fname: Any,
 
 
 def imsave(fname: Any,
-           arr: Union[ndarray, Iterable, int, float],
+           arr: Union[Union[Iterable, int, float], Any],
            vmin: Optional[float] = None,
            vmax: Optional[float] = None,
            cmap: Any = None,
@@ -354,10 +351,10 @@ def imsave(fname: Any,
            pil_kwargs: Optional[dict] = None) -> Any: ...
 
 
-def pil_to_array(pilImage: Union[Union[ndarray, Iterable, int, float, PngImageFile], Any]) -> Any: ...
+def pil_to_array(pilImage: Union[Union[Iterable, int, float, PngImageFile], Any]) -> Any: ...
 
 
-def _pil_png_to_float_array(pil_png: Union[PngImageFile, Any]) -> Optional[ndarray]: ...
+def _pil_png_to_float_array(pil_png: Union[PngImageFile, Any]) -> Any: ...
 
 
 from matplotlib._image import *

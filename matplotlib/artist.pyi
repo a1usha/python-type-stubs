@@ -12,6 +12,7 @@ from numbers import Number as Number
 from functools import wraps as wraps
 from collections import namedtuple as namedtuple
 from collections import OrderedDict as OrderedDict
+from typing import Any
 from typing import Callable
 from typing import ClassVar
 from typing import Iterable
@@ -26,11 +27,7 @@ from matplotlib.artist import ArtistInspector
 from matplotlib.backend_bases import MouseEvent
 from matplotlib.transforms import Bbox
 from matplotlib.transforms import IdentityTransform
-from numpy.core._multiarray_umath import ndarray
 from object import object
-
-_log: Logger
-from typing import Any
 
 
 def allow_rasterization(draw: Any) -> Callable[
@@ -132,7 +129,7 @@ class Artist(object):
     def _default_contains(self: Artist,
                           mouseevent: Union[MouseEvent, Any],
                           figure: Optional[{canvas}] = None) -> Union[
-        Union[Tuple[bool, dict[Any, Any]], Tuple[None, dict[Any, Any]]], Any]: ...
+        Union[Tuple[bool, dict[Any, Any]], Tuple[None, TypedDict]], Any]: ...
 
     def contains(self: Artist,
                  mouseevent: MouseEvent) -> bool: ...
@@ -236,7 +233,7 @@ class Artist(object):
                   alpha: Union[int, float, complex, None]) -> Any: ...
 
     def _set_alpha_for_array(self: Artist,
-                             alpha: Union[ndarray, Iterable, int, float, complex, None]) -> None: ...
+                             alpha: Union[Union[Iterable, int, float, complex, None], Any]) -> None: ...
 
     def set_visible(self: Artist,
                     b: bool) -> None: ...
@@ -299,7 +296,7 @@ class ArtistInspector(object):
     def get_aliases(self: ArtistInspector) -> dict[Any, Any]: ...
 
     def get_valid_values(self: ArtistInspector,
-                         attr: Union[str, Any]) -> Optional[str]: ...
+                         attr: Union[str, Any]) -> Union[Optional[str], Any]: ...
 
     def _replace_path(self: ArtistInspector,
                       source_class: Any) -> Any: ...

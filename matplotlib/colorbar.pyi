@@ -24,18 +24,15 @@ from matplotlib.ticker import LogFormatterSciNotation
 from matplotlib.ticker import LogLocator
 from matplotlib.ticker import MaxNLocator
 from matplotlib.ticker import ScalarFormatter
-from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedConstant
 from object import object
 
-_log: Logger
-_make_axes_param_doc: str
 _make_axes_other_param_doc: str
 _colormap_kw_doc: str
 colorbar_doc: Any
 colormap_kw_doc: str
 make_axes_kw_doc: str
-from typing import Any
+_make_axes_param_doc: str
 
 
 def _set_ticks_on_axis_warn(*args,
@@ -74,7 +71,7 @@ class _ColorbarLogLocator(LogLocator):
 
     def tick_values(self: _ColorbarLogLocator,
                     vmin: {__le__},
-                    vmax: {__lt__}) -> None: ...
+                    vmax: {__lt__}) -> Any: ...
 
 
 class _ColorbarSpine(Spine):
@@ -97,7 +94,7 @@ class _ColorbarSpine(Spine):
 class ColorbarBase(object):
     n_rasterize: ClassVar[int]
     values: Any
-    _boundaries: ndarray
+    _boundaries: Any
     dividers: LineCollection
     norm: Union[Normalize, Any]
     ticklocation: str
@@ -124,7 +121,7 @@ class ColorbarBase(object):
     formatter: Any
     ax: Any
     cmap: Union[Union[Colormap, LinearSegmentedColormap, ListedColormap], Any]
-    _y: Union[Union[MaskedConstant, tuple[Union[ndarray, float, None], ...], tuple[Any, ...]], Any]
+    _y: Union[Union[MaskedConstant, tuple[Union[Optional[float], Any], ...]], Any]
     _inside: Any
     locator: Any
 
@@ -208,9 +205,9 @@ class ColorbarBase(object):
                             mappable: {hatches}) -> None: ...
 
     def add_lines(self: ColorbarBase,
-                  levels: Union[Union[ndarray, int, float], Any],
+                  levels: Union[Union[int, float], Any],
                   colors: Union[list[colors.py], Any],
-                  linewidths: Union[Union[float, ndarray, int], Any],
+                  linewidths: Union[Union[float, int], Any],
                   erase: bool = True) -> None: ...
 
     def _ticker(self: ColorbarBase,
@@ -225,17 +222,17 @@ class ColorbarBase(object):
                                frac: Any,
                                automin: Any,
                                automax: Any,
-                               default: float = 0.05) -> ndarray: ...
+                               default: float = 0.05) -> Any: ...
 
     def _uniform_y(self: ColorbarBase,
-                   N: Union[int, Any]) -> Union[ndarray, Tuple[ndarray, Optional[float]]]: ...
+                   N: Union[int, Any]) -> Union[Tuple[Any, Optional[float]], Any]: ...
 
-    def _proportional_y(self: ColorbarBase) -> Union[ndarray, Any]: ...
+    def _proportional_y(self: ColorbarBase) -> Any: ...
 
     def _mesh(self: ColorbarBase) -> Tuple[Any, Any]: ...
 
     def _locate(self: ColorbarBase,
-                x: Union[Union[ndarray, int, float, None], Any]) -> Any: ...
+                x: Union[Union[int, float], Any]) -> Any: ...
 
     def set_alpha(self: ColorbarBase,
                   alpha: Any) -> None: ...

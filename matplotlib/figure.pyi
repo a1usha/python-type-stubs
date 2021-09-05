@@ -20,6 +20,7 @@ from matplotlib import __version__ as _mpl_version
 from matplotlib import projections as projections
 from matplotlib import docstring as docstring
 from numbers import Integral as Integral
+from typing import Any
 from typing import ClassVar
 from typing import Optional
 from typing import Tuple
@@ -41,11 +42,7 @@ from matplotlib.figure import SubplotParams
 from matplotlib.figure import _AxesStack
 from matplotlib.image import FigureImage
 from matplotlib.patches import Rectangle
-from numpy.core._multiarray_umath import ndarray
 from object import object
-
-_log: Logger
-from typing import Any
 
 
 def _stale_figure_callback(self: {figure},
@@ -150,7 +147,8 @@ class FigureBase(Artist):
 
     def _suplabels(self: FigureBase,
                    t: str,
-                   info: Union[Union[dict[str, Union[str, float, int]], dict[str, Union[str, float]]], Any],
+                   info: Union[Union[dict[str, Union[str, float, int]], dict[str, Union[str, float, int]], dict[
+                       str, Union[float, str]]], Any],
                    x: Any = ...,
                    y: Any = ...,
                    text: str = ...,
@@ -297,7 +295,7 @@ class FigureBase(Artist):
                    hspace: float = None,
                    width_ratios: Any = None,
                    height_ratios: Any = None,
-                   **kwargs) -> Union[Union[int, float, complex, None, ndarray], Any]: ...
+                   **kwargs) -> Any: ...
 
     def add_subfigure(self: FigureBase,
                       subplotspec: Any,
@@ -361,7 +359,6 @@ class SubFigure(FigureBase):
     stale: bool
     subplotpars: Any
     bbox_relative: None
-    dpi: Any
 
     def __init__(self: SubFigure,
                  parent: Any,
@@ -371,6 +368,11 @@ class SubFigure(FigureBase):
                  edgecolor: Any = None,
                  linewidth: float = 0.0,
                  frameon: bool = None) -> None: ...
+
+    def dpi(self: SubFigure) -> Any: ...
+
+    def dpi(self: SubFigure,
+            value: Any) -> None: ...
 
     def _redo_transform_rel_fig(self: SubFigure,
                                 bbox: Optional[Any] = None) -> None: ...

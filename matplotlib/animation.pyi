@@ -11,6 +11,7 @@ from io import TextIOWrapper as TextIOWrapper
 from io import BytesIO as BytesIO
 from abc import ABC
 from itertools import islice
+from typing import Any
 from typing import Callable
 from typing import ClassVar
 from typing import Generator
@@ -39,9 +40,6 @@ from matplotlib.animation import MovieWriterRegistry
 from matplotlib.animation import PillowWriter
 from matplotlib.animation import TimedAnimation
 from object import object
-
-_log: Logger
-from typing import Any
 
 
 def adjusted_figsize(w: float,

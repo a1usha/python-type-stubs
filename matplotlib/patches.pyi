@@ -62,7 +62,6 @@ from matplotlib.transforms import Bbox
 from matplotlib.transforms import CompositeAffine2D
 from matplotlib.transforms import CompositeGenericTransform
 from matplotlib.transforms import IdentityTransform
-from numpy.core._multiarray_umath import ndarray
 from object import object
 
 
@@ -351,19 +350,19 @@ class PathPatch(Patch):
 
 class StepPatch(PathPatch):
     _edge_default: ClassVar[bool]
-    _baseline: Optional[ndarray]
+    _baseline: Optional[Any]
     orientation: str
     stale: bool
-    _values: ndarray
+    _values: Any
     _path: Path
-    _edges: ndarray
+    _edges: Any
 
     def __init__(self: StepPatch,
-                 values: Union[ndarray, Iterable, int, float],
-                 edges: Union[ndarray, Iterable, int, float],
+                 values: Union[Union[Iterable, int, float], Any],
+                 edges: Union[Union[Iterable, int, float], Any],
                  *,
                  orientation: str = 'vertical',
-                 baseline: Union[float, ndarray, Iterable, int, None] = 0,
+                 baseline: Union[Union[float, Iterable, int, None], Any] = 0,
                  **kwargs) -> Optional[Any]: ...
 
     def _update_path(self: StepPatch) -> Any: ...
@@ -385,7 +384,7 @@ class Polygon(Patch):
     def __str__(self: Polygon) -> str: ...
 
     def __init__(self: Polygon,
-                 xy: Union[Optional[ndarray], Any],
+                 xy: Any,
                  closed: bool = True,
                  **kwargs) -> Optional[Any]: ...
 
@@ -858,7 +857,7 @@ class ConnectionPatch(FancyArrowPatch):
     def _get_xy(self: ConnectionPatch,
                 xy: Any,
                 s: {__eq__},
-                axes: Any = None) -> Union[Union[float, Tuple[Any, Any], ndarray, Iterable, int], Any]: ...
+                axes: Any = None) -> Union[Union[float, Tuple[Any, Any], Iterable, int], Any]: ...
 
     def set_annotation_clip(self: ConnectionPatch,
                             b: Optional[bool]) -> None: ...

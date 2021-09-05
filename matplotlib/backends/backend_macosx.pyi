@@ -11,14 +11,12 @@ from matplotlib._pylab_helpers import Gcf as Gcf
 from matplotlib import cbook as cbook
 from typing import Any
 from typing import ClassVar
+from typing import Optional
 
 from matplotlib.backend_bases import FigureManagerBase
+from matplotlib.backend_bases import NavigationToolbar2
 from matplotlib.backend_bases import TimerBase
 from matplotlib.backend_bases import _Backend
-from matplotlib.backends._macosx import FigureCanvas
-from matplotlib.backends._macosx import FigureManager
-from matplotlib.backends._macosx import NavigationToolbar2
-from matplotlib.backends._macosx import Timer
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.backends.backend_agg import RendererAgg
 from matplotlib.backends.backend_macosx import FigureCanvasMac
@@ -26,17 +24,17 @@ from matplotlib.backends.backend_macosx import FigureManagerMac
 from matplotlib.backends.backend_macosx import NavigationToolbar2Mac
 
 
-class TimerMac(Timer, TimerBase):
+class TimerMac(TimerBase):
     pass
 
 
-class FigureCanvasMac(FigureCanvas, FigureCanvasAgg):
+class FigureCanvasMac(FigureCanvasAgg):
     required_interactive_framework: ClassVar[str]
     _timer_cls: ClassVar[Type[TimerMac]]
     _dpi_ratio: float
 
     def __init__(self: FigureCanvasMac,
-                 figure: Any) -> None: ...
+                 figure: Optional[{set_canvas}]) -> None: ...
 
     def _set_device_scale(self: FigureCanvasMac,
                           value: Any) -> None: ...
@@ -53,7 +51,7 @@ class FigureCanvasMac(FigureCanvas, FigureCanvasAgg):
                height: {__mul__}) -> None: ...
 
 
-class FigureManagerMac(FigureManager, FigureManagerBase):
+class FigureManagerMac(FigureManagerBase):
     toolbar: None
 
     def __init__(self: FigureManagerMac,
@@ -63,7 +61,7 @@ class FigureManagerMac(FigureManager, FigureManagerBase):
     def close(self: FigureManagerMac) -> None: ...
 
 
-class NavigationToolbar2Mac(NavigationToolbar2, NavigationToolbar2):
+class NavigationToolbar2Mac(NavigationToolbar2):
     canvas: {toolbar}
 
     def __init__(self: NavigationToolbar2Mac,

@@ -2,7 +2,6 @@ from matplotlib import transforms as mtransforms
 from matplotlib import cbook as cbook
 from matplotlib import _api as _api
 from numbers import Integral as Integral
-from builtins import str
 from numbers import Integral
 from typing import Any
 from typing import ClassVar
@@ -44,12 +43,9 @@ from matplotlib.ticker import SymmetricalLogLocator
 from matplotlib.ticker import TickHelper
 from matplotlib.ticker import _DummyAxis
 from matplotlib.ticker import _Edge_integer
-from numpy.core._multiarray_umath import ndarray
 from object import object
 
-_log: Logger
 __all__: Any
-from typing import Any
 
 
 class _DummyAxis(object):
@@ -123,7 +119,7 @@ class Formatter(TickHelper):
     def set_locs(self: Formatter,
                  locs: Any) -> None: ...
 
-    def fix_minus(s: Union[Union[str, str, int], Any]) -> Union[Union[str, str, int], Any]: ...
+    def fix_minus(s: Union[Union[str, int], Any]) -> Union[Union[str, int], Any]: ...
 
     def _set_locator(self: Formatter,
                      locator: Any) -> None: ...
@@ -352,7 +348,7 @@ class LogitFormatter(Formatter):
     _use_overline: bool
     _one_half: str
     _minor_threshold: int
-    locs: ndarray
+    locs: Any
     _minor: bool
     _labelled: set[Any]
     _minor_number: int
@@ -382,7 +378,7 @@ class LogitFormatter(Formatter):
 
     def _format_value(self: LogitFormatter,
                       x: Union[Union[{__le__, __ge__, __lt__, __gt__}, int], Any],
-                      locs: Union[Optional[ndarray], Any],
+                      locs: Union[int, Any],
                       sci_notation: bool = True) -> str: ...
 
     def _one_minus(self: LogitFormatter,
@@ -477,9 +473,8 @@ class Locator(TickHelper):
     def __call__(self: Locator) -> Any: ...
 
     def raise_if_exceeds(self: Locator,
-                         locs: Union[
-                             Union[ndarray, None, tuple[ndarray, Optional[float]], int, float, Iterable], Any]) -> \
-    Union[Union[ndarray, None, Tuple[ndarray, Optional[float]], int, float, Iterable], Any]: ...
+                         locs: Union[Union[tuple[Any, Optional[float]], int, float, Iterable], Any]) -> Union[
+        Union[Tuple[Any, Optional[float]], int, float, Iterable], Any]: ...
 
     def nonsingular(self: Locator,
                     v0: Any,
@@ -521,7 +516,7 @@ class IndexLocator(Locator):
 
 
 class FixedLocator(Locator):
-    locs: ndarray
+    locs: Any
     nbins: Union[Optional[SupportsLessThan], Any]
 
     def __init__(self: FixedLocator,
@@ -531,11 +526,11 @@ class FixedLocator(Locator):
     def set_params(self: FixedLocator,
                    nbins: Any = None) -> None: ...
 
-    def __call__(self: FixedLocator) -> Union[ndarray, Any]: ...
+    def __call__(self: FixedLocator) -> Any: ...
 
     def tick_values(self: FixedLocator,
                     vmin: Optional[Any],
-                    vmax: Any) -> Union[ndarray, Any]: ...
+                    vmax: Any) -> Any: ...
 
 
 class NullLocator(Locator):
@@ -596,7 +591,7 @@ class MultipleLocator(Locator):
 
 
 def scale_range(vmin: Union[{__sub__}, Any],
-                vmax: {__sub__, __add__},
+                vmax: Union[{__sub__}, Any],
                 n: int = 1,
                 threshold: int = 100) -> Tuple[float, Union[int, float]]: ...
 
@@ -621,29 +616,29 @@ class _Edge_integer(object):
 
 
 class MaxNLocator(Locator):
-    default_params: ClassVar[dict[Any, Union[int, None, bool]]]
+    default_params: ClassVar[dict[str, Union[int, None, bool]]]
     _symmetric: Any
     _nbins: Any
     _prune: Any
-    _extended_steps: ndarray
+    _extended_steps: Any
     _min_n_ticks: int
     _integer: Any
-    _steps: ndarray
+    _steps: Any
 
     def __init__(self: MaxNLocator,
                  *args,
                  **kwargs) -> Any: ...
 
-    def _validate_steps(steps: Any) -> ndarray: ...
+    def _validate_steps(steps: Any) -> Any: ...
 
-    def _staircase(steps: Union[ndarray, Any]) -> ndarray: ...
+    def _staircase(steps: {__getitem__}) -> Any: ...
 
     def set_params(self: MaxNLocator,
                    **kwargs) -> Any: ...
 
     def _raw_ticks(self: MaxNLocator,
                    vmin: {__sub__},
-                   vmax: {__sub__, __add__}) -> Union[Union[int, float], Any]: ...
+                   vmax: {__sub__}) -> Union[Union[int, float], Any]: ...
 
     def __call__(self: MaxNLocator) -> Any: ...
 
@@ -670,12 +665,12 @@ def _decade_greater_equal(x: Union[Union[float, int, {__gt__}, {__le__}, {__lt__
                           base: Union[float, Any]) -> Union[Union[float, int, {__gt__}, {__le__}, {__lt__}], Any]: ...
 
 
-def _decade_less(x: Union[Union[float, {__gt__}], Any],
-                 base: Union[float, Any]) -> Union[Union[float, int], Any]: ...
+def _decade_less(x: Union[Union[float, {__le__}, {__gt__}, {__lt__}], Any],
+                 base: Union[float, Any]) -> Union[Union[float, int, {__lt__}], Any]: ...
 
 
-def _decade_greater(x: Union[Union[float, {__le__}], Any],
-                    base: Union[float, Any]) -> Union[Union[float, int], Any]: ...
+def _decade_greater(x: Union[Union[{__gt__}, {__le__}, int, {__lt__}, float], Any],
+                    base: Union[float, Any]) -> Union[Union[int, float, {__lt__}], Any]: ...
 
 
 def is_close_to_int(x: Union[Union[float, int], Any],
@@ -707,21 +702,20 @@ class LogLocator(Locator):
     def subs(self: LogLocator,
              subs: Union[Union[None, str, Iterable[float]], Any]) -> Any: ...
 
-    def __call__(self: LogLocator) -> Union[Optional[ndarray], Any]: ...
+    def __call__(self: LogLocator) -> Union[float, Any]: ...
 
     def tick_values(self: LogLocator,
                     vmin: {__le__},
-                    vmax: {__lt__}) -> Union[Optional[ndarray], Any]: ...
+                    vmax: {__lt__}) -> Union[float, Any]: ...
 
     def view_limits(self: LogLocator,
                     vmin: Any,
-                    vmax: Any) -> Tuple[
-        Union[Union[float, int, {__le__}, {__gt__}, {__lt__}], Any], Union[Union[float, int], Any]]: ...
+                    vmax: Any) -> Tuple[Union[Union[float, int, {__gt__}], Any], Union[int, Any]]: ...
 
     def nonsingular(self: LogLocator,
                     vmin: {__gt__},
-                    vmax: {__le__}) -> Tuple[Union[Union[int, float, {__le__}, {__gt__}], Any], Union[
-        Union[int, float, {__gt__}, {__le__}, {__lt__}], Any]]: ...
+                    vmax: {__le__}) -> Tuple[Union[Union[int, float, {__lt__}, {__le__}, {__gt__}], Any], Union[
+        Union[int, float, {__lt__}, {__le__}, {__gt__}], Any]]: ...
 
 
 class SymmetricalLogLocator(Locator):

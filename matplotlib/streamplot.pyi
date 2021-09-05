@@ -3,7 +3,6 @@ from matplotlib import _api as _api
 from typing import Any
 from typing import Callable
 from typing import Generator
-from typing import Optional
 from typing import Tuple
 from typing import Union
 
@@ -13,12 +12,10 @@ from matplotlib.streamplot import DomainMap
 from matplotlib.streamplot import Grid
 from matplotlib.streamplot import StreamMask
 from matplotlib.streamplot import StreamplotSet
-from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedConstant
 from object import object
 
 __all__: Any
-from typing import Any
 
 
 def streamplot(axes: {add_patch, add_collection, autoscale_view},
@@ -74,8 +71,8 @@ class DomainMap(object):
                   ym: {__mul__}) -> Tuple[Union[Union[int, float], Any], Union[float, Any]]: ...
 
     def data2grid(self: DomainMap,
-                  xd: Optional[Any],
-                  yd: Optional[Any]) -> Tuple[Union[float, Any], Union[float, Any]]: ...
+                  xd: {__mul__},
+                  yd: {__mul__}) -> Tuple[Union[float, Any], Union[float, Any]]: ...
 
     def grid2data(self: DomainMap,
                   xg: {__truediv__},
@@ -91,7 +88,7 @@ class DomainMap(object):
 
     def update_trajectory(self: DomainMap,
                           xg: {__mul__},
-                          yg: {__mul__}) -> Any: ...
+                          yg: Any) -> Any: ...
 
     def undo_trajectory(self: DomainMap) -> None: ...
 
@@ -119,8 +116,8 @@ class Grid(object):
 
 class StreamMask(object):
     _current_xy: None
-    shape: tuple
-    _mask: ndarray
+    shape: Any
+    _mask: Any
     _traj: list[Any]
     nx: Any
     ny: Any
@@ -129,7 +126,7 @@ class StreamMask(object):
                  density: Any) -> Any: ...
 
     def __getitem__(self: StreamMask,
-                    args: Any) -> None: ...
+                    args: Any) -> Any: ...
 
     def _start_trajectory(self: StreamMask,
                           xm: Any,
@@ -150,8 +147,8 @@ class TerminateTrajectory(Exception):
     pass
 
 
-def get_integrator(u: Optional[Any],
-                   v: Optional[Any],
+def get_integrator(u: Any,
+                   v: Any,
                    dmap: Union[DomainMap, Any],
                    minlength: Union[float, Any],
                    maxlength: Union[float, Any],
@@ -163,29 +160,29 @@ class OutOfBounds(IndexError):
     pass
 
 
-def _integrate_rk12(x0: Union[{__mul__}, Any],
-                    y0: Any,
+def _integrate_rk12(x0: Any,
+                    y0: Union[{__mul__}, Any],
                     dmap: Union[DomainMap, Any],
-                    f: Union[Union[Callable[[Any, Any], tuple[Union[None, int, float], Union[None, int, float]]],
-                                   Callable[[Any, Any], tuple[
-                                       Union[Union[_NotImplementedType, MaskedConstant, int, float], Any], Union[
-                                           Union[_NotImplementedType, MaskedConstant, int, float], Any]]]], Any],
-                    maxlength: Union[float, Any]) -> Tuple[
-    int, Union[list[Union[{__mul__}, Any]], Any], Union[list[Any], Any]]: ...
+                    f: Union[Union[Callable[[{__sub__}, Any], tuple[Union[int, float], Union[int, float]]], Callable[
+                        [{__sub__}, {__sub__}], tuple[
+                            Union[Union[_NotImplementedType, MaskedConstant, int, float], Any], Union[
+                                Union[_NotImplementedType, MaskedConstant, int, float], Any]]]], Any],
+                    maxlength: Union[float, Any]) -> Tuple[int, Union[list[Any], Any], Union[list[Any], Any]]: ...
 
 
-def _euler_step(xf_traj: Union[list[Union[{__mul__}, Any]], Any],
+def _euler_step(xf_traj: Union[list[Any], Any],
                 yf_traj: Union[list[Any], Any],
                 dmap: Union[DomainMap, Any],
-                f: Union[Union[Callable[[Any, Any], tuple[Union[None, int, float], Union[None, int, float]]], Callable[
-                    [Any, Any], tuple[Union[Union[_NotImplementedType, MaskedConstant, int, float], Any], Union[
-                        Union[_NotImplementedType, MaskedConstant, int, float], Any]]]], Any]) -> Tuple[
-    Union[float, Any], Union[list[Union[{__mul__}, Any]], Any], Union[list[Any], Any]]: ...
+                f: Union[Union[Callable[[{__sub__}, Any], tuple[Union[int, float], Union[int, float]]], Callable[
+                    [{__sub__}, {__sub__}], tuple[
+                        Union[Union[_NotImplementedType, MaskedConstant, int, float], Any], Union[
+                            Union[_NotImplementedType, MaskedConstant, int, float], Any]]]], Any]) -> Tuple[
+    Union[float, Any], Union[list[Any], Any], Union[list[Any], Any]]: ...
 
 
-def interpgrid(a: Union[Union[ndarray, None, MaskedConstant, float], Any],
-               xi: Union[ndarray, Any],
-               yi: Union[ndarray, Any]) -> Union[Union[_NotImplementedType, MaskedConstant, int], Any]: ...
+def interpgrid(a: Union[Union[None, MaskedConstant, float], Any],
+               xi: {__sub__},
+               yi: {__sub__}) -> Union[Union[_NotImplementedType, MaskedConstant, int], Any]: ...
 
 
-def _gen_starting_points(shape: Union[tuple, Any]) -> Generator[Tuple[int, int], Any, None]: ...
+def _gen_starting_points(shape: Any) -> Generator[Tuple[int, int], Any, None]: ...

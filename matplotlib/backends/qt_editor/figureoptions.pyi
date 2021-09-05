@@ -5,11 +5,11 @@ from matplotlib import markers as markers
 from matplotlib import colors as mcolors
 from matplotlib import cm as cm
 from matplotlib import cbook as cbook
+from typing import Any
 
-LINESTYLES: dict[str, str]
 DRAWSTYLES: dict[str, str]
 MARKERS: dict[Union[str, Any], Union[str, Any]]
-from typing import Any
+LINESTYLES: dict[str, str]
 
 
 def figure_edit(

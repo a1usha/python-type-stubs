@@ -23,25 +23,15 @@ from matplotlib.axis import _LazyTickList
 from matplotlib.backend_bases import MouseEvent
 from matplotlib.cbook import silent_list
 from matplotlib.lines import Line2D
-from matplotlib.scale import FuncTransform
-from matplotlib.scale import LogTransform
-from matplotlib.scale import LogitTransform
-from matplotlib.scale import SymmetricalLogTransform
 from matplotlib.text import Text
 from matplotlib.transforms import Bbox
-from matplotlib.transforms import CompositeAffine2D
-from matplotlib.transforms import CompositeGenericTransform
-from matplotlib.transforms import IdentityTransform
-from numpy.core._multiarray_umath import ndarray
 from object import object
 
-_log: Logger
-GRIDLINE_INTERPOLATION_STEPS: int
 _line_inspector: ArtistInspector
 _line_param_names: list[str]
 _line_param_aliases: list[Any]
 _gridline_param_names: list[str]
-from typing import Any
+GRIDLINE_INTERPOLATION_STEPS: int
 
 
 class Tick(Artist):
@@ -58,7 +48,7 @@ class Tick(Artist):
     _size: Optional[Any]
     _labelrotation: tuple[Union[str, Any], Union[int, Any]]
     stale: bool
-    _pad: Union[float, Any]
+    _pad: Any
     tick2line: Line2D
     gridline: Line2D
     _width: Optional[Any]
@@ -100,7 +90,7 @@ class Tick(Artist):
 
     def get_tickdir(self: Tick) -> Optional[Any]: ...
 
-    def get_tick_padding(self: Tick) -> Union[float, Any]: ...
+    def get_tick_padding(self: Tick) -> Any: ...
 
     def get_children(self: Tick) -> list[Union[Line2D, Text]]: ...
 
@@ -161,7 +151,7 @@ class Tick(Artist):
 class XTick(Tick):
     __name__: ClassVar[str]
     stale: bool
-    _tickmarkers: Union[tuple[Any, Any], tuple[str, str]]
+    _tickmarkers: Any
     _loc: Any
 
     def __init__(self: XTick,
@@ -184,7 +174,7 @@ class XTick(Tick):
 class YTick(Tick):
     __name__: ClassVar[str]
     stale: bool
-    _tickmarkers: Union[tuple[Any, Any], tuple[str, str]]
+    _tickmarkers: Any
     _loc: Any
 
     def __init__(self: YTick,
@@ -254,7 +244,7 @@ class Axis(Artist):
     isDefault_majloc: bool
     stale: bool
     major: Ticker
-    _scale: Union[LinearScale, LogScale, SymmetricalLogScale, LogitScale, FuncScale, FuncScaleLog]
+    _scale: Any
     _major_tick_kw: dict[Any, Any]
     _minor_tick_kw: dict[Any, Any]
     isDefault_majfmt: bool
@@ -275,22 +265,17 @@ class Axis(Artist):
                          y: Any,
                          transform: Any = None) -> None: ...
 
-    def get_transform(self: Axis) -> Union[
-        IdentityTransform, LogTransform, SymmetricalLogTransform, LogitTransform, FuncTransform, {input_dims,
-                                                                                                  output_dims}, {
-            output_dims, input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType]: ...
+    def get_transform(self: Axis) -> Any: ...
 
-    def get_scale(self: Axis) -> str: ...
+    def get_scale(self: Axis) -> Any: ...
 
     def _set_scale(self: Axis,
                    value: Union[str, Any],
                    **kwargs) -> None: ...
 
     def limit_range_for_scale(self: Axis,
-                              vmin: {__le__},
-                              vmax: {__le__, __ge__}) -> Union[
-        Tuple[Any, Any], Tuple[Union[Union[float, {__le__}], Any], Union[Union[float, {__le__}], Any]], Tuple[
-            Union[Union[float, {__le__}], Any], Union[Union[int, float, {__ge__}], Any]]]: ...
+                              vmin: Any,
+                              vmax: Any) -> Any: ...
 
     def get_children(self: Axis) -> list[Union[Text, Any]]: ...
 
@@ -394,7 +379,7 @@ class Axis(Artist):
                      minor: bool = False) -> Union[list[Any], Any]: ...
 
     def get_ticks_direction(self: Axis,
-                            minor: bool = False) -> ndarray: ...
+                            minor: bool = False) -> Any: ...
 
     def _get_tick(self: Axis,
                   major: Union[bool, Any]) -> Any: ...
@@ -564,7 +549,7 @@ class XAxis(Axis):
 
     def contains(self: XAxis,
                  mouseevent: MouseEvent) -> Union[
-        Tuple[Any, Any], Tuple[bool, dict[Any, Any]], Tuple[Union[bool, Any], dict[Any, Any]]]: ...
+        Tuple[Any, Any], Tuple[bool, dict[Any, Any]], Tuple[Union[bool, Any], TypedDict]]: ...
 
     def _get_tick(self: XAxis,
                   major: Union[bool, Any]) -> XTick: ...
@@ -621,7 +606,7 @@ class YAxis(Axis):
 
     def contains(self: YAxis,
                  mouseevent: MouseEvent) -> Union[
-        Tuple[Any, Any], Tuple[bool, dict[Any, Any]], Tuple[Union[bool, Any], dict[Any, Any]]]: ...
+        Tuple[Any, Any], Tuple[bool, dict[Any, Any]], Tuple[Union[bool, Any], TypedDict]]: ...
 
     def _get_tick(self: YAxis,
                   major: Union[bool, Any]) -> YTick: ...

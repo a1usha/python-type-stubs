@@ -4,6 +4,7 @@ from matplotlib import tight_layout as tight_layout
 from matplotlib import _pylab_helpers as _pylab_helpers
 from matplotlib import _api as _api
 from numbers import Integral as Integral
+from typing import Any
 from typing import ClassVar
 from typing import Optional
 from typing import Tuple
@@ -15,11 +16,7 @@ from matplotlib.gridspec import GridSpecBase
 from matplotlib.gridspec import GridSpecFromSubplotSpec
 from matplotlib.gridspec import SubplotSpec
 from matplotlib.transforms import Bbox
-from numpy.core._multiarray_umath import ndarray
 from object import object
-
-_log: Logger
-from typing import Any
 
 
 class GridSpecBase(object):
@@ -74,7 +71,7 @@ class GridSpecBase(object):
                  sharex: bool = False,
                  sharey: bool = False,
                  squeeze: bool = True,
-                 subplot_kw: Any = None) -> Union[int, float, complex, None, ndarray]: ...
+                 subplot_kw: Any = None) -> Any: ...
 
 
 class GridSpec(GridSpecBase):

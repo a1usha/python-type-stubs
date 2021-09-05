@@ -42,10 +42,12 @@ from matplotlib.dates import num2date as num2date
 from matplotlib.dates import date2num as date2num
 from matplotlib.cbook import silent_list as silent_list
 from matplotlib.cbook import flatten as flatten
+from typing import Any
 
-bytes: Any
 from matplotlib.pyplot import *
 from numpy import *
 from numpy.fft import *
 from numpy.random import *
 from numpy.linalg import *
+
+bytes: Any

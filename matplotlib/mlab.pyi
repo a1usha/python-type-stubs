@@ -10,50 +10,49 @@ from typing import Tuple
 from typing import Union
 
 from matplotlib.mlab import GaussianKDE
-from numpy.core._multiarray_umath import ndarray
 from object import object
 
 
-def window_hanning(x: {__len__}) -> Optional[Any]: ...
+def window_hanning(x: {__len__}) -> Any: ...
 
 
 def window_none(x: Any) -> Any: ...
 
 
-def detrend(x: Union[ndarray, Iterable, int, float],
+def detrend(x: Union[Union[Iterable, int, float], Any],
             key: str = None,
             axis: int = None) -> Any: ...
 
 
-def detrend_mean(x: Union[ndarray, Iterable, int, float],
-                 axis: int = None) -> None: ...
+def detrend_mean(x: Union[Union[Iterable, int, float], Any],
+                 axis: int = None) -> Any: ...
 
 
 def detrend_none(x: Any,
                  axis: int = None) -> Any: ...
 
 
-def detrend_linear(y: Any) -> Union[Optional[ndarray], Any]: ...
+def detrend_linear(y: Any) -> Any: ...
 
 
 def stride_windows(x: int,
                    n: int,
                    noverlap: int = None,
-                   axis: int = 0) -> Union[Optional[ndarray], Any]: ...
+                   axis: int = 0) -> Any: ...
 
 
-def _spectral_helper(x: Union[Union[{__len__}, ndarray, Iterable, int, float], Any],
+def _spectral_helper(x: Union[Union[{__len__}, Iterable, int, float], Any],
                      y: Optional[Any] = None,
                      NFFT: Union[int, Any] = None,
                      Fs: Union[int, Any] = None,
                      detrend_func: Union[Callable[[Any, int], Any], Any] = None,
-                     window: Union[Callable[[{__len__}], Optional[Any]], Any] = None,
+                     window: Union[Callable[[{__len__}], Any], Any] = None,
                      noverlap: Union[int, Any] = None,
                      pad_to: Union[int, Any] = None,
                      sides: Union[str, Any] = None,
                      scale_by_freq: Union[bool, Any] = None,
                      mode: Union[Union[{__ne__}, str], Any] = None) -> Tuple[
-    Union[Union[ndarray, int, float, complex], Any], Optional[ndarray], None]: ...
+    Union[Union[int, float, complex], Any], Any, Union[float, Any]]: ...
 
 
 def _single_spectrum_helper(mode: {__ne__},
@@ -61,15 +60,14 @@ def _single_spectrum_helper(mode: {__ne__},
                             Fs: Any = None,
                             window: Any = None,
                             pad_to: Any = None,
-                            sides: Any = None) -> Tuple[
-    Union[Union[None, ndarray, int, float, complex], Any], Optional[ndarray]]: ...
+                            sides: Any = None) -> Tuple[Union[Union[int, float, complex], Any], Any]: ...
 
 
 def psd(x: Any,
         NFFT: Union[int, Any] = None,
         Fs: Union[int, Any] = None,
         detrend: Union[Callable[[Any, int], Any], Any] = None,
-        window: Union[Callable[[{__len__}], Optional[Any]], Any] = None,
+        window: Union[Callable[[{__len__}], Any], Any] = None,
         noverlap: int = None,
         pad_to: Any = None,
         sides: Union[str, Any] = None,
@@ -78,33 +76,13 @@ def psd(x: Any,
 
 _single_spectrum_docs: str
 
-complex_spectrum: partial[tuple[Union[Union[None, ndarray, int, float, complex], Any], Optional[ndarray]]]
+complex_spectrum: partial[tuple[Union[Union[int, float, complex], Any], Any]]
 
-__doc__: str
-__doc__: str
-__doc__: str
-__doc__: str
+magnitude_spectrum: partial[tuple[Union[Union[int, float, complex], Any], Any]]
 
-magnitude_spectrum: partial[tuple[Union[Union[None, ndarray, int, float, complex], Any], Optional[ndarray]]]
+angle_spectrum: partial[tuple[Union[Union[int, float, complex], Any], Any]]
 
-__doc__: str
-__doc__: str
-__doc__: str
-__doc__: str
-
-angle_spectrum: partial[tuple[Union[Union[None, ndarray, int, float, complex], Any], Optional[ndarray]]]
-
-__doc__: str
-__doc__: str
-__doc__: str
-__doc__: str
-
-phase_spectrum: partial[tuple[Union[Union[None, ndarray, int, float, complex], Any], Optional[ndarray]]]
-
-__doc__: str
-__doc__: str
-__doc__: str
-__doc__: str
+phase_spectrum: partial[tuple[Union[Union[int, float, complex], Any], Any]]
 
 
 def csd(x: Any,
@@ -112,14 +90,14 @@ def csd(x: Any,
         NFFT: Union[int, Any] = None,
         Fs: Union[int, Any] = None,
         detrend: Union[Callable[[Any, int], Any], Any] = None,
-        window: Union[Callable[[{__len__}], Optional[Any]], Any] = None,
+        window: Union[Callable[[{__len__}], Any], Any] = None,
         noverlap: int = None,
         pad_to: Any = None,
         sides: Union[str, Any] = None,
         scale_by_freq: Any = None) -> Any: ...
 
 
-def specgram(x: Union[ndarray, Iterable, int, float],
+def specgram(x: Union[Union[Iterable, int, float], Any],
              NFFT: Any = None,
              Fs: Any = None,
              detrend: Any = None,
@@ -136,7 +114,7 @@ def cohere(x: {__len__},
            NFFT: int = 256,
            Fs: int = 2,
            detrend: Callable[[Any, int], Any] = detrend_none,
-           window: Callable[[{__len__}], Optional[Any]] = window_hanning,
+           window: Callable[[{__len__}], Any] = window_hanning,
            noverlap: int = 0,
            pad_to: Any = None,
            sides: str = 'default',
@@ -144,27 +122,27 @@ def cohere(x: {__len__},
 
 
 class GaussianKDE(object):
-    covariance_factor: ClassVar[Callable[[GaussianKDE], None]]
+    covariance_factor: ClassVar[Callable[[GaussianKDE], Any]]
     __call__: ClassVar[Callable[[GaussianKDE, Any], Any]]
     data_covariance: Union[list[Any], Any]
-    inv_cov: Union[Union[None, float, complex], Any]
-    data_inv_cov: Union[ndarray, Any]
+    inv_cov: Union[Union[float, complex], Any]
+    data_inv_cov: Any
     norm_factor: Any
     dim: Any
     _bw_method: Callable
     covariance: Union[Union[list[Any], float, complex], Any]
     covariance_factor: Callable[[], Any]
-    factor: Union[Union[None, str, int, float, complex, Callable], Any]
+    factor: Union[Union[str, int, float, complex, Callable, None], Any]
     dataset: Union[list[Any], Any]
     num_dp: Any
 
     def __init__(self: GaussianKDE,
-                 dataset: Union[ndarray, Iterable, int, float],
+                 dataset: Union[Union[Iterable, int, float], Any],
                  bw_method: Union[str, int, float, complex, Callable, None] = None) -> Any: ...
 
-    def scotts_factor(self: GaussianKDE) -> None: ...
+    def scotts_factor(self: GaussianKDE) -> Any: ...
 
-    def silverman_factor(self: GaussianKDE) -> None: ...
+    def silverman_factor(self: GaussianKDE) -> Any: ...
 
     def evaluate(self: GaussianKDE,
                  points: Any) -> Any: ...

@@ -2,7 +2,6 @@ from matplotlib.path import Path as Path
 from matplotlib import _api as _api
 from typing import Any
 from typing import ClassVar
-from typing import Optional
 from typing import Union
 
 from matplotlib.hatch import Circles
@@ -32,7 +31,7 @@ class HorizontalHatch(HatchPatternBase):
                  density: Any) -> None: ...
 
     def set_vertices_and_codes(self: HorizontalHatch,
-                               vertices: Optional[Any],
+                               vertices: Any,
                                codes: Any) -> None: ...
 
 
@@ -45,7 +44,7 @@ class VerticalHatch(HatchPatternBase):
                  density: Any) -> None: ...
 
     def set_vertices_and_codes(self: VerticalHatch,
-                               vertices: Optional[Any],
+                               vertices: Any,
                                codes: Any) -> None: ...
 
 
@@ -58,7 +57,7 @@ class NorthEastHatch(HatchPatternBase):
                  density: Any) -> None: ...
 
     def set_vertices_and_codes(self: NorthEastHatch,
-                               vertices: Optional[Any],
+                               vertices: Any,
                                codes: Any) -> None: ...
 
 
@@ -71,7 +70,7 @@ class SouthEastHatch(HatchPatternBase):
                  density: Any) -> None: ...
 
     def set_vertices_and_codes(self: SouthEastHatch,
-                               vertices: Optional[Any],
+                               vertices: Any,
                                codes: Any) -> None: ...
 
 
@@ -85,13 +84,13 @@ class Shapes(HatchPatternBase):
                  density: Any) -> None: ...
 
     def set_vertices_and_codes(self: Shapes,
-                               vertices: Optional[Any],
+                               vertices: Any,
                                codes: Any) -> None: ...
 
 
 class Circles(Shapes):
-    shape_vertices: ndarray
-    shape_codes: Optional[ndarray]
+    shape_vertices: Any
+    shape_codes: Optional[Any]
 
     def __init__(self: Circles,
                  hatch: Union[{count}, Any],
@@ -129,8 +128,8 @@ class SmallFilledCircles(SmallCircles):
 class Stars(Shapes):
     size: ClassVar[float]
     filled: ClassVar[bool]
-    shape_vertices: ndarray
-    shape_codes: ndarray
+    shape_vertices: Any
+    shape_codes: Any
     num_rows: Any
 
     def __init__(self: Stars,

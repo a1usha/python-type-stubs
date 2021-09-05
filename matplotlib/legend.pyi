@@ -100,7 +100,7 @@ class Legend(Artist):
     _legend_box: None
     stale: bool
     texts: list[Any]
-    _scatteryoffsets: None
+    _scatteryoffsets: Any
     _draggable: None
     prop: FontProperties
     _custom_handler_map: Any
@@ -120,7 +120,7 @@ class Legend(Artist):
                  scatteryoffsets: Any = None,
                  prop: Any = None,
                  fontsize: Any = None,
-                 labelcolor: Any = None,
+                 labelcolor: Optional[{__eq__}] = None,
                  borderpad: Any = None,
                  labelspacing: Any = None,
                  handlelength: Any = None,

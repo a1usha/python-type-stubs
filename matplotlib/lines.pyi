@@ -33,6 +33,7 @@ from matplotlib import _api as _api
 from numbers import Real as Real
 from numbers import Number as Number
 from numbers import Integral as Integral
+from typing import Any
 from typing import ClassVar
 from typing import Iterable
 from typing import Optional
@@ -51,11 +52,7 @@ from matplotlib.transforms import Bbox
 from matplotlib.transforms import CompositeAffine2D
 from matplotlib.transforms import CompositeGenericTransform
 from matplotlib.transforms import Transform
-from numpy.core._multiarray_umath import ndarray
 from object import object
-
-_log: Logger
-from typing import Any
 
 
 def _get_dash_pattern(style: Union[str, Any]) -> Tuple[Union[int, Any], Optional[Tuple]]: ...
@@ -71,7 +68,7 @@ def segment_hits(cx: Union[int, Any],
                  cy: Union[int, Any],
                  x: {__len__},
                  y: Any,
-                 radius: Union[float, Any]) -> Union[ndarray, Any]: ...
+                 radius: Union[float, Any]) -> Any: ...
 
 
 def _mark_every_path(markevery: Any,
@@ -93,12 +90,12 @@ class Line2D(Artist):
     zorder: ClassVar[int]
     pickradius: ClassVar[property]
     _us_dashOffset: int
-    _yorig: ndarray
+    _yorig: Any
     _x_filled: None
     _solidcapstyle: None
     _transformed_path: None
     _markerfacecoloralt: None
-    _xorig: ndarray
+    _xorig: Any
     _invalidy: bool
     _linewidth: Optional[Any]
     _markerfacecolor: None
@@ -208,7 +205,7 @@ class Line2D(Artist):
                       t: Transform) -> None: ...
 
     def _is_sorted(self: Line2D,
-                   x: Optional[Any]) -> None: ...
+                   x: Any) -> Any: ...
 
     def draw(self: Line2D,
              renderer: {open_group, close_group}) -> Optional[Any]: ...
@@ -223,7 +220,7 @@ class Line2D(Artist):
 
     def get_linewidth(self: Line2D) -> Optional[Any]: ...
 
-    def get_marker(self: Line2D) -> Union[ndarray, str, Path, Sized, Iterable, int, float]: ...
+    def get_marker(self: Line2D) -> Union[str, Path, Sized, Iterable, int, float]: ...
 
     def get_markeredgecolor(self: Line2D) -> Union[str, Any]: ...
 
@@ -239,13 +236,13 @@ class Line2D(Artist):
     def get_markersize(self: Line2D) -> Any: ...
 
     def get_data(self: Line2D,
-                 orig: bool = True) -> Tuple[Union[ndarray, Any], Union[ndarray, Any]]: ...
+                 orig: bool = True) -> Tuple[Any, Any]: ...
 
     def get_xdata(self: Line2D,
-                  orig: bool = True) -> Union[ndarray, Any]: ...
+                  orig: bool = True) -> Any: ...
 
     def get_ydata(self: Line2D,
-                  orig: bool = True) -> Union[ndarray, Any]: ...
+                  orig: bool = True) -> Any: ...
 
     def get_path(self: Line2D) -> Any: ...
 
@@ -351,8 +348,8 @@ class VertexSelector(object):
 
     def process_selected(self: VertexSelector,
                          ind: Iterable[int],
-                         xs: Union[ndarray, Iterable, int, float],
-                         ys: Union[ndarray, Iterable, int, float]) -> None: ...
+                         xs: Union[Union[Iterable, int, float], Any],
+                         ys: Union[Union[Iterable, int, float], Any]) -> None: ...
 
     def onpick(self: VertexSelector,
                event: {artist, ind}) -> None: ...

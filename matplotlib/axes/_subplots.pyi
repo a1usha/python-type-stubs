@@ -14,7 +14,6 @@ from matplotlib.axes._axes import Axes
 from matplotlib.axes._subplots import SubplotBase
 from matplotlib.figure import Figure
 from matplotlib.gridspec import SubplotSpec
-from matplotlib.transforms import Bbox
 from object import object
 
 
@@ -48,8 +47,8 @@ class SubplotBase(object):
     def get_gridspec(self: SubplotBase) -> Any: ...
 
     @_api.deprecated(
-        "3.4", alternative="get_subplotspec().get_position(self.figure)")
-    def figbox(self: SubplotBase) -> Union[Union[Tuple[Bbox, Any, Any, Any, Any], Bbox], Any]: ...
+        "3.4", alternative="get_position()")
+    def figbox(self: SubplotBase) -> Any: ...
 
     @_api.deprecated("3.4", alternative="get_gridspec().nrows")
     def numRows(self: SubplotBase) -> Any: ...

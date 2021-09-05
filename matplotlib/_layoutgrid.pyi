@@ -1,36 +1,34 @@
 from matplotlib.transforms import Bbox as Bbox
+from typing import Any
 from typing import Union
 
 from matplotlib._layoutgrid import LayoutGrid
 from matplotlib.transforms import Bbox
 from object import object
 
-_log: Logger
-from typing import Any
-
 
 class LayoutGrid(object):
     parent: Any
     parent_inner: bool
-    margins: dict[str, Union[list[Variable], ndarray]]
+    margins: dict[str, Union[list[Any], Any]]
     nrows: int
-    height_ratios: ndarray
-    tops: list[Variable]
-    widths: list[Variable]
-    lefts: list[Variable]
-    bottoms: list[Variable]
+    height_ratios: Any
+    tops: list[Any]
+    widths: list[Any]
+    lefts: list[Any]
+    bottoms: list[Any]
     parent_pos: Union[tuple[int, int], Any]
-    inner_heights: list[Variable]
-    width_ratios: ndarray
+    inner_heights: list[Any]
+    width_ratios: Any
     w_pad: Any
-    artists: ndarray
-    children: ndarray
-    heights: list[Variable]
-    rights: list[Variable]
+    artists: Any
+    children: Any
+    heights: list[Any]
+    rights: list[Any]
     name: str
-    margin_vals: dict[str, ndarray]
+    margin_vals: dict[str, Any]
     h_pad: Any
-    inner_widths: list[Variable]
+    inner_widths: list[Any]
     ncols: int
     solver: Any
 
@@ -87,7 +85,7 @@ class LayoutGrid(object):
 
     def get_margins(self: LayoutGrid,
                     todo: Any,
-                    col: Any) -> None: ...
+                    col: Any) -> Any: ...
 
     def get_outer_bbox(self: LayoutGrid,
                        rows: int = 0,

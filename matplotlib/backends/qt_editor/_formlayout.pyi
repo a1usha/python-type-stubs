@@ -5,6 +5,7 @@ from matplotlib import colors as mcolors
 from matplotlib import _api as _api
 from numbers import Real as Real
 from numbers import Integral as Integral
+from typing import Any
 from typing import Callable
 from typing import ClassVar
 from typing import Optional
@@ -19,11 +20,8 @@ from matplotlib.backends.qt_editor._formlayout import FormDialog
 from matplotlib.backends.qt_editor._formlayout import FormTabWidget
 from matplotlib.backends.qt_editor._formlayout import FormWidget
 
-__version__: str
-__license__: Optional[str]
-_log: Logger
 BLACKLIST: set[str]
-from typing import Any
+__version__: str
 
 
 class ColorButton():

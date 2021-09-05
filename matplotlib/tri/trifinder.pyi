@@ -16,7 +16,7 @@ class TriFinder(object):
 
 
 class TrapezoidMapTriFinder(TriFinder):
-    _cpp_trifinder: TrapezoidMapTriFinder
+    _cpp_trifinder: Any
 
     def __init__(self: TrapezoidMapTriFinder,
                  triangulation: {get_cpp_triangulation}) -> None: ...
@@ -25,7 +25,7 @@ class TrapezoidMapTriFinder(TriFinder):
                  x: Any,
                  y: Any) -> Any: ...
 
-    def _get_tree_stats(self: TrapezoidMapTriFinder) -> None: ...
+    def _get_tree_stats(self: TrapezoidMapTriFinder) -> Any: ...
 
     def _initialize(self: TrapezoidMapTriFinder) -> None: ...
 

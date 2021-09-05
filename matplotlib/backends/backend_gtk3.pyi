@@ -18,6 +18,7 @@ from matplotlib import cbook as cbook
 from matplotlib import backend_tools as backend_tools
 from matplotlib import _api as _api
 from pathlib import Path as Path
+from typing import Any
 from typing import ClassVar
 from typing import Optional
 from typing import Union
@@ -49,9 +50,7 @@ from matplotlib.backends.backend_gtk3 import TimerGTK3
 from matplotlib.backends.backend_gtk3 import ToolCopyToClipboardGTK3
 from matplotlib.backends.backend_gtk3 import ToolbarGTK3
 
-_log: Logger
 backend_version: str
-from typing import Any
 
 
 class TimerGTK3(TimerBase):

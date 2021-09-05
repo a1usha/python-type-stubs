@@ -65,14 +65,11 @@ from matplotlib.text import Text
 from matplotlib.transforms import Affine2D
 from matplotlib.transforms import Affine2DBase
 from matplotlib.transforms import Transform
-from numpy.core._multiarray_umath import ndarray
 from object import object
 from str import str
 
-_log: Logger
-_default_filetypes: dict[Union[str, Any], Union[str, Any]]
 _default_backends: dict[Union[str, Any], Union[str, Any]]
-from typing import Any
+_default_filetypes: dict[Union[str, Any], Union[str, Any]]
 
 
 def _safe_pyplot_import() -> pyplot.py: ...
@@ -243,8 +240,7 @@ class RendererBase(object):
     def get_text_width_height_descent(self: RendererBase,
                                       s: Any,
                                       prop: {get_size_in_points},
-                                      ismath: {__eq__}) -> Union[
-        Union[Tuple[Any, Any, Any], Tuple[Any, Any, None]], Any]: ...
+                                      ismath: {__eq__}) -> Union[Tuple[Any, Any, Any], Any]: ...
 
     def flipy(self: RendererBase) -> bool: ...
 
@@ -255,7 +251,8 @@ class RendererBase(object):
     def new_gc(self: RendererBase) -> GraphicsContextBase: ...
 
     def points_to_pixels(self: RendererBase,
-                         points: Union[float, ndarray, Iterable, int]) -> Union[float, ndarray, Iterable, int]: ...
+                         points: Union[Union[float, Iterable, int], Any]) -> Union[
+        Union[float, Iterable, int], Any]: ...
 
     def start_rasterizing(self: RendererBase) -> None: ...
 
@@ -339,7 +336,7 @@ class GraphicsContextBase(object):
 
     def set_dashes(self: GraphicsContextBase,
                    dash_offset: Optional[float],
-                   dash_list: Union[ndarray, Iterable, int, float, None]) -> Any: ...
+                   dash_list: Union[Union[Iterable, int, float, None], Any]) -> Any: ...
 
     def set_foreground(self: GraphicsContextBase,
                        fg: Any,
@@ -349,7 +346,7 @@ class GraphicsContextBase(object):
                       js: Any) -> Optional[Any]: ...
 
     def set_linewidth(self: GraphicsContextBase,
-                      w: Union[Union[float, None, int], Any]) -> None: ...
+                      w: Union[Union[float, int], Any]) -> None: ...
 
     def set_url(self: GraphicsContextBase,
                 url: Optional[Any]) -> None: ...

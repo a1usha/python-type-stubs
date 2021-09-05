@@ -27,10 +27,9 @@ from matplotlib._enums import JoinStyle
 from matplotlib.rcsetup import ValidateInStrings
 from object import object
 
-interactive_bk: list[Union[str, Any]]
 non_interactive_bk: list[str]
 all_backends: list[Union[str, Any]]
-from typing import Any
+interactive_bk: list[Union[str, Any]]
 
 
 class ValidateInStrings(object):
@@ -57,35 +56,21 @@ def _listify_validator(scalar_validator: Union[Union[Callable[[Any], Any], Calla
                                                          str, None, float]], ValidateInStrings, Callable[
                                                          [Union[None, int, float, slice]], Union[
                                                              Union[slice, float, int, tuple, list], Any]], Callable[
-                                                         [Any], str], Callable[[Any], list[Union[Union[
-                                                                                                     None, str, int, float, slice, tuple, list,
-                                                                                                     tuple[int, str], {
-                                                                                                         __len__,
-                                                                                                         __getitem__},
-                                                                                                     tuple[int, Union[
-                                                                                                         Union[str, {
-                                                                                                             __len__,
-                                                                                                             __getitem__}], Any]]], Any]]],
+                                                         [Any], str], Callable[[Any], list[
+    Union[Union[None, str, int, float, slice, tuple, list, tuple[int, str], tuple[int, Union[str, Any]]], Any]]],
                                                      Callable[[Any], Union[str, Any]], Callable[
-                                                         [{__len__, __getitem__}], Union[Union[tuple[int, str], str, {
-                                                             __len__, __getitem__}, tuple[int, Union[
-                                                             Union[str, {__len__, __getitem__}], Any]]], Any]], Type[
-                                                         JoinStyle], Type[CapStyle]], Any],
+                                                         [{__len__, __getitem__}], Union[Union[tuple[int, str], str,
+                                                                                               tuple[int, Union[
+                                                                                                   str, Any]]], Any]],
+                                                     Type[JoinStyle], Type[CapStyle]], Any],
                        allow_stringlist: bool = False,
                        *,
                        n: Union[int, Any] = None,
-                       doc: Union[str, Any] = None) -> Callable[[Any], list[Union[Union[
-                                                                                      None, str, int, float, slice, Tuple, list,
-                                                                                      Tuple[int, str], {__len__,
-                                                                                                        __getitem__},
-                                                                                      Tuple[int, Union[Union[str, {
-                                                                                          __len__,
-                                                                                          __getitem__}], Any]]], Any]]]: ...
+                       doc: Union[str, Any] = None) -> Callable[[Any], list[
+    Union[Union[None, str, int, float, slice, Tuple, list, Tuple[int, str], Tuple[int, Union[str, Any]]], Any]]]: ...
 
 
-validate_anylist: Callable[[Any], list[Union[Union[None, str, int, float, slice, tuple, list, tuple[int, str], {__len__,
-                                                                                                                __getitem__},
-                                                   tuple[int, Union[Union[str, {__len__, __getitem__}], Any]]], Any]]]
+validate_anylist: Callable[[Any], list[Any]]
 
 
 def validate_any(s: Any) -> Any: ...
@@ -120,8 +105,7 @@ validate_string: Callable[[Optional[{lower}]], Union[Union[None, str, int, float
 
 validate_string_or_None: Callable[[Optional[{lower}]], Union[Union[None, str, int, float], Any]]
 
-validate_stringlist: Callable[[Any], list[Union[Union[None, str, int, float, slice, tuple, list, tuple[int, str], {
-    __len__, __getitem__}, tuple[int, Union[Union[str, {__len__, __getitem__}], Any]]], Any]]]
+validate_stringlist: Callable[[Any], list[Any]]
 
 validate_int: Callable[[Optional[{lower}]], Union[Union[None, str, int, float], Any]]
 
@@ -131,10 +115,8 @@ validate_float: Callable[[Optional[{lower}]], Union[Union[None, str, int, float]
 
 validate_float_or_None: Callable[[Optional[{lower}]], Union[Union[None, str, int, float], Any]]
 
-validate_floatlist: Callable[[Any], list[Union[Union[
-                                                   None, str, int, float, slice, tuple, list, tuple[int, str], {__len__,
-                                                                                                                __getitem__},
-                                                   tuple[int, Union[Union[str, {__len__, __getitem__}], Any]]], Any]]]
+validate_floatlist: Callable[[Any], list[
+    Union[Union[None, str, int, float, slice, tuple, list, tuple[int, str], tuple[int, Union[str, Any]]], Any]]]
 
 
 def _make_type_validator(cls: Union[Type[Union[str, int, float]], Any],
@@ -148,7 +130,7 @@ _validate_standard_backends: ValidateInStrings
 _auto_backend_sentinel: object
 
 
-def validate_fonttype(s: {lower}) -> Union[Union[int, None, str, float], Any]: ...
+def validate_fonttype(s: {lower}) -> Union[Union[None, str, int, float], Any]: ...
 
 
 validate_toolbar: ValidateInStrings
@@ -184,10 +166,7 @@ def validate_color_or_auto(s: {__eq__}) -> Union[Union[{__eq__}, str], Any]: ...
 def validate_color_for_prop_cycle(s: Any) -> Union[str, Any]: ...
 
 
-validate_colorlist: Callable[[Any], list[Union[Union[
-                                                   None, str, int, float, slice, tuple, list, tuple[int, str], {__len__,
-                                                                                                                __getitem__},
-                                                   tuple[int, Union[Union[str, {__len__, __getitem__}], Any]]], Any]]]
+validate_colorlist: Callable[[Any], list[Any]]
 
 
 def validate_color(s: Union[Union[{__eq__}, {__eq__}], Any]) -> Union[str, Any]: ...
@@ -205,8 +184,7 @@ def validate_aspect(s: Any) -> Union[float, Any]: ...
 def validate_fontsize_None(s: Optional[{__eq__}]) -> Union[None, str, float]: ...
 
 
-validate_fontsizelist: Callable[[Any], list[Union[Union[None, str, int, float, slice, tuple, list, tuple[int, str], {
-    __len__, __getitem__}, tuple[int, Union[Union[str, {__len__, __getitem__}], Any]]], Any]]]
+validate_fontsizelist: Callable[[Any], list[Any]]
 
 
 def validate_fontsize(s: Union[Optional[{__eq__}], Any]) -> Union[str, None, float]: ...
@@ -234,8 +212,7 @@ def _validate_mathtext_fallback(s: Optional[{__eq__, lower}]) -> Optional[str]: 
 validate_ps_papersize: ValidateInStrings
 
 
-def validate_whiskers(s: Any) -> Union[list[Union[Union[None, str, int, float, slice, Tuple, list, Tuple[int, str], {
-    __len__, __getitem__}, Tuple[int, Union[Union[str, {__len__, __getitem__}], Any]]], Any]], float]: ...
+def validate_whiskers(s: Any) -> Union[list[Any], float]: ...
 
 
 _validate_named_linestyle: ValidateInStrings
@@ -246,16 +223,14 @@ def validate_ps_distiller(s: Any) -> Optional[Any]: ...
 
 validate_fillstyle: ValidateInStrings
 
-validate_fillstylelist: Callable[[Any], list[Union[Union[None, str, int, float, slice, tuple, list, tuple[int, str], {
-    __len__, __getitem__}, tuple[int, Union[Union[str, {__len__, __getitem__}], Any]]], Any]]]
+validate_fillstylelist: Callable[[Any], list[Any]]
 
 
 def _validate_linestyle(ls: {__len__, __getitem__}) -> Union[Union[Tuple[int, str], str, {__len__, __getitem__}, Tuple[
     int, Union[Union[str, {__len__, __getitem__}], Any]]], Any]: ...
 
 
-validate_markeverylist: Callable[[Any], list[Union[Union[None, str, int, float, slice, tuple, list, tuple[int, str], {
-    __len__, __getitem__}, tuple[int, Union[Union[str, {__len__, __getitem__}], Any]]], Any]]]
+validate_markeverylist: Callable[[Any], list[Any]]
 
 validate_legend_loc: ValidateInStrings
 
@@ -288,11 +263,7 @@ def validate_movie_writer(s: Any) -> Any: ...
 def validate_bbox(s: Any) -> Union[Optional[str], Any]: ...
 
 
-def validate_sketch(s: Optional[{__eq__}]) -> Optional[Tuple[Union[Union[
-                                                                       None, str, int, float, slice, Tuple, list, Tuple[
-                                                                           int, str], {__len__, __getitem__}, Tuple[
-                                                                           int, Union[Union[str, {__len__,
-                                                                                                  __getitem__}], Any]]], Any], ...]]: ...
+def validate_sketch(s: Optional[{__eq__}]) -> Optional[Tuple[Any, ...]]: ...
 
 
 def _validate_greaterequal0_lessthan1(s: Any) -> Union[Union[None, str, int, float], Any]: ...
@@ -307,21 +278,11 @@ validate_grid_axis: ValidateInStrings
 def _validate_greaterequal0_lessequal1(s: Any) -> Union[Union[None, str, int, float], Any]: ...
 
 
-validate_hatchlist: Callable[[Any], list[Union[Union[
-                                                   None, str, int, float, slice, tuple, list, tuple[int, str], {__len__,
-                                                                                                                __getitem__},
-                                                   tuple[int, Union[Union[str, {__len__, __getitem__}], Any]]], Any]]]
+validate_hatchlist: Callable[[Any], list[Any]]
 
-validate_dashlist: Callable[[Any], list[Union[Union[
-                                                  None, str, int, float, slice, tuple, list, tuple[int, str], {__len__,
-                                                                                                               __getitem__},
-                                                  tuple[int, Union[Union[str, {__len__, __getitem__}], Any]]], Any]]]
+validate_dashlist: Callable[[Any], list[Any]]
 
-_prop_validators: dict[Union[str, Any], Union[Callable[[Any], list[Union[Union[
-                                                                             None, str, int, float, slice, tuple, list,
-                                                                             tuple[int, str], {__len__, __getitem__},
-                                                                             tuple[int, Union[Union[str, {__len__,
-                                                                                                          __getitem__}], Any]]], Any]]], Any]]
+_prop_validators: dict[Union[str, Any], Union[Callable[[Any], list[Any]], Any]]
 
 _prop_aliases: dict[str, str]
 
@@ -336,8 +297,8 @@ def cycler(*args,
 def validate_cycler(s: Any) -> Cycler: ...
 
 
-def validate_hist_bins(s: Any) -> Union[str, int, list[Union[Union[None, str, int, float, slice, Tuple, list, Tuple[
-    int, str], {__len__, __getitem__}, Tuple[int, Union[Union[str, {__len__, __getitem__}], Any]]], Any]]]: ...
+def validate_hist_bins(s: Any) -> Union[str, int, list[
+    Union[Union[None, str, int, float, slice, Tuple, list, Tuple[int, str], Tuple[int, Union[str, Any]]], Any]]]: ...
 
 
 validate_axes_titlelocation: ValidateInStrings
@@ -357,7 +318,7 @@ _validators: dict[Union[str, Any], Union[Union[Callable[[{startswith, endswith}]
                                                        Union[None, str, int, float], Any]]], Any]]
 _validators: dict
 
-_hardcoded_defaults: dict[str, Union[object, bool, str, list[Any], None, list[str], int]]
+_hardcoded_defaults: dict[str, Union[bool, list[Any], None, list[str], int, str, object]]
 
 _validators: dict[Union[str, Any], Union[Union[Callable[[{startswith, endswith}], Union[{startswith, endswith}, Any]],
                                                Callable[[Any], bool], Callable[[Any], Any], Callable[

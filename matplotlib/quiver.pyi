@@ -4,6 +4,7 @@ from matplotlib import docstring as docstring
 from matplotlib import cbook as cbook
 from matplotlib import _api as _api
 from numpy import ma as ma
+from typing import Any
 from typing import ClassVar
 from typing import Iterable
 from typing import Optional
@@ -19,10 +20,9 @@ from matplotlib.quiver import Quiver
 from matplotlib.quiver import QuiverKey
 from matplotlib.transforms import Affine2D
 from matplotlib.transforms import Bbox
-from numpy.core._multiarray_umath import ndarray
+from numpy.ma.core import MaskedArray
 
 _quiver_doc: str
-from typing import Any
 
 
 class QuiverKey(Artist):
@@ -33,7 +33,7 @@ class QuiverKey(Artist):
     label: str
     labelcolor: Any
     kw: dict[str, Any]
-    verts: Optional[ndarray]
+    verts: Union[MaskedArray, Any]
     _initialized: bool
     Q: Quiver
     coord: str
@@ -169,16 +169,16 @@ class Quiver(PolyCollection):
 
     def _angles_lengths(self: Quiver,
                         U: Union[{__add__}, Any],
-                        V: Union[ndarray, Any],
-                        eps: int = 1) -> Tuple[None, float]: ...
+                        V: Union[{__mul__}, Any],
+                        eps: int = 1) -> Tuple[Any, Union[float, Any]]: ...
 
     def _make_verts(self: Quiver,
-                    U: Union[ndarray, Any],
+                    U: {__add__},
                     V: {__mul__},
-                    angles: Union[str, Any]) -> Optional[ndarray]: ...
+                    angles: Union[str, Any]) -> Union[MaskedArray, Any]: ...
 
     def _h_arrows(self: Quiver,
-                  length: Union[float, Any]) -> Tuple[Any, None]: ...
+                  length: Union[float, Any]) -> Tuple[Any, Any]: ...
 
 
 _barbs_doc: str
@@ -190,14 +190,14 @@ class Barbs(PolyCollection):
     _offsets: Any
     rounding: bool
     stale: bool
-    sizes: Union[ndarray, Iterable, int, float, dict[Any, Any]]
+    sizes: Union[Union[Iterable, int, float, dict[Any, Any]], Any]
     u: Any
     v: Any
     x: Any
     y: Any
     _pivot: str
     _length: int
-    flip: ndarray
+    flip: Any
     barb_increments: Union[dict[Any, Any], Any]
 
     def __init__(self: Barbs,
@@ -206,7 +206,7 @@ class Barbs(PolyCollection):
                  length: int = 7,
                  barbcolor: Any = None,
                  flagcolor: Any = None,
-                 sizes: Union[ndarray, Iterable, int, float] = None,
+                 sizes: Union[Union[Iterable, int, float], Any] = None,
                  fill_empty: bool = False,
                  barb_increments: Any = None,
                  rounding: bool = True,
@@ -215,7 +215,7 @@ class Barbs(PolyCollection):
                  **kwargs) -> Optional[Any]: ...
 
     def _find_tails(self: Barbs,
-                    mag: Optional[Any],
+                    mag: {__truediv__},
                     rounding: bool = True,
                     half: int = 5,
                     full: int = 10,
@@ -232,7 +232,7 @@ class Barbs(PolyCollection):
                     pivot: str,
                     sizes: dict,
                     fill_empty: bool,
-                    flip: Iterable[bool]) -> list[Union[Union[list[Any], ndarray], Any]]: ...
+                    flip: Iterable[bool]) -> list[Union[list[Any], Any]]: ...
 
     def set_UVC(self: Barbs,
                 U: Any,

@@ -9,12 +9,11 @@ from ValueError import ValueError
 from matplotlib import _api
 from matplotlib.bezier import BezierSegment
 from matplotlib.path import Path
-from numpy.core._multiarray_umath import ndarray
 from object import object
 
 
 def _comb(n: {__sub__, __add__},
-          k: {__gt__}) -> Union[Union[int, ndarray], Any]: ...
+          k: {__gt__}) -> Union[int, Any]: ...
 
 
 class NonIntersectingPathException(ValueError):
@@ -39,12 +38,12 @@ def get_normal_points(cx: Union[float, Any],
     Union[float, Any], Union[float, Any], Union[float, Any], Union[float, Any]]: ...
 
 
-def _de_casteljau1(beta: Union[ndarray, Any],
+def _de_casteljau1(beta: Any,
                    t: Union[float, Any]) -> Union[Union[int, float], Any]: ...
 
 
 def split_de_casteljau(beta: Union[int, Any],
-                       t: Union[float, Any]) -> Tuple[list[None], list[None]]: ...
+                       t: Union[float, Any]) -> Tuple[list[Any], list[Any]]: ...
 
 
 def find_bezier_t_intersecting_with_closedpath(bezier_point_at_t: Callable,
@@ -55,10 +54,10 @@ def find_bezier_t_intersecting_with_closedpath(bezier_point_at_t: Callable,
 
 
 class BezierSegment(object):
-    _cpoints: ndarray
+    _cpoints: Any
     _d: Any
     _px: Any
-    _orders: ndarray
+    _orders: Any
     _N: Any
 
     def __init__(self: BezierSegment,
@@ -70,7 +69,7 @@ class BezierSegment(object):
     def point_at_t(self: BezierSegment,
                    t: Any) -> Tuple: ...
 
-    def control_points(self: BezierSegment) -> ndarray: ...
+    def control_points(self: BezierSegment) -> Any: ...
 
     def dimension(self: BezierSegment) -> Any: ...
 

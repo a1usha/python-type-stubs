@@ -10,14 +10,12 @@ from typing import Union
 
 from matplotlib import RcParams
 
-_log: Logger
-__all__: Any
 BASE_LIBRARY_PATH: str
 USER_LIBRARY_PATHS: list[str]
 STYLE_EXTENSION: str
 STYLE_FILE_PATTERN: Pattern[str]
 STYLE_BLACKLIST: set[Union[str, Any]]
-from typing import Any
+__all__: Any
 
 
 def _remove_blacklisted_style_params(d: Union[Union[str, Path, RcParams], Any],

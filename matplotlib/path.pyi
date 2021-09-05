@@ -18,7 +18,6 @@ from matplotlib import _api
 from matplotlib.path import Path
 from matplotlib.transforms import Bbox
 from matplotlib.transforms import Transform
-from numpy.core._multiarray_umath import ndarray
 from object import object
 
 
@@ -39,10 +38,10 @@ class Path(object):
     _unit_circle: ClassVar[None]
     _unit_circle_righthalf: ClassVar[None]
     _unit_circle_righthalf: Path
-    _codes: Optional[ndarray]
+    _codes: Optional[Any]
     _interpolation_steps: Optional[int]
-    _vertices: ndarray
-    _should_simplify: Union[Union[bool, None, ndarray], Any]
+    _vertices: Any
+    _should_simplify: Union[Optional[bool], Any]
     _unit_rectangle: Path
     _readonly: bool
     _unit_circle: Path
@@ -50,7 +49,7 @@ class Path(object):
 
     def __init__(self: Path,
                  vertices: int,
-                 codes: Union[ndarray, Iterable, int, float, None] = None,
+                 codes: Union[Union[Iterable, int, float, None], Any] = None,
                  _interpolation_steps: Optional[int] = 1,
                  closed: Optional[bool] = False,
                  readonly: Optional[bool] = False) -> Any: ...
@@ -62,12 +61,12 @@ class Path(object):
 
     def _update_values(self: Path) -> None: ...
 
-    def vertices(self: Path) -> ndarray: ...
+    def vertices(self: Path) -> Any: ...
 
     def vertices(self: Path,
                  vertices: Any) -> Any: ...
 
-    def codes(self: Path) -> Optional[ndarray]: ...
+    def codes(self: Path) -> Optional[Any]: ...
 
     def codes(self: Path,
               codes: Any) -> Any: ...
@@ -77,7 +76,7 @@ class Path(object):
     def simplify_threshold(self: Path,
                            threshold: Any) -> None: ...
 
-    def should_simplify(self: Path) -> Union[Union[bool, None, ndarray], Any]: ...
+    def should_simplify(self: Path) -> Union[Optional[bool], Any]: ...
 
     def should_simplify(self: Path,
                         should_simplify: Any) -> None: ...
@@ -107,7 +106,7 @@ class Path(object):
                       stroke_width: Optional[float] = 1.0,
                       simplify: Optional[bool] = None,
                       curves: Optional[bool] = True,
-                      sketch: Optional[Iterable] = None) -> Generator[Tuple[Union[ndarray, Any], Any], Any, None]: ...
+                      sketch: Optional[Iterable] = None) -> Generator[Tuple[Any, Any], Any, None]: ...
 
     def iter_bezier(self: Path,
                     **kwargs) -> Generator[Tuple[BezierSegment, Any], Any, None]: ...
@@ -139,7 +138,7 @@ class Path(object):
 
     def contains_path(self: Path,
                       path: Any,
-                      transform: Any = None) -> None: ...
+                      transform: Any = None) -> Any: ...
 
     def get_extents(self: Path,
                     transform: Optional[Transform] = None,
@@ -147,11 +146,11 @@ class Path(object):
 
     def intersects_path(self: Path,
                         other: Any,
-                        filled: bool = True) -> None: ...
+                        filled: bool = True) -> Any: ...
 
     def intersects_bbox(self: Path,
                         bbox: {x0, y0, x1, y1},
-                        filled: bool = True) -> None: ...
+                        filled: bool = True) -> Any: ...
 
     def interpolated(self: Path,
                      steps: {__eq__}) -> Path: ...
@@ -160,7 +159,7 @@ class Path(object):
                     transform: Any = None,
                     width: int = 0,
                     height: int = 0,
-                    closed_only: bool = True) -> Union[list[Any], list[Union[list[Optional[Any]], ndarray]], None]: ...
+                    closed_only: bool = True) -> Union[Union[list[Any], list[Union[list[Any], Any]]], Any]: ...
 
     def unit_rectangle(cls: Type[Path]) -> Union[Path, Any]: ...
 

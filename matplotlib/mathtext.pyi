@@ -41,10 +41,8 @@ from matplotlib.mathtext import MathtextBackendPs
 from matplotlib.mathtext import MathtextBackendSvg
 from object import object
 
-_log: Logger
-get_unicode_index: Callable[[str, bool], Union[int, Any]]
 __module__: Any
-from typing import Any
+get_unicode_index: Callable[[str, bool], Union[int, Any]]
 
 
 class MathtextBackend(object):
@@ -73,7 +71,7 @@ class MathtextBackend(object):
     def get_results(self: MathtextBackend,
                     box: Any) -> Any: ...
 
-    def get_hinting_type(self: MathtextBackend) -> int: ...
+    def get_hinting_type(self: MathtextBackend) -> Any: ...
 
 
 class MathtextBackendAgg(MathtextBackend):
@@ -111,7 +109,7 @@ class MathtextBackendAgg(MathtextBackend):
                     box: {height, depth, glue_order, glue_sign, children},
                     used_characters: Any) -> Tuple[int, int, int, int, int, Any, Any]: ...
 
-    def get_hinting_type(self: MathtextBackendAgg) -> int: ...
+    def get_hinting_type(self: MathtextBackendAgg) -> Any: ...
 
 
 @_api.deprecated("3.4", alternative="mathtext.math_to_image")
@@ -272,9 +270,9 @@ def ship(ox: Any,
 class MathTextParser(object):
     _parser: ClassVar[None]
     _backend_mapping: ClassVar[
-        dict[str, Union[Union[_deprecated_property, Type[MathtextBackendAgg], Type[MathtextBackendPath]], Any]]]
+        dict[str, Union[Union[Type[MathtextBackendAgg], Type[MathtextBackendPath], _deprecated_property], Any]]]
     _font_type_mapping: ClassVar[
-        dict[str, Type[Union[BakomaFonts, DejaVuSerifFonts, DejaVuSansFonts, StixFonts, StixSansFonts, UnicodeFonts]]]]
+        dict[str, Type[Union[DejaVuSansFonts, BakomaFonts, StixSansFonts, StixFonts, DejaVuSerifFonts, UnicodeFonts]]]]
     _output: Any
 
     def __init__(self: MathTextParser,
@@ -308,7 +306,7 @@ class MathTextParser(object):
 
     @_api.deprecated("3.4", alternative="mathtext.math_to_image")
     def to_png(self: MathTextParser,
-               filename: {__eq__, name},
+               filename: Any,
                texstr: str,
                color: Any = 'black',
                dpi: float = 120,

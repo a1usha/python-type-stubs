@@ -43,7 +43,6 @@ from matplotlib.transforms import CompositeGenericTransform
 from matplotlib.transforms import ScaledTranslation
 from matplotlib.transforms import Transform
 from matplotlib.transforms import TransformWrapper
-from numpy.core._multiarray_umath import ndarray
 from object import object
 
 
@@ -61,7 +60,7 @@ class PolarTransform(Transform):
                  _apply_theta_transforms: bool = True) -> None: ...
 
     def transform_non_affine(self: PolarTransform,
-                             tr: Optional[Any]) -> Any: ...
+                             tr: Any) -> Any: ...
 
     def transform_path_non_affine(self: PolarTransform,
                                   path: {vertices, codes}) -> Path: ...
@@ -115,15 +114,15 @@ class _AxisWrapper(object):
     def __init__(self: _AxisWrapper,
                  axis: Any) -> None: ...
 
-    def get_view_interval(self: _AxisWrapper) -> None: ...
+    def get_view_interval(self: _AxisWrapper) -> Any: ...
 
     def set_view_interval(self: _AxisWrapper,
                           vmin: Any,
                           vmax: Any) -> None: ...
 
-    def get_minpos(self: _AxisWrapper) -> None: ...
+    def get_minpos(self: _AxisWrapper) -> Any: ...
 
-    def get_data_interval(self: _AxisWrapper) -> None: ...
+    def get_data_interval(self: _AxisWrapper) -> Any: ...
 
     def set_data_interval(self: _AxisWrapper,
                           vmin: Any,
@@ -142,7 +141,7 @@ class ThetaLocator(Locator):
     def set_axis(self: ThetaLocator,
                  axis: Any) -> None: ...
 
-    def __call__(self: ThetaLocator) -> Optional[float]: ...
+    def __call__(self: ThetaLocator) -> Union[float, Any]: ...
 
     @_api.deprecated("3.3")
     def pan(self: ThetaLocator,
@@ -152,7 +151,7 @@ class ThetaLocator(Locator):
 
     def view_limits(self: ThetaLocator,
                     vmin: Any,
-                    vmax: Any) -> None: ...
+                    vmax: Any) -> Any: ...
 
     @_api.deprecated("3.3")
     def zoom(self: ThetaLocator,
@@ -172,7 +171,7 @@ class ThetaTick(XTick):
                       **kwargs) -> None: ...
 
     def _update_padding(self: ThetaTick,
-                        pad: Union[Union[float, int], Any],
+                        pad: Union[int, Any],
                         angle: Any) -> None: ...
 
     def update_position(self: ThetaTick,
@@ -238,7 +237,7 @@ class _ThetaShift(ScaledTranslation):
     __str__: ClassVar[Callable[[Any], Any]]
     mode: str
     pad: float
-    _t: tuple[float, float]
+    _t: tuple[Union[float, Any], Union[float, Any]]
     axes: Any
 
     def __init__(self: _ThetaShift,
@@ -246,7 +245,7 @@ class _ThetaShift(ScaledTranslation):
                  pad: float,
                  mode: str) -> None: ...
 
-    def get_matrix(self: _ThetaShift) -> None: ...
+    def get_matrix(self: _ThetaShift) -> Any: ...
 
 
 class RadialTick(YTick):
@@ -308,7 +307,7 @@ class _WedgeBbox(Bbox):
                  originLim: Any,
                  **kwargs) -> None: ...
 
-    def get_points(self: _WedgeBbox) -> ndarray: ...
+    def get_points(self: _WedgeBbox) -> Any: ...
 
 
 class PolarAxes(Axes):
@@ -324,7 +323,7 @@ class PolarAxes(Axes):
     _theta_offset: Affine2D
     _xaxis_transform: Union[Union[{input_dims, output_dims}, {output_dims,
                                                               input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]
-    _default_rlabel_position: None
+    _default_rlabel_position: Any
     _r_label_position: Affine2D
     xaxis: ThetaAxis
     use_sticky_edges: bool
@@ -398,19 +397,19 @@ class PolarAxes(Axes):
     def set_thetamax(self: PolarAxes,
                      thetamax: Any) -> None: ...
 
-    def get_thetamax(self: PolarAxes) -> None: ...
+    def get_thetamax(self: PolarAxes) -> Any: ...
 
     def set_thetamin(self: PolarAxes,
                      thetamin: Any) -> None: ...
 
-    def get_thetamin(self: PolarAxes) -> None: ...
+    def get_thetamin(self: PolarAxes) -> Any: ...
 
     def set_thetalim(self: PolarAxes,
                      *args,
-                     **kwargs) -> Union[Tuple, Any]: ...
+                     **kwargs) -> Tuple: ...
 
     def set_theta_offset(self: PolarAxes,
-                         offset: Union[Union[int, float], Any]) -> None: ...
+                         offset: Union[int, Any]) -> None: ...
 
     def get_theta_offset(self: PolarAxes) -> Any: ...
 
@@ -438,7 +437,7 @@ class PolarAxes(Axes):
 
     def get_rorigin(self: PolarAxes) -> float: ...
 
-    def get_rsign(self: PolarAxes) -> None: ...
+    def get_rsign(self: PolarAxes) -> Any: ...
 
     def set_rlim(self: PolarAxes,
                  bottom: Any = None,

@@ -11,7 +11,6 @@ from matplotlib.type1font import Type1Font
 from object import object
 
 _TokenType: Any
-from typing import Any
 
 
 class Type1Font(object):

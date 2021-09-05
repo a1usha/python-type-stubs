@@ -22,6 +22,7 @@ from math import sin as sin
 from math import cos as cos
 from math import radians as radians
 from contextlib import nullcontext as nullcontext
+from typing import Any
 from typing import ClassVar
 from typing import Iterable
 from typing import Optional
@@ -35,30 +36,27 @@ from matplotlib.backend_bases import _Backend
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.backends.backend_agg import RendererAgg
 from matplotlib.font_manager import FontProperties
-from matplotlib.ft2font import FT2Font
 from matplotlib.text import Text
-from numpy.core._multiarray_umath import ndarray
 
 backend_version: str
-from typing import Any
 
 
-def get_hinting_flag() -> int: ...
+def get_hinting_flag() -> Any: ...
 
 
 class RendererAgg(RendererBase):
     lock: ClassVar[Union[_RLock, _RLock]]
-    draw_quad_mesh: Callable[[tuple[Any, ...], dict[str, Any]], None]
-    draw_gouraud_triangle: Callable[[tuple[Any, ...], dict[str, Any]], None]
-    _renderer: RendererAgg
+    draw_quad_mesh: Any
+    draw_gouraud_triangle: Any
+    _renderer: Any
     _filter_renderers: list[Any]
     bbox: Bbox
-    draw_markers: Callable[[tuple[Any, ...], dict[str, Any]], None]
-    draw_gouraud_triangles: Callable[[tuple[Any, ...], dict[str, Any]], None]
+    draw_markers: Any
+    draw_gouraud_triangles: Any
     width: Any
     mathtext_parser: MathTextParser
-    draw_image: Callable[[tuple[Any, ...], dict[str, Any]], None]
-    copy_from_bbox: Callable[[tuple[Any, ...], dict[str, Any]], None]
+    draw_image: Any
+    copy_from_bbox: Any
     dpi: Any
     height: Any
 
@@ -78,8 +76,7 @@ class RendererAgg(RendererBase):
     def get_content_extents(self: RendererAgg) -> Union[Tuple[Any, Any, Any, Any], Any]: ...
 
     @_api.deprecated("3.4")
-    def tostring_rgba_minimized(self: RendererAgg) -> Union[
-        Tuple[ndarray, Union[Tuple[Any, Any, Any, Any], Any]], Any]: ...
+    def tostring_rgba_minimized(self: RendererAgg) -> Union[Tuple[Any, Union[Tuple[Any, Any, Any, Any], Any]], Any]: ...
 
     def draw_path(self: RendererAgg,
                   gc: {get_hatch},
@@ -102,7 +99,7 @@ class RendererAgg(RendererBase):
                              linestyles: {__len__},
                              antialiaseds: {__len__, __getitem__},
                              urls: {__len__},
-                             offset_position: {__eq__}) -> None: ...
+                             offset_position: {__eq__}) -> Any: ...
 
     def draw_mathtext(self: RendererAgg,
                       gc: Any,
@@ -125,7 +122,7 @@ class RendererAgg(RendererBase):
     def get_text_width_height_descent(self: RendererAgg,
                                       s: Any,
                                       prop: {get_size_in_points},
-                                      ismath: {__eq__}) -> Union[Tuple[Any, Any, Any], Tuple[Any, Any, None]]: ...
+                                      ismath: {__eq__}) -> Tuple[Any, Any, Any]: ...
 
     def draw_tex(self: RendererAgg,
                  gc: {get_rgb, set_linewidth},
@@ -140,10 +137,10 @@ class RendererAgg(RendererBase):
     def get_canvas_width_height(self: RendererAgg) -> Tuple[Any, Any]: ...
 
     def _get_agg_font(self: RendererAgg,
-                      prop: Union[Union[FontProperties, {get_size_in_points}], Any]) -> FT2Font: ...
+                      prop: Union[Union[FontProperties, {get_size_in_points}], Any]) -> Any: ...
 
     def points_to_pixels(self: RendererAgg,
-                         points: Union[float, ndarray, Iterable, int]) -> Union[float, Any]: ...
+                         points: Union[Union[float, Iterable, int], Any]) -> Union[float, Any]: ...
 
     def buffer_rgba(self: RendererAgg) -> memoryview: ...
 
@@ -170,13 +167,14 @@ class RendererAgg(RendererBase):
 
 class FigureCanvasAgg(FigureCanvasBase):
     print_rgba: ClassVar[Union[partial[Any], Callable[[tuple[Any, ...], dict[str, Any]], Any]]]
-    print_jpeg: ClassVar[Callable[[FigureCanvasAgg, Any, tuple[Any, ...], Optional[{setdefault}], dict[str, Any]], Any]]
+    print_jpeg: ClassVar[
+        Callable[[FigureCanvasAgg, Any, tuple[Any, ...], Optional[{setdefault}], dict[str, Any]], Optional[Any]]]
     print_tiff: ClassVar[Union[partial[Any], Callable[[tuple[Any, ...], dict[str, Any]], Any]]]
     renderer: RendererAgg
     _lastKey: tuple[Any, Any, Union[Optional[float], Any]]
 
     def copy_from_bbox(self: FigureCanvasAgg,
-                       bbox: Any) -> None: ...
+                       bbox: Any) -> Any: ...
 
     def restore_region(self: FigureCanvasAgg,
                        region: Any,
@@ -216,12 +214,12 @@ class FigureCanvasAgg(FigureCanvasBase):
                   filename_or_obj: Any,
                   pil_kwargs: Optional[{setdefault}] = None,
                   *args,
-                  **kwargs) -> Any: ...
+                  **kwargs) -> Optional[Any]: ...
 
     def print_tif(self: FigureCanvasAgg,
-                  filename_or_obj: {__eq__, name},
+                  filename_or_obj: Any,
                   *,
-                  pil_kwargs: Optional[{setdefault}] = None) -> Any: ...
+                  pil_kwargs: Optional[{setdefault}] = None) -> Optional[Any]: ...
 
 
 class _BackendAgg(_Backend):

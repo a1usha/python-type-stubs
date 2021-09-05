@@ -10,6 +10,7 @@ from matplotlib import font_manager as font_manager
 from matplotlib import dviread as dviread
 from matplotlib import _text_layout as _text_layout
 from collections import OrderedDict as OrderedDict
+from typing import Any
 from typing import ClassVar
 from typing import Iterable
 from typing import Optional
@@ -17,15 +18,11 @@ from typing import Tuple
 from typing import Union
 
 from matplotlib.font_manager import FontProperties
-from matplotlib.ft2font import FT2Font
 from matplotlib.path import Path
 from matplotlib.texmanager import TexManager
 from matplotlib.textpath import TextPath
 from matplotlib.textpath import TextToPath
 from object import object
-
-_log: Logger
-from typing import Any
 
 
 class TextToPath(object):
@@ -37,12 +34,12 @@ class TextToPath(object):
     def __init__(self: TextToPath) -> None: ...
 
     def _get_font(self: TextToPath,
-                  prop: Union[{get_size_in_points}, Any]) -> FT2Font: ...
+                  prop: Union[{get_size_in_points}, Any]) -> Any: ...
 
-    def _get_hinting_flag(self: TextToPath) -> int: ...
+    def _get_hinting_flag(self: TextToPath) -> Any: ...
 
     def _get_char_id(self: TextToPath,
-                     font: Union[FT2Font, Any],
+                     font: {postscript_name},
                      ccode: Any) -> str: ...
 
     def get_text_width_height_descent(self: TextToPath,
@@ -57,11 +54,11 @@ class TextToPath(object):
                       ismath: str = False) -> list: ...
 
     def get_glyphs_with_font(self: TextToPath,
-                             font: Union[FT2Font, Any],
+                             font: {postscript_name},
                              s: Any,
                              glyph_map: Any = None,
                              return_new_glyphs_only: bool = False) -> Tuple[
-        list[Tuple[str, Any, int, float]], Union[Union[OrderedDict[str, None], OrderedDict[Any, Any]], Any], list[
+        list[Tuple[str, Any, int, float]], Union[Union[OrderedDict[str, Any], OrderedDict[Any, Any]], Any], list[
             Any]]: ...
 
     def get_glyphs_mathtext(self: TextToPath,
@@ -79,10 +76,10 @@ class TextToPath(object):
                        s: Any,
                        glyph_map: Any = None,
                        return_new_glyphs_only: bool = False) -> Tuple[
-        list[Tuple[str, Any, Any, Union[float, Any]]], Union[Union[OrderedDict[str, None], OrderedDict[Any, Any]], Any],
+        list[Tuple[str, Any, Any, Union[float, Any]]], Union[Union[OrderedDict[str, Any], OrderedDict[Any, Any]], Any],
         list[Tuple[list[Union[Tuple[Any, Any], Tuple[int, int]]], list[uint8]]]]: ...
 
-    def _get_ps_font_and_encoding(texname: Any) -> Tuple[FT2Font, Optional[Iterable]]: ...
+    def _get_ps_font_and_encoding(texname: Any) -> Tuple[Any, Optional[Iterable]]: ...
 
 
 text_to_path: TextToPath

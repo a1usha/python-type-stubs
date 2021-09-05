@@ -2,6 +2,7 @@ from matplotlib import units as units
 from matplotlib import ticker as ticker
 from matplotlib import _api as _api
 from collections import OrderedDict as OrderedDict
+from typing import Any
 from typing import Union
 
 from matplotlib.category import StrCategoryFormatter
@@ -10,17 +11,13 @@ from matplotlib.category import UnitData
 from matplotlib.ticker import Formatter
 from matplotlib.ticker import Locator
 from matplotlib.units import ConversionInterface
-from numpy.core._multiarray_umath import ndarray
 from object import object
-
-_log: Logger
-from typing import Any
 
 
 class StrCategoryConverter(ConversionInterface):
     def convert(value: Union[str, Any],
                 unit: Any,
-                axis: Any) -> Union[ndarray, Any]: ...
+                axis: Any) -> Any: ...
 
     def axisinfo(unit: Any,
                  axis: Any) -> Any: ...

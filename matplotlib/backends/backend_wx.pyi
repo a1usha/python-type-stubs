@@ -19,6 +19,7 @@ from matplotlib.backend_bases import FigureManagerBase as FigureManagerBase
 from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase
 from matplotlib.backend_bases import _check_savefig_extra_args as _check_savefig_extra_args
 from matplotlib.backend_bases import _Backend as _Backend
+from typing import Any
 from typing import ClassVar
 from typing import Iterable
 from typing import Optional
@@ -64,12 +65,9 @@ from matplotlib.backends.backend_wx import _FigureCanvasWxBase
 from matplotlib.backends.backend_wx import _HelpDialog
 from matplotlib.font_manager import FontProperties
 from matplotlib.text import Text
-from numpy.core._multiarray_umath import ndarray
 
-_log: Logger
-_DEBUG: int
 _DEBUG_lvls: dict[int, str]
-from typing import Any
+_DEBUG: int
 
 PIXELS_PER_INCH: int
 
@@ -166,7 +164,7 @@ class RendererWx(RendererBase):
                     prop: Union[FontProperties, Any]) -> Optional[Any]: ...
 
     def points_to_pixels(self: RendererWx,
-                         points: Union[float, ndarray, Iterable, int]) -> Union[Union[float, None, int], Any]: ...
+                         points: Union[Union[float, Iterable, int], Any]) -> Union[Union[float, int], Any]: ...
 
 
 class GraphicsContextWx(GraphicsContextBase):

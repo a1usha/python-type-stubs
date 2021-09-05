@@ -34,6 +34,7 @@ from datetime import datetime as datetime
 from _typeshed import SupportsLessThan
 from datetime import datetime
 from enum import Enum
+from typing import Any
 from typing import ClassVar
 from typing import Optional
 from typing import Tuple
@@ -59,18 +60,13 @@ from matplotlib.backends.backend_pdf import RendererPdf
 from matplotlib.backends.backend_pdf import Stream
 from matplotlib.backends.backend_pdf import Verbatim
 from matplotlib.font_manager import FontProperties
-from matplotlib.ft2font import FT2Font
 from matplotlib.mathtext import MathTextParser
 from matplotlib.path import Path
 from matplotlib.text import Text
 from matplotlib.transforms import Affine2DBase
 from matplotlib.transforms import Transform
 from matplotlib.type1font import Type1Font
-from numpy.core._multiarray_umath import ndarray
 from object import object
-
-_log: Logger
-from typing import Any
 
 _string_escape_regex: Pattern[bytes]
 
@@ -90,20 +86,19 @@ def _datetime_to_pdf(d: Union[datetime, Any]) -> str: ...
 
 
 def pdfRepr(obj: Union[Union[
-                           bytes, str, dict[str, Union[Name, Reference]], dict[str, Union[Reference, list[Name]]], dict[
-                               str, Union[Name, Reference, list[Union[int, Any]], dict[str, Name]]], dict, dict[
+                           bytes, str, dict[str, Union[Reference, Name]], dict[str, Union[Reference, list[Name]]], dict[
+                               str, Union[dict[str, Name], Reference, Name, list[Union[int, Any]]]], dict, dict[
                                str, Union[Name, list[Any], int]], dict[Any, Reference], dict[str, Name], dict[
                                str, Union[
                                    Union[Name, int, Reference, dict[str, Union[Name, list[Union[int, Any]]]]], Any]],
-                           dict[Union[str, Any], Union[Union[Name, int, object, Reference], Any]], dict[
-                               Union[str, Any], Union[
-                                   Union[Name, int, Reference, list[int], list[Union[float, int]]], Any]], dict[
+                           dict[Union[str, Any], Union[Union[Name, int, Reference], Any]], dict[Union[str, Any], Union[
+                               Union[Name, int, Reference, list[int], list[Union[float, int]]], Any]], dict[
                                str, Union[Union[Name, int, list[int]], Any]], list[int], dict[
-                               Optional[Any], Reference], int, dict[
+                               Union[SupportsLessThan, Any], Reference], int, dict[
                                str, Union[Union[Name, dict[str, Union[str, int]], Reference], Any]], dict[
-                               str, Union[Union[Name, list[Reference], Reference], Any]], list[Union[list[int], Any]],
-                           dict[Any, Any], datetime, dict[Name, Any], dict[str, Union[int, Reference]]], Any]) -> Union[
-    bytes, Any]: ...
+                               str, Union[Union[Name, list[Reference], Reference], Any]], {__setitem__}, list[
+                               Union[list[int], Any]], dict[Any, Any], datetime, dict[Name, Any], dict[
+                               str, Union[Reference, int]]], Any]) -> Union[bytes, Any]: ...
 
 
 class Reference(object):
@@ -117,18 +112,18 @@ class Reference(object):
     def pdfRepr(self: Reference) -> Union[bytes, Any]: ...
 
     def write(self: Reference,
-              contents: Union[Union[dict[str, Union[Name, Reference]], dict[str, Union[Reference, list[Name]]], dict[
-                  str, Union[Name, Reference, list[Union[int, Any]], dict[str, Name]]], dict, dict[
+              contents: Union[Union[dict[str, Union[Reference, Name]], dict[str, Union[Reference, list[Name]]], dict[
+                  str, Union[dict[str, Name], Reference, Name, list[Union[int, Any]]]], dict, dict[
                                         str, Union[Name, list[Any], int]], dict[Any, Reference], dict[str, Name], dict[
                                         str, Union[Union[Name, int, Reference, dict[
                                             str, Union[Name, list[Union[int, Any]]]]], Any]], dict[
-                                        Union[str, Any], Union[Union[Name, int, object, Reference], Any]], dict[
+                                        Union[str, Any], Union[Union[Name, int, Reference], Any]], dict[
                                         Union[str, Any], Union[
                                             Union[Name, int, Reference, list[int], list[Union[float, int]]], Any]],
                                     dict[str, Union[Union[Name, int, list[int]], Any]], list[int], dict[
-                                        Optional[Any], Reference], int, dict[
+                                        Union[SupportsLessThan, Any], Reference], int, dict[
                                         str, Union[Union[Name, dict[str, Union[str, int]], Reference], Any]], dict[
-                                        str, Union[Union[Name, list[Reference], Reference], Any]], list[
+                                        str, Union[Union[Name, list[Reference], Reference], Any]], {__setitem__}, list[
                                         Union[list[int], Any]], dict[Any, Any], datetime], Any],
               file: {write}) -> None: ...
 
@@ -250,8 +245,8 @@ class Stream(object):
     def _flush(self: Stream) -> None: ...
 
 
-def _get_pdf_charprocs(font_path: Union[SupportsLessThan, Any],
-                       glyph_ids: Union[list[None], Any]) -> dict[None, bytes]: ...
+def _get_pdf_charprocs(font_path: Any,
+                       glyph_ids: Union[list[Any], Any]) -> dict[Any, Union[bytes, Any]]: ...
 
 
 class PdfFile(object):
@@ -329,13 +324,13 @@ class PdfFile(object):
                     extra: Union[Union[
                                      dict[str, Union[int, Name, list[int]]], dict[str, Reference], dict[str, int], dict[
                                          str, bytes], dict[str, Union[
-                                         Name, int, list[Union[int, float]], float, dict[str, list[Name]], list[
-                                             Union[int, Any]]]], dict[
+                                         int, Name, list[Union[int, Any]], list[Union[int, float]], float, dict[
+                                             str, list[Name]]]], dict[
                                          str, Union[Union[int, Name, bool, list[Any]], Any]], dict[
-                                         str, Union[Union[Name, int, Verbatim], Any]], dict[
+                                         str, Union[Union[Name, Verbatim, int], Any]], dict[
                                          str, Union[Name, list[Any]]], dict[
                                          str, Union[Name, list[int], list[Any]]]], Any] = None,
-                    png: Union[Optional[dict[str, Union[int, Any]]], Any] = None) -> None: ...
+                    png: Union[Optional[dict[str, Union[Union[int, Verbatim], Any]]], Any] = None) -> None: ...
 
     def endStream(self: PdfFile) -> None: ...
 
@@ -365,7 +360,7 @@ class PdfFile(object):
 
     def embedTTF(self: PdfFile,
                  filename: Any,
-                 characters: Optional[Any]) -> Reference: ...
+                 characters: Any) -> Reference: ...
 
     def alphaState(self: PdfFile,
                    alpha: {__getitem__}) -> Union[Name, Any]: ...
@@ -383,8 +378,8 @@ class PdfFile(object):
     def writeHatches(self: PdfFile) -> None: ...
 
     def addGouraudTriangles(self: PdfFile,
-                            points: ndarray,
-                            colors: ndarray) -> Any: ...
+                            points: Any,
+                            colors: Any) -> Any: ...
 
     def writeGouraudTriangles(self: PdfFile) -> None: ...
 
@@ -392,7 +387,7 @@ class PdfFile(object):
                     image: Any) -> Union[Name, Any]: ...
 
     def _unpack(self: PdfFile,
-                im: Any) -> Union[Tuple[Any, None], Tuple[ndarray, Optional[ndarray]]]: ...
+                im: Any) -> Union[Tuple[Any, None], Tuple[Any, Optional[Any]]]: ...
 
     def _writePng(self: PdfFile,
                   img: Union[Image, Any]) -> Tuple[bytes, Optional[int], Optional[bytes]]: ...
@@ -445,20 +440,20 @@ class PdfFile(object):
 
     def writeObject(self: PdfFile,
                     object: Union[Reference, Any],
-                    contents: Union[Union[dict[str, Union[Name, Reference]], dict[str, Union[Reference, list[Name]]],
+                    contents: Union[Union[dict[str, Union[Reference, Name]], dict[str, Union[Reference, list[Name]]],
                                           dict[str, Union[
-                                              Name, Reference, list[Union[int, Any]], dict[str, Name]]], dict, dict[
+                                              dict[str, Name], Reference, Name, list[Union[int, Any]]]], dict, dict[
                                               str, Union[Name, list[Any], int]], dict[Any, Reference], dict[str, Name],
                                           dict[str, Union[Union[Name, int, Reference, dict[
                                               str, Union[Name, list[Union[int, Any]]]]], Any]], dict[
-                                              Union[str, Any], Union[Union[Name, int, object, Reference], Any]], dict[
+                                              Union[str, Any], Union[Union[Name, int, Reference], Any]], dict[
                                               Union[str, Any], Union[Union[Name, int, Reference, list[int], list[
                                                   Union[float, int]]], Any]], dict[
                                               str, Union[Union[Name, int, list[int]], Any]], list[int], dict[
-                                              Optional[Any], Reference], int, dict[
+                                              Union[SupportsLessThan, Any], Reference], int, dict[
                                               str, Union[Union[Name, dict[str, Union[str, int]], Reference], Any]],
-                                          dict[str, Union[Union[Name, list[Reference], Reference], Any]], list[
-                                              Union[list[int], Any]], dict[Any, Any], datetime], Any]) -> None: ...
+                                          dict[str, Union[Union[Name, list[Reference], Reference], Any]], {__setitem__},
+                                          list[Union[list[int], Any]], dict[Any, Any], datetime], Any]) -> None: ...
 
     def writeXref(self: PdfFile) -> Any: ...
 
@@ -596,7 +591,7 @@ class RendererPdf(RendererPDFPSBase):
                   mtext: Text = None) -> None: ...
 
     def _draw_xobject_glyph(self: RendererPdf,
-                            font: Union[Union[AFM, FT2Font], Any],
+                            font: Union[AFM, Any],
                             fontsize: Optional[Any],
                             glyph_idx: Any,
                             x: Any,
@@ -611,9 +606,9 @@ class GraphicsContextPdf(GraphicsContextBase):
     commands: ClassVar[tuple[
         tuple[tuple[str, str], Callable[[GraphicsContextPdf, Any, Any], list[Union[Op, Any]]]], tuple[
             tuple[str, str, str], Callable[[GraphicsContextPdf, Any, Any, Any], list[Union[Op, Any]]]], tuple[
-            tuple[str], Callable[[GraphicsContextPdf, Any], list[Union[int, Op]]]], tuple[tuple[str], Callable[
+            tuple[str], Callable[[GraphicsContextPdf, Any], list[Union[Op, Any]]]], tuple[tuple[str], Callable[
             [GraphicsContextPdf, Union[tuple[float, float, float], Any]], Union[list[Any], list[Union[Op, Any]]]]],
-        tuple[tuple[str], Callable[[GraphicsContextPdf, Any], list[Union[int, Op]]]], tuple[
+        tuple[tuple[str], Callable[[GraphicsContextPdf, Any], list[Union[Op, Any]]]], tuple[
             tuple[str], Callable[[GraphicsContextPdf, Any], list[Union[Op, Any]]]], tuple[
             tuple[str], Callable[[GraphicsContextPdf, Any], list[Union[Union[list[Any], int, Op], Any]]]], tuple[
             tuple[str], Callable[[GraphicsContextPdf, {__getitem__}], Union[list[Any], list[Union[Op, Any]]]]], tuple[
@@ -637,10 +632,10 @@ class GraphicsContextPdf(GraphicsContextBase):
     def paint(self: GraphicsContextPdf) -> Op: ...
 
     def capstyle_cmd(self: GraphicsContextPdf,
-                     style: Any) -> list[Union[int, Op]]: ...
+                     style: Any) -> list[Union[Op, Any]]: ...
 
     def joinstyle_cmd(self: GraphicsContextPdf,
-                      style: Any) -> list[Union[int, Op]]: ...
+                      style: Any) -> list[Union[Op, Any]]: ...
 
     def linewidth_cmd(self: GraphicsContextPdf,
                       width: Any) -> list[Union[Op, Any]]: ...

@@ -1,9 +1,7 @@
 from matplotlib import _api as _api
+from typing import Any
 from typing import Tuple
 from typing import Union
-
-_log: Logger
-from typing import Any
 
 
 def do_constrained_layout(fig: Any,

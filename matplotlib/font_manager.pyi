@@ -23,11 +23,8 @@ from matplotlib.font_manager import FontEntry
 from matplotlib.font_manager import FontManager
 from matplotlib.font_manager import FontProperties
 from matplotlib.font_manager import _JSONEncoder
-from matplotlib.ft2font import FT2Font
 from object import object
 
-_log: Logger
-font_scalings: dict[Optional[str], float]
 stretch_dict: dict[Union[str, Any], Union[int, Any]]
 weight_dict: dict[Union[str, Any], Union[int, Any]]
 _weight_regexes: list[Union[tuple[str, int], Any]]
@@ -37,17 +34,17 @@ MSFontDirectories: list[str]
 MSUserFontDirectories: list[str]
 X11FontDirectories: list[str]
 OSXFontDirectories: list[str]
-from typing import Any
+font_scalings: dict[Optional[str], float]
 
 
 def _cached_realpath(path: Union[str, Any]) -> Union[str, Any]: ...
 
 
-def get_fontext_synonyms(fontext: Union[str, Any]) -> list[str]: ...
+def get_fontext_synonyms(fontext: Union[str, Any]) -> Any: ...
 
 
 def list_fonts(directory: Union[str, Any],
-               extensions: Union[list[str], Any]) -> list[Union[bytes, str]]: ...
+               extensions: Any) -> list[Union[bytes, str]]: ...
 
 
 def win32FontDirectory() -> Union[str, Any]: ...
@@ -134,7 +131,7 @@ class FontProperties(object):
 
     def get_family(self: FontProperties) -> Optional[list[str]]: ...
 
-    def get_name(self: FontProperties) -> object: ...
+    def get_name(self: FontProperties) -> Any: ...
 
     def get_style(self: FontProperties) -> Optional[Any]: ...
 
@@ -266,7 +263,7 @@ class FontManager(object):
                          directory: Any,
                          fallback_to_default: Any,
                          rebuild_if_missing: Any,
-                         rc_params: Any) -> Union[str, Any]: ...
+                         rc_params: Any) -> Union[Union[str, bytes], Any]: ...
 
 
 def is_opentype_cff_font(filename: Any) -> bool: ...
@@ -276,11 +273,11 @@ def _get_font(filename: Union[str, Any],
               hinting_factor: Optional[Any],
               *,
               _kerning_factor: Optional[Any],
-              thread_id: Union[int, Any]) -> FT2Font: ...
+              thread_id: Union[int, Any]) -> Any: ...
 
 
 def get_font(filename: Union[str, Any],
-             hinting_factor: Any = None) -> FT2Font: ...
+             hinting_factor: Any = None) -> Any: ...
 
 
 fontManager: Union[FontManager, Any]

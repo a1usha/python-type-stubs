@@ -37,9 +37,9 @@ from matplotlib.colors import TwoSlopeNorm
 from matplotlib.colors import _ColorMapping
 from matplotlib.scale import FuncScale
 from matplotlib.scale import SymmetricalLogScale
-from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedArray
 from numpy.ma.core import MaskedConstant
+from numpy.ma.core import mvoid
 from object import object
 
 
@@ -89,7 +89,7 @@ def to_rgba(c: Any,
 
 def _to_rgba_no_colorcycle(c: {__len__},
                            alpha: Union[Optional[float], Any] = None) -> Union[
-    Tuple[float, float, float, float], Tuple[float, ...], Tuple[Any, ...]]: ...
+    Tuple[float, float, float, float], Tuple[float, ...], Tuple[Union[float, int], ...]]: ...
 
 
 def to_rgba_array(c: Any,
@@ -103,12 +103,12 @@ cnames: dict[Union[str, Any], Union[str, Any]]
 
 hexColorPattern: Pattern[str]
 
-rgb2hex: Callable[[Union[ndarray, Any], bool], str]
+rgb2hex: Callable[[Any, bool], str]
 
 hex2color: Callable[[Any], Union[Union[_T_co, tuple[_T_co, ...]], Any]]
 
 
-def to_hex(c: Union[ndarray, Any],
+def to_hex(c: Any,
            keep_alpha: bool = False) -> str: ...
 
 
@@ -149,25 +149,25 @@ class Colormap(object):
                  N: int = 256) -> None: ...
 
     def __call__(self: Colormap,
-                 X: Union[float, int, ndarray, complex],
-                 alpha: Union[float, ndarray, Iterable, int, None] = None,
-                 bytes: bool = False) -> Union[Tuple, ndarray]: ...
+                 X: Union[Union[float, int, complex], Any],
+                 alpha: Union[Union[float, Iterable, int, None], Any] = None,
+                 bytes: bool = False) -> Union[Tuple, Any]: ...
 
     def __copy__(self: Colormap) -> Colormap: ...
 
-    def get_bad(self: Colormap) -> ndarray: ...
+    def get_bad(self: Colormap) -> Any: ...
 
     def set_bad(self: Colormap,
                 color: str = 'k',
                 alpha: Any = None) -> None: ...
 
-    def get_under(self: Colormap) -> ndarray: ...
+    def get_under(self: Colormap) -> Any: ...
 
     def set_under(self: Colormap,
                   color: str = 'k',
                   alpha: Any = None) -> None: ...
 
-    def get_over(self: Colormap) -> ndarray: ...
+    def get_over(self: Colormap) -> Any: ...
 
     def set_over(self: Colormap,
                  color: str = 'k',
@@ -189,7 +189,7 @@ class Colormap(object):
 
     def _init(self: Colormap) -> Any: ...
 
-    def is_gray(self: Colormap) -> Union[ndarray, bool]: ...
+    def is_gray(self: Colormap) -> bool: ...
 
     def _resample(self: Colormap,
                   lutsize: Any) -> Any: ...
@@ -205,7 +205,7 @@ class Colormap(object):
 
 
 class LinearSegmentedColormap(Colormap):
-    _lut: ndarray
+    _lut: Any
     monochrome: bool
     _segmentdata: Any
     _isinit: bool
@@ -238,13 +238,13 @@ class LinearSegmentedColormap(Colormap):
 
 
 class ListedColormap(Colormap):
-    _lut: ndarray
+    _lut: Any
     monochrome: bool
     _isinit: bool
     colors: list[float]
 
     def __init__(self: ListedColormap,
-                 colors: Union[Iterable, ndarray, int, float],
+                 colors: Union[Union[Iterable, int, float], Any],
                  name: Optional[str] = 'from_list',
                  N: Optional[int] = None) -> None: ...
 
@@ -272,7 +272,7 @@ class Normalize(object):
 
     def __call__(self: Normalize,
                  value: Any,
-                 clip: bool = None) -> Optional[Any]: ...
+                 clip: bool = None) -> Union[Union[mvoid, MaskedArray, MaskedConstant], Any]: ...
 
     def inverse(self: Normalize,
                 value: Any) -> Union[MaskedConstant, Any]: ...
@@ -301,7 +301,7 @@ class TwoSlopeNorm(Normalize):
 
     def __call__(self: TwoSlopeNorm,
                  value: Any,
-                 clip: bool = None) -> None: ...
+                 clip: bool = None) -> Union[MaskedArray, Any]: ...
 
 
 class CenteredNorm(Normalize):
@@ -337,11 +337,11 @@ class CenteredNorm(Normalize):
 
     def __call__(self: CenteredNorm,
                  value: Any,
-                 clip: bool = None) -> Optional[Any]: ...
+                 clip: bool = None) -> Union[Union[mvoid, MaskedArray, MaskedConstant], Any]: ...
 
 
 def _make_norm_from_scale(scale_cls: Union[Union[Type[FuncScale], partial[LogScale], Type[SymmetricalLogScale]], Any],
-                          base_norm_cls: Optional[{__name__, __qualname__, __module__}] = None,
+                          base_norm_cls: Optional[{__name__, __qualname__, __module__, __doc__}] = None,
                           *,
                           init: Union[Union[Callable[[Any, Any, Any, Any], None], Callable[
                               [Any, Any, Any, Any, Any, Any, Any], None]], Any] = None) -> Union[
@@ -378,7 +378,7 @@ class PowerNorm(Normalize):
 
     def __call__(self: PowerNorm,
                  value: Any,
-                 clip: bool = None) -> Optional[Any]: ...
+                 clip: bool = None) -> Union[Union[mvoid, MaskedArray, MaskedConstant], Any]: ...
 
     def inverse(self: PowerNorm,
                 value: Any) -> Union[float, Any]: ...
@@ -388,16 +388,16 @@ class BoundaryNorm(Normalize):
     extend: str
     _scale: None
     _offset: int
-    vmax: None
-    boundaries: ndarray
+    vmax: Any
+    boundaries: Any
     _n_regions: int
-    vmin: None
+    vmin: Any
     clip: Optional[bool]
     N: int
     Ncmap: int
 
     def __init__(self: BoundaryNorm,
-                 boundaries: Union[ndarray, Iterable, int, float],
+                 boundaries: Union[Union[Iterable, int, float], Any],
                  ncolors: int,
                  clip: Optional[bool] = False,
                  *,
@@ -405,7 +405,7 @@ class BoundaryNorm(Normalize):
 
     def __call__(self: BoundaryNorm,
                  value: Any,
-                 clip: bool = None) -> Optional[int]: ...
+                 clip: bool = None) -> Union[Union[int, MaskedArray], Any]: ...
 
     def inverse(self: BoundaryNorm,
                 value: Any) -> Any: ...
@@ -420,13 +420,13 @@ class NoNorm(Normalize):
                 value: Any) -> Any: ...
 
 
-def rgb_to_hsv(arr: Union[ndarray, Iterable, int, float]) -> Any: ...
+def rgb_to_hsv(arr: Union[Union[Iterable, int, float], Any]) -> Any: ...
 
 
-def hsv_to_rgb(hsv: Union[ndarray, Iterable, int, float]) -> Any: ...
+def hsv_to_rgb(hsv: Union[Union[Iterable, int, float], Any]) -> Any: ...
 
 
-def _vector_magnitude(arr: Optional[Any]) -> None: ...
+def _vector_magnitude(arr: {shape, __getitem__}) -> Any: ...
 
 
 class LightSource(object):
@@ -445,7 +445,7 @@ class LightSource(object):
                  hsv_min_sat: int = 1,
                  hsv_max_sat: int = 0) -> None: ...
 
-    def direction(self: LightSource) -> ndarray: ...
+    def direction(self: LightSource) -> Any: ...
 
     def hillshade(self: LightSource,
                   elevation: int,
@@ -455,7 +455,7 @@ class LightSource(object):
                   fraction: Union[int, float, complex, None] = 1.) -> Any: ...
 
     def shade_normals(self: LightSource,
-                      normals: Optional[Any],
+                      normals: {dot},
                       fraction: Union[int, float, complex, None] = 1.) -> Any: ...
 
     def shade(self: LightSource,
@@ -472,8 +472,8 @@ class LightSource(object):
               **kwargs) -> Any: ...
 
     def shade_rgb(self: LightSource,
-                  rgb: Union[ndarray, Iterable, int, float],
-                  elevation: Union[ndarray, Iterable, int, float],
+                  rgb: Union[Union[Iterable, int, float], Any],
+                  elevation: Union[Union[Iterable, int, float], Any],
                   fraction: Union[int, float, complex] = 1.,
                   blend_mode: Optional[str] = 'hsv',
                   vert_exag: Union[int, float, complex, None] = 1,
@@ -482,20 +482,20 @@ class LightSource(object):
                   **kwargs) -> Any: ...
 
     def blend_hsv(self: LightSource,
-                  rgb: ndarray,
-                  intensity: ndarray,
+                  rgb: Any,
+                  intensity: Any,
                   hsv_max_sat: Union[int, float, complex] = None,
                   hsv_max_val: Union[int, float, complex, None] = None,
                   hsv_min_val: Union[int, float, complex, None] = None,
                   hsv_min_sat: Union[int, float, complex, None] = None) -> Any: ...
 
     def blend_soft_light(self: LightSource,
-                         rgb: ndarray,
-                         intensity: ndarray) -> Any: ...
+                         rgb: Any,
+                         intensity: Any) -> Any: ...
 
     def blend_overlay(self: LightSource,
-                      rgb: ndarray,
-                      intensity: ndarray) -> Any: ...
+                      rgb: Any,
+                      intensity: Any) -> Any: ...
 
 
 def from_levels_and_colors(levels: Iterable[numbers.pyi],

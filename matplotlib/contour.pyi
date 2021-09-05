@@ -19,7 +19,6 @@ from matplotlib.contour import ContourSet
 from matplotlib.contour import QuadContourSet
 from matplotlib.text import Text
 from matplotlib.ticker import ScalarFormatter
-from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedArray
 from object import object
 
@@ -44,7 +43,7 @@ class ContourLabeler(object):
     labelTextsList: silent_list
 
     def clabel(self: ContourLabeler,
-               levels: Union[ndarray, Iterable, int, float, None] = None,
+               levels: Union[Union[Iterable, int, float, None], Any] = None,
                *,
                fontsize: Union[str, float] = None,
                inline: bool = True,
@@ -61,8 +60,8 @@ class ContourLabeler(object):
                     labelwidth: Any) -> Union[bool, Any]: ...
 
     def too_close(self: ContourLabeler,
-                  x: Optional[Any],
-                  y: Optional[Any],
+                  x: {__sub__},
+                  y: {__sub__},
                   lw: Any) -> bool: ...
 
     @_api.deprecated("3.4")
@@ -71,7 +70,7 @@ class ContourLabeler(object):
                          XX: {__getitem__},
                          YY: {__getitem__},
                          ysize: {__truediv__},
-                         lw: Any) -> Union[Union[Tuple[Any, Any, Any], Tuple[Any, Any, None]], Any]: ...
+                         lw: Any) -> Union[Tuple[Any, Any, Any], Any]: ...
 
     def get_label_width(self: ContourLabeler,
                         lev: Any,
@@ -89,14 +88,14 @@ class ContourLabeler(object):
 
     def locate_label(self: ContourLabeler,
                      linecontour: {__len__},
-                     labelwidth: {__gt__}) -> Tuple[None, None, Union[int, Any]]: ...
+                     labelwidth: {__gt__}) -> Tuple[Any, Any, Union[int, Any]]: ...
 
     def calc_label_rot_and_inline(self: ContourLabeler,
                                   slc: {__getitem__, shape, T},
                                   ind: Union[int, Any],
                                   lw: {__truediv__},
                                   lc: Optional[{__len__}] = None,
-                                  spacing: int = 5) -> Tuple[Optional[int], list[ndarray]]: ...
+                                  spacing: int = 5) -> Tuple[Union[int, Any], list[Any]]: ...
 
     def _get_label_text(self: ContourLabeler,
                         x: Any,
@@ -154,7 +153,7 @@ def _find_closest_point_on_path(xys: int,
 class ContourSet(ScalarMappable, ContourLabeler):
     ax: ClassVar[Union[_deprecated_property, Any]]
     extent: Any
-    _maxs: None
+    _maxs: Any
     origin: Optional[Any]
     axes: Any
     linewidths: Any
@@ -163,7 +162,7 @@ class ContourSet(ScalarMappable, ContourLabeler):
     _levels: list[Union[float, Any]]
     labelCValues: list[Any]
     _transform: Any
-    zmax: Union[ndarray, int, float, complex]
+    zmax: Union[Union[int, float, complex], Any]
     collections: silent_list
     alpha: Any
     layers: Any
@@ -171,12 +170,12 @@ class ContourSet(ScalarMappable, ContourLabeler):
     antialiased: bool
     logscale: bool
     labelTexts: list[Any]
-    zmin: Union[ndarray, int, float, complex]
+    zmin: Union[Union[int, float, complex], Any]
     nchunk: int
     filled: bool
     linestyles: Any
     cvalues: list[Any]
-    _mins: None
+    _mins: Any
     extend: str
     allsegs: Any
     hatches: Union[tuple[None], Any]
@@ -232,7 +231,7 @@ class ContourSet(ScalarMappable, ContourLabeler):
     def changed(self: ContourSet) -> None: ...
 
     def _autolev(self: ContourSet,
-                 N: Union[Integral, Any]) -> Union[Union[None, ndarray, {__len__}], Any]: ...
+                 N: Union[Integral, Any]) -> Union[Union[float, {__len__}], Any]: ...
 
     def _process_contour_level_args(self: ContourSet,
                                     args: Union[tuple[Any, ...], Any]) -> Any: ...
@@ -243,7 +242,7 @@ class ContourSet(ScalarMappable, ContourLabeler):
 
     def _process_linewidths(self: ContourSet) -> Union[list[Tuple[Optional[Any]]], list[Tuple[Any]]]: ...
 
-    def _process_linestyles(self: ContourSet) -> Union[Union[list[str], list[Optional[Any]]], Any]: ...
+    def _process_linestyles(self: ContourSet) -> Union[list[str], list[Optional[Any]]]: ...
 
     def get_alpha(self: ContourSet) -> Any: ...
 
@@ -260,7 +259,7 @@ class ContourSet(ScalarMappable, ContourLabeler):
 class QuadContourSet(ContourSet):
     _contour_doc: ClassVar[str]
     zmin: Any
-    _contour_generator: Union[QuadContourGenerator, Any]
+    _contour_generator: Any
     zmax: Any
     _maxs: Any
     _corner_mask: Any
@@ -272,15 +271,15 @@ class QuadContourSet(ContourSet):
                       *args,
                       **kwargs) -> dict[str, Any]: ...
 
-    def _get_allsegs_and_allkinds(self: QuadContourSet) -> Tuple[list[Optional[Any]], Optional[list[Any]]]: ...
+    def _get_allsegs_and_allkinds(self: QuadContourSet) -> Tuple[list[Any], Optional[list[Any]]]: ...
 
     def _contour_args(self: QuadContourSet,
                       args: Union[tuple[Any, ...], Any],
-                      kwargs: Any) -> Tuple[Union[ndarray, Any], Union[ndarray, Any], Optional[MaskedArray]]: ...
+                      kwargs: Any) -> Tuple[Any, Any, Union[MaskedArray, Any]]: ...
 
     def _check_xyz(self: QuadContourSet,
                    args: Union[tuple[Any, ...], Any],
-                   kwargs: Any) -> Tuple[Union[ndarray, Any], Union[ndarray, Any], MaskedArray]: ...
+                   kwargs: Any) -> Tuple[Any, Any, MaskedArray]: ...
 
     def _initialize_x_y(self: QuadContourSet,
                         z: Union[MaskedArray, Any]) -> str: ...

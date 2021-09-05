@@ -11,6 +11,7 @@ from matplotlib import _api as _api
 from numpy import ma as ma
 from numbers import Number as Number
 from numbers import Integral as Integral
+from typing import Any
 from typing import Callable
 from typing import ClassVar
 from typing import Iterable
@@ -29,19 +30,11 @@ from matplotlib.quiver import Barbs
 from matplotlib.quiver import Quiver
 from matplotlib.quiver import QuiverKey
 from matplotlib.text import Annotation
-from numpy.core._multiarray_umath import ndarray
-
-_log: Logger
-from typing import Any
 
 
 class Axes(_AxesBase):
-    __doc__: ClassVar[str]
-    __doc__: ClassVar[str]
     fill_between: ClassVar[Union[partial[Any], Callable[[Any, tuple[Any, ...], Any, dict[str, Any]], Any]]]
     fill_betweenx: ClassVar[Union[partial[Any], Callable[[Any, tuple[Any, ...], Any, dict[str, Any]], Any]]]
-    __doc__: ClassVar[Union[str, Any]]
-    __doc__: ClassVar[Union[str, Any]]
     table: ClassVar[{__doc__}]
     stackplot: ClassVar[Any]
     streamplot: ClassVar[Any]
@@ -153,12 +146,12 @@ class Axes(_AxesBase):
                 y: float = 0,
                 xmin: float = 0,
                 xmax: float = 1,
-                xdata: Union[ndarray, Any] = ...,
-                ydata: Union[ndarray, Any] = ...,
+                xdata: Any = ...,
+                ydata: Any = ...,
                 linewidth: Optional[Any] = ...,
                 linestyle: Union[str, Any] = ...,
                 color: Any = ...,
-                marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
+                marker: Union[str, Path, Sized, Iterable, int, float] = ...,
                 markersize: Any = ...,
                 markeredgewidth: Any = ...,
                 markeredgecolor: Union[str, Any] = ...,
@@ -179,12 +172,12 @@ class Axes(_AxesBase):
                 x: float = 0,
                 ymin: float = 0,
                 ymax: float = 1,
-                xdata: Union[ndarray, Any] = ...,
-                ydata: Union[ndarray, Any] = ...,
+                xdata: Any = ...,
+                ydata: Any = ...,
                 linewidth: Optional[Any] = ...,
                 linestyle: Union[str, Any] = ...,
                 color: Any = ...,
-                marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
+                marker: Union[str, Path, Sized, Iterable, int, float] = ...,
                 markersize: Any = ...,
                 markeredgewidth: Any = ...,
                 markeredgecolor: Union[str, Any] = ...,
@@ -209,12 +202,12 @@ class Axes(_AxesBase):
                xy2: tuple[float, float] = None,
                *,
                slope: Optional[float] = None,
-               xdata: Union[ndarray, Any] = ...,
-               ydata: Union[ndarray, Any] = ...,
+               xdata: Any = ...,
+               ydata: Any = ...,
                linewidth: Optional[Any] = ...,
                linestyle: Union[str, Any] = ...,
                color: Any = ...,
-               marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
+               marker: Union[str, Path, Sized, Iterable, int, float] = ...,
                markersize: Any = ...,
                markeredgewidth: Any = ...,
                markeredgecolor: Union[str, Any] = ...,
@@ -250,9 +243,9 @@ class Axes(_AxesBase):
                 **kwargs) -> Any: ...
 
     def hlines(self: Axes,
-               y: Union[float, ndarray, Iterable, int],
-               xmin: Union[float, ndarray, Iterable, int],
-               xmax: Union[float, ndarray, Iterable, int],
+               y: Union[Union[float, Iterable, int], Any],
+               xmin: Union[Union[float, Iterable, int], Any],
+               xmax: Union[Union[float, Iterable, int], Any],
                colors: Iterable = None,
                linestyles: Optional[str] = 'solid',
                label: str = '',
@@ -261,9 +254,9 @@ class Axes(_AxesBase):
                **kwargs) -> Any: ...
 
     def vlines(self: Axes,
-               x: Union[float, ndarray, Iterable, int],
-               ymin: Union[float, ndarray, Iterable, int],
-               ymax: Union[float, ndarray, Iterable, int],
+               x: Union[Union[float, Iterable, int], Any],
+               ymin: Union[Union[float, Iterable, int], Any],
+               ymax: Union[Union[float, Iterable, int], Any],
                colors: Iterable = None,
                linestyles: Optional[str] = 'solid',
                label: str = '',
@@ -272,11 +265,11 @@ class Axes(_AxesBase):
                **kwargs) -> Any: ...
 
     def eventplot(self: Axes,
-                  positions: Union[ndarray, Iterable, int, float, Iterable[ndarray]],
+                  positions: Union[Union[Iterable, int, float], Any],
                   orientation: str = 'horizontal',
-                  lineoffsets: Union[float, ndarray, Iterable, int] = 1,
-                  linelengths: Union[float, ndarray, Iterable, int] = 1,
-                  linewidths: Union[float, ndarray, Iterable, int] = None,
+                  lineoffsets: Union[Union[float, Iterable, int], Any] = 1,
+                  linelengths: Union[Union[float, Iterable, int], Any] = 1,
+                  linewidths: Union[Union[float, Iterable, int], Any] = None,
                   colors: Union[Iterable, Any] = None,
                   linestyles: Any = 'solid',
                   **kwargs) -> Any: ...
@@ -285,12 +278,12 @@ class Axes(_AxesBase):
              scalex: bool = True,
              scaley: bool = True,
              data: Any = None,
-             xdata: Union[ndarray, Any] = ...,
-             ydata: Union[ndarray, Any] = ...,
+             xdata: Any = ...,
+             ydata: Any = ...,
              linewidth: Optional[Any] = ...,
              linestyle: Union[str, Any] = ...,
              color: Any = ...,
-             marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
+             marker: Union[str, Path, Sized, Iterable, int, float] = ...,
              markersize: Any = ...,
              markeredgewidth: Any = ...,
              markeredgecolor: Union[str, Any] = ...,
@@ -309,18 +302,18 @@ class Axes(_AxesBase):
              **kwargs) -> Any: ...
 
     def plot_date(self: Axes,
-                  x: Union[ndarray, Iterable, int, float],
-                  y: Union[ndarray, Iterable, int, float],
+                  x: Union[Union[Iterable, int, float], Any],
+                  y: Union[Union[Iterable, int, float], Any],
                   fmt: Optional[str] = 'o',
                   tz: Any = None,
                   xdate: bool = True,
                   ydate: bool = False,
-                  xdata: Union[ndarray, Any] = ...,
-                  ydata: Union[ndarray, Any] = ...,
+                  xdata: Any = ...,
+                  ydata: Any = ...,
                   linewidth: Optional[Any] = ...,
                   linestyle: Union[str, Any] = ...,
                   color: Any = ...,
-                  marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
+                  marker: Union[str, Path, Sized, Iterable, int, float] = ...,
                   markersize: Any = ...,
                   markeredgewidth: Any = ...,
                   markeredgecolor: Union[str, Any] = ...,
@@ -350,7 +343,7 @@ class Axes(_AxesBase):
                  **kwargs) -> Any: ...
 
     def acorr(self: Axes,
-              x: Union[ndarray, Iterable, int, float],
+              x: Union[Union[Iterable, int, float], Any],
               **kwargs) -> Any: ...
 
     def xcorr(self: Axes,
@@ -363,24 +356,24 @@ class Axes(_AxesBase):
               **kwargs) -> Any: ...
 
     def step(self: Axes,
-             x: Union[ndarray, Iterable, int, float],
-             y: Union[ndarray, Iterable, int, float],
+             x: Union[Union[Iterable, int, float], Any],
+             y: Union[Union[Iterable, int, float], Any],
              where: str = 'pre',
              data: Any = None,
              *args,
              **kwargs) -> Any: ...
 
-    def _convert_dx(dx: Union[Union[None, float, ndarray, Iterable, int], Any],
-                    x0: Union[Union[int, float, ndarray, Iterable], Any],
-                    xconv: Union[ndarray, Any],
+    def _convert_dx(dx: Union[Union[None, float, Iterable, int], Any],
+                    x0: Union[Union[int, float, Iterable], Any],
+                    xconv: {size},
                     convert: Union[Union[Callable[[Any], Any], Callable[[Any], Any], Callable[[Any], Any], Callable[
-                        [Any], Any], Callable[[Any], Any]], Any]) -> Union[Optional[list[Optional[Any]]], Any]: ...
+                        [Any], Any], Callable[[Any], Any]], Any]) -> Union[list[Any], Any]: ...
 
     def bar(self: Axes,
-            x: Union[float, ndarray, Iterable, int],
-            height: Union[float, ndarray, Iterable, int],
-            width: Union[float, ndarray, Iterable, int] = 0.8,
-            bottom: Union[float, ndarray, Iterable, int] = None,
+            x: Union[Union[float, Iterable, int], Any],
+            height: Union[Union[float, Iterable, int], Any],
+            width: Union[Union[float, Iterable, int], Any] = 0.8,
+            bottom: Union[Union[float, Iterable, int], Any] = None,
             *,
             align: str = "center",
             xy: tuple[float, float] = ...,
@@ -388,10 +381,10 @@ class Axes(_AxesBase):
             **kwargs) -> Any: ...
 
     def barh(self: Axes,
-             y: Union[float, ndarray, Iterable, int],
-             width: Union[float, ndarray, Iterable, int],
-             height: Union[float, ndarray, Iterable, int] = 0.8,
-             left: Union[float, ndarray, Iterable, int] = None,
+             y: Union[Union[float, Iterable, int], Any],
+             width: Union[Union[float, Iterable, int], Any],
+             height: Union[Union[float, Iterable, int], Any] = 0.8,
+             left: Union[Union[float, Iterable, int], Any] = None,
              *,
              align: str = "center",
              xy: tuple[float, float] = ...,
@@ -400,7 +393,7 @@ class Axes(_AxesBase):
 
     def bar_label(self: Axes,
                   container: Any,
-                  labels: Union[ndarray, Iterable, int, float, None] = None,
+                  labels: Union[Union[Iterable, int, float, None], Any] = None,
                   *,
                   fmt: str = "%g",
                   label_type: str = "edge",
@@ -424,9 +417,9 @@ class Axes(_AxesBase):
 
     def pie(self: Axes,
             x: int,
-            explode: Union[ndarray, Iterable, int, float] = None,
+            explode: Union[Union[Iterable, int, float], Any] = None,
             labels: Iterable = None,
-            colors: Union[ndarray, Iterable, int, float] = None,
+            colors: Union[Union[Iterable, int, float], Any] = None,
             autopct: Union[None, str, Callable] = None,
             pctdistance: float = 0.6,
             shadow: bool = False,
@@ -443,10 +436,10 @@ class Axes(_AxesBase):
             normalize: Optional[bool] = None) -> list: ...
 
     def errorbar(self: Axes,
-                 x: Union[float, ndarray, Iterable, int],
-                 y: Union[float, ndarray, Iterable, int],
-                 yerr: Union[float, ndarray, Iterable, int, None] = None,
-                 xerr: Union[float, ndarray, Iterable, int, None] = None,
+                 x: Union[Union[float, Iterable, int], Any],
+                 y: Union[Union[float, Iterable, int], Any],
+                 yerr: Union[Union[float, Iterable, int, None], Any] = None,
+                 xerr: Union[Union[float, Iterable, int, None], Any] = None,
                  fmt: str = '',
                  ecolor: Any = None,
                  elinewidth: float = None,
@@ -466,12 +459,12 @@ class Axes(_AxesBase):
                 sym: Optional[str] = None,
                 vert: bool = None,
                 whis: Any = None,
-                positions: Union[ndarray, Iterable, int, float, None] = None,
-                widths: Union[float, ndarray, Iterable, int] = None,
+                positions: Union[Union[Iterable, int, float, None], Any] = None,
+                widths: Union[Union[float, Iterable, int], Any] = None,
                 patch_artist: bool = None,
                 bootstrap: Optional[int] = None,
                 usermedians: Optional[int] = None,
-                conf_intervals: Union[ndarray, Iterable, int, float, None] = None,
+                conf_intervals: Union[Union[Iterable, int, float, None], Any] = None,
                 meanline: bool = None,
                 showmeans: Any = None,
                 showcaps: Any = None,
@@ -490,8 +483,8 @@ class Axes(_AxesBase):
 
     def bxp(self: Axes,
             bxpstats: Iterable,
-            positions: Union[ndarray, Iterable, int, float] = None,
-            widths: Union[ndarray, Iterable, int, float] = None,
+            positions: Union[Union[Iterable, int, float], Any] = None,
+            widths: Union[Union[Iterable, int, float], Any] = None,
             vert: bool = True,
             patch_artist: bool = False,
             shownotches: bool = False,
@@ -516,17 +509,17 @@ class Axes(_AxesBase):
                                   get_next_color_func: Callable) -> Any: ...
 
     def scatter(self: Axes,
-                x: Union[float, ndarray, Iterable, int],
-                y: Union[float, ndarray, Iterable, int],
-                s: Union[float, ndarray, Iterable, int, None] = None,
-                c: Union[Union[ndarray, Iterable, int, float, None], Any] = None,
+                x: Union[Union[float, Iterable, int], Any],
+                y: Union[Union[float, Iterable, int], Any],
+                s: Union[Union[float, Iterable, int, None], Any] = None,
+                c: Union[Union[Iterable, int, float, None], Any] = None,
                 marker: Any = None,
                 cmap: Any = None,
                 norm: Any = None,
                 vmin: float = None,
                 vmax: float = None,
                 alpha: float = None,
-                linewidths: Union[float, ndarray, Iterable, int] = None,
+                linewidths: Union[Union[float, Iterable, int], Any] = None,
                 *,
                 edgecolors: str = None,
                 plotnonfinite: bool = False,
@@ -545,9 +538,9 @@ class Axes(_AxesBase):
                 **kwargs) -> Any: ...
 
     def hexbin(self: Axes,
-               x: Union[ndarray, Iterable, int, float],
-               y: Union[ndarray, Iterable, int, float],
-               C: Union[ndarray, Iterable, int, float, None] = None,
+               x: Union[Union[Iterable, int, float], Any],
+               y: Union[Union[Iterable, int, float], Any],
+               C: Union[Union[Iterable, int, float, None], Any] = None,
                gridsize: Any = 100,
                bins: Any = None,
                xscale: str = 'linear',
@@ -560,8 +553,9 @@ class Axes(_AxesBase):
                alpha: Any = None,
                linewidths: Any = None,
                edgecolors: str = 'face',
-               reduce_C_function: Union[Union[{__name__}, Callable, functools.pyi, Callable[
-                   [Union[Iterable, tuple], dict], Any]], Any] = np.mean,
+               reduce_C_function: Callable[
+                   [Union[Union[Iterable, int, float], Any], Union[None, int, Iterable, tuple[int]], Optional[object],
+                    Any, Optional[bool], Any, Union[Union[Iterable, int, float[bool], None], Any]], Any] = np.mean,
                mincnt: Any = None,
                marginals: bool = False,
                verts: Any = ...,
@@ -641,7 +635,7 @@ class Axes(_AxesBase):
                norm: Any = None,
                aspect: str = None,
                interpolation: str = None,
-               alpha: Union[float, ndarray, Iterable, int, None] = None,
+               alpha: Union[Union[float, Iterable, int, None], Any] = None,
                vmin: Optional[float] = None,
                vmax: Optional[float] = None,
                origin: str = None,
@@ -657,9 +651,7 @@ class Axes(_AxesBase):
                     funcname: Union[str, Any],
                     shading: str = 'flat',
                     *args,
-                    **kwargs) -> Union[Tuple[Any, Any, Union[ndarray, Iterable, int, float, None], str], Tuple[
-        Union[Optional[ndarray], Any], Union[Optional[ndarray], Any], Union[
-            ndarray, Iterable, int, float, None], str]]: ...
+                    **kwargs) -> Tuple[Any, Any, Any, str]: ...
 
     def pcolor(self: Axes,
                shading: Optional[str] = None,
@@ -707,7 +699,7 @@ class Axes(_AxesBase):
 
     def clabel(self: Axes,
                CS: Any,
-               levels: Union[ndarray, Iterable, int, float, None] = None,
+               levels: Union[Union[Iterable, int, float, None], Any] = None,
                **kwargs) -> Any: ...
 
     def hist(self: Axes,
@@ -717,13 +709,13 @@ class Axes(_AxesBase):
              density: bool = False,
              weights: Any = None,
              cumulative: Any = False,
-             bottom: Union[ndarray, Iterable, int, float, complex] = None,
+             bottom: Union[Union[Iterable, int, float, complex], Any] = None,
              histtype: str = 'bar',
              align: str = 'mid',
              orientation: str = 'vertical',
              rwidth: Optional[float] = None,
              log: bool = False,
-             color: Union[Union[ndarray, Iterable, int, float, None], Any] = None,
+             color: Union[Union[Iterable, int, float, None], Any] = None,
              label: Optional[str] = None,
              stacked: bool = False,
              edgecolor: Any = ...,
@@ -738,21 +730,21 @@ class Axes(_AxesBase):
              **kwargs) -> Union[array.pyi, list]: ...
 
     def stairs(self: Axes,
-               values: Union[ndarray, Iterable, int, float],
-               edges: Union[ndarray, Iterable, int, float] = None,
+               values: Union[Union[Iterable, int, float], Any],
+               edges: Union[Union[Iterable, int, float], Any] = None,
                *,
                orientation: str = 'vertical',
-               baseline: Union[float, ndarray, Iterable, int, None] = 0,
+               baseline: Union[Union[float, Iterable, int, None], Any] = 0,
                fill: bool = False,
                **kwargs) -> Any: ...
 
     def hist2d(self: Axes,
-               x: Union[ndarray, Iterable, int, float],
-               y: Union[ndarray, Iterable, int, float],
+               x: Union[Union[Iterable, int, float], Any],
+               y: Union[Union[Iterable, int, float], Any],
                bins: Any = 10,
                range: Optional[int] = None,
                density: bool = False,
-               weights: Union[ndarray, Iterable, int, float, None] = None,
+               weights: Union[Union[Iterable, int, float, None], Any] = None,
                cmin: float = None,
                cmax: float = None,
                **kwargs) -> Any: ...
@@ -769,12 +761,12 @@ class Axes(_AxesBase):
             sides: Any = None,
             scale_by_freq: Any = None,
             return_line: bool = None,
-            xdata: Union[ndarray, Any] = ...,
-            ydata: Union[ndarray, Any] = ...,
+            xdata: Any = ...,
+            ydata: Any = ...,
             linewidth: Optional[Any] = ...,
             linestyle: Union[str, Any] = ...,
             color: Any = ...,
-            marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
+            marker: Union[str, Path, Sized, Iterable, int, float] = ...,
             markersize: Any = ...,
             markeredgewidth: Any = ...,
             markeredgecolor: Union[str, Any] = ...,
@@ -804,12 +796,12 @@ class Axes(_AxesBase):
             sides: Any = None,
             scale_by_freq: Any = None,
             return_line: bool = None,
-            xdata: Union[ndarray, Any] = ...,
-            ydata: Union[ndarray, Any] = ...,
+            xdata: Any = ...,
+            ydata: Any = ...,
             linewidth: Optional[Any] = ...,
             linestyle: Union[str, Any] = ...,
             color: Any = ...,
-            marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
+            marker: Union[str, Path, Sized, Iterable, int, float] = ...,
             markersize: Any = ...,
             markeredgewidth: Any = ...,
             markeredgecolor: Union[str, Any] = ...,
@@ -834,12 +826,12 @@ class Axes(_AxesBase):
                            pad_to: Any = None,
                            sides: Any = None,
                            scale: str = None,
-                           xdata: Union[ndarray, Any] = ...,
-                           ydata: Union[ndarray, Any] = ...,
+                           xdata: Any = ...,
+                           ydata: Any = ...,
                            linewidth: Optional[Any] = ...,
                            linestyle: Union[str, Any] = ...,
                            color: Any = ...,
-                           marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
+                           marker: Union[str, Path, Sized, Iterable, int, float] = ...,
                            markersize: Any = ...,
                            markeredgewidth: Any = ...,
                            markeredgecolor: Union[str, Any] = ...,
@@ -863,12 +855,12 @@ class Axes(_AxesBase):
                        window: Any = None,
                        pad_to: Any = None,
                        sides: Any = None,
-                       xdata: Union[ndarray, Any] = ...,
-                       ydata: Union[ndarray, Any] = ...,
+                       xdata: Any = ...,
+                       ydata: Any = ...,
                        linewidth: Optional[Any] = ...,
                        linestyle: Union[str, Any] = ...,
                        color: Any = ...,
-                       marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
+                       marker: Union[str, Path, Sized, Iterable, int, float] = ...,
                        markersize: Any = ...,
                        markeredgewidth: Any = ...,
                        markeredgecolor: Union[str, Any] = ...,
@@ -892,12 +884,12 @@ class Axes(_AxesBase):
                        window: Any = None,
                        pad_to: Any = None,
                        sides: Any = None,
-                       xdata: Union[ndarray, Any] = ...,
-                       ydata: Union[ndarray, Any] = ...,
+                       xdata: Any = ...,
+                       ydata: Any = ...,
                        linewidth: Optional[Any] = ...,
                        linestyle: Union[str, Any] = ...,
                        color: Any = ...,
-                       marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
+                       marker: Union[str, Path, Sized, Iterable, int, float] = ...,
                        markersize: Any = ...,
                        markeredgewidth: Any = ...,
                        markeredgecolor: Union[str, Any] = ...,
@@ -921,17 +913,17 @@ class Axes(_AxesBase):
                Fs: int = 2,
                Fc: int = 0,
                detrend: Callable[[Any, int], Any] = mlab.detrend_none,
-               window: Callable[[{__len__}], Optional[Any]] = mlab.window_hanning,
+               window: Callable[[{__len__}], Any] = mlab.window_hanning,
                noverlap: int = 0,
                pad_to: Any = None,
                sides: str = 'default',
                scale_by_freq: Any = None,
-               xdata: Union[ndarray, Any] = ...,
-               ydata: Union[ndarray, Any] = ...,
+               xdata: Any = ...,
+               ydata: Any = ...,
                linewidth: Optional[Any] = ...,
                linestyle: Union[str, Any] = ...,
                color: Any = ...,
-               marker: Union[ndarray, str, Path, Sized, Iterable, int, float] = ...,
+               marker: Union[str, Path, Sized, Iterable, int, float] = ...,
                markersize: Any = ...,
                markeredgewidth: Any = ...,
                markeredgecolor: Union[str, Any] = ...,
@@ -982,21 +974,21 @@ class Axes(_AxesBase):
 
     def violinplot(self: Axes,
                    dataset: Any,
-                   positions: Union[ndarray, Iterable, int, float] = None,
+                   positions: Union[Union[Iterable, int, float], Any] = None,
                    vert: bool = True,
-                   widths: Union[ndarray, Iterable, int, float] = 0.5,
+                   widths: Union[Union[Iterable, int, float], Any] = 0.5,
                    showmeans: bool = False,
                    showextrema: bool = True,
                    showmedians: bool = False,
-                   quantiles: Union[ndarray, Iterable, int, float] = None,
+                   quantiles: Union[Union[Iterable, int, float], Any] = None,
                    points: int = 100,
                    bw_method: Union[str, int, float, complex, Callable, None] = None) -> dict: ...
 
     def violin(self: Axes,
                vpstats: Iterable,
-               positions: Union[ndarray, Iterable, int, float] = None,
+               positions: Union[Union[Iterable, int, float], Any] = None,
                vert: bool = True,
-               widths: Union[ndarray, Iterable, int, float] = 0.5,
+               widths: Union[Union[Iterable, int, float], Any] = 0.5,
                showmeans: bool = False,
                showextrema: bool = True,
                showmedians: bool = False) -> dict: ...

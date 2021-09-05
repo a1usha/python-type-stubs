@@ -19,6 +19,7 @@ from tempfile import TemporaryDirectory as TemporaryDirectory
 from io import BytesIO as BytesIO
 from codecs import StreamWriter
 from pathlib import Path
+from typing import Any
 from typing import Callable
 from typing import ClassVar
 from typing import Iterable
@@ -43,11 +44,7 @@ from matplotlib.font_manager import FontProperties
 from matplotlib.text import Text
 from matplotlib.transforms import Affine2DBase
 from matplotlib.transforms import Transform
-from numpy.core._multiarray_umath import ndarray
 from object import object
-
-_log: Logger
-from typing import Any
 
 
 def get_fontspec() -> str: ...
@@ -133,8 +130,8 @@ class LatexManager(object):
     def latex_stdin_utf8(self: LatexManager) -> Any: ...
 
     def get_width_height_descent(self: LatexManager,
-                                 text: Any,
-                                 prop: Union[{get_size_in_points}, Any]) -> Union[Tuple[float, float, float], Any]: ...
+                                 text: Union[str, Any],
+                                 prop: Any) -> Union[Tuple[float, float, float], Any]: ...
 
 
 def _get_image_inclusion_command() -> str: ...
@@ -225,7 +222,7 @@ class RendererPgf(RendererBase):
     def get_canvas_width_height(self: RendererPgf) -> Tuple[Any, Any]: ...
 
     def points_to_pixels(self: RendererPgf,
-                         points: Union[float, ndarray, Iterable, int]) -> Union[float, Any]: ...
+                         points: Union[Union[float, Iterable, int], Any]) -> Union[float, Any]: ...
 
 
 @_api.deprecated("3.3", alternative="GraphicsContextBase")

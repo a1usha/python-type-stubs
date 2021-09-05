@@ -32,11 +32,9 @@ from matplotlib.text import Text
 from matplotlib.transforms import CompositeAffine2D
 from matplotlib.transforms import CompositeGenericTransform
 from matplotlib.transforms import Transform
-from numpy.core._multiarray_umath import ndarray
 from object import object
 
 backend_version: Any
-from typing import Any
 
 
 def _append_path(ctx: Any,
@@ -124,13 +122,12 @@ class RendererCairo(RendererBase):
     def get_text_width_height_descent(self: RendererCairo,
                                       s: Any,
                                       prop: {get_size_in_points},
-                                      ismath: {__eq__}) -> Union[
-        Union[Tuple[Any, Any, Any], Tuple[Any, Any, None]], Any]: ...
+                                      ismath: {__eq__}) -> Union[Tuple[Any, Any, Any], Any]: ...
 
     def new_gc(self: RendererCairo) -> GraphicsContextCairo: ...
 
     def points_to_pixels(self: RendererCairo,
-                         points: Union[float, ndarray, Iterable, int]) -> Union[float, Any]: ...
+                         points: Union[Union[float, Iterable, int], Any]) -> Union[float, Any]: ...
 
 
 class GraphicsContextCairo(GraphicsContextBase):

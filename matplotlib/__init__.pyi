@@ -16,6 +16,7 @@ from collections import namedtuple as namedtuple
 from functools import partial
 from logging import StreamHandler
 from ssl import SSLContext
+from typing import Any
 from typing import Callable
 from typing import ClassVar
 from typing import Generator
@@ -29,16 +30,14 @@ from dict import dict
 from matplotlib import RcParams
 from matplotlib import _api
 
-__version__: str
-_log: Logger
 __bibtex__: str
-from typing import Any
+__version__: str
 
 
 def _check_versions() -> Any: ...
 
 
-def _ensure_handler() -> StreamHandler: ...
+def _ensure_handler() -> StreamHandler[_StreamT]: ...
 
 
 def set_loglevel(level: Any) -> None: ...
@@ -80,11 +79,11 @@ def get_cachedir() -> Union[str, Any]: ...
 def get_data_path() -> Union[str, Any]: ...
 
 
-_deprecated_map: dict[Any, Any]
+_deprecated_map: dict[str, Optional[str]]
 
-_deprecated_ignore_map: dict[str, tuple[str, None]]
+_deprecated_ignore_map: dict[str, Union[tuple[str, None], str, None]]
 
-_deprecated_remain_as_none: dict[str, tuple[str]]
+_deprecated_remain_as_none: dict[str, Union[tuple[str], str, None]]
 
 _all_deprecated: set[Any]
 

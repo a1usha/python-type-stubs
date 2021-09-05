@@ -42,7 +42,6 @@ from matplotlib.transforms import CompositeAffine2D
 from matplotlib.transforms import CompositeGenericTransform
 from matplotlib.transforms import IdentityTransform
 from matplotlib.transforms import Transform
-from numpy.core._multiarray_umath import ndarray
 from object import object
 
 
@@ -85,7 +84,7 @@ class FuncTransform(Transform):
                  inverse: Callable) -> Any: ...
 
     def transform_non_affine(self: FuncTransform,
-                             values: Union[ndarray, Iterable, int, float]) -> Any: ...
+                             values: Union[Union[Iterable, int, float], Any]) -> Any: ...
 
     def inverted(self: FuncTransform) -> FuncTransform: ...
 
@@ -119,7 +118,7 @@ class LogTransform(Transform):
     def __str__(self: LogTransform) -> str: ...
 
     def transform_non_affine(self: LogTransform,
-                             a: Any) -> None: ...
+                             a: Any) -> Any: ...
 
     def inverted(self: LogTransform) -> InvertedLogTransform: ...
 
@@ -191,7 +190,7 @@ class SymmetricalLogTransform(Transform):
     output_dims: ClassVar[int]
     _linscale_adj: Union[float, Any]
     linthresh: {__le__}
-    _log_base: None
+    _log_base: Any
     linscale: {__le__, __truediv__}
     base: {__le__}
 
@@ -211,7 +210,7 @@ class InvertedSymmetricalLogTransform(Transform):
     output_dims: ClassVar[int]
     _linscale_adj: Union[float, Any]
     linthresh: {__le__}
-    invlinthresh: Union[ndarray, Iterable, int, float]
+    invlinthresh: Union[Union[Iterable, int, float], Any]
     linscale: {__le__, __truediv__}
     base: {__le__}
 
@@ -256,14 +255,14 @@ class LogitTransform(Transform):
     input_dims: ClassVar[int]
     output_dims: ClassVar[int]
     _nonpositive: str
-    _clip: bool
+    _clip: Any
 
     @_api.rename_parameter("3.3", "nonpos", "nonpositive")
     def __init__(self: LogitTransform,
                  nonpositive: str = 'mask') -> Optional[Any]: ...
 
     def transform_non_affine(self: LogitTransform,
-                             a: {__truediv__}) -> None: ...
+                             a: {__truediv__}) -> Any: ...
 
     def inverted(self: LogitTransform) -> LogisticTransform: ...
 
@@ -314,7 +313,7 @@ class LogitScale(ScaleBase):
         Union[Union[float, {__le__}], Any], Union[Union[int, float, {__ge__}], Any]]: ...
 
 
-_scale_mapping: dict[str, Type[Union[LinearScale, LogScale, SymmetricalLogScale, LogitScale, FuncScale, FuncScaleLog]]]
+_scale_mapping: dict[str, Type[Union[LogitScale, LinearScale, SymmetricalLogScale, LogScale, FuncScale, FuncScaleLog]]]
 
 
 def get_scale_names() -> list[str]: ...
@@ -322,8 +321,7 @@ def get_scale_names() -> list[str]: ...
 
 def scale_factory(scale: Any,
                   axis: Axis,
-                  **kwargs) -> Union[
-    LinearScale, LogScale, SymmetricalLogScale, LogitScale, FuncScale, FuncScaleLog]: ...
+                  **kwargs) -> Any: ...
 
 
 def register_scale(scale_class: Any) -> None: ...

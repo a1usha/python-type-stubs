@@ -19,11 +19,9 @@ from matplotlib.cm import _DeprecatedCmapDictWrapper
 from matplotlib.colors import Colormap
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.colors import ListedColormap
-from numpy.core._multiarray_umath import ndarray
 from object import object
 
 LUTSIZE: Optional[Any]
-from typing import Any
 
 
 def _gen_cmap_registry() -> dict[Union[str, Any], Union[Union[LinearSegmentedColormap, ListedColormap], Any]]: ...
@@ -97,10 +95,10 @@ class ScalarMappable(object):
                 x: {ndim},
                 alpha: Any = None,
                 bytes: bool = False,
-                norm: bool = True) -> Union[Union[ndarray, {ndim}, None], Any]: ...
+                norm: bool = True) -> Union[Union[{ndim}, float], Any]: ...
 
     def set_array(self: ScalarMappable,
-                  A: Optional[ndarray]) -> None: ...
+                  A: Optional[Any]) -> None: ...
 
     def get_array(self: ScalarMappable) -> Any: ...
 

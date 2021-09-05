@@ -11,7 +11,6 @@ from TypeError import TypeError
 from dict import dict
 from matplotlib.units import AxisInfo
 from matplotlib.units import Registry
-from numpy.core._multiarray_umath import ndarray
 from numpy.ma.core import MaskedArray
 from object import object
 
@@ -57,7 +56,7 @@ class ConversionInterface(object):
 class DecimalConverter(ConversionInterface):
     def convert(value: Union[Decimal, Any],
                 unit: Any,
-                axis: Any) -> Union[float, MaskedArray, ndarray]: ...
+                axis: Any) -> Union[float, MaskedArray]: ...
 
     def axisinfo(unit: Any,
                  axis: Any) -> AxisInfo: ...

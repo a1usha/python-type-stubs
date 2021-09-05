@@ -40,7 +40,6 @@ from matplotlib.widgets import TextBox
 from matplotlib.widgets import ToolHandles
 from matplotlib.widgets import Widget
 from matplotlib.widgets import _SelectorWidget
-from numpy.core._multiarray_umath import ndarray
 from object import object
 
 
@@ -142,7 +141,7 @@ class Button(AxesWidget):
 
 
 class SliderBase(AxesWidget):
-    valstep: Union[Union[float, ndarray, Iterable, int], Any]
+    valstep: Union[Union[float, Iterable, int], Any]
     drag_active: bool
     orientation: Union[str, Any]
     _fmt: ScalarFormatter
@@ -165,7 +164,8 @@ class SliderBase(AxesWidget):
                  valstep: Any) -> Any: ...
 
     def _stepped_value(self: SliderBase,
-                       val: Union[Optional[float], Any]) -> Union[Union[float, int, None], Any]: ...
+                       val: Union[Union[float, {__le__, __gt__}, {__ge__, __le__}], Any]) -> Union[
+        Union[float, int, {__le__, __gt__}, {__ge__, __le__}], Any]: ...
 
     def disconnect(self: SliderBase,
                    cid: int) -> None: ...
@@ -199,7 +199,7 @@ class Slider(SliderBase):
                  slidermin: Slider = None,
                  slidermax: Slider = None,
                  dragging: bool = True,
-                 valstep: Union[float, ndarray, Iterable, int] = None,
+                 valstep: Union[Union[float, Iterable, int], Any] = None,
                  orientation: str = 'horizontal',
                  *,
                  initcolor: Any = 'r',
@@ -222,11 +222,11 @@ class Slider(SliderBase):
 
 
 class RangeSlider(SliderBase):
-    val: Union[ndarray, tuple[Union[Union[float, int], Any], Union[Union[float, int], Any]]]
+    val: Union[tuple[Union[Union[float, int], Any], Union[Union[float, int], Any]], Any]
     drag_active: bool
     valtext: Any
     poly: Any
-    valinit: Union[ndarray, tuple[Union[Union[float, int], Any], Union[Union[float, int], Any]]]
+    valinit: Union[tuple[Union[Union[float, int], Any], Union[Union[float, int], Any]], Any]
     label: Any
 
     def __init__(self: RangeSlider,
@@ -244,14 +244,14 @@ class RangeSlider(SliderBase):
                  **kwargs) -> None: ...
 
     def _min_in_bounds(self: RangeSlider,
-                       min: Optional[Any]) -> Union[Optional[int], Any]: ...
+                       min: {__le__, __gt__}) -> Union[int, Any]: ...
 
     def _max_in_bounds(self: RangeSlider,
-                       max: Optional[Any]) -> Union[Union[None, float, int], Any]: ...
+                       max: {__ge__, __le__}) -> Union[Union[float, int], Any]: ...
 
     def _value_in_bounds(self: RangeSlider,
                          vals: {__getitem__}) -> Tuple[
-        Union[Union[None, float, int], Any], Union[Union[None, float, int], Any]]: ...
+        Union[Union[float, int], Any], Union[Union[float, int], Any]]: ...
 
     def _update_val_from_pos(self: RangeSlider,
                              pos: Any) -> None: ...
@@ -260,8 +260,7 @@ class RangeSlider(SliderBase):
                 event: {button, name, inaxes}) -> None: ...
 
     def _format(self: RangeSlider,
-                val: Union[Union[ndarray, tuple[
-                    Union[Union[None, float, int], Any], Union[Union[None, float, int], Any]]], Any]) -> str: ...
+                val: Union[tuple[Union[Union[float, int], Any], Union[Union[float, int], Any]], Any]) -> str: ...
 
     def set_min(self: RangeSlider,
                 min: float) -> None: ...
@@ -270,7 +269,7 @@ class RangeSlider(SliderBase):
                 max: float) -> None: ...
 
     def set_val(self: RangeSlider,
-                val: Union[Iterable, tuple, ndarray, int, float[float]]) -> Any: ...
+                val: Union[Union[Iterable, tuple, int, float[float]], Any]) -> Any: ...
 
     def on_changed(self: RangeSlider,
                    func: Callable) -> int: ...
@@ -515,7 +514,7 @@ class _SelectorWidget(AxesWidget):
     eventpress: None
     onselect: Union[function, Any]
     artists: list[Any]
-    state_modifier_keys: dict[Any, Any]
+    state_modifier_keys: dict[str, str]
     background: None
     eventrelease: None
     state: set[Any]
@@ -528,7 +527,7 @@ class _SelectorWidget(AxesWidget):
                  onselect: Union[function, Any],
                  useblit: bool = False,
                  button: Any = None,
-                 state_modifier_keys: Union[dict[Any, str], Any] = None) -> None: ...
+                 state_modifier_keys: Union[dict[str, str], Any] = None) -> None: ...
 
     def set_active(self: _SelectorWidget,
                    active: Any) -> None: ...
@@ -550,7 +549,7 @@ class _SelectorWidget(AxesWidget):
     def update(self: _SelectorWidget) -> bool: ...
 
     def _get_data(self: _SelectorWidget,
-                  event: Union[{key}, Any]) -> Union[Tuple[None, None], Tuple[ndarray, ndarray]]: ...
+                  event: Union[{key}, Any]) -> Union[Tuple[None, None], Tuple[Any, Any]]: ...
 
     def _clean_event(self: _SelectorWidget,
                      event: Union[{key}, Any]) -> Union[{key}, Any]: ...
@@ -602,7 +601,7 @@ class SpanSelector(_SelectorWidget):
     canvas: None
     minspan: float
     artists: list[Rectangle]
-    rectprops: Union[dict[str, Union[bool, Any]], dict]
+    rectprops: Union[dict[str, Union[str, float]], dict]
     pressv: None
     prev: tuple[int, int]
     ax: Axes
@@ -658,9 +657,9 @@ class ToolHandles(object):
                  marker_props: dict = None,
                  useblit: bool = True) -> None: ...
 
-    def x(self: ToolHandles) -> Union[ndarray, Any]: ...
+    def x(self: ToolHandles) -> Any: ...
 
-    def y(self: ToolHandles) -> Union[ndarray, Any]: ...
+    def y(self: ToolHandles) -> Any: ...
 
     def set_data(self: ToolHandles,
                  pts: Union[list[int], Any],
@@ -674,7 +673,7 @@ class ToolHandles(object):
 
     def closest(self: ToolHandles,
                 x: Any,
-                y: Any) -> Tuple[ndarray[int], Any]: ...
+                y: Any) -> Tuple[Any, Any]: ...
 
 
 class RectangleSelector(_SelectorWidget):
@@ -685,7 +684,7 @@ class RectangleSelector(_SelectorWidget):
     _edge_order: list[str]
     extents: tuple[Any, Any, Any, Any]
     spancoords: str
-    rectprops: Union[dict[str, Union[bool, Any]], dict]
+    rectprops: Union[dict[str, Union[str, float, bool]], dict]
     interactive: bool
     active_handle: None
     to_draw: Line2D
@@ -695,7 +694,7 @@ class RectangleSelector(_SelectorWidget):
     artists: list[Union[Line2D, Rectangle, None]]
     _edge_handles: ToolHandles
     drawtype: str
-    lineprops: Union[dict[str, Union[bool, Any]], dict]
+    lineprops: Union[dict[str, Union[str, int, float]], dict]
     maxdist: float
     _extents_on_press: None
 
@@ -744,7 +743,7 @@ class RectangleSelector(_SelectorWidget):
     def _set_active_handle(self: RectangleSelector,
                            event: {x, y}) -> None: ...
 
-    def geometry(self: RectangleSelector) -> ndarray: ...
+    def geometry(self: RectangleSelector) -> Any: ...
 
 
 class EllipseSelector(RectangleSelector):

@@ -9,6 +9,7 @@ from matplotlib.font_manager import FontProperties as FontProperties
 from matplotlib import rcParams as rcParams
 from matplotlib import docstring as docstring
 from matplotlib import _api as _api
+from typing import Any
 from typing import ClassVar
 from typing import Optional
 from typing import Tuple
@@ -39,11 +40,9 @@ from matplotlib.transforms import CompositeAffine2D
 from matplotlib.transforms import CompositeGenericTransform
 from matplotlib.transforms import Transform
 from matplotlib.transforms import TransformedBbox
-from numpy.core._multiarray_umath import ndarray
 from object import object
 
 DEBUG: bool
-from typing import Any
 
 
 def bbox_artist(*args,
@@ -386,7 +385,7 @@ class AnchoredText(AnchoredOffsetbox):
 
 
 class OffsetImage(OffsetBox):
-    _data: ndarray
+    _data: Any
     image: BboxImage
     _children: list[BboxImage]
     _zoom: Union[int, Any]
@@ -409,7 +408,7 @@ class OffsetImage(OffsetBox):
     def set_data(self: OffsetImage,
                  arr: Any) -> None: ...
 
-    def get_data(self: OffsetImage) -> ndarray: ...
+    def get_data(self: OffsetImage) -> Any: ...
 
     def set_zoom(self: OffsetImage,
                  zoom: Union[int, Any]) -> None: ...

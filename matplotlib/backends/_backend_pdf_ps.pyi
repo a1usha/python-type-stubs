@@ -12,7 +12,6 @@ from matplotlib.afm import AFM
 from matplotlib.backend_bases import RendererBase
 from matplotlib.backends._backend_pdf_ps import CharacterTracker
 from matplotlib.backends._backend_pdf_ps import RendererPDFPSBase
-from matplotlib.ft2font import FT2Font
 from object import object
 
 
@@ -54,10 +53,10 @@ class RendererPDFPSBase(RendererBase):
     def get_text_width_height_descent(self: RendererPDFPSBase,
                                       s: Any,
                                       prop: {get_size_in_points},
-                                      ismath: {__eq__}) -> Union[Tuple[Any, Any, Any], Tuple[Any, Any, None]]: ...
+                                      ismath: {__eq__}) -> Tuple[Any, Any, Any]: ...
 
     def _get_font_afm(self: RendererPDFPSBase,
                       prop: Union[{get_size_in_points}, Any]) -> AFM: ...
 
     def _get_font_ttf(self: RendererPDFPSBase,
-                      prop: Union[{get_size_in_points}, Any]) -> FT2Font: ...
+                      prop: Union[{get_size_in_points}, Any]) -> Any: ...

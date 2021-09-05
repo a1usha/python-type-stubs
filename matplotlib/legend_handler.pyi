@@ -29,7 +29,6 @@ from matplotlib.lines import Line2D
 from matplotlib.offsetbox import OffsetBox
 from matplotlib.patches import Rectangle
 from matplotlib.transforms import IdentityTransform
-from numpy.core._multiarray_umath import ndarray
 from object import object
 
 
@@ -107,16 +106,16 @@ class HandlerNpoints(HandlerBase):
                   ydescent: Any,
                   width: Any,
                   height: Union[float, Any],
-                  fontsize: Any) -> Tuple[Union[ndarray, Tuple[ndarray, Optional[float]], list[Any]], Union[
-        ndarray, Tuple[ndarray, Optional[float]], list[Union[float, Any]]]]: ...
+                  fontsize: Any) -> Tuple[Union[Union[Tuple[Any, Optional[float]], list[Any]], Any], Union[
+        Union[Tuple[Any, Optional[float]], list[Union[float, Any]]], Any]]: ...
 
 
 class HandlerNpointsYoffsets(HandlerNpoints):
-    _yoffsets: Union[ndarray, Iterable, int, float]
+    _yoffsets: Union[Union[Iterable, int, float], Any]
 
     def __init__(self: HandlerNpointsYoffsets,
                  numpoints: int = None,
-                 yoffsets: Union[ndarray, Iterable, int, float] = None,
+                 yoffsets: Union[Union[Iterable, int, float], Any] = None,
                  **kwargs) -> None: ...
 
     def get_ydata(self: HandlerNpointsYoffsets,
@@ -125,7 +124,7 @@ class HandlerNpointsYoffsets(HandlerNpoints):
                   ydescent: Any,
                   width: Any,
                   height: Union[float, Any],
-                  fontsize: Any) -> Union[Optional[float], Any]: ...
+                  fontsize: Any) -> Union[float, Any]: ...
 
 
 class HandlerLine2D(HandlerNpoints):
@@ -229,7 +228,7 @@ class HandlerRegularPolyCollection(HandlerNpointsYoffsets):
     _sizes: Any
 
     def __init__(self: HandlerRegularPolyCollection,
-                 yoffsets: Union[ndarray, Iterable, int, float] = None,
+                 yoffsets: Union[Union[Iterable, int, float], Any] = None,
                  sizes: Any = None,
                  **kwargs) -> None: ...
 
@@ -244,7 +243,7 @@ class HandlerRegularPolyCollection(HandlerNpointsYoffsets):
                   width: Any,
                   height: Any,
                   fontsize: Any) -> Union[
-        Union[list[Union[float, Any]], Tuple[Union[ndarray, float, None], ...], Tuple[Any, ...]], Any]: ...
+        Union[list[Union[float, Any]], Tuple[Union[Optional[float], Any], ...]], Any]: ...
 
     def update_prop(self: HandlerRegularPolyCollection,
                     legend_handle: Union[Union[Line2D, Rectangle, LineCollection], Any],
@@ -321,7 +320,7 @@ class HandlerStem(HandlerNpointsYoffsets):
                  marker_pad: float = 0.3,
                  numpoints: Optional[int] = None,
                  bottom: Optional[float] = None,
-                 yoffsets: Union[ndarray, Iterable, int, float, None] = None,
+                 yoffsets: Union[Union[Iterable, int, float, None], Any] = None,
                  **kwargs) -> None: ...
 
     def get_ydata(self: HandlerStem,
@@ -330,7 +329,7 @@ class HandlerStem(HandlerNpointsYoffsets):
                   ydescent: Any,
                   width: Any,
                   height: Union[float, Any],
-                  fontsize: Any) -> Union[Optional[float], Any]: ...
+                  fontsize: Any) -> Union[float, Any]: ...
 
     def create_artists(self: HandlerStem,
                        legend: {_set_artist_props},

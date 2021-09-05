@@ -14,6 +14,7 @@ from matplotlib import docstring as docstring
 from matplotlib import cbook as cbook
 from matplotlib import artist as artist
 from matplotlib import _api as _api
+from typing import Any
 from typing import ClassVar
 from typing import Generator
 from typing import Iterable
@@ -34,11 +35,7 @@ from matplotlib.transforms import BboxTransformTo
 from matplotlib.transforms import BlendedAffine2D
 from matplotlib.transforms import BlendedGenericTransform
 from matplotlib.transforms import Transform
-from numpy.core._multiarray_umath import ndarray
 from object import object
-
-_log: Logger
-from typing import Any
 
 
 def _wrap_text(textobj: Union[Text, Any]) -> Union[Generator[Union[Text, Any], Any, None], Any]: ...
@@ -190,7 +187,8 @@ class Text(Artist):
 
     def get_prop_tup(self: Text,
                      renderer: Optional[Any] = None) -> Tuple[
-        float, float, str, Any, Any, Any, int, Any, Optional[str], bool, Any, ReferenceType, Union[float, Any]]: ...
+        float, float, str, Any, Any, Any, int, Any, Optional[str], bool, Any, ReferenceType[Optional[Any]], Union[
+            float, Any]]: ...
 
     def get_text(self: Text) -> str: ...
 
@@ -312,7 +310,7 @@ class _AnnotationBase(object):
                 renderer: Optional[Any],
                 x: Union[float, Any],
                 y: Any,
-                s: Any) -> Union[Union[ndarray, Iterable, int, float], Any]: ...
+                s: Any) -> Union[Union[Iterable, int, float], Any]: ...
 
     def _get_xy_transform(self: _AnnotationBase,
                           renderer: Optional[Any],
@@ -320,7 +318,7 @@ class _AnnotationBase(object):
         Union[BlendedAffine2D, BlendedGenericTransform, BboxTransformTo, Transform, Affine2D], Any]: ...
 
     def _get_ref_xy(self: _AnnotationBase,
-                    renderer: Optional[Any]) -> Union[Union[ndarray, Iterable, int, float], Any]: ...
+                    renderer: Optional[Any]) -> Union[Union[Iterable, int, float], Any]: ...
 
     def set_annotation_clip(self: _AnnotationBase,
                             b: Optional[bool]) -> None: ...
@@ -328,7 +326,7 @@ class _AnnotationBase(object):
     def get_annotation_clip(self: _AnnotationBase) -> Optional[bool]: ...
 
     def _get_position_xy(self: _AnnotationBase,
-                         renderer: Optional[Any]) -> Union[Union[ndarray, Iterable, int, float], Any]: ...
+                         renderer: Optional[Any]) -> Union[Union[Iterable, int, float], Any]: ...
 
     def _check_xy(self: _AnnotationBase,
                   renderer: Optional[Any]) -> Union[bool, Any]: ...

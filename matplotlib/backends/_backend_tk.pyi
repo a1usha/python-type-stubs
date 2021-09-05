@@ -21,6 +21,7 @@ from tkinter import Button
 from tkinter import Canvas
 from tkinter import Checkbutton
 from tkinter import Frame
+from typing import Any
 from typing import ClassVar
 from typing import Generator
 from typing import Optional
@@ -55,10 +56,8 @@ from matplotlib.backends._backend_tk import ToolbarTk
 from matplotlib.backends._backend_tk import _BackendTk
 from object import object
 
-_log: Logger
-backend_version: float
 cursord: dict[Cursors, str]
-from typing import Any
+backend_version: float
 
 _blit_args: dict[Any, Any]
 

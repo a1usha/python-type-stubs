@@ -40,7 +40,7 @@ class GeoAxes(Axes):
     set_xscale: ClassVar[Callable[[GeoAxes, tuple[Any, ...], dict[str, Any]], Any]]
     set_ylim: ClassVar[Callable[[GeoAxes, tuple[Any, ...], dict[str, Any]], Any]]
     transAxes: BboxTransformTo
-    _longitude_cap: None
+    _longitude_cap: Any
     _xaxis_text2_transform: Union[Union[{input_dims, output_dims}, {output_dims,
                                                                     input_dims}, CompositeAffine2D, CompositeGenericTransform, _NotImplementedType], Any]
     _xaxis_text1_transform: Union[Union[{input_dims, output_dims}, {output_dims,
@@ -153,7 +153,7 @@ class _GeoTransform(Transform):
 
 class AitoffAxes(GeoAxes):
     name: ClassVar[str]
-    _longitude_cap: float
+    _longitude_cap: Union[float, Any]
 
     def __init__(self: AitoffAxes,
                  *args,
@@ -165,7 +165,7 @@ class AitoffAxes(GeoAxes):
 
 class HammerAxes(GeoAxes):
     name: ClassVar[str]
-    _longitude_cap: float
+    _longitude_cap: Union[float, Any]
 
     def __init__(self: HammerAxes,
                  *args,
@@ -177,7 +177,7 @@ class HammerAxes(GeoAxes):
 
 class MollweideAxes(GeoAxes):
     name: ClassVar[str]
-    _longitude_cap: float
+    _longitude_cap: Union[float, Any]
 
     def __init__(self: MollweideAxes,
                  *args,
@@ -190,7 +190,7 @@ class MollweideAxes(GeoAxes):
 class LambertAxes(GeoAxes):
     name: ClassVar[str]
     _center_latitude: int
-    _longitude_cap: float
+    _longitude_cap: Union[float, Any]
     _center_longitude: int
 
     def __init__(self: LambertAxes,

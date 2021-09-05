@@ -3,7 +3,6 @@ from matplotlib._api.deprecation import MatplotlibDeprecationWarning as Matplotl
 from matplotlib import _c_internal_utils as _c_internal_utils
 from matplotlib import _api as _api
 from pathlib import Path as Path
-from _weakref import ReferenceType
 from functools import partial
 from gzip import GzipFile
 from io import TextIOWrapper
@@ -20,6 +19,7 @@ from typing import TextIO
 from typing import Tuple
 from typing import Type
 from typing import Union
+from weakref import WeakMethod
 
 from UserWarning import UserWarning
 from dict import dict
@@ -33,7 +33,6 @@ from matplotlib.cbook import _OrderedSet
 from matplotlib.cbook import _StrongRef
 from matplotlib.cbook import maxdict
 from matplotlib.cbook import silent_list
-from numpy.core._multiarray_umath import ndarray
 from object import object
 
 
@@ -71,8 +70,7 @@ class _StrongRef(object):
 
 def _weak_or_strong_ref(func: {__self__, __func__},
                         callback: Union[Union[Callable[[Any, Any, Callable[[], bool]], None], Callable[
-                            [Any, Any, Callable[[], bool]], None]], Any]) -> Union[
-    Union[ReferenceType, _StrongRef], Any]: ...
+                            [Any, Any, Callable[[], bool]], None]], Any]) -> Union[WeakMethod, _StrongRef]: ...
 
 
 class CallbackRegistry(object):
@@ -164,7 +162,7 @@ def get_sample_data(fname: Any,
                     asfileobj: bool = True,
                     *,
                     np_load: bool = False) -> Union[
-    TextIOWrapper, GzipFile, ndarray, Iterable, int, float, Tuple, dict, BinaryIO, TextIO, str]: ...
+    Union[TextIOWrapper, GzipFile, Iterable, int, float, Tuple, dict, BinaryIO, TextIO, str], Any]: ...
 
 
 def _get_data_path(*args) -> Path: ...
@@ -234,7 +232,7 @@ def report_memory(i: int = 0) -> int: ...
 
 
 def safe_masked_invalid(x: Any,
-                        copy: bool = False) -> Union[ndarray, Iterable, int, float, None]: ...
+                        copy: bool = False) -> Any: ...
 
 
 def print_cycles(objects: {__iter__},
@@ -267,17 +265,17 @@ class Grouper(object):
     def __iter__(self: Grouper) -> Generator[list[Any], Any, None]: ...
 
     def get_siblings(self: Grouper,
-                     a: Any) -> list[Any]: ...
+                     a: Any) -> list[Optional[Any]]: ...
 
 
-def simple_linear_interpolation(a: Union[ndarray, Iterable, int, float],
+def simple_linear_interpolation(a: Union[Union[Iterable, int, float], Any],
                                 steps: int) -> array.pyi: ...
 
 
-def delete_masked_points(*args) -> Union[Tuple, list[Union[Union[MaskedArray, ndarray, str], Any]]]: ...
+def delete_masked_points(*args) -> Union[Tuple, list[Union[Union[MaskedArray, str], Any]]]: ...
 
 
-def _combine_masks(*args) -> Union[Tuple, list[Union[Union[ndarray, Iterable, int, float, None], Any]]]: ...
+def _combine_masks(*args) -> Union[Tuple, list[Union[MaskedArray, Any]]]: ...
 
 
 ls_mapper: dict[str, str]
@@ -285,10 +283,10 @@ ls_mapper: dict[str, str]
 ls_mapper_r: dict
 
 
-def boxplot_stats(X: Union[ndarray, Iterable, int, float],
+def boxplot_stats(X: Union[Union[Iterable, int, float], Any],
                   whis: Any = 1.5,
                   bootstrap: Optional[int] = None,
-                  labels: Union[ndarray, Iterable, int, float, None] = None,
+                  labels: Union[Union[Iterable, int, float, None], Any] = None,
                   autorange: Optional[bool] = False) -> Any: ...
 
 
@@ -298,43 +296,42 @@ def contiguous_regions(mask: Any) -> Union[list[Any], list[Tuple[Any, Any]]]: ..
 def is_math_text(s: Any) -> bool: ...
 
 
-def _to_unmasked_float_array(x: Any) -> ndarray: ...
+def _to_unmasked_float_array(x: Any) -> Any: ...
 
 
-def _check_1d(x: Union[Union[float, ndarray, Iterable, int], Any]) -> Union[
-    Union[ndarray, float, Iterable, int], Any]: ...
+def _check_1d(x: Union[Union[float, Iterable, int], Any]) -> Union[Union[float, Iterable, int], Any]: ...
 
 
-def _reshape_2D(X: Union[Union[ndarray, Iterable, int, float], Any],
-                name: Union[str, Any]) -> Union[list[list[Any]], list[Any], list[ndarray]]: ...
+def _reshape_2D(X: Union[Union[Iterable, int, float], Any],
+                name: Union[str, Any]) -> Union[list[list[Any]], list[Any]]: ...
 
 
-def violin_stats(X: Union[ndarray, Iterable, int, float],
+def violin_stats(X: Union[Union[Iterable, int, float], Any],
                  method: Callable,
                  points: int = 100,
-                 quantiles: Union[ndarray, Iterable, int, float] = None) -> list[
-    dict[str, Union[Union[ndarray, Tuple[ndarray, Optional[float]], int, float, complex], Any]]]: ...
+                 quantiles: Union[Union[Iterable, int, float], Any] = None) -> list[
+    dict[str, Union[Union[Tuple[Any, Optional[float]], int, float, complex], Any]]]: ...
 
 
 def pts_to_prestep(*args,
-                   x: Union[ndarray, Iterable, int, float]) -> array.pyi: ...
+                   x: Union[Union[Iterable, int, float], Any]) -> array.pyi: ...
 
 
 def pts_to_poststep(*args,
-                    x: Union[ndarray, Iterable, int, float]) -> array.pyi: ...
+                    x: Union[Union[Iterable, int, float], Any]) -> array.pyi: ...
 
 
 STEP_LOOKUP_MAP: dict[str, Union[
-    Callable[[Any, Any], tuple[Any, Any]], Callable[[Union[ndarray, Iterable, int, float], tuple[Any, ...]], array.pyi],
-    Callable[[Union[ndarray, Iterable, int, float], tuple[Any, ...]], array.pyi], Callable[
-        [Union[ndarray, Iterable, int, float], tuple[Any, ...]], array.pyi]]]
+    Callable[[Union[Union[Iterable, int, float], Any], tuple[Any, ...]], array.pyi], Callable[
+        [Any, Any], tuple[Any, Any]], Callable[[Union[Union[Iterable, int, float], Any], tuple[Any, ...]], array.pyi],
+    Callable[[Union[Union[Iterable, int, float], Any], tuple[Any, ...]], array.pyi]]]
 
 
 def pts_to_midstep(*args,
-                   x: Union[ndarray, Iterable, int, float]) -> array.pyi: ...
+                   x: Union[Union[Iterable, int, float], Any]) -> array.pyi: ...
 
 
-def index_of(y: Union[float, ndarray, Iterable, int]) -> Any: ...
+def index_of(y: Union[Union[float, Iterable, int], Any]) -> Any: ...
 
 
 def safe_first_element(obj: Any) -> Any: ...
@@ -350,7 +347,7 @@ def normalize_kwargs(kw: Optional[dict],
                      alias_mapping: Any = None,
                      required: Optional[Iterable[str]] = (),
                      forbidden: Optional[Iterable[str]] = (),
-                     allowed: Optional[Iterable[str]] = None) -> Union[dict[Any, Any], Any]: ...
+                     allowed: Optional[Iterable[str]] = None) -> Union[Union[dict[Any, Any], dict[Any, Any]], Any]: ...
 
 
 def _lock_path(path: Any) -> Union[Generator[Any, Any, Any], Any]: ...
@@ -374,16 +371,16 @@ def _define_aliases(alias_d: {items},
                     cls: Optional[{_alias_map}] = None) -> Union[partial[Any], {_alias_map}, None]: ...
 
 
-def _array_perimeter(arr: ndarray) -> Any: ...
+def _array_perimeter(arr: Any) -> Any: ...
 
 
-def _unfold(arr: ndarray,
+def _unfold(arr: Any,
             axis: int,
             size: int,
             step: int) -> Any: ...
 
 
-def _array_patch_perimeters(x: ndarray,
+def _array_patch_perimeters(x: Any,
                             rstride: int,
                             cstride: int) -> Any: ...
 

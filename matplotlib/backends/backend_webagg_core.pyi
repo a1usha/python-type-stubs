@@ -23,9 +23,7 @@ from matplotlib.backends.backend_webagg_core import FigureManagerWebAgg
 from matplotlib.backends.backend_webagg_core import NavigationToolbar2WebAgg
 from matplotlib.backends.backend_webagg_core import TimerTornado
 
-_log: Logger
 _SPECIAL_KEYS_LUT: dict[Union[str, Any], Union[str, Any]]
-from typing import Any
 
 
 def _handle_key(key: {index, __contains__}) -> Any: ...
@@ -60,7 +58,7 @@ class FigureCanvasWebAggCore(FigureCanvasAgg):
     _force_full: bool
     _dpi_ratio: int
     _renderer: RendererAgg
-    _last_buff: ndarray
+    _last_buff: Any
     _current_image_mode: str
     _png_is_old: bool
     _lastKey: tuple[Any, Any, Union[Optional[float], Any]]

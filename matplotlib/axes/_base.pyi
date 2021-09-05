@@ -11,6 +11,7 @@ from numbers import Real as Real
 from contextlib import ExitStack as ExitStack
 from collections import OrderedDict as OrderedDict
 from functools import partial
+from typing import Any
 from typing import Callable
 from typing import ClassVar
 from typing import Generator
@@ -37,15 +38,11 @@ from matplotlib.transforms import BlendedGenericTransform
 from matplotlib.transforms import TransformedBbox
 from object import object
 
-_log: Logger
-from typing import Any
-
 
 class _axis_method_wrapper(object):
     _missing_subs: list[str]
     method_name: Any
     attr_name: Any
-    __doc__: Optional[str]
 
     def __init__(self: _axis_method_wrapper,
                  attr_name: Any,

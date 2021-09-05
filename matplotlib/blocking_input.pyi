@@ -1,6 +1,7 @@
 from matplotlib.backend_bases import MouseButton as MouseButton
 from matplotlib import _api as _api
 from numbers import Integral as Integral
+from typing import Any
 from typing import ClassVar
 from typing import Union
 
@@ -10,9 +11,6 @@ from matplotlib.blocking_input import BlockingInput
 from matplotlib.blocking_input import BlockingKeyMouseInput
 from matplotlib.blocking_input import BlockingMouseInput
 from object import object
-
-_log: Logger
-from typing import Any
 
 
 class BlockingInput(object):

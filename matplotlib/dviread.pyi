@@ -27,12 +27,10 @@ from matplotlib.dviread import Tfm
 from matplotlib.dviread import Vf
 from object import object
 
-_log: Logger
-_dvistate: Any
 Page: Type[Page]
 Text: Type[Text]
 Box: Type[Box]
-from typing import Any
+_dvistate: Any
 
 
 def _arg_raw(dvi: Any,
@@ -57,7 +55,7 @@ def _arg_ulen1(dvi: {_arg},
                delta: {__add__}) -> Any: ...
 
 
-_arg_mapping: dict[Any, Union[
+_arg_mapping: dict[str, Union[
     Callable[[Any, Any], Any], partial[Any], Callable[[{_arg}, {__eq__}], Optional[Any]], Callable[
         [{_arg}, {__add__, __eq__}], Any], Callable[[{_arg}, {__add__}], Any], Callable[[{_arg}, {__add__}], Any]]]
 
@@ -70,13 +68,12 @@ def _dispatch(table: Any,
               min: Any,
               max: Any = None,
               state: Any = None,
-              args: Union[tuple[str], Any] = ('raw',)) -> Callable[
-    [Any], Callable[[{state, _arg}, {__sub__}], Any]]: ...
+              args: Union[tuple[str], Any] = ('raw',)) -> Callable[[Any], Callable[[{state}, {__sub__}], Any]]: ...
 
 
 class Dvi(object):
     _dtable: ClassVar[list[None]]
-    _dispatch: ClassVar[partial[Callable[[Any], Callable[[{state, _arg}, {__sub__}], Any]]]]
+    _dispatch: ClassVar[partial[Callable[[Any], Callable[[{state}, {__sub__}], Any]]]]
     boxes: list[Any]
     stack: list[Any]
     f: Any

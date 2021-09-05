@@ -42,15 +42,13 @@ from matplotlib.collections import _CollectionWithSizes
 from matplotlib.transforms import Bbox
 from matplotlib.transforms import IdentityTransform
 from matplotlib.transforms import Transform
-from numpy.core._multiarray_umath import ndarray
 
 
 class Collection(Artist, ScalarMappable):
-    _offsets: ClassVar[ndarray]
+    _offsets: ClassVar[Any]
     _transOffset: ClassVar[IdentityTransform]
-    _transforms: ClassVar[ndarray]
+    _transforms: ClassVar[Any]
     _edge_default: ClassVar[bool]
-    __doc__: ClassVar[str]
     _edge_is_mapped: None
     _hatch: str
     _A: Any
@@ -66,10 +64,10 @@ class Collection(Artist, ScalarMappable):
     _original_edgecolor: Union[str, Any]
     _path_effects: None
     _paths: None
-    _facecolors: Union[ndarray, Iterable, int, float]
+    _facecolors: Union[Union[Iterable, int, float], Any]
     _update_dict: Any
     _offsetsNone: Any
-    _antialiaseds: ndarray
+    _antialiaseds: Any
     _capstyle: None
     _transOffset: Any
     _hatch_color: Union[Iterable, tuple]
@@ -107,7 +105,7 @@ class Collection(Artist, ScalarMappable):
 
     def set_paths(self: Collection) -> Any: ...
 
-    def get_transforms(self: Collection) -> ndarray: ...
+    def get_transforms(self: Collection) -> Any: ...
 
     def get_offset_transform(self: Collection) -> Union[Transform, Any]: ...
 
@@ -119,7 +117,7 @@ class Collection(Artist, ScalarMappable):
 
     def _prepare_points(self: Collection) -> Tuple[
         Union[IdentityTransform, Any], Union[Union[IdentityTransform, Transform], Any], Union[
-            ndarray, Iterable, int, float], Union[Union[list[{vertices, codes}], list[Path]], Any]]: ...
+            Union[Iterable, int, float], Any], Union[Union[list[{vertices, codes}], list[Path]], Any]]: ...
 
     def draw(self: Collection,
              renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
@@ -131,7 +129,7 @@ class Collection(Artist, ScalarMappable):
 
     def contains(self: Collection,
                  mouseevent: MouseEvent) -> Union[
-        Tuple[Any, Any], Tuple[bool, dict[Any, Any]], Tuple[bool, dict[Any, None]]]: ...
+        Tuple[Any, Any], Tuple[bool, dict[Any, Any]], Tuple[bool, dict[Any, Any]]]: ...
 
     def set_urls(self: Collection,
                  urls: Optional[Iterable[str]]) -> None: ...
@@ -192,9 +190,9 @@ class Collection(Artist, ScalarMappable):
     def set_facecolor(self: Collection,
                       c: Union[Iterable, Any]) -> None: ...
 
-    def get_facecolor(self: Collection) -> Union[ndarray, Iterable, int, float]: ...
+    def get_facecolor(self: Collection) -> Union[Union[Iterable, int, float], Any]: ...
 
-    def get_edgecolor(self: Collection) -> Union[ndarray, Iterable, int, float, str]: ...
+    def get_edgecolor(self: Collection) -> Union[Union[Iterable, int, float, str], Any]: ...
 
     def _get_default_edgecolor(self: Collection) -> Optional[Any]: ...
 
@@ -205,7 +203,7 @@ class Collection(Artist, ScalarMappable):
                       c: Any) -> None: ...
 
     def set_alpha(self: Collection,
-                  alpha: Union[float, ndarray, Iterable, int, float[float], None]) -> None: ...
+                  alpha: Union[Union[float, Iterable, int, float[float], None], Any]) -> None: ...
 
     def get_linewidth(self: Collection) -> list[int]: ...
 
@@ -224,14 +222,14 @@ class Collection(Artist, ScalarMappable):
 
 class _CollectionWithSizes(Collection):
     _factor: ClassVar[float]
-    _sizes: ndarray
+    _sizes: Any
     stale: bool
-    _transforms: ndarray
+    _transforms: Any
 
     def get_sizes(self: _CollectionWithSizes) -> array.pyi: ...
 
     def set_sizes(self: _CollectionWithSizes,
-                  sizes: Optional[ndarray],
+                  sizes: Optional[Any],
                   dpi: float = 72.0) -> None: ...
 
     def draw(self: _CollectionWithSizes,
@@ -244,7 +242,7 @@ class PathCollection(_CollectionWithSizes):
 
     def __init__(self: PathCollection,
                  paths: Any,
-                 sizes: Union[ndarray, Iterable, int, float] = None,
+                 sizes: Union[Union[Iterable, int, float], Any] = None,
                  **kwargs) -> None: ...
 
     def set_paths(self: PathCollection,
@@ -254,25 +252,25 @@ class PathCollection(_CollectionWithSizes):
 
     def legend_elements(self: PathCollection,
                         prop: str = "colors",
-                        num: Union[int, None, ndarray, Iterable, float] = "auto",
+                        num: Union[Union[int, None, Iterable, float], Any] = "auto",
                         fmt: str = None,
                         func: function = lambda x: x,
                         **kwargs) -> Any: ...
 
 
 class PolyCollection(_CollectionWithSizes):
-    set_paths: ClassVar[Callable[[PolyCollection, Union[Iterable[ndarray], Iterable, int, float], bool], None]]
+    set_paths: ClassVar[Callable[[PolyCollection, Union[Iterable, int, float], bool], None]]
     stale: bool
     _paths: list[Path]
 
     def __init__(self: PolyCollection,
-                 verts: Union[Iterable[ndarray], Iterable, int, float],
-                 sizes: Union[ndarray, Iterable, int, float] = None,
+                 verts: Union[Iterable, int, float],
+                 sizes: Union[Union[Iterable, int, float], Any] = None,
                  closed: bool = True,
                  **kwargs) -> None: ...
 
     def set_verts(self: PolyCollection,
-                  verts: Union[Iterable[ndarray], Iterable, int, float],
+                  verts: Union[Iterable, int, float],
                   closed: bool = True) -> None: ...
 
     def set_verts_and_codes(self: PolyCollection,
@@ -296,7 +294,7 @@ class BrokenBarHCollection(PolyCollection):
 
 class RegularPolyCollection(_CollectionWithSizes):
     _path_generator: ClassVar[Callable[[{__le__}], Union[Path, Any]]]
-    _factor: ClassVar[float]
+    _factor: ClassVar[Union[float, Any]]
     _numsides: int
     _rotation: float
     _paths: list[Union[Path, Any]]
@@ -328,29 +326,26 @@ class AsteriskPolygonCollection(RegularPolyCollection):
 
 class LineCollection(Collection):
     _edge_default: ClassVar[bool]
-    set_verts: ClassVar[
-        Callable[[LineCollection, Union[Union[Iterable[ndarray], Iterable, int, float, ndarray], Any]], None]]
-    set_paths: ClassVar[
-        Callable[[LineCollection, Union[Union[Iterable[ndarray], Iterable, int, float, ndarray], Any]], None]]
+    set_verts: ClassVar[Callable[[LineCollection, Union[Union[Iterable, int, float], Any]], None]]
+    set_paths: ClassVar[Callable[[LineCollection, Union[Union[Iterable, int, float], Any]], None]]
     set_colors: ClassVar[Callable[[LineCollection, Union[Iterable, Any]], None]]
     get_colors: ClassVar[Callable[[LineCollection], str]]
     stale: bool
     _paths: list[Path]
 
     def __init__(self: LineCollection,
-                 segments: Union[Iterable[ndarray], Iterable, int, float],
+                 segments: Union[Iterable, int, float],
                  zorder: int = 2,
                  *args,
                  **kwargs) -> None: ...
 
     def set_segments(self: LineCollection,
-                     segments: Union[Union[Iterable[ndarray], Iterable, int, float, ndarray], Any]) -> None: ...
+                     segments: Union[Union[Iterable, int, float], Any]) -> None: ...
 
     def get_segments(self: LineCollection) -> list: ...
 
     def _add_offsets(self: LineCollection,
-                     segs: Union[list[Union[ndarray, MaskedArray]], Any]) -> Union[
-        list[Union[ndarray, MaskedArray]], Any]: ...
+                     segs: Union[list[Union[MaskedArray, Any]], Any]) -> Union[list[Union[MaskedArray, Any]], Any]: ...
 
     def _get_default_linewidth(self: LineCollection) -> Optional[Any]: ...
 
@@ -389,7 +384,7 @@ class EventCollection(LineCollection):
     def get_positions(self: EventCollection) -> list[Any]: ...
 
     def set_positions(self: EventCollection,
-                      positions: Union[Union[int, ndarray], Any]) -> Any: ...
+                      positions: Union[int, Any]) -> Any: ...
 
     def add_positions(self: EventCollection,
                       position: Optional[{__len__}]) -> None: ...
@@ -421,26 +416,26 @@ class EventCollection(LineCollection):
 
 
 class CircleCollection(_CollectionWithSizes):
-    _factor: ClassVar[float]
+    _factor: ClassVar[Union[float, Any]]
     _paths: list[Union[Path, Any]]
 
     def __init__(self: CircleCollection,
-                 sizes: Union[float, ndarray, Iterable, int],
+                 sizes: Union[Union[float, Iterable, int], Any],
                  **kwargs) -> None: ...
 
 
 class EllipseCollection(Collection):
     _units: str
-    _heights: float
-    _widths: float
+    _heights: Union[float, Any]
+    _widths: Union[float, Any]
     _angles: Any
-    _transforms: ndarray
+    _transforms: Any
     _paths: list[Union[Path, Any]]
 
     def __init__(self: EllipseCollection,
-                 widths: Union[ndarray, Iterable, int, float],
-                 heights: Union[ndarray, Iterable, int, float],
-                 angles: Union[ndarray, Iterable, int, float],
+                 widths: Union[Union[Iterable, int, float], Any],
+                 heights: Union[Union[Iterable, int, float], Any],
+                 angles: Union[Union[Iterable, int, float], Any],
                  units: str = 'points',
                  **kwargs) -> None: ...
 
@@ -487,7 +482,7 @@ class QuadMesh(Collection):
     _bbox: Bbox
     _shading: str
     _meshHeight: {__add__}
-    _coordinates: None
+    _coordinates: Any
     _antialiased: bool
     stale: bool
     _paths: list[Path]
@@ -514,7 +509,7 @@ class QuadMesh(Collection):
     def convert_mesh_to_triangles(self: QuadMesh,
                                   meshWidth: Union[{__add__}, Any],
                                   meshHeight: {__add__},
-                                  coordinates: Any) -> Tuple[None, None]: ...
+                                  coordinates: Any) -> Tuple[Any, Any]: ...
 
     def draw(self: QuadMesh,
              renderer: {open_group, new_gc, close_group}) -> Optional[Any]: ...
